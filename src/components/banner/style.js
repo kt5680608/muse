@@ -13,10 +13,16 @@ export const Label = styled.h1`
     color: black;
     font-family: R-FLEX-BLACK;
     font-size: 84px;
+    @media (max-width:768px){
+        font-size: 48px;
+    }
 `
 
 export const Highlight = styled.span`
     color: var(--color-blue);
     font-family: R-FLEX-BLACK;
     font-size: 84px;
+    @media (max-width:768px){
+        font-size: 48px;
+    }
 `
