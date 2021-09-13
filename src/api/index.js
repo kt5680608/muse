@@ -20,7 +20,7 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
 
 export const nicknameUpdate = (nickname) => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update/",{
+  return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update_nickname/",{
     method: "POST",
     headers: {
       'content-type' : 'application/json'
