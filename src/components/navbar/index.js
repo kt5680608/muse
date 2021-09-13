@@ -18,6 +18,7 @@ import { Container,
     } from './style'
 
     function Navbar() {
+    //반응형 대응
     const isDesktop = MediaQuery({
         query: "(min-width: 1024px"
     });
@@ -77,7 +78,6 @@ import { Container,
                         <CustomDropdown.Toggle  id="dropdown-menu-align-end">
                             <BurgerIcon/>
                         </CustomDropdown.Toggle>
-
                         <CustomDropdown.Menu>
                             <CustomDropdown.Item>
                                 <Link to = '/Muse'>MUSE</Link>
