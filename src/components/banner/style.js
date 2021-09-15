@@ -14,7 +14,7 @@ export const Banner = styled.div`
     @media (max-width: 768px) {
         font-size: 18px;
     }
-    @media (max-width: 600px) {
+    @media (max-width: 425px) {
         font-size: 12px;
     }
 `

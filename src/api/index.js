@@ -31,3 +31,12 @@ export const nicknameUpdate = (nickname) => {
     })
   })
 }
+
+export const getProfile = () => {
+  return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update_profile",{
+    method: 'GET',
+    headers: {
+      'content-type' : 'application/json'
+    }
+  })
+}
