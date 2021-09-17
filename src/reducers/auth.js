@@ -4,6 +4,7 @@ export const authReducer = (state = { authData: false }, action) => {
         case AUTH:
             localStorage.setItem('token', JSON.stringify({...action?.payload}))
             console.log('로그인 완료')
+            console.log(state.authData)
             return { ...state, authData: true, loading: false, errors: null}
         case LOG_OUT:
             console.log('로그아웃 완료')

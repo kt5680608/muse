@@ -57,7 +57,7 @@ import { Container,
 
                         <CustomDropdown.Menu>
                             <CustomDropdown.Item>
-                                마이페이지
+                                <Link to = '/myPage'>마이페이지</Link>
                             </CustomDropdown.Item>
                             <CustomDropdown.Item href="#/action-1" onClick = {logOutBtn}>
                                 로그아웃
@@ -142,8 +142,6 @@ import { Container,
                 </NavContainerLeft>
                     <Link to = '/'><Logo>MUSE</Logo></Link>
                 <NavContainerRight>
-                    <SearchIcon size = {24}/>
-                    
                     { isLogged == false || null ?
                     <NavItem><Link to = 'auth'>로그인</Link></NavItem>
                     :

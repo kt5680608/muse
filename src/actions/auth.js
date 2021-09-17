@@ -4,8 +4,6 @@ import * as api from '../api/index'
 export const kakaoLogin = ( authorizeCodeFromKakao ) => async(dispatch) => {
     try{
         const response = await api.kakaoLogin(authorizeCodeFromKakao);
-        
-        //console.log(response);
         dispatch({type: AUTH, payload: response});
     }
     catch(error){

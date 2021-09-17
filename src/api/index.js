@@ -32,6 +32,17 @@ export const nicknameUpdate = (nickname) => {
   })
 }
 
-export const getProfile = () => {
-  return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update_profile",)
+export const userInfo = () => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/info/?uid=${token.user.uid}`,{
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then((data) => {
+    console.log(data);
+    return data
+  })
 }
