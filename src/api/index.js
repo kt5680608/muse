@@ -36,13 +36,10 @@ export const userInfo = () => {
   const token = JSON.parse(localStorage.getItem('token'));
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/info/?uid=${token.user.uid}`,{
     method: 'GET',
-    headers: {
-      'content-type': 'application/json'
-    }
   })
   .then(res => res.json())
   .then((data) => {
-    console.log(data, "서버에서 받아온 데이터");
+    //console.log(data, "서버에서 받아온 데이터");
     return data
   })
 }
