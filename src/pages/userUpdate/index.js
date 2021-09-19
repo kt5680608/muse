@@ -4,7 +4,7 @@ function UserUpdate() {
     const history = useHistory();
     useEffect (() => {
         try{
-            console.log('돌아가!')
+            console.log('여기는 success페이지입니다')
             history.push('/myPage');
 
         }
