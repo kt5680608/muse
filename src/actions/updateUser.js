@@ -4,6 +4,7 @@ import * as api from '../api'
 export const updateUser = ( nickname ) => async(dispatch) => {
     try{
         const response = await api.nicknameUpdate(nickname);
+        //console.log(response)
         dispatch({type: UPDATE_USER, payload: response});
     }
     catch(error){

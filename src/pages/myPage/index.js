@@ -13,15 +13,15 @@ function MyPage() {
       };
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('변경');
+        //console.log('변경');
     }
     const getUserInfo = useSelector(state => state.userInfo.infoState);
 
     const onClick = async() => {
         try{
             dispatch(updateUser(nickname));
-            await history.push('/userUpdate')
             await dispatch(userInfo());
+            await history.push('/userUpdate')
             
         }
         catch(e){
@@ -36,8 +36,8 @@ function MyPage() {
     }
     useEffect(() => {
         dispatch(userInfo());
-        console.log('페이지 렌더가 될 때마다 userInfo를 가져옵니다')
-        console.log('getUserInfo:', getUserInfo)
+        //console.log('페이지 렌더가 될 때마다 userInfo를 가져옵니다')
+        //console.log('getUserInfo:', getUserInfo)
     },[])
     return (
         <div>
