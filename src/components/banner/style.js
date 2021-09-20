@@ -35,3 +35,10 @@ export const Highlight = styled.span`
     color: var(--color-blue);
     font-family: R-FLEX-BLACK;
 `
+
+export const Span = styled.span`
+    color: black;
+    font-family: R-FLEX-BLACK;
+    font-weight: 900;
+    font-size: 1.2em;
+`
