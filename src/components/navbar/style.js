@@ -119,13 +119,11 @@ export const CustomDropdown = styled(Dropdown)`
         }
     }
     .dropdown-toggle::after{display:none}
-    .dropdown-menu {display: block;visibility: hidden;opacity:0;transform: translateY(50px);transition:.5s ease all;}
-    .dropdown-menu.show {display: block;visibility: visible;opacity:1;transform: translateY(0px);transition:.5s ease all;}
 `
 
 export const DropdownMenu = styled.p`
-    font-family: Noto-Sans-KR-Black;
-    font-weight: 900;
+    font-family: Noto-Sans-KR-Bold;
+    font-weight: 600;
     margin: 0;
     font-size: 1em;
 `

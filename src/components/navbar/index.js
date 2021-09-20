@@ -146,13 +146,19 @@ import { Container,
 
                         <CustomDropdown.Menu>
                             <CustomDropdown.Item>
-                                <Link to = '/Muse'>MUSE</Link>
+                                <DropdownMenu>
+                                    <Link to = '/Muse'>MUSE</Link>
+                                </DropdownMenu>
                             </CustomDropdown.Item>
                             <CustomDropdown.Item>
-                                <Link to = '/All'>ALL</Link>
+                                <DropdownMenu>
+                                    <Link to = '/All'>ALL</Link>
+                                </DropdownMenu>
                             </CustomDropdown.Item>
                             <CustomDropdown.Item>
-                                <Link to = '/Contest'>CONTEST</Link>
+                                <DropdownMenu>
+                                    <Link to = '/Contest'>CONTEST</Link>
+                                </DropdownMenu>
                             </CustomDropdown.Item>
                         </CustomDropdown.Menu>
                     </CustomDropdown>
@@ -169,10 +175,14 @@ import { Container,
 
                         <CustomDropdown.Menu>
                             <CustomDropdown.Item>
-                                마이페이지
+                                <DropdownMenu>
+                                    마이페이지
+                                </DropdownMenu>
                             </CustomDropdown.Item>
                             <CustomDropdown.Item href="#/action-1" onClick = {logOutBtn}>
-                                로그아웃
+                                <DropdownMenu>
+                                    로그아웃
+                                </DropdownMenu>
                             </CustomDropdown.Item>
                         </CustomDropdown.Menu>
                     </CustomDropdown>
