@@ -19,7 +19,7 @@ function MyPage() {
 
     const onClick = async() => {
         try{
-            dispatch(updateUser(nickname));
+            await dispatch(updateUser(nickname));
             await dispatch(userInfo());
             await history.push('/userUpdate')
             
@@ -42,7 +42,7 @@ function MyPage() {
     return (
         <div>
             <Navbar/>
-             { getUserInfo == null ? <h1>{nickname}</h1> : <h1>{getUserInfo}</h1>}
+             <h1>{getUserInfo}</h1>
             <form onSubmit = { handleSubmit }>
                 <input type="text" onChange = { onChange } onKeyPress = {onPressEnter}/>
                 <button type = "button" onClick = { onClick }>변경</button>

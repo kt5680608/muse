@@ -6,6 +6,8 @@ export const updateUser = ( nickname ) => async(dispatch) => {
         const response = await api.nicknameUpdate(nickname);
         //console.log(response)
         dispatch({type: UPDATE_USER, payload: response});
+
+        return response;
     }
     catch(error){
         console.log('actions/updateUser 에러', error)
