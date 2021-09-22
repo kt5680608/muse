@@ -51,7 +51,7 @@ export const NavItem= styled.div`
     font-weight: 900;
     border-radius: 36px;
     &:hover{
-       background-color: var(--color-blue);
+       color: var(--color-blue);
     }
 `
 

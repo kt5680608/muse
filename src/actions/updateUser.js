@@ -1,4 +1,4 @@
-import { UPDATE_USER, USER_INFO } from '../constants/actionTypes'
+import { UPDATE_USER, USER_INFO, PROFILE_IMAGE_UPLOAD } from '../constants/actionTypes'
 import * as api from '../api'
 
 export const updateUser = ( nickname ) => async(dispatch) => {
@@ -21,5 +21,15 @@ export const userInfo = () => async(dispatch) => {
     }
     catch(error){
         console.log('actions/userInfo 에러', error)
+    }
+}
+
+export const profileImageUpload = (data) => async(dispatch) => {
+    try{
+        const response = await api.profileImageUpload(data);
+        dispatch({type: PROFILE_IMAGE_UPLOAD, payload: response });
+    }
+    catch(error){
+        console.log(error)
     }
 }

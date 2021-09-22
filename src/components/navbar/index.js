@@ -17,7 +17,7 @@ import { Container,
         BurgerIcon,
         DropdownMenu
     } from './style'
-
+import NavModal from '../navModal'
     function Navbar() {
     //반응형 대응
     const isDesktop = MediaQuery({

@@ -20,13 +20,13 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
 
 export const nicknameUpdate = (nickname) => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update_nickname/",{
+  return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update-nickname/",{
     method: "POST",
     headers: {
       'content-type' : 'application/json'
     },
     body : JSON.stringify({
-      "uid" : token.user.uid,
+      "user_id" : token.user.user_id,
       "nickname" : nickname
     })
   })
@@ -34,12 +34,19 @@ export const nicknameUpdate = (nickname) => {
 
 export const userInfo = () => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/info/?uid=${token.user.uid}`,{
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/info/?user_id=${token.user.user_id}`,{
     method: 'GET',
   })
   .then(res => res.json())
   .then((data) => {
     //console.log(data, "서버에서 받아온 데이터");
     return data
+  })
+}
+
+export const profileImageUpload = (data) => {
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update-avatar/`,{
+    method: "POST",
+    body : data
   })
 }

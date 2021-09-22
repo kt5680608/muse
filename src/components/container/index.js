@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, CustomDropdown, Frame } from './style'
 function index() {
+
+    
     return (
         <>
             <CustomDropdown className = "shadow-none">
@@ -14,6 +16,7 @@ function index() {
                     <CustomDropdown.Item href="#/action-3">3주차</CustomDropdown.Item>
                 </CustomDropdown.Menu>
             </CustomDropdown>
+            
         </>
     )
 }
