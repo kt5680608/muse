@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { updateUser, userInfo, profileImageUpload} from '../../actions/updateUser'
+import { updateUser, profileImageUpload} from '../../actions/updateUser'
+import { userInfo} from '../../actions/userInfo'
 import { Navbar } from '../../components'
+import{ Avatar, Container } from './style'
 
 function MyPage() {
     const getUserInfo = useSelector(state => state.userInfo.infoState);
+    const getUserAvatar = useSelector(state => state.userInfo.userAvatar);
     const history = useHistory();
     const dispatch = useDispatch();
     const [nickname, setNickname] = useState('');
@@ -77,6 +80,7 @@ function MyPage() {
     }
     useEffect(() => {
         dispatch(userInfo());
+        
         //console.log('페이지 렌더가 될 때마다 userInfo를 가져옵니다')
         //console.log('getUserInfo:', getUserInfo)
     },[])
@@ -84,12 +88,15 @@ function MyPage() {
     return (
         <div>
             <Navbar/>
-             <h1>{getUserInfo}</h1>
-            <form onSubmit = { handleSubmit } encType="multipart/form-data">
-                <input type="text" onChange = { onChangeNickname } />
-                <input type="file" name = 'images' onChange = {onChangeProfileImage}/>
-                <button type = "submit" onClick = { onClickToSubmit} onKeyPress = {onPressEnter}> 제출</button>
-            </form>
+            <Container>
+                <h1>{getUserInfo}</h1>
+                <Avatar src={getUserAvatar}></Avatar>
+                <form onSubmit = { handleSubmit } encType="multipart/form-data">
+                    <input type="text" onChange = { onChangeNickname } />
+                    <input type="file" name = 'images' onChange = {onChangeProfileImage}/>
+                    <button type = "submit" onClick = { onClickToSubmit} onKeyPress = {onPressEnter}> 제출</button>
+                </form>
+            </Container>
         </div>
     )
 }

@@ -34,7 +34,7 @@ export const nicknameUpdate = (nickname) => {
 
 export const userInfo = () => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/info/?user_id=${token.user.user_id}`,{
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/user-info/?user_id=${token.user.user_id}`,{
     method: 'GET',
   })
   .then(res => res.json())
@@ -50,3 +50,4 @@ export const profileImageUpload = (data) => {
     body : data
   })
 }
+
