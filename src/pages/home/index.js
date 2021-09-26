@@ -33,27 +33,31 @@ function Home() {
         setWeek(e.target.value);
     }
     const onClickToSubmit = async(e) => {
-            const token = JSON.parse(localStorage.getItem('token'));
-            const data = new FormData();
-            data.append('user_id', token.user.user_id);
-            data.append('content_text', content);
-            data.append('title', title);
-            data.append('post_image', image);
-            data.append('week', week);
+        const token = JSON.parse(localStorage.getItem('token'));
+        const data = new FormData();
+        data.append('user_id', token.user.user_id);
+        data.append('content_text', content);
+        data.append('title', title);
+        data.append('post_image', image);
+        data.append('week', week);
 
-            try{
-                await dispatch(uploadPost(data));
-                await handleClose();
-            }
-            catch{
-                console.log(e);
-            }
+        try{
+            await dispatch(uploadPost(data));
+            await handleClose();
+            await dispatch(userInfo());
         }
+        catch{
+            console.log(e);
+        }
+    }
     const onPressEnter = (e) => {
         if(e.key == 'Enter'){
             onClickToSubmit();
         }
     }
+    useEffect(() => {
+        dispatch(userInfo());
+    },[])
     return (
         <div>
             <Navbar/>
@@ -70,7 +74,7 @@ function Home() {
                     <input type="file" name = 'images' onChange = {onChangeImage}/>
                     <input type="text" name = "content" onChange = { onChangeContent } placeholder = "content"/>
                     <input type="number" name = "week" onChange = { onChangeWeek } placeholder = "week"  min="0" step="1"/>
-                    <button type = "submit" onClick = { onClickToSubmit} onKeyPress = {onPressEnter}> 제출</button>
+                    <button type = "submit" onClick = { onClickToSubmit } onKeyPress = {onPressEnter}> 제출</button>
                 </form>
                 </Modal.Body>
             </Modal>

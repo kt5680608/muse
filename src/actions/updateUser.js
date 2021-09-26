@@ -3,11 +3,8 @@ import * as api from '../api'
 
 export const updateUser = ( nickname ) => async(dispatch) => {
     try{
-        const response = await api.nicknameUpdate(nickname);
-        //console.log(response)
-        dispatch({type: UPDATE_USER, payload: response});
-
-        return response;
+        await api.nicknameUpdate(nickname);
+        dispatch({type: UPDATE_USER});
     }
     catch(error){
         console.log('actions/updateUser 에러', error)
@@ -16,8 +13,8 @@ export const updateUser = ( nickname ) => async(dispatch) => {
 
 export const profileImageUpload = (data) => async(dispatch) => {
     try{
-        const response = await api.profileImageUpload(data);
-        dispatch({type: PROFILE_IMAGE_UPLOAD, payload: response });
+        await api.profileImageUpload(data);
+        dispatch({type: PROFILE_IMAGE_UPLOAD});
     }
     catch(error){
         console.log(error)

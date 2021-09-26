@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import * as actionType from '../../constants/actionTypes';
 import { userInfo } from '../../actions/userInfo'
@@ -37,6 +37,7 @@ import NavModal from '../navModal'
     const logOutBtn = () => {
         dispatch({ type: actionType.LOG_OUT });
     }
+    
     return (
         <div>
         {isDesktop &&

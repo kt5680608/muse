@@ -1,4 +1,4 @@
-import {USER_INFO, USER_AVATAR} from '../constants/actionTypes'
+import { USER_INFO } from '../constants/actionTypes'
 
 export const userInfo = (state = { infoState: null, userAvatar: null } , action)=>{
     switch(action.type){
