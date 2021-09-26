@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Navbar, Banner, Container, UploadPost } from '../../components'
 import { Modal, Button } from 'react-bootstrap'
 import { AiFillPlusCircle } from 'react-icons/ai'
 import { PostButton, PlusButton } from './style'
 import { uploadPost } from '../../actions/post'
+import { userInfo } from '../../actions/userInfo'
 import { useDispatch } from 'react-redux'
 function Home() {
     const [show, setShow] = useState(false);
@@ -34,11 +35,11 @@ function Home() {
     const onClickToSubmit = async(e) => {
             const token = JSON.parse(localStorage.getItem('token'));
             const data = new FormData();
-            data.append('post_image', image);
-            data.append('content_text', content);
             data.append('user_id', token.user.user_id);
-            data.append('week', week);
+            data.append('content_text', content);
             data.append('title', title);
+            data.append('post_image', image);
+            data.append('week', week);
 
             try{
                 await dispatch(uploadPost(data));
@@ -53,7 +54,6 @@ function Home() {
             onClickToSubmit();
         }
     }
-
     return (
         <div>
             <Navbar/>

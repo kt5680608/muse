@@ -119,6 +119,17 @@ export const CustomDropdown = styled(Dropdown)`
         }
     }
     .dropdown-toggle::after{display:none}
+    .btn-check:focus + &, &:focus{
+        background-color: transparent;
+        box-shadow: none;
+    }
+    .btn-check:focus + .btn-primary, .btn-primary:focus{
+        box-shadow: none;
+    }
+    .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: none;
+    }
+    
 `
 
 export const DropdownMenu = styled.p`

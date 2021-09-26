@@ -56,24 +56,6 @@ function MyPage() {
         }
             await history.push('/userUpdate')
     }
-
-    // const onClick = async() => {
-    //     if (nickname == '') {
-    //         console.log('빈칸이라 그대로 처리해슴')
-    //     }
-    //     else{
-    //         try{
-    //             await dispatch(updateUser(nickname));
-    //             await dispatch(userInfo());
-    //             await history.push('/userUpdate')
-                
-    //         }
-    //         catch(e){
-    //             console.error(e);
-    //             console.log('error in Auth component')
-    //         }
-    //     }
-    // }
     const onPressEnter = (e) => {
         if(e.key == 'Enter'){
             onClickToSubmit();

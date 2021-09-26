@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import * as actionType from '../../constants/actionTypes';
-import { userInfo} from '../../actions/userInfo'
+import { userInfo } from '../../actions/userInfo'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery as MediaQuery } from 'react-responsive'
 import { Container, 

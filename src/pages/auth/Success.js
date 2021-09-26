@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { kakaoLogin } from '../../actions/auth'
+import { userInfo } from '../../actions/userInfo'
 import { useHistory } from 'react-router-dom'
 
 function Success() {
@@ -13,6 +14,7 @@ function Success() {
             console.log('authorizeCodeFromKakao TRUE')
             try{
                 dispatch(kakaoLogin(authorizeCodeFromKakao));
+                console.log('로그인완료')
                 history.push('/');
             }
             catch(e){

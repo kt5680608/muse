@@ -9,6 +9,9 @@ export const PostButton = styled(Button)`
     padding: 0;
     background-color: transparent;
     border: none;
+    position: fixed;
+    left: 90%;
+    top: 80%;
     &:hover{
         background-color: transparent;
     }

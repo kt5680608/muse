@@ -11,4 +11,8 @@ export const Avatar = styled.img`
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    .btn-check:focus + &, &:focus{
+        background-color: transparent;
+        box-shadow: none;
+    }
 `
