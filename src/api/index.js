@@ -51,3 +51,9 @@ export const profileImageUpload = (data) => {
   })
 }
 
+export const uploadPost = (data) => {
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/upload/`,{
+    method: "POST",
+    body: data
+  })
+}

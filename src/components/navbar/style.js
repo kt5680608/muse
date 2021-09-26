@@ -127,3 +127,9 @@ export const DropdownMenu = styled.p`
     margin: 0;
     font-size: 1em;
 `
+
+export const Avatar = styled.img`
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+`

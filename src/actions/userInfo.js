@@ -1,4 +1,4 @@
-import { USER_INFO,USER_AVATAR } from '../constants/actionTypes'
+import { USER_INFO} from '../constants/actionTypes'
 import * as api from '../api'
 
 export const userInfo = () => async(dispatch) => {

@@ -20,3 +20,8 @@ export const CustomDropdown = styled(Dropdown)`
         justify-content: center;
     }
 `
+
+export const Container = styled.div`
+    width: 94vw;
+    height: 100vw;
+`

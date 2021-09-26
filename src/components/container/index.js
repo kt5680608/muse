@@ -5,7 +5,10 @@ function index() {
     
     return (
         <>
-            <CustomDropdown className = "shadow-none">
+            <Container>
+                hi
+            </Container>
+            {/* <CustomDropdown className = "shadow-none">
                 <CustomDropdown.Toggle  id="dropdown-menu-align-end">
                     주차
                 </CustomDropdown.Toggle>
@@ -15,8 +18,7 @@ function index() {
                     <CustomDropdown.Item href="#/action-2">2주차</CustomDropdown.Item>
                     <CustomDropdown.Item href="#/action-3">3주차</CustomDropdown.Item>
                 </CustomDropdown.Menu>
-            </CustomDropdown>
-            
+            </CustomDropdown> */}            
         </>
     )
 }

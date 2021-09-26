@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { updateUser, profileImageUpload} from '../../actions/updateUser'
 import { userInfo} from '../../actions/userInfo'
 import { Navbar } from '../../components'
+import Image from "react-bootstrap/Image";
 import{ Avatar, Container } from './style'
 
 function MyPage() {

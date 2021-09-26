@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import * as actionType from '../../constants/actionTypes';
+import { userInfo} from '../../actions/userInfo'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery as MediaQuery } from 'react-responsive'
 import { Container, 
@@ -15,7 +16,8 @@ import { Container,
         SearchIcon,
         AvatarIcon,
         BurgerIcon,
-        DropdownMenu
+        DropdownMenu,
+        Avatar
     } from './style'
 import NavModal from '../navModal'
     function Navbar() {
@@ -30,6 +32,7 @@ import NavModal from '../navModal'
         query: "(max-width: 767px)"
     })
     const isLogged = useSelector(state => state.authReducer.authData);
+    const getUserAvatar = useSelector(state => state.userInfo.userAvatar);
     const dispatch = useDispatch();
     const logOutBtn = () => {
         dispatch({ type: actionType.LOG_OUT });
@@ -53,7 +56,7 @@ import NavModal from '../navModal'
                     :
                     <CustomDropdown className = "shadow-none">
                         <CustomDropdown.Toggle  id="dropdown-menu-align-end">
-                            <AvatarIcon/>
+                            <Avatar src ={getUserAvatar}/>
                         </CustomDropdown.Toggle>
 
                         <CustomDropdown.Menu>
