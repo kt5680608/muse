@@ -5,7 +5,7 @@ import { AiFillPlusCircle } from 'react-icons/ai'
 import { PostButton, PlusButton } from './style'
 import { uploadPost } from '../../actions/post'
 import { userInfo } from '../../actions/userInfo'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 function Home() {
     const [show, setShow] = useState(false);
     const [image, setImage] = useState(null);
@@ -44,7 +44,6 @@ function Home() {
         try{
             await dispatch(uploadPost(data));
             await handleClose();
-            await dispatch(userInfo());
         }
         catch{
             console.log(e);
