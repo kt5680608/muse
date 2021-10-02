@@ -13,7 +13,6 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
         })
         .then(res => res.json())
         .then((data) => {
-            console.log(data)
             return data
         })
 }
@@ -56,4 +55,16 @@ export const uploadPost = (data) => {
     method: "POST",
     body: data
   })
+}
+
+export const displayPost = (page) => {
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/?page=${page}`,{
+    method: "GET",
+  })
+  .then(res=>res.json())
+  .then((data) => {
+    console.log('posts.display 데이터 통신 성공', data);
+    return data
+  })
+
 }

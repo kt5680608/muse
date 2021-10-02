@@ -37,10 +37,6 @@ import NavModal from '../navModal'
     const logOutBtn = () => {
         dispatch({ type: actionType.LOG_OUT });
     }
-
-    useEffect(() => {
-        console.log(getUserAvatar)
-    })
     return (
         <div>
         {isDesktop &&

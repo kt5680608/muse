@@ -1,27 +1,15 @@
 import styled from 'styled-components'
-import { Dropdown } from 'react-bootstrap'
-
-export const CustomDropdown = styled(Dropdown)`
-    button {
-        background-color: var(--color-blue);
-        width: 72px;
-        height: 36px;
-    }
-    .btn-success{
-        background-color: var(--color-blue);
-        border-color: var(--color-blue);
-    }
-    .btn-success:hover{
-        background-color: var(--color-blue);
-    }
-    .item{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-`
 
 export const Container = styled.div`
     width: 94vw;
     height: 100vw;
+`
+
+export const ListItem = styled.div`
+    background-color: red;
+`
+
+export const Post = styled.img`
+    width: 1400px;
+    height: 1400px;
 `
