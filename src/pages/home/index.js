@@ -6,6 +6,7 @@ import { PostButton, PlusButton } from './style'
 import { uploadPost } from '../../actions/post'
 import { userInfo } from '../../actions/userInfo'
 import { useDispatch, useSelector} from 'react-redux'
+import { useHistory } from 'react-router-dom'
 function Home() {
     const [show, setShow] = useState(false);
     const [image, setImage] = useState(null);
@@ -15,6 +16,7 @@ function Home() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const dispatch = useDispatch();
+    const history = useHistory();
     const handleSubmit = (e) => {
         e.preventDefault();
         //console.log('변경');
@@ -44,6 +46,7 @@ function Home() {
         try{
             await dispatch(uploadPost(data));
             await handleClose();
+            await history.push('/replace');
         }
         catch{
             console.log(e);

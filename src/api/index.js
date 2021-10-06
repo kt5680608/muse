@@ -63,7 +63,7 @@ export const displayPost = (page) => {
   })
   .then(res=>res.json())
   .then((data) => {
-    console.log('posts.display 데이터 통신 성공', data);
+    console.log(data);
     return data
   })
 

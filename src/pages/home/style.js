@@ -7,16 +7,16 @@ export const PostButton = styled(Button)`
     border-radius: 50%;
     margin: 0;
     padding: 0;
-    background-color: transparent;
+    background-color: white;
     border: none;
     position: fixed;
-    left: 90%;
+    left: 94%;
     top: 80%;
     &:hover{
-        background-color: transparent;
+        background-color: white;
     }
     .btn-check:focus + &, &:focus{
-        background-color: transparent;
+        background-color: white;
         box-shadow: none;
     }
 `

@@ -2,13 +2,13 @@ import styled from 'styled-components'
 
 export const Banner = styled.div`
     width: 100vw;
-    height: 240px;
+    height: 480px;
     background-color: white;
     display: flex;
     justify-content: center;
     overflow: hidden;
     align-items: center;
-    font-size: 24px;
+    font-size: 36px;
     flex-direction: column;
     white-space: nowrap;
     @media (max-width: 768px) {

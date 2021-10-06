@@ -4,7 +4,9 @@ import { Home,
           All,
           Muse,
           UserUpdate,
-          MyPage}
+          MyPage,
+          Replace
+        }
         from './pages'
 import { UpdateUser } from './components'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
@@ -19,7 +21,8 @@ function App() {
         <Route path = '/muse' component={ Muse } />
         <Route path = '/all' component={All}/>
         <Route path = "/userUpdate" component = { UserUpdate }/>
-        <Route path = "/mypage" component = {MyPage} />
+        <Route path = "/mypage" component = { MyPage }/>
+        <Route path = "/replace" component={ Replace }/>
       </Router>
     </div>
   );

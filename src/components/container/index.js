@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useCallback} from 'react'
 import { displayPost } from '../../actions/displayPost'
-import { Container, ListItem, Post } from './style'
+import { Container,
+    ListItem,
+    GridContainer } from './style'
 import { useDispatch, useSelector } from 'react-redux'
 import { useInView } from 'react-intersection-observer'
 import { Loader } from '../loader'
+import Card from  '../card'
 import axios from "axios"
 function MainContainer() {
     const [posts, setPosts] = useState([]);
@@ -17,10 +20,10 @@ function MainContainer() {
         await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/?page=${page}`)
         .then(res => {
             try{
+                console.log(res.data)
                 const fetchedData = res.data;
                 const mergedData = posts.concat(...fetchedData);
                 setPosts(mergedData);
-                console.log(posts)
             }
             catch(e){
                 console.log(e);
@@ -42,23 +45,33 @@ function MainContainer() {
         }, [inView, loading])
 
         return (
-            <div className="list">
+            <GridContainer>
                 {posts.map((post, idx) => (
                     <React.Fragment key={idx}>
                     {posts.length-1 === idx ? (
-                        <ListItem ref={ref}>
-                            <Post src={`https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/${post.post_image}`} alt=""/>
+                        <ListItem
+                        ref={ref}
+                        >
+                            <Card
+                                image = {post.post_image}
+                                title = {post.title}
+                                idx = {post.idx}
+                            />
                         </ListItem>
                     ) : (
                         <ListItem >
-                            <Post src={`https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/${post.post_image}`} alt=""/>
+                            <Card
+                                image = {post.post_image}
+                                title = {post.title}
+                                idx = {post.idx}
+                            />
                         </ListItem>
                     )
                     }
                     </React.Fragment>
                 ))
                 }
-            </div>
+            </GridContainer>
         )
         
        
