@@ -56,15 +56,3 @@ export const uploadPost = (data) => {
     body: data
   })
 }
-
-export const displayPost = (page) => {
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/?page=${page}`,{
-    method: "GET",
-  })
-  .then(res=>res.json())
-  .then((data) => {
-    console.log(data);
-    return data
-  })
-
-}

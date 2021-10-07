@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useCallback} from 'react'
-import { displayPost } from '../../actions/displayPost'
 import { Container,
     ListItem,
     GridContainer } from './style'
-import { useDispatch, useSelector } from 'react-redux'
 import { useInView } from 'react-intersection-observer'
-import { Loader } from '../loader'
 import Card from  '../card'
 import axios from "axios"
 function MainContainer() {
@@ -14,7 +11,6 @@ function MainContainer() {
     const [loading, setLoading] = useState(false);
 
     const [ref, inView] = useInView({trackVisibility: true, delay: 100});
-
     const getPosts = useCallback(async () => {
         setLoading(true)
         await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/?page=${page}`)
