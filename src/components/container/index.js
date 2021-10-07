@@ -5,15 +5,18 @@ import { Container,
 import { useInView } from 'react-intersection-observer'
 import Card from  '../card'
 import axios from "axios"
+import { useDispatch, useSelector} from 'react-redux'
 function MainContainer() {
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
 
+    const getisLiked = useSelector(state => state.likeStatus.isLiked);
+
     const [ref, inView] = useInView({trackVisibility: true, delay: 100});
     const getPosts = useCallback(async () => {
         setLoading(true)
-        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/?page=${page}`)
+        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}`)
         .then(res => {
             try{
                 console.log(res.data)
@@ -49,17 +52,21 @@ function MainContainer() {
                         ref={ref}
                         >
                             <Card
-                                image = {post.post_image}
+                                image = {post.body_image}
                                 title = {post.title}
                                 idx = {post.idx}
+                                liked= {post.liked}
+                                isLiked= {getisLiked}
                             />
                         </ListItem>
                     ) : (
                         <ListItem >
                             <Card
-                                image = {post.post_image}
+                                image = {post.body_image}
                                 title = {post.title}
                                 idx = {post.idx}
+                                liked= {post.liked}
+                                isLiked= {getisLiked}
                             />
                         </ListItem>
                     )

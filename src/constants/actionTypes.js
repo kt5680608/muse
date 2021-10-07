@@ -4,3 +4,4 @@ export const UPDATE_USER = "UPDATE_USER";
 export const USER_INFO = "USER_INFO";
 export const PROFILE_IMAGE_UPLOAD = "PROFILE_IMAGE_UPLOAD";
 export const POST_UPLOAD = "POST_UPLOAD";
+export const LIKE_BTN = "LIKE_BTN";

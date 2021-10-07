@@ -27,6 +27,14 @@ export const InfoContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: row;
+`
+
+export const PostStatusContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 `
 
 export const PostTitle = styled.h1`

@@ -56,3 +56,22 @@ export const uploadPost = (data) => {
     body: data
   })
 }
+
+export const liked = (post_idx) => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/like/`,{
+    method: "POST",
+          headers: {
+            'content-type' : 'application/json'
+          },
+          body : JSON.stringify({
+            "user_id": token.user.user_id,
+            "post_idx": post_idx
+          })
+        })
+        .then(res => res.json())
+        .then((data) => {
+          console.log(data)
+            return data
+        })
+      }
