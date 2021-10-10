@@ -6,12 +6,15 @@ function DetailPost() {
     const dispatch = useDispatch();
     const postIdxUrl = window.location.pathname.split('/')[1];
     const getPost= useSelector(state => state.detailPost);
-    const [hi, setHi] = useState(null);
+    const [hashTags, setHashTags] = useState('');
     const onClickToConsole = () => {
         console.log(getPost.hashTag);
     }
+const hashTagsList = hashTags.map((hashTag) => (<li>{hashTag}</li>))
     useEffect (() => {
         dispatch(getDetailPost(postIdxUrl));
+        setHashTags(getPost.hashTag);
+        console.log(hashTags)
     },[])
     return (
         <>
@@ -21,6 +24,8 @@ function DetailPost() {
             <div>
                 <h1>{getPost.title}</h1>
                 <img src={`https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/${getPost.image}`} alt="" onClick = {onClickToConsole}/>
+                {hashTagsList}
+                
             </div>
         </>
     )
