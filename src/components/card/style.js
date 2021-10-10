@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { BiHeart } from 'react-icons/bi'
 import { FiEye } from 'react-icons/fi'
+import { Modal } from 'react-bootstrap'
 export const CardContainer = styled.div`
     width: 300px;
     height: 260px;
@@ -49,4 +50,32 @@ export const EyeIcon = styled(FiEye)`
 `
 export const LikesIcon = styled(BiHeart)`
     font-size: 16px;
+`
+
+export const CustomModal = styled(Modal)`
+    .modal-dialog{
+        display: flex;
+        justify-content: center;
+    }
+    .modal-content{
+        width:80vw;
+        height: 90vh;
+    }
+    .modal-header{
+        width:80vw;
+        height: 100%;
+    }
+    .modal-body{
+        width:80vw;
+        height: 90vh;
+    }
+    .modal-footer{
+        width:80vw;
+        height: 100%;
+    }
+`
+
+export const FullImageContainer = styled.img`
+    width: 600px;
+    height: 600px;
 `

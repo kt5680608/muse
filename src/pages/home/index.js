@@ -38,9 +38,9 @@ function Home() {
         const token = JSON.parse(localStorage.getItem('token'));
         const data = new FormData();
         data.append('user_id', token.user.user_id);
-        data.append('content_text', content);
         data.append('title', title);
-        data.append('post_image', image);
+        data.append('body_image', image);
+        data.append('body_text', content);
         data.append('week', week);
 
         try{
