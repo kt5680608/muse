@@ -6,16 +6,17 @@ function DetailPost() {
     const dispatch = useDispatch();
     const postIdxUrl = window.location.pathname.split('/')[1];
     const getPost= useSelector(state => state.detailPost);
-    const [hashTags, setHashTags] = useState('');
-    const onClickToConsole = () => {
-        console.log(getPost.hashTag);
-    }
-const hashTagsList = hashTags.map((hashTag) => (<li>{hashTag}</li>))
+
+    const [hashTags, setHashTags] = useState(null);
+    const [loading, setLoading] = useState(false);
     useEffect (() => {
         dispatch(getDetailPost(postIdxUrl));
-        setHashTags(getPost.hashTag);
-        console.log(hashTags)
     },[])
+    
+    const onClickToConsole = () => {
+        setHashTags(getPost.hashTag);
+        console.log(getPost.hashTag);
+    }
     return (
         <>
             <div>
@@ -23,9 +24,10 @@ const hashTagsList = hashTags.map((hashTag) => (<li>{hashTag}</li>))
             </div>
             <div>
                 <h1>{getPost.title}</h1>
-                <img src={`https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/${getPost.image}`} alt="" onClick = {onClickToConsole}/>
-                {hashTagsList}
-                
+                {getPost.hashTag !=null && getPost.hashTag.map((hashTag, index) => {
+                    return <p key = {index}>{hashTag}</p>
+                })}
+                <img src={`https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/${getPost.image}`} alt="" onClick = {onClickToConsole} />
             </div>
         </>
     )
