@@ -1,4 +1,4 @@
-import { POST_UPLOAD } from '../constants/actionTypes'
+import { POST_UPLOAD, DETAIL_POST } from '../constants/actionTypes'
 import * as api from '../api/index'
 
 export const uploadPost = (data) => async() => {
@@ -9,3 +9,13 @@ export const uploadPost = (data) => async() => {
         console.log("actions/post 에러", error);
     }
 }   
+
+export const getDetailPost = (postIdxInLocal) => async(dispatch) => {
+    try{
+        const response = await api.detailPost(postIdxInLocal);
+        dispatch({type: DETAIL_POST, payload: response})
+    }
+    catch(e){
+        console.log(e);
+    }
+}

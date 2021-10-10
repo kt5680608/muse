@@ -2,28 +2,30 @@ import styled from 'styled-components'
 import { Button } from 'react-bootstrap'
 import { AiFillPlusCircle } from 'react-icons/ai'
 export const PostButton = styled(Button)`
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     margin: 0;
+    border: none;
     padding: 0;
-    background-color: white;
+    background-color: transparent;
     border: none;
     position: fixed;
-    left: 94%;
+    left: 93%;
     top: 80%;
     &:hover{
-        background-color: white;
+        background-color: transparent;
     }
     .btn-check:focus + &, &:focus{
-        background-color: white;
+        background-color: transparent;
         box-shadow: none;
     }
 `
 export const PlusButton = styled(AiFillPlusCircle)`
-    width: 48px;
-    height: 48px;
+    width:64px;
+    height: 64px;
     margin: 0;
     padding: 0;
     color: var(--color-blue);
+    cursor: pointer;
 `

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter, Link } from 'react-router-dom';
+import { DetailPost } from '../.././pages'
+import { Modal, ModalLink } from 'react-router-modal';
+import 'react-router-modal/css/react-router-modal.css'
 import { CardContainer,
         ImageContainer,
         PostTitle,
@@ -18,14 +21,9 @@ import { currentIdx } from '../../actions/currentIdx'
 
 function Card({idx, title, image, liked}) {
     const [isLiked, setIsLiked] = useState(false);
-    const [show, setShow] = useState(false);
     const dispatch = useDispatch();
-    const handleClose = () => setShow(false);
     const history = useHistory();
     const handleShow = () => { 
-        setShow(true);
-        const getCurrentIdx = idx;
-        dispatch(currentIdx(getCurrentIdx));
         history.push(`${idx}`)
         console.log(idx);
     }
@@ -50,7 +48,7 @@ function Card({idx, title, image, liked}) {
 
     return (
             <CardContainer>
-                <ImageContainer src={`https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/${image}`} onClick={handleShow}/>
+                    <ImageContainer src={`https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/${image}`} onClick = {handleShow}/>
                 <InfoContainer>
                     <PostTitle>{title}</PostTitle>
                     <PostStatusContainer>

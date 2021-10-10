@@ -8,7 +8,7 @@ export const Banner = styled.div`
     justify-content: center;
     overflow: hidden;
     align-items: center;
-    font-size: 36px;
+    font-size: 24px;
     flex-direction: column;
     white-space: nowrap;
     @media (max-width: 768px) {

@@ -12,7 +12,7 @@ function Home() {
     const [image, setImage] = useState(null);
     const [content, setContent] = useState(null);
     const [title, setTitle] = useState(null);
-    const [week, setWeek] = useState(null);
+    const [hashTag, setHashTag] = useState(null);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const dispatch = useDispatch();
@@ -31,8 +31,8 @@ function Home() {
         e.preventDefault();
         setImage(e.target.files[0]);
     }
-    const onChangeWeek = (e) => {
-        setWeek(e.target.value);
+    const onChangeHashTag = (e) => {
+        setHashTag(e.target.value);
     }
     const onClickToSubmit = async(e) => {
         const token = JSON.parse(localStorage.getItem('token'));
@@ -41,7 +41,7 @@ function Home() {
         data.append('title', title);
         data.append('body_image', image);
         data.append('body_text', content);
-        data.append('hash_tag', week);
+        data.append('hash_tag', hashTag);
 
         try{
             await dispatch(uploadPost(data));
@@ -72,10 +72,10 @@ function Home() {
                 </Modal.Header>
                 <Modal.Body>
                 <form onSubmit = { handleSubmit } encType="multipart/form-data">
-                    <input type="text" name = "title" onChange = {onChangeTitle} placeholder = "Title"/>
+                    <input type="text" name = "title" onChange = {onChangeTitle} placeholder = "제목"/>
                     <input type="file" name = 'images' onChange = {onChangeImage}/>
-                    <input type="text" name = "content" onChange = { onChangeContent } placeholder = "content"/>
-                    <input type="text" name = "week" onChange = { onChangeWeek } placeholder = "week"  min="0" step="1"/>
+                    <input type="text" name = "content" onChange = { onChangeContent } placeholder = "내용"/>
+                    <input type="text" name = "hasgtag" onChange = { onChangeHashTag } placeholder = "#해시태그"  min="0" step="1"/>
                     <button type = "submit" onClick = { onClickToSubmit } onKeyPress = {onPressEnter}> 제출</button>
                 </form>
                 </Modal.Body>

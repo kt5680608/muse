@@ -7,6 +7,6 @@ export const currentIdx = (state = { currentIdxData: 0 } , action)=>{
                 console.log(currentIdx);
             return {...state, currentIdxData: currentIdx}
         default:
-            return state;
+            return {...state};
     }
 }

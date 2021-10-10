@@ -3,7 +3,7 @@ import { BiHeart } from 'react-icons/bi'
 import { FiEye } from 'react-icons/fi'
 import { Modal } from 'react-bootstrap'
 export const CardContainer = styled.div`
-    width: 300px;
+    width: 280px;
     height: 260px;
     display: flex;
     justify-content: center;

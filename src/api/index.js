@@ -74,4 +74,16 @@ export const liked = (post_idx) => {
           console.log(data)
             return data
         })
-      }
+}
+
+export const detailPost = (postIdxInLocal) => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxInLocal}/?user_id=${token.user.user_id}`,{
+    method: 'GET',
+  })
+  .then(res => res.json())
+  .then((data) => {
+    console.log(data);
+    return data
+  })
+}

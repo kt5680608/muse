@@ -6,3 +6,4 @@ export const PROFILE_IMAGE_UPLOAD = "PROFILE_IMAGE_UPLOAD";
 export const POST_UPLOAD = "POST_UPLOAD";
 export const LIKE_BTN = "LIKE_BTN";
 export const CURRENT_IDX = "CURRENT_IDX";
+export const DETAIL_POST = "DETAIL_POST";
