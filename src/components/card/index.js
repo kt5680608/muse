@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Button } from 'react-bootstrap'
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter, Link } from 'react-router-dom';
 import { CardContainer,
         ImageContainer,
         PostTitle,
@@ -11,13 +12,23 @@ import { CardContainer,
         CustomModal,
         FullImageContainer
 } from './style'
+import { useHistory } from 'react-router-dom'
 import { likeBtn } from '../../actions/likeBtn'
+import { currentIdx } from '../../actions/currentIdx'
+
 function Card({idx, title, image, liked}) {
     const [isLiked, setIsLiked] = useState(false);
     const [show, setShow] = useState(false);
-
+    const dispatch = useDispatch();
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const history = useHistory();
+    const handleShow = () => { 
+        setShow(true);
+        const getCurrentIdx = idx;
+        dispatch(currentIdx(getCurrentIdx));
+        history.push(`${idx}`)
+        console.log(idx);
+    }
     
     const onClickToLike = async() => {
         const post_idx = idx
@@ -40,15 +51,6 @@ function Card({idx, title, image, liked}) {
     return (
             <CardContainer>
                 <ImageContainer src={`https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/${image}`} onClick={handleShow}/>
-                { show == true ? 
-                <CustomModal show={show} onHide={handleClose}>
-                <CustomModal.Body>
-                    <PostTitle>
-                            {title}
-                    </PostTitle>
-                    <FullImageContainer src={`https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/${image}`}/>
-                </CustomModal.Body>
-            </CustomModal> : <></>}
                 <InfoContainer>
                     <PostTitle>{title}</PostTitle>
                     <PostStatusContainer>

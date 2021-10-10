@@ -1,3 +1,4 @@
+import React, {useState} from 'react'
 import Success from './pages/auth/Success'
 import Auth from './pages/auth/Auth'
 import { Home,
@@ -5,13 +6,17 @@ import { Home,
           Muse,
           UserUpdate,
           MyPage,
-          Replace
+          Replace,
+          DetailPost
         }
         from './pages'
 import { UpdateUser } from './components'
+import { useSelector } from 'react-redux'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import './App.css'
 function App() {
+  const currentIdx = useSelector(state=>state.currentIdx.currentIdxData);
+  console.log(currentIdx);
   return (
     <div className="App">
       <Router>
@@ -23,6 +28,8 @@ function App() {
         <Route path = "/userUpdate" component = { UserUpdate }/>
         <Route path = "/mypage" component = { MyPage }/>
         <Route path = "/replace" component={ Replace }/>
+        <Route path = "/:currnetIdx" component = { DetailPost }/> 
+        
       </Router>
     </div>
   );

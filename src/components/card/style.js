@@ -62,8 +62,6 @@ export const CustomModal = styled(Modal)`
         height: 90vh;
     }
     .modal-header{
-        width:80vw;
-        height: 100%;
     }
     .modal-body{
         width:80vw;

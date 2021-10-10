@@ -41,7 +41,7 @@ function Home() {
         data.append('title', title);
         data.append('body_image', image);
         data.append('body_text', content);
-        data.append('week', week);
+        data.append('hash_tag', week);
 
         try{
             await dispatch(uploadPost(data));
@@ -75,7 +75,7 @@ function Home() {
                     <input type="text" name = "title" onChange = {onChangeTitle} placeholder = "Title"/>
                     <input type="file" name = 'images' onChange = {onChangeImage}/>
                     <input type="text" name = "content" onChange = { onChangeContent } placeholder = "content"/>
-                    <input type="number" name = "week" onChange = { onChangeWeek } placeholder = "week"  min="0" step="1"/>
+                    <input type="text" name = "week" onChange = { onChangeWeek } placeholder = "week"  min="0" step="1"/>
                     <button type = "submit" onClick = { onClickToSubmit } onKeyPress = {onPressEnter}> 제출</button>
                 </form>
                 </Modal.Body>
