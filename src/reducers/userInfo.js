@@ -1,11 +1,11 @@
 import { USER_INFO } from '../constants/actionTypes'
 
-export const userInfo = (state = { infoState: null, userAvatar: null } , action)=>{
+export const userInfo = (state = { nickname: null, avatar: null } , action)=>{
     switch(action.type){
         case USER_INFO:
-            const nickname = action.payload.user.nickname
-            const avatar = action.payload.user.avatar
-            return {...state, infoState: nickname, userAvatar: avatar}
+            const nicknameData = action.payload.user.nickname
+            const avatarData = action.payload.user.avatar
+            return {...state, nickname: nicknameData, avatar: avatarData}
         default:
             return state;
     }

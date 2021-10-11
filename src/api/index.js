@@ -13,39 +13,49 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
         })
         .then(res => res.json())
         .then((data) => {
-            return data
+          return data
         })
 }
 
 export const nicknameUpdate = (nickname) => {
-  const token = JSON.parse(localStorage.getItem('token'));
+  const token = localStorage.getItem('token');
+  console.log(token)
   return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update-nickname/",{
     method: "POST",
     headers: {
+      'Authorization' : `TOKEN ${token.token}`,
       'content-type' : 'application/json'
     },
     body : JSON.stringify({
-      "user_id" : token.user.user_id,
       "nickname" : nickname
     })
   })
 }
 
-export const userInfo = () => {
+export const getUserInfo = () => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/user-info/?user_id=${token.user.user_id}`,{
+  console.log(token.token);
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/user-info/`,{
     method: 'GET',
+    headers:{
+      'content-type' : 'application/json',
+      'Authorization' : `TOKEN ${token.token}`
+    }
   })
   .then(res => res.json())
   .then((data) => {
-    //console.log(data, "서버에서 받아온 데이터");
+    console.log(data, "서버에서 받아온 데이터");
     return data
   })
 }
 
 export const profileImageUpload = (data) => {
+  const token = JSON.parse(localStorage.getItem('token'));
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update-avatar/`,{
     method: "POST",
+    headers:{
+      'Authorization' : `TOKEN ${token.token}`
+    },
     body : data
   })
 }
@@ -58,11 +68,12 @@ export const uploadPost = (data) => {
 }
 
 export const liked = (post_idx) => {
-  const token = JSON.parse(localStorage.getItem('token'));
+  const token = localStorage.getItem('token');
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/like/`,{
     method: "POST",
           headers: {
-            'content-type' : 'application/json'
+            'content-type' : 'application/json',
+            'Authorization' : `TOKEN ${token.token}`
           },
           body : JSON.stringify({
             "user_id": token.user.user_id,
@@ -80,6 +91,10 @@ export const detailPost = (postIdxInLocal) => {
   const token = JSON.parse(localStorage.getItem('token'));
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxInLocal}/?user_id=${token.user.user_id}`,{
     method: 'GET',
+    headers: {
+      'Authorization' : `TOKEN ${token.token}`,
+      'content-type' : 'application/json'
+    }
   })
   .then(res => res.json())
   .then((data) => {

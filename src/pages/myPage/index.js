@@ -5,11 +5,11 @@ import { updateUser, profileImageUpload} from '../../actions/updateUser'
 import { userInfo} from '../../actions/userInfo'
 import { Navbar } from '../../components'
 import Image from "react-bootstrap/Image";
-import{ Avatar, Container } from './style'
+import{ Avatar, MyPageContainer } from './style'
 
 function MyPage() {
-    const getUserInfo = useSelector(state => state.userInfo.infoState);
-    const getUserAvatar = useSelector(state => state.userInfo.userAvatar);
+    const getUserInfo = useSelector(state => state.userInfo.nickname);
+    const getUserAvatar = useSelector(state => state.userInfo.avatar);
     const history = useHistory();
     const dispatch = useDispatch();
     const [nickname, setNickname] = useState('');
@@ -30,10 +30,9 @@ function MyPage() {
             console.log('프로필 사진 안바낌')
         }
         else{
-            const token = JSON.parse(localStorage.getItem('token'));
             const data = new FormData();
             data.append('avatar', cover);
-            data.append('user_id', token.user.user_id);
+            
             try{
                 await dispatch(profileImageUpload(data));
             }
@@ -51,7 +50,6 @@ function MyPage() {
             }
             catch(e){
                 console.error(e);
-                console.log('error in Auth component')
             }
         }
             await history.push('/userUpdate')
@@ -71,7 +69,7 @@ function MyPage() {
     return (
         <div>
             <Navbar/>
-            <Container>
+            <MyPageContainer>
                 <h1>{getUserInfo}</h1>
                 <Avatar src={getUserAvatar}></Avatar>
                 <form onSubmit = { handleSubmit } encType="multipart/form-data">
@@ -79,7 +77,7 @@ function MyPage() {
                     <input type="file" name = 'images' onChange = {onChangeProfileImage}/>
                     <button type = "submit" onClick = { onClickToSubmit} onKeyPress = {onPressEnter}> 제출</button>
                 </form>
-            </Container>
+            </MyPageContainer>
         </div>
     )
 }

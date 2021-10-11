@@ -23,8 +23,8 @@ function Card({idx, title, image, liked}) {
     const [isLiked, setIsLiked] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
-    const handleShow = () => { 
-        history.push(`${idx}`)
+    const onClickHistoryPush = () => { 
+        history.push(`/displayDetails/${idx}`)
         console.log(idx);
     }
     
@@ -48,7 +48,7 @@ function Card({idx, title, image, liked}) {
 
     return (
             <CardContainer>
-                    <ImageContainer src={`https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/${image}`} onClick = {handleShow}/>
+                    <ImageContainer src={`https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/${image}`} onClick = {onClickHistoryPush}/>
                 <InfoContainer>
                     <PostTitle>{title}</PostTitle>
                     <PostStatusContainer>

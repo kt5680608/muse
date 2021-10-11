@@ -32,7 +32,7 @@ import NavModal from '../navModal'
         query: "(max-width: 767px)"
     })
     const isLogged = useSelector(state => state.authReducer.authData);
-    const getUserAvatar = useSelector(state => state.userInfo.userAvatar);
+    const getUserAvatar = useSelector(state => state.userInfo.avatar);
     const dispatch = useDispatch();
     const logOutBtn = () => {
         dispatch({ type: actionType.LOG_OUT });
