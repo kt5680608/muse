@@ -10,9 +10,9 @@ export const uploadPost = (data) => async() => {
     }
 }   
 
-export const getDetailPost = (postIdxInLocal) => async(dispatch) => {
+export const getDetailPost = (postIdxUrl) => async(dispatch) => {
     try{
-        const response = await api.detailPost(postIdxInLocal);
+        const response = await api.detailPost(postIdxUrl);
         dispatch({type: DETAIL_POST, payload: response})
     }
     catch(e){

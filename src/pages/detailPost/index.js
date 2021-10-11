@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getDetailPost } from '../../actions/post'
 function DetailPost() {
     const dispatch = useDispatch();
-    const postIdxUrl = window.location.pathname.split('/')[1];
+    const postIdxUrl = window.location.pathname.split('/')[2];
     const getPost= useSelector(state => state.detailPost);
 
     const [hashTags, setHashTags] = useState(null);
-    const [loading, setLoading] = useState(false);
     useEffect (() => {
         dispatch(getDetailPost(postIdxUrl));
     },[])
