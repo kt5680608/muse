@@ -3,7 +3,7 @@ import { Navbar, Banner, Container, UploadPost } from '../../components'
 import { Modal, Button } from 'react-bootstrap'
 import { AiFillPlusCircle } from 'react-icons/ai'
 import { PostButton, PlusButton } from './style'
-import { uploadPost } from '../../actions/post'
+import { getUploadPost } from '../../actions/post'
 import { userInfo } from '../../actions/userInfo'
 import { useDispatch, useSelector} from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -34,22 +34,20 @@ function Home() {
     const onChangeHashTag = (e) => {
         setHashTag(e.target.value);
     }
-    const onClickToSubmit = async(e) => {
-        const token = JSON.parse(localStorage.getItem('token'));
+    const onClickToSubmit = async() => {
         const data = new FormData();
-        data.append('user_id', token.user.user_id);
         data.append('title', title);
         data.append('body_image', image);
         data.append('body_text', content);
         data.append('hash_tag', hashTag);
 
         try{
-            await dispatch(uploadPost(data));
-            await handleClose();
-            await history.push('/replace');
+            await dispatch(getUploadPost(data));
+            handleClose();
+            history.push('/replace');
         }
-        catch{
-            console.log(e);
+        catch(e){
+            console.error(e);
         }
     }
     const onPressEnter = (e) => {

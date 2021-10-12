@@ -19,11 +19,11 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
 }
 
 export const nicknameUpdate = (nickname) => {
-  console.log(token)
+  console.log(token.token)
   return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update-nickname/",{
     method: "POST",
     headers: {
-      'Authorization' : `TOKEN ${token.token}`,
+      'Authorization' : `${token.token}`,
       'content-type' : 'application/json'
     },
     body : JSON.stringify({
@@ -33,12 +33,11 @@ export const nicknameUpdate = (nickname) => {
 }
 
 export const getUserInfo = () => {
-  console.log(token.token);
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/user-info/`,{
     method: 'GET',
     headers:{
       'content-type' : 'application/json',
-      'Authorization' : `TOKEN ${token.token}`
+      'Authorization' : `${token.token}`
     }
   })
   .then(res => res.json())
@@ -49,10 +48,11 @@ export const getUserInfo = () => {
 }
 
 export const profileImageUpload = (data) => {
+  console.log(token.token)
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update-avatar/`,{
     method: "POST",
     headers:{
-      'Authorization' : `TOKEN ${token.token}`
+      'Authorization' : `${token.token}`
     },
     body : data
   })
@@ -62,8 +62,7 @@ export const uploadPost = (data) => {
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/upload/`,{
     method: "POST",
     headers: {
-      'content-type' : 'application/json',
-      'Authorization' : `TOKEN ${token.token}`
+      'Authorization' : `${token.token}`,
     },
     body: data
   })
@@ -74,7 +73,7 @@ export const liked = (post_idx) => {
     method: "POST",
           headers: {
             'content-type' : 'application/json',
-            'Authorization' : `TOKEN ${token.token}`
+            'Authorization' : `${token.token}`
           },
           body : JSON.stringify({
             "user_id": token.user.user_id,
@@ -92,7 +91,7 @@ export const detailPost = (postIdxUrl) => {
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
     method: 'GET',
     headers: {
-      'Authorization' : `TOKEN ${token.token}`,
+      'Authorization' : `${token.token}`,
       'content-type' : 'application/json'
     }
   })
