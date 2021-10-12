@@ -32,7 +32,7 @@ export const Paragraph = styled.h2`
     font-size: 1.2em;
 `
 export const Highlight = styled.span`
-    color: var(--color-blue);
+    color: var(--g-color-blue);
     font-family: R-FLEX-BLACK;
 `
 

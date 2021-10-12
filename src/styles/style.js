@@ -2,8 +2,24 @@ import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
     :root {
-    --color-blue: #0057ff;
-    --color-black: #000;
+    --g-color-blue: #0057ff;
+    --g-color-black: #000;
+    --g-color-white: #fff;
+    --g-color-gray0: #fff;
+    --g-color-gray50: #fff;
+    --g-color-gray100: #efefef;
+    --g-color-gray150: #ddd;
+    --g-color-gray200: #767676;
+    --g-color-gray300: #111;
+    --g-color-gray400: #000;    
+    --g-ncols: 12;
+
+    --g-text-font-size-1: 12px;
+    --g-text-font-size-2: 14px;
+    --g-text-font-size-2: 16px;
+
+
+
     }
     a {
     text-decoration: none;

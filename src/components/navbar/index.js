@@ -52,7 +52,7 @@ import NavModal from '../navModal'
                     <SearchIcon size = {24}/>
                     
                     { isLogged == false || null ?
-                    <NavItem><Link to = 'auth'>로그인</Link></NavItem>
+                    <NavItem><Link to = '/auth'>로그인</Link></NavItem>
                     :
                     <CustomDropdown className = "shadow-none">
                         <CustomDropdown.Toggle  id="dropdown-menu-align-end">

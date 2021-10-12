@@ -25,7 +25,7 @@ function App() {
         <Route path = "/userUpdate" component = { UserUpdate }/>
         <Route path = "/mypage" component = { MyPage }/>
         <Route path = "/replace" component={ Replace }/>
-        <Route exact path = "/displayDetails/:currentIdx" component = {DetailPost}/>        
+        <Route exact path = "/display-details/:currentIdx" component = {DetailPost}/>        
       </Router>
     </div>
   );

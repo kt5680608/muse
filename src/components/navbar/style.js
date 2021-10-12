@@ -13,7 +13,7 @@ export const NavContainerDesktop = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 92vw;
-    height: 60px;
+    height: 6vh;
     background-color: #fff
 `
 export const NavContainerTablet = styled.div`
@@ -51,21 +51,21 @@ export const NavItem= styled.div`
     font-weight: 900;
     border-radius: 36px;
     &:hover{
-       color: var(--color-blue);
+       color: var(--g-color-blue);
     }
 `
 
 export const Logo = styled.div`
     font-family: R-FLEX-BLACK;
     font-size: 36px;
-    color: var(--color-blue);
+    color: var(--g-color-blue);
 `
 
 export const SearchIcon = styled(BiSearch)`
     margin-right: 24px;
     font-size: 24px;
     &:hover {
-        color: var(--color-blue);
+        color: var(--g-color-blue);
     }
     @media (max-width: 767px) {
         margin-right: 12px;
@@ -81,30 +81,30 @@ export const AvatarIcon = styled(CgProfile)`
     
     font-size: 24px;
     &:hover{
-        color: var(--color-blue);
+        color: var(--g-color-blue);
     }
 `
 
 export const CustomDropdown = styled(Dropdown)`
     button {
-        background-color: var(--color-blue);
+        background-color: var(--g-color-blue);
         width: 72px;
         height: 36px;
     }
     
     .btn-success{
-        background-color: var(--color-blue);
-        border-color: var(--color-blue);
+        background-color: var(--g-color-blue);
+        border-color: var(--g-color-blue);
     }
     .btn-success:hover{
-        background-color: var(--color-blue);
+        background-color: var(--g-color-blue);
     }
     #dropdown-menu-align-end{
         width: 100%;
         padding: 0;
         background-color: transparent;
         border: none;
-        color: var(--color-blue);
+        color: var(--g-olor-blue);
     }
     .dropdown-menu{
         min-width: 120px;
@@ -115,7 +115,7 @@ export const CustomDropdown = styled(Dropdown)`
         display: flex;
         justify-content: center;
         &:hover {
-            background-color: var(--color-blue);
+            background-color: var(--g-color-blue);
         }
     }
     .dropdown-toggle::after{display:none}

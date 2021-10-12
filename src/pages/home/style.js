@@ -1,31 +1,30 @@
 import styled from 'styled-components'
-import { Button } from 'react-bootstrap'
-import { AiFillPlusCircle } from 'react-icons/ai'
-export const PostButton = styled(Button)`
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
+import { FiPlus } from 'react-icons/fi'
+
+export const PostButton = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
     margin: 0;
     border: none;
     padding: 0;
-    background-color: transparent;
     border: none;
     position: fixed;
     left: 93%;
     top: 80%;
-    &:hover{
-        background-color: transparent;
-    }
-    .btn-check:focus + &, &:focus{
-        background-color: transparent;
-        box-shadow: none;
-    }
+    border-radius: 50%;
+    background-color: var(--g-color-blue);   
 `
-export const PlusButton = styled(AiFillPlusCircle)`
-    width:64px;
-    height: 64px;
+
+export const PlusButton = styled(FiPlus)`
+    width: 36px;
+    height: 36px;
     margin: 0;
+    color: var(--g-color-white);
     padding: 0;
-    color: var(--color-blue);
-    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    stroke-width: 3;
 `
