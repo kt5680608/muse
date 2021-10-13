@@ -14,7 +14,13 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
         })
         .then(res => res.json())
         .then((data) => {
-          return data
+          try{
+            localStorage.setItem('token', data.token);
+            return data;
+          }
+          catch{
+            console.log('data')
+          }
         })
 }
 
@@ -97,7 +103,13 @@ export const detailPost = (postIdxUrl) => {
   })
   .then(res => res.json())
   .then((data) => {
-    console.log(data);
-    return data
+  if(data.token != null){
+    try{
+      return data
+    }
+    catch{
+      console.log(data);
+    }
+  }
   })
 }
