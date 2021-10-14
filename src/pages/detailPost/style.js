@@ -31,7 +31,7 @@ export const DetailImage = styled.img`
 export const DetailTitle = styled.h1`
     font-family: Noto-Sans-KR;
     font-weight: 900;
-    font-size: 48px;
+    font-size: var(--g-text-font-size-5);
 `
 
 export const DetailInfoContainer = styled.div`
@@ -88,8 +88,18 @@ export const CustomLi = styled.li`
     }
 `
 
+export const DetailWriter = styled.p`
+    
+`
+
+export const DetailUserAvatar = styled.img`
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+`
+
 export const DetailText = styled.p`
     font-family: Noto-Sans-KR;
     font-weight: 600;
-    font-size: 24px;
+    font-size: var(--g-text-size-4);
 `

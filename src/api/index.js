@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-const token = JSON.parse(localStorage.getItem('token'));
 export const kakaoLogin = (authorizeCodeFromKakao) => {
     return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/login/",{
           method: "POST",
@@ -15,7 +14,6 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
         .then(res => res.json())
         .then((data) => {
           try{
-            localStorage.setItem('token', data.token);
             return data;
           }
           catch{
@@ -25,8 +23,8 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
 }
 
 export const nicknameUpdate = (nickname) => {
-  console.log(token.token)
-  return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update-nickname/",{
+  const token = JSON.parse(localStorage.getItem('token'));
+  return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update/nickname/",{
     method: "POST",
     headers: {
       'Authorization' : `${token.token}`,
@@ -39,7 +37,8 @@ export const nicknameUpdate = (nickname) => {
 }
 
 export const getUserInfo = () => {
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/user-info/`,{
+  const token = JSON.parse(localStorage.getItem('token'));
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/info/`,{
     method: 'GET',
     headers:{
       'content-type' : 'application/json',
@@ -54,8 +53,8 @@ export const getUserInfo = () => {
 }
 
 export const profileImageUpload = (data) => {
-  console.log(token.token)
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update-avatar/`,{
+  const token = JSON.parse(localStorage.getItem('token'));
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update/avatar/`,{
     method: "POST",
     headers:{
       'Authorization' : `${token.token}`
@@ -65,16 +64,18 @@ export const profileImageUpload = (data) => {
 }
 
 export const uploadPost = (data) => {
+  const token = JSON.parse(localStorage.getItem('token'));
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/upload/`,{
     method: "POST",
     headers: {
-      'Authorization' : `${token.token}`,
+      'Authorization' : `${token.token}`
     },
     body: data
   })
 }
 
 export const liked = (post_idx) => {
+  const token = JSON.parse(localStorage.getItem('token'));
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/like/`,{
     method: "POST",
           headers: {
@@ -94,22 +95,15 @@ export const liked = (post_idx) => {
 }
 
 export const detailPost = (postIdxUrl) => {
+  const token = JSON.parse(localStorage.getItem('token'));
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
     method: 'GET',
     headers: {
       'Authorization' : `${token.token}`,
-      'content-type' : 'application/json'
     }
   })
   .then(res => res.json())
   .then((data) => {
-  if(data.token != null){
-    try{
-      return data
-    }
-    catch{
-      console.log(data);
-    }
-  }
+    return data;
   })
 }

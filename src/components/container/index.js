@@ -16,10 +16,9 @@ function MainContainer() {
     const [ref, inView] = useInView({trackVisibility: true, delay: 100});
     const getPosts = useCallback(async () => {
         setLoading(true)
-        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}`)
+        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/`)
         .then(res => {
             try{
-                console.log(res.data)
                 const fetchedData = res.data;
                 const mergedData = posts.concat(...fetchedData);
                 setPosts(mergedData);
@@ -52,7 +51,7 @@ function MainContainer() {
                         ref={ref}
                         >
                             <Card
-                                image = {post.body_image}
+                                image = {post.image}
                                 title = {post.title}
                                 idx = {post.idx}
                                 liked= {post.liked}
@@ -62,7 +61,7 @@ function MainContainer() {
                     ) : (
                         <ListItem >
                             <Card
-                                image = {post.body_image}
+                                image = {post.image}
                                 title = {post.title}
                                 idx = {post.idx}
                                 liked= {post.liked}

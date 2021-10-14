@@ -5,7 +5,8 @@ export const userInfo = (state = { nickname: null, avatar: null } , action)=>{
         case USER_INFO:
             const nicknameData = action.payload.nickname
             const avatarData = action.payload.avatar
-            return {...state, nickname: nicknameData, avatar: avatarData}
+            const badgeData = action.payload.badge
+            return {...state, nickname: nicknameData, avatar: avatarData, badge: badgeData}
         default:
             return state;
     }

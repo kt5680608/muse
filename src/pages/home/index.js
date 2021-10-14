@@ -10,9 +10,9 @@ import { useHistory } from 'react-router-dom'
 function Home() {
     const [show, setShow] = useState(false);
     const [image, setImage] = useState(null);
-    const [content, setContent] = useState(null);
+    const [content, setContent] = useState('');
     const [title, setTitle] = useState(null);
-    const [hashTag, setHashTag] = useState(null);
+    const [hashtag, setHashtag] = useState([]);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const dispatch = useDispatch();
@@ -31,15 +31,15 @@ function Home() {
         e.preventDefault();
         setImage(e.target.files[0]);
     }
-    const onChangeHashTag = (e) => {
-        setHashTag(e.target.value);
+    const onChangeHashtag = (e) => {
+        setHashtag(e.target.value);
     }
     const onClickToSubmit = async() => {
         const data = new FormData();
         data.append('title', title);
-        data.append('body_image', image);
-        data.append('body_text', content);
-        data.append('hash_tag', hashTag);
+        data.append('content', content);
+        data.append('image', image);
+        data.append('hashtag', hashtag);
 
         try{
             await dispatch(getUploadPost(data));
@@ -73,7 +73,7 @@ function Home() {
                     <input type="text" name = "title" onChange = {onChangeTitle} placeholder = "제목"/>
                     <input type="file" name = 'images' onChange = {onChangeImage}/>
                     <input type="text" name = "content" onChange = { onChangeContent } placeholder = "내용"/>
-                    <input type="text" name = "hasgtag" onChange = { onChangeHashTag } placeholder = "#해시태그"  min="0" step="1"/>
+                    <input type="text" name = "hasgtag" onChange = { onChangeHashtag } placeholder = "#해시태그"  min="0" step="1"/>
                     <button type = "submit" onClick = { onClickToSubmit } onKeyPress = {onPressEnter}> 제출</button>
                 </form>
                 </Modal.Body>

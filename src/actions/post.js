@@ -3,7 +3,7 @@ import * as api from '../api/index'
 
 export const getUploadPost = (data) => async() => {
     try{
-        await api.uploadPost(data);
+        api.uploadPost(data);
     }
     catch(e){
         console.log(e);

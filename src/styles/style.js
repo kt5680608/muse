@@ -15,8 +15,12 @@ export const GlobalStyle = createGlobalStyle`
     --g-ncols: 12;
 
     --g-text-font-size-1: 12px;
-    --g-text-font-size-2: 14px;
     --g-text-font-size-2: 16px;
+    --g-text-font-size-3: 24px;
+    --g-text-font-size-4: 32px;
+    --g-text-font-size-5: 36px;
+    --g-text-font-size-6: 48px;
+
 
 
 
