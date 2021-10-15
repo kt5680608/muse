@@ -34,7 +34,7 @@ export const DetailImage = styled.img`
 export const DetailTitle = styled.h1`
     font-family: Noto-Sans-KR;
     font-weight: 900;
-    font-size: var(--g-text-font-size-5);
+    font-size: var(--g-text-font-size-6);
 `
 
 export const InfoContainer = styled.div`
@@ -49,7 +49,7 @@ export const InfoContainer = styled.div`
 `
 
 export const CommentAllContainer = styled.div`
-    max-height: 60%;
+    max-height: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -62,12 +62,12 @@ export const CommentContainer = styled.div`
     overflow: scroll;
 `
 
-export const CommentPostContainer = styled.div`
+export const CommentPostContainer = styled.form`
 
 `
 
 export const WriterContainer = styled.div`
-    max-height: 40%;
+    max-height: 50%;
 
 `
 
@@ -119,6 +119,22 @@ export const CustomLi = styled.li`
         color: var(--g-color-white)
     }
 `
+export const HashtagUl = styled.ul`
+    display: inline-block;
+    padding: 0;
+`
+export const HashtagLi = styled.li`
+    
+    padding: 6px;
+    font-size: var(--g-text-font-size-1);
+    list-style: none;
+    border-radius: 16px;
+    display: inline;
+    &:hover{
+        background-color: var(--g-color-blue);
+        color: var(--g-color-white);
+    }
+`
 
 export const DetailWriter = styled.p`
     padding-left: 6px;
@@ -133,10 +149,19 @@ export const DetailUserAvatar = styled.img`
     border-radius: 50%;
 `
 
+export const Pre = styled.pre`
+    margin: 0;
+    padding: 0;
+`
+
 export const DetailText = styled.p`
+    margin: 16px 0 16px 0;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
     font-family: Noto-Sans-KR;
     font-weight: 600;
-    font-size: var(--g-text-size-4);
+    font-size: var(--g-text-font-size-3);
 `
 
 export const UserInfoContainer = styled.div`
@@ -211,6 +236,7 @@ export const ShowCommentButton = styled.button`
     margin: 0;
     font-weight: 600;
     border: none;
+    display: block;
 `
 
 export const Height40Container = styled.div`

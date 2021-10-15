@@ -11,7 +11,7 @@ function DetailPost() {
     const getUserInfo = useSelector( state => state.userInfo);
     const [idx, setIdx] = useState(null);
     const [comment, setComment] = useState('');
-    const [showComment, setShowComment] = useState(false);
+    const [showComment, setShowComment] = useState(true);
     const [loading, setLoading] = useState(false);
 
     useEffect (() => {
@@ -28,21 +28,26 @@ function DetailPost() {
         setComment(e.target.value);
     }
 
-    const onClickToSubmit = () => {
+    const onClickToSubmit = async() => {
         try{
             const postIdx = getPost.idx;
             const data = comment;
             dispatch(getCommentPost(postIdx, data));
             window.location.reload(true);
-
         }
-        catch{
-
+        catch(e){
+            console.error(e);
         }
     }
 
     const onClickShowComment = () => {
         setShowComment(!showComment);
+    }
+
+    const onKeyPressEnter = (e) => {
+        if(e.key == 'Enter'){
+            onClickToSubmit();
+        }
     }
 
     return (
@@ -116,11 +121,21 @@ function DetailPost() {
                                 <style.DetailUserAvatar src={`${getUserInfo.avatar}`} alt=""/>
                                 <style.DetailWriter>{getPost.writer}</style.DetailWriter>
                             </style.UserInfoContainer>
-                            <pre><style.DetailText>{getPost.content}</style.DetailText></pre>
+                            <style.Pre><style.DetailText>{getPost.content}</style.DetailText></style.Pre>
+                            {getPost.hashTag !=null && getPost.hashTag.map((hashTag, index) => {
+                                    return <style.HashtagUl key = {index}>
+                                        { hashTag != null ?
+                                        <>                                        
+                                                <style.HashtagLi>#{hashTag}</style.HashtagLi>  
+                                        </>
+                                        :
+                                        <></>}
+                                    </style.HashtagUl>
+                                })}
                             { !showComment ? 
                                 <style.ShowCommentButton onClick = {onClickShowComment}>댓글보기</style.ShowCommentButton>
                                 :
-                                <style.ShowCommentButton onClick = {onClickShowComment}>닫기</style.ShowCommentButton>
+                                <style.ShowCommentButton onClick = {onClickShowComment}>댓글닫기</style.ShowCommentButton>
                             }     
                         </style.WriterContainer>
                     <style.CommentAllContainer>
@@ -143,7 +158,7 @@ function DetailPost() {
                         </style.CommentContainer>
                         <style.CommentPostContainer>
                             <style.CommentInput onChange = {onChangeComment}/>
-                            <style.CommentSubmitButton onClick = {onClickToSubmit}>게시</style.CommentSubmitButton>
+                            <style.CommentSubmitButton onClick = {onClickToSubmit} onKeyPress = {onKeyPressEnter}>게시</style.CommentSubmitButton>
                         </style.CommentPostContainer>
                     </style.CommentAllContainer>
                     </style.InfoContainer>

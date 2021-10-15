@@ -17,10 +17,11 @@ export const GlobalStyle = createGlobalStyle`
     --g-text-font-size-0: 8px;
     --g-text-font-size-1: 12px;
     --g-text-font-size-2: 14px;
-    --g-text-font-size-3: 24px;
-    --g-text-font-size-4: 32px;
-    --g-text-font-size-5: 36px;
-    --g-text-font-size-6: 48px;
+    --g-text-font-size-3: 16px;
+    --g-text-font-size-4: 18px;
+    --g-text-font-size-5: 24px;
+    --g-text-font-size-6: 36px;
+    --g-text-font-size-7: 48px;
 
     .html{
         width: 100%;
