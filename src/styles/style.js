@@ -13,15 +13,28 @@ export const GlobalStyle = createGlobalStyle`
     --g-color-gray300: #111;
     --g-color-gray400: #000;    
     --g-ncols: 12;
-
+    
+    --g-text-font-size-0: 8px;
     --g-text-font-size-1: 12px;
-    --g-text-font-size-2: 16px;
+    --g-text-font-size-2: 14px;
     --g-text-font-size-3: 24px;
     --g-text-font-size-4: 32px;
     --g-text-font-size-5: 36px;
     --g-text-font-size-6: 48px;
 
+    .html{
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
+    .body{
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
 
     }

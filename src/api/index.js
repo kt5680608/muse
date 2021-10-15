@@ -107,3 +107,16 @@ export const detailPost = (postIdxUrl) => {
     return data;
   })
 }
+
+export const CommentUpload = (postIdx, data) => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/comment/upload/${postIdx}`,{
+    method: 'POST',
+    headers:{
+      Authorization: `${token.token}`
+    },
+    body: JSON.stringify({
+      "comment" : data
+    })
+  })
+}

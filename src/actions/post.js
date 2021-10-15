@@ -19,3 +19,12 @@ export const getDetailPost = (postIdxUrl) => async(dispatch) => {
         console.log(e);
     }
 }
+
+export const getCommentPost = (postIdx, data) => async() => {
+    try{
+        await api.CommentUpload(postIdx, data);
+    }
+    catch(e){
+        console.error(e);
+    }
+}

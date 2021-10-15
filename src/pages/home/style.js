@@ -28,3 +28,9 @@ export const PlusButton = styled(FiPlus)`
     border-radius: 50%;
     stroke-width: 3;
 `
+
+export const CustomTextarea = styled.textarea`
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
+`

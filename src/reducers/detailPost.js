@@ -5,7 +5,7 @@ export const detailPost = (state = { title: null, image: null, hashTag:null, bod
             const titleData = action.payload.title;
             const imageData = action.payload.image;
             const contentData = action.payload.content;
-            return { ...state, title: titleData, image: imageData, hashTag:action.payload.hashtag, content: contentData, writer: action.payload.writer}
+            return { ...state, idx: action.payload.idx, title: titleData, image: imageData, hashTag:action.payload.hashtag, content: contentData, writer: action.payload.writer, comments: action.payload.comment, writter: action.payload.writer}
         default:
             return state;
     }

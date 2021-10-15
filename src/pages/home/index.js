@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Navbar, Banner, Container, UploadPost } from '../../components'
 import { Modal, Button } from 'react-bootstrap'
 import { AiFillPlusCircle } from 'react-icons/ai'
-import { PostButton, PlusButton } from './style'
+import { PostButton, PlusButton, CustomTextarea } from './style'
 import { getUploadPost } from '../../actions/post'
 import { userInfo } from '../../actions/userInfo'
 import { useDispatch, useSelector} from 'react-redux'
@@ -12,14 +12,13 @@ function Home() {
     const [image, setImage] = useState(null);
     const [content, setContent] = useState('');
     const [title, setTitle] = useState(null);
-    const [hashtag, setHashtag] = useState([]);
+    const [hashtag, setHashtag] = useState(null);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const dispatch = useDispatch();
     const history = useHistory();
     const handleSubmit = (e) => {
         e.preventDefault();
-        //console.log('변경');
     }
     const onChangeTitle = (e) => {
         setTitle(e.target.value);
@@ -50,11 +49,6 @@ function Home() {
             console.error(e);
         }
     }
-    const onPressEnter = (e) => {
-        if(e.key == 'Enter'){
-            onClickToSubmit();
-        }
-    }
     useEffect(() => {
         dispatch(userInfo());
     },[])
@@ -72,9 +66,9 @@ function Home() {
                 <form onSubmit = { handleSubmit } encType="multipart/form-data">
                     <input type="text" name = "title" onChange = {onChangeTitle} placeholder = "제목"/>
                     <input type="file" name = 'images' onChange = {onChangeImage}/>
-                    <input type="text" name = "content" onChange = { onChangeContent } placeholder = "내용"/>
+                    <pre><CustomTextarea name="Text1" cols="40" rows="5" onChange={onChangeContent} placeholder = "내용"/></pre>
                     <input type="text" name = "hasgtag" onChange = { onChangeHashtag } placeholder = "#해시태그"  min="0" step="1"/>
-                    <button type = "submit" onClick = { onClickToSubmit } onKeyPress = {onPressEnter}> 제출</button>
+                    <button type = "submit" onClick = { onClickToSubmit }> 제출</button>
                 </form>
                 </Modal.Body>
             </Modal>
