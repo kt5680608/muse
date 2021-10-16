@@ -11,8 +11,6 @@ function MainContainer() {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
 
-    const getisLiked = useSelector(state => state.likeStatus.isLiked);
-
     const [ref, inView] = useInView({trackVisibility: true, delay: 100});
     const getPosts = useCallback(async () => {
         setLoading(true)
@@ -55,7 +53,6 @@ function MainContainer() {
                                 title = {post.title}
                                 idx = {post.idx}
                                 liked= {post.liked}
-                                isLiked= {getisLiked}
                             />
                         </ListItem>
                     ) : (
@@ -65,7 +62,6 @@ function MainContainer() {
                                 title = {post.title}
                                 idx = {post.idx}
                                 liked= {post.liked}
-                                isLiked= {getisLiked}
                             />
                         </ListItem>
                     )

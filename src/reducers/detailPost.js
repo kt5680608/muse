@@ -1,11 +1,17 @@
-import { DETAIL_POST } from '../constants/actionTypes'
-export const detailPost = (state = { title: null, image: null, hashTag:null, bodyText: null}, action) => {
+import { DETAIL_POST, IS_LIKED } from '../constants/actionTypes'
+export const detailPost = (state = {}, action) => {
     switch(action.type) {
         case DETAIL_POST:
-            const titleData = action.payload.title;
-            const imageData = action.payload.image;
-            const contentData = action.payload.content;
-            return { ...state, idx: action.payload.idx, title: titleData, image: imageData, hashTag:action.payload.hashtag, content: contentData, writer: action.payload.writer, comments: action.payload.comment, writter: action.payload.writer}
+            return { ...state,
+                idx: action.payload.idx,
+                title: action.payload.title,
+                image: action.payload.image,
+                hashTag:action.payload.hashtag,
+                content: action.payload.content,
+                writer: action.payload.writer,
+                comments: action.payload.comment,
+                isLiked: action.payload.is_login_user_liked
+            }
         default:
             return state;
     }

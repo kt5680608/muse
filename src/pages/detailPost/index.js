@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Navbar } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDetailPost, getCommentPost } from '../../actions/post'
+import { sendIsLiked } from '../../actions/likeBtn'
 import { userInfo } from '../../actions/userInfo'
 import * as style from './style'
 function DetailPost() {
@@ -13,14 +14,16 @@ function DetailPost() {
     const [comment, setComment] = useState('');
     const [showComment, setShowComment] = useState(true);
     const [loading, setLoading] = useState(false);
+    const [isLiked, setIsLiked] = useState(getPost.isLiked);
 
     useEffect (() => {
         setLoading(true);
-        dispatch(getDetailPost(postIdxUrl));
+        dispatch(getDetailPost(postIdxUrl)).then(() => {
+            console.log(getPost);
+        });
         dispatch(userInfo()).then(() => {
             setLoading(false)
         });
-        console.log(getPost);
     },[])
 
     const onChangeComment = (e) => {
@@ -34,6 +37,18 @@ function DetailPost() {
             const data = comment;
             dispatch(getCommentPost(postIdx, data));
             window.location.reload(true);
+        }
+        catch(e){
+            console.error(e);
+        }
+    }
+
+    const onClickToLike = () => {
+        try{
+            const postIdx = getPost.idx;
+            dispatch(sendIsLiked(postIdx));
+            setIsLiked(!isLiked);
+            console.log('좋아요 바꿔주세요')
         }
         catch(e){
             console.error(e);
@@ -132,11 +147,19 @@ function DetailPost() {
                                         <></>}
                                     </style.HashtagUl>
                                 })}
-                            { !showComment ? 
-                                <style.ShowCommentButton onClick = {onClickShowComment}>댓글보기</style.ShowCommentButton>
-                                :
-                                <style.ShowCommentButton onClick = {onClickShowComment}>댓글닫기</style.ShowCommentButton>
-                            }     
+                            <style.IconContainer>
+                                { isLiked == false ? 
+                                    <style.HeartIconOff onClick = {onClickToLike}/>
+                                    :
+                                    <style.HeartIconOn onClick = {onClickToLike}/>
+                                }
+                            
+                                { !showComment ? 
+                                    <style.BubbleIcon onClick = {onClickShowComment}/>
+                                    :
+                                    <style.CloseIcon onClick = {onClickShowComment}/>
+                                }                            
+                            </style.IconContainer>
                         </style.WriterContainer>
                     <style.CommentAllContainer>
                         <style.CommentContainer>

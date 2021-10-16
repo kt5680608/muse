@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { FiHeart } from 'react-icons/fi'
-import { FaRegComment } from 'react-icons/fa'
+import { BsChat } from 'react-icons/bs'
+import  { MdClose } from 'react-icons/md'
 
 export const Viewport = styled.div`
     width: 100vw;
@@ -121,6 +122,7 @@ export const CustomLi = styled.li`
 `
 export const HashtagUl = styled.ul`
     display: inline-block;
+
     padding: 0;
 `
 export const HashtagLi = styled.li`
@@ -170,18 +172,39 @@ export const UserInfoContainer = styled.div`
     align-items: center;
 `
 
-export const HeartIcon = styled(FiHeart)`
+export const HeartIconOff = styled(FiHeart)`
     width: 24px;
     height: 24px;
     margin: 0 4px 0 4px;
-    stroke-width: 2.5;
+    stroke-width: 2.2.px;
+    padding: 1px;
+    cursor: pointer;
 `
 
-export const BubbleIcon = styled(FaRegComment)`
-    width: 24px;
+export const HeartIconOn = styled(HeartIconOff)`
+    color: red;
+    fill: red;
+`
+
+export const BubbleIcon = styled(BsChat)`
+    width: 26px;
+    padding: 2px;
     height: 24px;
-    margin: 0 40px 0 4px;
-    stroke-width: .01;
+    stroke-width: .5;
+    display: block;
+    cursor: pointer;
+`
+
+export const CloseIcon = styled(MdClose)`
+    width: 24px;
+    height:24px;
+    stroke-width: .5;
+    display: block
+`
+
+export const IconContainer = styled.div`
+    display: flex;
+    flex-direction: row;
 `
 
 export const CommentInput = styled.input`

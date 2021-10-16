@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Navbar, Banner, Container, UploadPost } from '../../components'
 import { Modal, Button } from 'react-bootstrap'
 import { AiFillPlusCircle } from 'react-icons/ai'
-import { PostButton, PlusButton, CustomTextarea } from './style'
+import * as style from './style'
 import { getUploadPost } from '../../actions/post'
 import { userInfo } from '../../actions/userInfo'
 import { useDispatch, useSelector} from 'react-redux'
@@ -13,7 +13,13 @@ function Home() {
     const [content, setContent] = useState('');
     const [title, setTitle] = useState(null);
     const [hashtag, setHashtag] = useState(null);
-    const handleClose = () => setShow(false);
+    const [imagePreview, setImagePreview] = useState();
+    const handleClose = () => {
+        setShow(false);
+        setContent('');
+        setTitle(null);
+        setImagePreview(null);
+    };
     const handleShow = () => setShow(true);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -29,10 +35,17 @@ function Home() {
     const onChangeImage = (e) => {
         e.preventDefault();
         setImage(e.target.files[0]);
+        const imgTarget = (e.target.files)[0];
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL (imgTarget);
+        fileReader.onload = function(e){
+            setImagePreview(e.target.result);
+        }
     }
     const onChangeHashtag = (e) => {
         setHashtag(e.target.value);
     }
+
     const onClickToSubmit = async() => {
         const data = new FormData();
         data.append('title', title);
@@ -56,22 +69,29 @@ function Home() {
         <div>
             <Navbar/>
             <Banner/>
-            <PostButton onClick={handleShow}>
-                <PlusButton/>
-            </PostButton>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                </Modal.Header>
-                <Modal.Body>
-                <form onSubmit = { handleSubmit } encType="multipart/form-data">
-                    <input type="text" name = "title" onChange = {onChangeTitle} placeholder = "제목"/>
-                    <input type="file" name = 'images' onChange = {onChangeImage}/>
-                    <pre><CustomTextarea name="Text1" cols="40" rows="5" onChange={onChangeContent} placeholder = "내용"/></pre>
-                    <input type="text" name = "hasgtag" onChange = { onChangeHashtag } placeholder = "#해시태그"  min="0" step="1"/>
-                    <button type = "submit" onClick = { onClickToSubmit }> 제출</button>
-                </form>
-                </Modal.Body>
-            </Modal>
+            <style.PostButton onClick={handleShow}>
+                <style.PlusButton/>
+            </style.PostButton>
+            <style.CustomModal show={show} onHide={handleClose} size = "lg"  aria-labelledby="contained-modal-title-vcenter" centered>
+                <style.CustomModal.Header closeButton>
+                </style.CustomModal.Header>
+                <style.CustomModal.Body>
+                <style.CustomForm onSubmit = { handleSubmit } encType="multipart/form-data">
+                    { imagePreview != null ?
+                        <style.ImgPreview src={imagePreview} alt=""/>
+                        :
+                        <></>
+                    }
+                    <style.InfoContainer>
+                        <style.CustomInput type="text" name = "title" onChange = {onChangeTitle} placeholder = "제목" autocomplete = 'off'/>
+                        <style.CustomInputFile type="file" name = 'images' onChange = {onChangeImage}/>
+                        <style.CustomInput type="text" name = "hasgtag" onChange = { onChangeHashtag } placeholder = "#해시태그"  min="0" step="1" autocomplete = 'off'/>
+                        <style.Pre><style.CustomTextarea name="Text1" cols="90" rows="12" onChange={onChangeContent} placeholder = "내용" autocomplete = 'off'/></style.Pre>
+                        <style.CustomButton type = "submit" onClick = { onClickToSubmit }> 제출</style.CustomButton>
+                    </style.InfoContainer>
+                </style.CustomForm>
+                </style.CustomModal.Body>
+            </style.CustomModal>
             <Container>
             </Container>
         </div>

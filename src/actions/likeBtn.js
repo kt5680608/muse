@@ -1,13 +1,12 @@
-import { LIKE_BTN } from '../constants/actionTypes'
+import { IS_LIKED } from '../constants/actionTypes'
 import * as api from '../api/index'
 
-export const likeBtn = (post_idx) => async(dispatch) => {
+export const sendIsLiked = (postIdx) => async() => {
     try{
-        const response = await api.liked(post_idx);
-        console.log(response);
-        dispatch({type: LIKE_BTN, payload: response});
+        await api.sendIsLiked(postIdx);
     }
-    catch(error){
-        console.log("actions/likeBtn 에러", error);
+    catch(e){
+        console.error(e);
     }
-}   
+};
+

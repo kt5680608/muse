@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { authReducer } from './auth'
 import { userInfo } from './userInfo'
-import { likeStatus } from './likeStatus'
 import { currentIdx } from './currentIdx'
 import { detailPost } from './detailPost'
+import { isLiked } from './isLiked'
 export const reducers = combineReducers({
-    authReducer, userInfo, likeStatus, currentIdx, detailPost
+    authReducer, userInfo, currentIdx, detailPost, isLiked
 });
