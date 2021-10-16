@@ -25,7 +25,7 @@ export const DetailContainer = styled.div`
 `
    
 export const DetailImage = styled.img`
-    width: calc(6/var(--g-ncols)*100%);
+    width: 60%;
     object-fit: fill;
     height: 100%;
     // original height: 50vh + 100%;
@@ -40,8 +40,8 @@ export const DetailTitle = styled.h1`
 
 export const InfoContainer = styled.div`
     padding: 36px 24px 36px 24px;
-    width: calc(6/var(--g-ncols)*100%);
     background-color: white;
+    width: 40%;
     border-radius: 0px 40px 40px 0px;
     max-height: 100%;
     display: flex;

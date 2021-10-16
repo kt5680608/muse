@@ -18,6 +18,9 @@ function DetailPost() {
     const [loading, setLoading] = useState(false);
     const [isLiked, setIsLiked] = useState();
     const [post, setPost] = useState();
+    const [title, setTitle] = useState('');
+    const [image, setImage] = useState('');
+    const [writer, setWriter] = useState('');
 
     
     useEffect (() => {
@@ -32,6 +35,9 @@ function DetailPost() {
                 console.log(data);
                 console.log(data.is_login_user_liked);
                 setIsLiked(data.is_login_user_liked);
+                setTitle(data.title);
+                setImage(data.image);
+                setWriter(data.writer);
                 return data;
             })
         }
@@ -44,9 +50,10 @@ function DetailPost() {
             })
             .then(res => res.json())
             .then((data) => {
-                const fetchedData = data;
                 setIsLiked(data.is_login_user_liked);
-                setPost(fetchedData);
+                setTitle(data.title);
+                setImage(data.image);
+                setWriter(data.writer);
                 return data;
             })
         }
@@ -93,75 +100,17 @@ function DetailPost() {
     }
 
     return (
-        // <style.Viewport>
-        //     <Navbar/>
-        //     <style.MainContainer >
-        //         <style.DetailContainer>
-        //             <style.DetailImage id="imgID" src={`${getPost.image}`} alt="" />
-        //             <style.DetailInfoContainer>
-        //                 <style.Height40Container>
-        //                     <style.DetailTitle>{getPost.title}</style.DetailTitle>
-        //                     <style.DetailText>{getPost.content}</style.DetailText>
-        //                     <div>
-        //                         <style.HeartIcon/>
-        //                         <style.BubbleIcon/>
-        //                     </div>
-        //                     <style.UserInfoContainer>
-        //                         <style.DetailUserAvatar src={`${getUserInfo.avatar}`} alt=""/>
-        //                         <style.DetailWriter>{getPost.writer}</style.DetailWriter>
-        //                     </style.UserInfoContainer>
-        //                         {getPost.hashTag !=null && getPost.hashTag.map((hashTag, index) => {
-        //                             return <style.CustomUl key = {index}>
-        //                                 { hashTag != null ?
-        //                                 <>                                        
-        //                                         <style.CustomLi>#{hashTag}</style.CustomLi>  
-        //                                 </>
-        //                                 :
-        //                                 <></>}
-        //                             </style.CustomUl>
-        //                         })}
-        //                 </style.Height40Container>
-        //                     <style.CommentDisplayContainer>
-        //                         <div>   
-        //                         {showComment ? 
-        //                             getPost.comments !=null && getPost.comments.map((comment, index) => {
-                                        
-        //                                 return <ul key = {index}>
-        //                                     <>
-        //                                         <style.CommentLi>{comment.comment}</style.CommentLi>
-        //                                     </>
-        //                                 </ul>
-                                        
-        //                             }) :
-        //                             <></>
-        //                         }
-        //                         { !showComment ? 
-        //                             <style.ShowCommentButton onClick = {onClickShowComment}>댓글보기</style.ShowCommentButton>
-        //                             :
-        //                             <style.ShowCommentButton onClick = {onClickShowComment}>닫기</style.ShowCommentButton>
-        //                         }
-        //                         </div>
-                                    
-        //                         </style.CommentDisplayContainer>
-        //                     <style.CommentContainer>
-        //                         <style.CommentInput onChange = {onChangeComment}/>
-        //                         <style.CommentSubmitButton onClick = {onClickToSubmit}>게시</style.CommentSubmitButton>
-        //                     </style.CommentContainer>
-        //             </style.DetailInfoContainer>
-        //         </style.DetailContainer>
-        //     </style.MainContainer>
-        // </style.Viewport>
         <style.Viewport>
             <Navbar/>
             <style.MainContainer>
                 <style.DetailContainer>
-                    { loading == false ? <style.DetailImage id="imgID" src={`${getPost.image}`} alt=""/> : <></> }
+                    { loading == false ? <style.DetailImage id="imgID" src={`${image}`} alt=""/> : <></> }
                     <style.InfoContainer>
                         <style.WriterContainer>
-                            <style.DetailTitle>{getPost.title}</style.DetailTitle>
+                            <style.DetailTitle>{title}</style.DetailTitle>
                             <style.UserInfoContainer>
                                 <style.DetailUserAvatar src={`${getPost.writerAvatar}`} alt=""/>
-                                <style.DetailWriter>{getPost.writer}</style.DetailWriter>
+                                <style.DetailWriter>{writer}</style.DetailWriter>
                             </style.UserInfoContainer>
                             <style.Pre><style.DetailText>{getPost.content}</style.DetailText></style.Pre>
                             {getPost.hashTag !=null && getPost.hashTag.map((hashTag, index) => {
@@ -199,6 +148,7 @@ function DetailPost() {
                                                 
                                                 return <style.CustomUl key = {index}>
                                                     <>
+                                                        <style.DetailUserAvatar src ={`${comment.writer_avatar}`}/>
                                                         <style.CommentWriterLi>{comment.writer}</style.CommentWriterLi>
                                                         <style.CommentLi>{comment.comment}</style.CommentLi>
                                                     </>
