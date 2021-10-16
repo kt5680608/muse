@@ -7,33 +7,49 @@ import { userInfo } from '../../actions/userInfo'
 import * as style from './style'
 import * as api from '../../api'
 function DetailPost() {
+    const token = JSON.parse(localStorage.getItem('token'));
     const dispatch = useDispatch();
     const postIdxUrl = window.location.pathname.split('/')[2];
     const getPost= useSelector(state => state.detailPost);
     const getUserInfo = useSelector( state => state.userInfo);
     const [idx, setIdx] = useState(null);
     const [comment, setComment] = useState('');
-    const [showComment, setShowComment] = useState(true);
+    const [showComment, setShowComment] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isLiked, setIsLiked] = useState();
+    const [post, setPost] = useState();
+
+    
     useEffect (() => {
         dispatch(getDetailPost(postIdxUrl));
         dispatch(userInfo());
-        const token = JSON.parse(localStorage.getItem('token'));
-        return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
+        if (localStorage.getItem('token') == undefined) {
+            return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
             method: 'GET',
-            headers: {
-            'Authorization' : `${token.token}`,
-            }
-        })
-        .then(res => res.json())
-        .then((data) => {
-            console.log(data);
-            console.log(data.is_login_user_liked);
-            setIsLiked(data.is_login_user_liked);
-            return data;
-  })
-        
+            })
+            .then(res => res.json())
+            .then((data) => {
+                console.log(data);
+                console.log(data.is_login_user_liked);
+                setIsLiked(data.is_login_user_liked);
+                return data;
+            })
+        }
+        else{
+            return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
+                method: 'GET',
+                headers: {
+                'Authorization' : `${token.token}`,
+                }
+            })
+            .then(res => res.json())
+            .then((data) => {
+                const fetchedData = data;
+                setIsLiked(data.is_login_user_liked);
+                setPost(fetchedData);
+                return data;
+            })
+        }
     },[])
     const onChangeComment = (e) => {
         e.preventDefault();
@@ -67,6 +83,7 @@ function DetailPost() {
 
     const onClickShowComment = () => {
         setShowComment(!showComment);
+        console.log(post);
     }
 
     const onKeyPressEnter = (e) => {
@@ -138,12 +155,12 @@ function DetailPost() {
             <Navbar/>
             <style.MainContainer>
                 <style.DetailContainer>
-                    { loading == false ? <style.DetailImage id="imgID" src={`${getPost.image}`} alt="" /> : <></> }
+                    { loading == false ? <style.DetailImage id="imgID" src={`${getPost.image}`} alt=""/> : <></> }
                     <style.InfoContainer>
                         <style.WriterContainer>
                             <style.DetailTitle>{getPost.title}</style.DetailTitle>
                             <style.UserInfoContainer>
-                                <style.DetailUserAvatar src={`${getUserInfo.avatar}`} alt=""/>
+                                <style.DetailUserAvatar src={`${getPost.writerAvatar}`} alt=""/>
                                 <style.DetailWriter>{getPost.writer}</style.DetailWriter>
                             </style.UserInfoContainer>
                             <style.Pre><style.DetailText>{getPost.content}</style.DetailText></style.Pre>

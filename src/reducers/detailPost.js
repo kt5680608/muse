@@ -10,7 +10,8 @@ export const detailPost = (state = {}, action) => {
                 content: action.payload.content,
                 writer: action.payload.writer,
                 comments: action.payload.comment,
-                isLiked: action.payload.is_login_user_liked
+                isLiked: action.payload.is_login_user_liked,
+                writerAvatar: action.payload.writer_avatar
             }
         default:
             return state;

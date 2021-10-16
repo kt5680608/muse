@@ -75,6 +75,14 @@ export const uploadPost = (data) => {
 
 export const detailPost = (postIdxUrl) => {
   const token = JSON.parse(localStorage.getItem('token'));
+  if (localStorage.getItem('token') == undefined){
+    return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
+    })
+    .then(res => res.json())
+    .then((data) => {
+      return data;
+    })
+  }
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
     method: 'GET',
     headers: {

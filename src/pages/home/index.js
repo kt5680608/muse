@@ -14,11 +14,15 @@ function Home() {
     const [title, setTitle] = useState(null);
     const [hashtag, setHashtag] = useState(null);
     const [imagePreview, setImagePreview] = useState();
+    const [modalSize, setModalSize] = useState('lg');
+
+    
     const handleClose = () => {
         setShow(false);
         setContent('');
         setTitle(null);
         setImagePreview(null);
+        setModalSize('lg')
     };
     const handleShow = () => setShow(true);
     const dispatch = useDispatch();
@@ -40,6 +44,7 @@ function Home() {
         fileReader.readAsDataURL (imgTarget);
         fileReader.onload = function(e){
             setImagePreview(e.target.result);
+            setModalSize('lg');
         }
     }
     const onChangeHashtag = (e) => {
@@ -72,7 +77,7 @@ function Home() {
             <style.PostButton onClick={handleShow}>
                 <style.PlusButton/>
             </style.PostButton>
-            <style.CustomModal show={show} onHide={handleClose} size = "lg"  aria-labelledby="contained-modal-title-vcenter" centered>
+            <style.CustomModal show={show} onHide={handleClose} size = {modalSize} aria-labelledby="contained-modal-title-vcenter" centered>
                 <style.CustomModal.Header closeButton>
                 </style.CustomModal.Header>
                 <style.CustomModal.Body>

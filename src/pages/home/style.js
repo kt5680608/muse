@@ -77,9 +77,8 @@ export const InfoContainer = styled.div`
 `
 
 export const ImgPreview = styled.img`
-    width: 50%;
-    max-height: 80vh;
-    width: 80%;
+    max-width: 50%;
+    width: 100%;
     border-radius: 16px;
 `
 
