@@ -5,6 +5,7 @@ import { getDetailPost, getCommentPost } from '../../actions/post'
 import { sendIsLiked } from '../../actions/likeBtn'
 import { userInfo } from '../../actions/userInfo'
 import * as style from './style'
+import * as api from '../../api'
 function DetailPost() {
     const dispatch = useDispatch();
     const postIdxUrl = window.location.pathname.split('/')[2];
@@ -14,18 +15,26 @@ function DetailPost() {
     const [comment, setComment] = useState('');
     const [showComment, setShowComment] = useState(true);
     const [loading, setLoading] = useState(false);
-    const [isLiked, setIsLiked] = useState(getPost.isLiked);
-
+    const [isLiked, setIsLiked] = useState();
     useEffect (() => {
-        setLoading(true);
-        dispatch(getDetailPost(postIdxUrl)).then(() => {
-            console.log(getPost);
-        });
-        dispatch(userInfo()).then(() => {
-            setLoading(false)
-        });
+        dispatch(getDetailPost(postIdxUrl));
+        dispatch(userInfo());
+        const token = JSON.parse(localStorage.getItem('token'));
+        return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
+            method: 'GET',
+            headers: {
+            'Authorization' : `${token.token}`,
+            }
+        })
+        .then(res => res.json())
+        .then((data) => {
+            console.log(data);
+            console.log(data.is_login_user_liked);
+            setIsLiked(data.is_login_user_liked);
+            return data;
+  })
+        
     },[])
-
     const onChangeComment = (e) => {
         e.preventDefault();
         setComment(e.target.value);
@@ -48,7 +57,8 @@ function DetailPost() {
             const postIdx = getPost.idx;
             dispatch(sendIsLiked(postIdx));
             setIsLiked(!isLiked);
-            console.log('좋아요 바꿔주세요')
+            
+            console.log(isLiked)
         }
         catch(e){
             console.error(e);
@@ -148,11 +158,14 @@ function DetailPost() {
                                     </style.HashtagUl>
                                 })}
                             <style.IconContainer>
-                                { isLiked == false ? 
-                                    <style.HeartIconOff onClick = {onClickToLike}/>
-                                    :
+                                { 
+                                    isLiked == true ?
                                     <style.HeartIconOn onClick = {onClickToLike}/>
+                                    :
+                                    <style.HeartIconOff onClick = {onClickToLike}/>
                                 }
+
+                                
                             
                                 { !showComment ? 
                                     <style.BubbleIcon onClick = {onClickShowComment}/>

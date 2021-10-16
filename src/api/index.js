@@ -47,7 +47,6 @@ export const getUserInfo = () => {
   })
   .then(res => res.json())
   .then((data) => {
-    console.log(data, "서버에서 받아온 데이터");
     return data
   })
 }

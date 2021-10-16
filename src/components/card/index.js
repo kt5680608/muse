@@ -24,8 +24,8 @@ function Card({idx, title, image, liked}) {
     const dispatch = useDispatch();
     const history = useHistory();
     const onClickHistoryPush = () => { 
-        history.push(`/display-details/${idx}`)
         console.log(idx);
+        history.push(`/display-details/${idx}`)
     }
     
     // const onClickToLike = async() => {
