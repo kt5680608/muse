@@ -88,8 +88,7 @@ export const AvatarIcon = styled(CgProfile)`
 export const CustomDropdown = styled(Dropdown)`
     button {
         background-color: var(--g-color-blue);
-        width: 72px;
-        height: 36px;
+        width: 36px;
     }
     
     .btn-success{

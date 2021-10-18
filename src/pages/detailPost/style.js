@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import { FiHeart } from 'react-icons/fi'
 import { BsChat } from 'react-icons/bs'
 import  { MdClose } from 'react-icons/md'
-
+import { BsThreeDots } from 'react-icons/bs'
+import { Dropdown } from 'react-bootstrap'
 export const Viewport = styled.div`
     width: 100vw;
     height: 100vh;  
@@ -265,3 +266,64 @@ export const ShowCommentButton = styled.button`
 export const Height40Container = styled.div`
     height: 40%;
 `
+
+export const isWriterButton = styled(BsThreeDots)`
+    position: absolute;
+    top: 16%;
+    right: 2.8%;
+    font-size: var(--g-text-font-size-5);
+`
+
+export const CustomDropdown = styled(Dropdown)`
+    button {
+        background-color: var(--g-color-blue);
+        width: 72px;
+        height: 36px;
+        position: absolute;
+        top: 16%;
+        right: 2.8%;
+    }
+    
+    .btn-success{
+        background-color: var(--g-color-blue);
+        border-color: var(--g-color-blue);
+    }
+    .btn-success:hover{
+        background-color: var(--g-color-blue);
+    }
+    #dropdown-menu-align-end{
+        width: 24px;
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        color: var(--g-olor-blue);
+    }
+    .dropdown-menu{
+        min-width: 48px;
+        background-color: white;
+        left: 20%;
+    }
+    .x-placement{
+        position: absolute; inset: 0px auto auto 0px; transform: translate3d(100px, 38px, 0px);
+    }
+
+    .dropdown-item{
+        color:black;
+        display: flex;
+        justify-content: center;
+        &:hover {
+            background-color: var(--g-color-blue);
+        }
+    }
+    .dropdown-toggle::after{display:none}
+    .btn-check:focus + &, &:focus{
+        background-color: transparent;
+        box-shadow: none;
+    }
+    .btn-check:focus + .btn-primary, .btn-primary:focus{
+        box-shadow: none;
+    }
+    .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: none;
+    }
+`   

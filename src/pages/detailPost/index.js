@@ -21,6 +21,7 @@ function DetailPost() {
     const [title, setTitle] = useState('');
     const [image, setImage] = useState('');
     const [writer, setWriter] = useState('');
+    const[isWriter, setIsWriter] = useState();
 
     
     useEffect (() => {
@@ -33,12 +34,12 @@ function DetailPost() {
             .then(res => res.json())
             .then((data) => {
                 console.log(data);
-                console.log(data.is_login_user_liked);
                 setIsLiked(data.is_login_user_liked);
                 setTitle(data.title);
                 setImage(data.image);
                 setWriter(data.writer);
-                return data;
+                setIsWriter(data.is_writer);
+                console.log(data.is_writer);
             })
         }
         else{
@@ -50,10 +51,13 @@ function DetailPost() {
             })
             .then(res => res.json())
             .then((data) => {
+                console.log(data);
                 setIsLiked(data.is_login_user_liked);
                 setTitle(data.title);
                 setImage(data.image);
                 setWriter(data.writer);
+                setIsWriter(data.is_writer);
+                console.log(data.is_writer);
                 return data;
             })
         }
@@ -90,7 +94,6 @@ function DetailPost() {
 
     const onClickShowComment = () => {
         setShowComment(!showComment);
-        console.log(post);
     }
 
     const onKeyPressEnter = (e) => {
@@ -107,6 +110,24 @@ function DetailPost() {
                     { loading == false ? <style.DetailImage id="imgID" src={`${image}`} alt=""/> : <></> }
                     <style.InfoContainer>
                         <style.WriterContainer>
+                        { isWriter == true ?
+                                <style.CustomDropdown className = "shadow-none">
+                                <style.CustomDropdown.Toggle  id="dropdown-menu-align-end">
+                                    <style.isWriterButton />
+                                </style.CustomDropdown.Toggle>
+
+                                <style.CustomDropdown.Menu data-popper-placement = "bottom-end">
+                                    <style.CustomDropdown.Item>
+                                        수정
+                                    </style.CustomDropdown.Item>
+                                    <style.CustomDropdown.Item href="#/action-1">
+                                        삭제
+                                    </style.CustomDropdown.Item>
+                                </style.CustomDropdown.Menu>
+                            </style.CustomDropdown>
+                                :
+                                <></>
+                            }
                             <style.DetailTitle>{title}</style.DetailTitle>
                             <style.UserInfoContainer>
                                 <style.DetailUserAvatar src={`${getPost.writerAvatar}`} alt=""/>
