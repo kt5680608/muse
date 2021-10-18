@@ -90,7 +90,7 @@ function Home() {
                         <style.CustomInput type="text" name = "title" onChange = {onChangeTitle} placeholder = "제목" autocomplete = 'off'/>
                         <style.CustomInputFile type="file" name = 'images' onChange = {onChangeImage}/>
                         <style.CustomInput type="text" name = "hasgtag" onChange = { onChangeHashtag } placeholder = "#해시태그"  min="0" step="1" autocomplete = 'off'/>
-                        <style.Pre><style.CustomTextarea name="Text1" cols="90" rows="12" onChange={onChangeContent} placeholder = "내용" autocomplete = 'off'/></style.Pre>
+                        <style.Pre><style.CustomTextarea name="Text1" cols="90" Rows="4" maxLength="90" onChange={onChangeContent} placeholder = "내용" autocomplete = 'off'/></style.Pre>
                         <style.CustomButton type = "submit" onClick = { onClickToSubmit }> 제출</style.CustomButton>
                     </style.InfoContainer>
                 </style.CustomForm>

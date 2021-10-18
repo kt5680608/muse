@@ -148,7 +148,7 @@ function DetailPost() {
             const postIdx = getPost.idx;
             const data = comment;
             dispatch(getCommentPost(postIdx, data));
-            window.location.reload(true);
+            
         }
         catch(e){
             console.error(e);
