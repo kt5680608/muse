@@ -32,6 +32,10 @@ function MainContainer() {
     useEffect(()=>{
         getPosts();
     },[getPosts]);
+    useEffect(() => {
+        getPosts();
+    },[])
+
 
     useEffect(() => {
         // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면

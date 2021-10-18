@@ -119,7 +119,7 @@ export const sendIsLiked = (postIdx) => {
   })
 }
 
-export  const updatePost = (formData, postIdx) => {
+export const updatePost = (formData, postIdx) => {
   const token = JSON.parse(localStorage.getItem('token'))
   return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/update/${postIdx}/`,{
     method: "POST",
@@ -127,5 +127,15 @@ export  const updatePost = (formData, postIdx) => {
       Authorization: `${token.token}`
     },
     body: formData
+  })
+}
+
+export const deletePost = (postIdx) => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/delete/${postIdx}/`,{
+    method: 'DELETE',
+    headers:{
+      Authorization: `${token.token}`
+    }
   })
 }

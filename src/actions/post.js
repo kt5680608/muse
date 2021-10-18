@@ -37,3 +37,12 @@ export const updatePost = (postIdx, formData) => async() => {
         console.error(e);
     }
 }
+
+export const deletePost = (postIdx) => async() => {
+    try{
+        await api.deletePost(postIdx);
+    }
+    catch(e){
+        console.error(e);
+    }
+}

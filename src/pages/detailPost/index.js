@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { Navbar } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDetailPost, getCommentPost, updatePost } from '../../actions/post'
+import { getDetailPost, getCommentPost, updatePost, deletePost } from '../../actions/post'
 import { sendIsLiked } from '../../actions/likeBtn'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { userInfo } from '../../actions/userInfo'
 import * as style from './style'
 import * as home from '../home/style'
@@ -175,6 +175,13 @@ function DetailPost() {
         }
     }
 
+    const onClickToDeletePost = () => {
+        const postIdx = getPost.idx;
+        dispatch(deletePost(postIdx))
+        console.log('삭제')
+        history.push('/');
+    }
+
     return (
         <style.Viewport>
             <Navbar/>
@@ -208,7 +215,7 @@ function DetailPost() {
                                         </home.CustomForm>
                                         </home.CustomModal.Body>
                                     </home.CustomModal>
-                                    <style.CustomDropdown.Item href="#/action-1">
+                                    <style.CustomDropdown.Item onClick = {onClickToDeletePost}>
                                         삭제
                                     </style.CustomDropdown.Item>
                                 </style.CustomDropdown.Menu>
