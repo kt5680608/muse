@@ -19,9 +19,6 @@ export const PostButton = styled.div`
     background-color: var(--g-color-blue);   
 `
 
-export const CustomModal = styled(Modal)`
-`
-
 export const PlusButton = styled(FiPlus)`
     width: 36px;
     height: 36px;
@@ -31,6 +28,8 @@ export const PlusButton = styled(FiPlus)`
     border: none;
     border-radius: 50%;
     stroke-width: 3;
+`
+export const CustomModal = styled(Modal)`
 `
 
 export const CustomInput = styled.input`
@@ -67,15 +66,6 @@ export const ImageContainer = styled.div`
 
 `
 
-export const InfoContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    justify-content: flex-start;
-`
-
 export const ImgPreview = styled.img`
     max-width: 50%;
     width: 100%;
@@ -96,4 +86,13 @@ export const CustomTextarea = styled.textarea`
 export const Pre = styled.pre`
     display: flex;
     justify-content: center;
+`
+
+export const InfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    justify-content: flex-start;
 `

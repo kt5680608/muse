@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import { Navbar } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDetailPost, getCommentPost } from '../../actions/post'
+import { getDetailPost, getCommentPost, updatePost } from '../../actions/post'
 import { sendIsLiked } from '../../actions/likeBtn'
+import { useHistory } from 'react-router-dom'
 import { userInfo } from '../../actions/userInfo'
 import * as style from './style'
+import * as home from '../home/style'
 import * as api from '../../api'
 function DetailPost() {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -22,7 +24,15 @@ function DetailPost() {
     const [image, setImage] = useState('');
     const [writer, setWriter] = useState('');
     const[isWriter, setIsWriter] = useState();
+    const [content, setContent] = useState('');
+    const [hashtag, setHashtag] = useState();
 
+    const [show, setShow] = useState(false);
+    const [updateImage, setUpdateImage] = useState(null);
+    const [updateContent, setUpdateContent] = useState('');
+    const [updateTitle, setUpdateTitle] = useState('');
+    const [updateHashtag, setUpdateHashtag] = useState('');
+    const [imagePreview, setImagePreview] = useState();
     
     useEffect (() => {
         dispatch(getDetailPost(postIdxUrl));
@@ -37,7 +47,9 @@ function DetailPost() {
                 setIsLiked(data.is_login_user_liked);
                 setTitle(data.title);
                 setImage(data.image);
+                setImagePreview(data.image);
                 setWriter(data.writer);
+                setContent(data.content);
                 setIsWriter(data.is_writer);
                 console.log(data.is_writer);
             })
@@ -56,15 +68,76 @@ function DetailPost() {
                 setTitle(data.title);
                 setImage(data.image);
                 setWriter(data.writer);
+                setContent(data.content);
                 setIsWriter(data.is_writer);
-                console.log(data.is_writer);
-                return data;
+                setHashtag(data.hashtag)
+                setImagePreview(data.image);
+                console.log(data.image);
             })
         }
     },[])
     const onChangeComment = (e) => {
         e.preventDefault();
         setComment(e.target.value);
+    }
+
+    const [modalSize, setModalSize] = useState('lg');
+
+    
+    const handleClose = () => {
+        setShow(false);
+        setUpdateContent('');
+        setUpdateTitle(null);
+        setImagePreview(null);
+        setModalSize('lg')
+    };
+    const handleShow = () => setShow(true);
+    const history = useHistory();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    }
+    const onChangeTitle = (e) => {
+        setUpdateTitle(e.target.value);
+    }
+    const onChangeContent = (e) => {
+        setUpdateContent(e.target.value);
+    }
+    
+    const onChangeHashtag = (e) => {
+        setUpdateHashtag(e.target.value);
+    }
+
+    const onClickToUpdate = async() => {
+        const postIdx = getPost.idx;
+        const formData = new FormData();
+        if(updateContent == ''){
+            formData.append('content', content)
+        }
+        else{
+            formData.append('content', updateContent);
+        }
+        if(updateTitle == ''){
+            formData.append('title', title);
+        }
+        else{
+            formData.append('title', updateTitle);
+        }
+        if(updateHashtag == '') {
+            formData.append('hashtag', hashtag);
+        }
+        else{
+            formData.append('hashtag', updateHashtag);
+        }
+
+        try{
+            await dispatch(updatePost(formData, postIdx));
+            handleClose();
+            history.push('/replace');
+        }
+        catch(e){
+            console.error(e);
+        }
     }
 
     const onClickToSubmit = async() => {
@@ -116,10 +189,25 @@ function DetailPost() {
                                     <style.isWriterButton />
                                 </style.CustomDropdown.Toggle>
 
-                                <style.CustomDropdown.Menu data-popper-placement = "bottom-end">
-                                    <style.CustomDropdown.Item>
+                                <style.CustomDropdown.Menu >
+                                    <style.CustomDropdown.Item onClick = {handleShow}>
                                         수정
                                     </style.CustomDropdown.Item>
+                                    <home.CustomModal show={show} onHide={handleClose} size = {modalSize} aria-labelledby="contained-modal-title-vcenter" centered>
+                                        <home.CustomModal.Header closeButton>
+                                        </home.CustomModal.Header>
+                                        <home.CustomModal.Body>
+                                        <home.CustomForm onSubmit = { handleSubmit } encType="multipart/form-data">
+                                            <home.ImgPreview src={imagePreview} alt=""/>                                                
+                                            <home.InfoContainer>
+                                                <home.CustomInput type="text" name = "title" onChange = {onChangeTitle} placeholder = {`제목: ${title}`} autocomplete = 'off'></home.CustomInput>
+                                                <home.CustomInput type="text" name = "hasgtag" onChange = { onChangeHashtag } placeholder = {`해시태그: ${hashtag}`}  min="0" step="1" autocomplete = 'off'/>
+                                                <home.Pre><home.CustomTextarea name="Text1" cols="90" rows="12" onChange = {onChangeContent} placeholder = {`내용: ${content}`} autocomplete = 'off'/></home.Pre>
+                                                <home.CustomButton type = "submit" onClick = { onClickToUpdate }> 제출</home.CustomButton>
+                                            </home.InfoContainer>   
+                                        </home.CustomForm>
+                                        </home.CustomModal.Body>
+                                    </home.CustomModal>
                                     <style.CustomDropdown.Item href="#/action-1">
                                         삭제
                                     </style.CustomDropdown.Item>

@@ -118,3 +118,14 @@ export const sendIsLiked = (postIdx) => {
     }
   })
 }
+
+export  const updatePost = (formData, postIdx) => {
+  const token = JSON.parse(localStorage.getItem('token'))
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/update/${postIdx}/`,{
+    method: "POST",
+    headers:{
+      Authorization: `${token.token}`
+    },
+    body: formData
+  })
+}

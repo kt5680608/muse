@@ -283,6 +283,9 @@ export const CustomDropdown = styled(Dropdown)`
         top: 16%;
         right: 2.8%;
     }
+    .btn-primary.dropdown-toggle:focus {
+    box-shadow: none;
+    }
     
     .btn-success{
         background-color: var(--g-color-blue);
@@ -301,10 +304,6 @@ export const CustomDropdown = styled(Dropdown)`
     .dropdown-menu{
         min-width: 48px;
         background-color: white;
-        left: 20%;
-    }
-    .x-placement{
-        position: absolute; inset: 0px auto auto 0px; transform: translate3d(100px, 38px, 0px);
     }
 
     .dropdown-item{
@@ -326,4 +325,6 @@ export const CustomDropdown = styled(Dropdown)`
     .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
     box-shadow: none;
     }
-`   
+`
+
+

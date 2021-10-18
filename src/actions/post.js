@@ -28,3 +28,12 @@ export const getCommentPost = (postIdx, data) => async() => {
         console.error(e);
     }
 }
+
+export const updatePost = (postIdx, formData) => async() => {
+    try{
+        await api.updatePost(postIdx, formData);
+    }
+    catch(e){
+        console.error(e);
+    }
+}

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Navbar, Banner, Container, UploadPost } from '../../components'
-import { Modal, Button } from 'react-bootstrap'
 import { AiFillPlusCircle } from 'react-icons/ai'
 import * as style from './style'
 import { getUploadPost } from '../../actions/post'
