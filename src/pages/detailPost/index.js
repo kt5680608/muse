@@ -26,6 +26,7 @@ function DetailPost() {
     const[isWriter, setIsWriter] = useState();
     const [content, setContent] = useState('');
     const [hashtag, setHashtag] = useState();
+    const [likesCount, setLikesCount] = useState();
 
     const [show, setShow] = useState(false);
     const [updateImage, setUpdateImage] = useState(null);
@@ -51,6 +52,7 @@ function DetailPost() {
                 setWriter(data.writer);
                 setContent(data.content);
                 setIsWriter(data.is_writer);
+                setLikesCount(data.likes);
                 console.log(data.is_writer);
             })
         }
@@ -70,8 +72,9 @@ function DetailPost() {
                 setWriter(data.writer);
                 setContent(data.content);
                 setIsWriter(data.is_writer);
-                setHashtag(data.hashtag)
+                setHashtag(data.hashtag);
                 setImagePreview(data.image);
+                setLikesCount(data.likes);
                 console.log(data.image);
             })
         }
@@ -157,6 +160,7 @@ function DetailPost() {
             const postIdx = getPost.idx;
             dispatch(sendIsLiked(postIdx));
             setIsLiked(!isLiked);
+            getLikesCount();
             
             console.log(isLiked)
         }
@@ -167,6 +171,7 @@ function DetailPost() {
 
     const onClickShowComment = () => {
         setShowComment(!showComment);
+        console.log(getPost.writerAvatar)
     }
 
     const onKeyPressEnter = (e) => {
@@ -182,12 +187,21 @@ function DetailPost() {
         history.push('/');
     }
 
+    const getLikesCount = () => {
+        if(isLiked == true){
+            setLikesCount(likesCount-1)
+        }
+        else{
+            setLikesCount(likesCount+1)
+        }
+    }
+
     return (
         <style.Viewport>
             <Navbar/>
             <style.MainContainer>
                 <style.DetailContainer>
-                    { loading == false ? <style.DetailImage id="imgID" src={`${image}`} alt=""/> : <></> }
+                    { loading == false ? <style.DetailImage id="imgID" src={`${image}`}/> : <></> }
                     <style.InfoContainer>
                         <style.WriterContainer>
                         { isWriter == true ?
@@ -225,7 +239,11 @@ function DetailPost() {
                             }
                             <style.DetailTitle>{title}</style.DetailTitle>
                             <style.UserInfoContainer>
-                                <style.DetailUserAvatar src={`${getPost.writerAvatar}`} alt=""/>
+                                { getPost.writerAvatar != 'https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/' ?
+                                    <style.DetailUserAvatar src={`${getPost.writerAvatar}`}/>    
+                                    :
+                                    <></>
+                                }
                                 <style.DetailWriter>{writer}</style.DetailWriter>
                             </style.UserInfoContainer>
                             <style.Pre><style.DetailText>{getPost.content}</style.DetailText></style.Pre>
@@ -242,9 +260,15 @@ function DetailPost() {
                             <style.IconContainer>
                                 { 
                                     isLiked == true ?
-                                    <style.HeartIconOn onClick = {onClickToLike}/>
+                                    <>
+                                        <style.HeartIconOn onClick = {onClickToLike}/>
+                                        <p>{likesCount}</p>
+                                    </>
                                     :
-                                    <style.HeartIconOff onClick = {onClickToLike}/>
+                                    <>
+                                        <style.HeartIconOff onClick = {onClickToLike}/>
+                                        <p>{likesCount}</p>
+                                    </>
                                 }
 
                                 

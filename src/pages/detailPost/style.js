@@ -4,6 +4,7 @@ import { BsChat } from 'react-icons/bs'
 import  { MdClose } from 'react-icons/md'
 import { BsThreeDots } from 'react-icons/bs'
 import { Dropdown } from 'react-bootstrap'
+import { CgProfile } from 'react-icons/cg'
 export const Viewport = styled.div`
     width: 100vw;
     height: 100vh;  
@@ -192,6 +193,7 @@ export const BubbleIcon = styled(BsChat)`
     padding: 2px;
     height: 24px;
     stroke-width: .5;
+    margin: 0 4px 0 4px;
     display: block;
     cursor: pointer;
 `
@@ -324,6 +326,14 @@ export const CustomDropdown = styled(Dropdown)`
     }
     .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
     box-shadow: none;
+    }
+`
+
+export const AvatarIcon = styled(CgProfile)`
+    
+    font-size: 24px;
+    &:hover{
+        color: var(--g-color-blue);
     }
 `
 
