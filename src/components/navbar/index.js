@@ -44,8 +44,8 @@ import NavModal from '../navModal'
             <NavContainerDesktop>
                 <NavContainerLeft>
                     <Link to = '/Muse'><NavItem>MUSE</NavItem></Link>
-                    <Link to = '/All'><NavItem>ALL</NavItem></Link>
-                    <Link to = '/Contest'><NavItem>CONTEST</NavItem></Link>
+                    <Link to = '/All'><NavItem>Archives</NavItem></Link>
+                    <Link to = '/Contest'><NavItem>Contest</NavItem></Link>
                 </NavContainerLeft>
                     <Link to = '/'><Logo>MUSE</Logo></Link>
                 <NavContainerRight>

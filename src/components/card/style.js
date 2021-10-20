@@ -20,6 +20,11 @@ export const ImageContainer = styled.img`
     justify-content: center;
     border-radius: 12px;
     overflow: hidden;
+    position: relative;
+    z-index: 1;
+    &:hover{
+        filter: brightness(40%);
+    }
 `
 
 export const InfoContainer = styled.div`

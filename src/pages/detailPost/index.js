@@ -29,12 +29,12 @@ function DetailPost() {
     const [likesCount, setLikesCount] = useState();
 
     const [show, setShow] = useState(false);
-    const [updateImage, setUpdateImage] = useState(null);
     const [updateContent, setUpdateContent] = useState('');
     const [updateTitle, setUpdateTitle] = useState('');
     const [updateHashtag, setUpdateHashtag] = useState('');
     const [imagePreview, setImagePreview] = useState();
     
+    const [showModal, setShowModal] = useState(true);
     useEffect (() => {
         dispatch(getDetailPost(postIdxUrl));
         dispatch(userInfo());
@@ -180,11 +180,15 @@ function DetailPost() {
         }
     }
 
+    const onClickToGoHome = () => {
+        history.push('/')
+    }
+
     const onClickToDeletePost = () => {
         const postIdx = getPost.idx;
         dispatch(deletePost(postIdx))
         console.log('삭제')
-        history.push('/');
+        history.push('/')
     }
 
     const getLikesCount = () => {
@@ -194,6 +198,10 @@ function DetailPost() {
         else{
             setLikesCount(likesCount+1)
         }
+    }
+
+    const closeModal = () => {
+        setShowModal(false);
     }
 
     return (
@@ -210,7 +218,7 @@ function DetailPost() {
                                     <style.isWriterButton />
                                 </style.CustomDropdown.Toggle>
 
-                                <style.CustomDropdown.Menu >
+                                <style.CustomDropdown.Menu align={{sm: 'end'}}>
                                     <style.CustomDropdown.Item onClick = {handleShow}>
                                         수정
                                     </style.CustomDropdown.Item>
@@ -239,12 +247,15 @@ function DetailPost() {
                             }
                             <style.DetailTitle>{title}</style.DetailTitle>
                             <style.UserInfoContainer>
-                                { getPost.writerAvatar != 'https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/' ?
-                                    <style.DetailUserAvatar src={`${getPost.writerAvatar}`}/>    
-                                    :
-                                    <></>
-                                }
-                                <style.DetailWriter>{writer}</style.DetailWriter>
+                                <style.WriterInfoContainer>
+                                    { getPost.writerAvatar != 'https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/' ?
+                                        <style.DetailUserAvatar src={`${getPost.writerAvatar}`}/>    
+                                        :
+                                        <></>
+                                    }
+                                    <style.DetailWriter>{writer}</style.DetailWriter>
+                                </style.WriterInfoContainer>
+                                <style.FollowButton>팔로우</style.FollowButton>
                             </style.UserInfoContainer>
                             <style.Pre><style.DetailText>{getPost.content}</style.DetailText></style.Pre>
                             {getPost.hashTag !=null && getPost.hashTag.map((hashTag, index) => {

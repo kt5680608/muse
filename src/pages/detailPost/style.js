@@ -5,6 +5,7 @@ import  { MdClose } from 'react-icons/md'
 import { BsThreeDots } from 'react-icons/bs'
 import { Dropdown } from 'react-bootstrap'
 import { CgProfile } from 'react-icons/cg'
+import { Modal } from 'react-bootstrap'
 export const Viewport = styled.div`
     width: 100vw;
     height: 100vh;  
@@ -140,7 +141,8 @@ export const HashtagLi = styled.li`
     }
 `
 
-export const DetailWriter = styled.p`
+export const DetailWriter = styled.h5`
+    font-size: 16px;
     padding-left: 6px;
     font-family: Noto-Sans-KR;
     font-weight: 900;
@@ -172,6 +174,7 @@ export const UserInfoContainer = styled.div`
     display: flex;
     flex-direction:row;
     align-items: center;
+    justify-content: space-between;
 `
 
 export const HeartIconOff = styled(FiHeart)`
@@ -337,4 +340,24 @@ export const AvatarIcon = styled(CgProfile)`
     }
 `
 
+export const FollowButton = styled.button`
+    width: 60px;
+    height: 30px;
+    background-color: var(--g-color-blue);
+    border: none;
+    border-radius: 20px;
+    color: var(--g-color-white);
+    font-family: Noto-Sans-KR;
+    font-weight: 600;
+    font-size: var(--g-text-font-size-3);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    line-height: 33px;
+`
 
+export const WriterInfoContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`
