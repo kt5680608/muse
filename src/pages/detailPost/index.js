@@ -7,6 +7,8 @@ import { useHistory, Link } from 'react-router-dom'
 import { userInfo } from '../../actions/userInfo'
 import * as style from './style'
 import * as home from '../home/style'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 import * as api from '../../api'
 function DetailPost() {
     const token = JSON.parse(localStorage.getItem('token'));
@@ -32,9 +34,11 @@ function DetailPost() {
     const [updateHashtag, setUpdateHashtag] = useState('');
     const [imagePreview, setImagePreview] = useState();
     const [writerAvatar, setWriterAvatar] = useState();
+
     
     const [showModal, setShowModal] = useState(true);
     useEffect (() => {
+        setLoading(true);
         if (localStorage.getItem('token') == undefined) {
             return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
             method: 'GET',
@@ -54,6 +58,9 @@ function DetailPost() {
                 setLikesCount(data.likes);
                 setWriterAvatar(data.writer_avatar);
                 setComments(data.comment);
+            })
+            .finally(() => {
+                setLoading(false);
             })
         }
         else{
@@ -79,6 +86,9 @@ function DetailPost() {
                 setComments(data.comment);
                 console.log(hashtags)
                 console.log(data.comment)
+            })
+            .finally(() => {
+                setTimeout(() => {setLoading(false);} , 2000)
             })
         }
     },[])
@@ -205,6 +215,23 @@ function DetailPost() {
 
     const closeModal = () => {
         setShowModal(false);
+    }
+
+    if(loading == true){
+        return(
+            <style.LoadingContainer>
+                <style.LoadingH1>
+                    WAITING PLEASE...
+                </style.LoadingH1>
+                <Loader
+        type="TailSpin"
+        color="var(--g-color-blue)"
+        height={40}
+        width={40}
+        timeout={2000} //2 secs
+      />
+            </style.LoadingContainer>
+        )
     }
 
     return (

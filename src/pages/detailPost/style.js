@@ -364,3 +364,16 @@ export const WriterInfoContainer = styled.div`
     flex-direction: row;
     align-items: center;
 `
+
+export const LoadingContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+`
+export const LoadingH1 = styled.h1`
+    font-family: R-FLEX-BLACK;
+    font-size: 40px;
+    margin-right: 16px;
+`
