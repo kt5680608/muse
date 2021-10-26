@@ -12,10 +12,8 @@ function DetailPost() {
     const token = JSON.parse(localStorage.getItem('token'));
     const dispatch = useDispatch();
     const postIdxUrl = window.location.pathname.split('/')[2];
-    const getPost= useSelector(state => state.detailPost);
     const getUserInfo = useSelector( state => state.userInfo);
-    const [idx, setIdx] = useState(null);
-    const [comment, setComment] = useState('');
+    const [comments, setComments] = useState('');
     const [showComment, setShowComment] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isLiked, setIsLiked] = useState();
@@ -25,19 +23,18 @@ function DetailPost() {
     const [writer, setWriter] = useState('');
     const[isWriter, setIsWriter] = useState();
     const [content, setContent] = useState('');
-    const [hashtag, setHashtag] = useState();
+    const [hashtags, setHashtags] = useState();
     const [likesCount, setLikesCount] = useState();
-
+    const [idx, setIdx] = useState();
     const [show, setShow] = useState(false);
     const [updateContent, setUpdateContent] = useState('');
     const [updateTitle, setUpdateTitle] = useState('');
     const [updateHashtag, setUpdateHashtag] = useState('');
     const [imagePreview, setImagePreview] = useState();
+    const [writerAvatar, setWriterAvatar] = useState();
     
     const [showModal, setShowModal] = useState(true);
     useEffect (() => {
-        dispatch(getDetailPost(postIdxUrl));
-        dispatch(userInfo());
         if (localStorage.getItem('token') == undefined) {
             return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
             method: 'GET',
@@ -49,11 +46,14 @@ function DetailPost() {
                 setTitle(data.title);
                 setImage(data.image);
                 setImagePreview(data.image);
+                setHashtags(data.hashtag);
+                setIdx(data.idx);
                 setWriter(data.writer);
                 setContent(data.content);
                 setIsWriter(data.is_writer);
                 setLikesCount(data.likes);
-                console.log(data.is_writer);
+                setWriterAvatar(data.writer_avatar);
+                setComments(data.comment);
             })
         }
         else{
@@ -65,23 +65,26 @@ function DetailPost() {
             })
             .then(res => res.json())
             .then((data) => {
-                console.log(data);
                 setIsLiked(data.is_login_user_liked);
                 setTitle(data.title);
                 setImage(data.image);
+                setImagePreview(data.image);
+                setHashtags(data.hashtag);
+                setIdx(data.idx);
                 setWriter(data.writer);
                 setContent(data.content);
                 setIsWriter(data.is_writer);
-                setHashtag(data.hashtag);
-                setImagePreview(data.image);
                 setLikesCount(data.likes);
-                console.log(data.image);
+                setWriterAvatar(data.writer_avatar);
+                setComments(data.comment);
+                console.log(hashtags)
+                console.log(data.comment)
             })
         }
     },[])
     const onChangeComment = (e) => {
         e.preventDefault();
-        setComment(e.target.value);
+        setComments(e.target.value);
     }
 
     const [modalSize, setModalSize] = useState('lg');
@@ -112,7 +115,7 @@ function DetailPost() {
     }
 
     const onClickToUpdate = async() => {
-        const postIdx = getPost.idx;
+        const postIdx = idx;
         const formData = new FormData();
         if(updateContent == ''){
             formData.append('content', content)
@@ -127,7 +130,7 @@ function DetailPost() {
             formData.append('title', updateTitle);
         }
         if(updateHashtag == '') {
-            formData.append('hashtag', hashtag);
+            formData.append('hashtag', hashtags);
         }
         else{
             formData.append('hashtag', updateHashtag);
@@ -145,8 +148,8 @@ function DetailPost() {
 
     const onClickToSubmit = async() => {
         try{
-            const postIdx = getPost.idx;
-            const data = comment;
+            const postIdx = idx;
+            const data = comments;
             dispatch(getCommentPost(postIdx, data));
             
         }
@@ -157,7 +160,7 @@ function DetailPost() {
 
     const onClickToLike = () => {
         try{
-            const postIdx = getPost.idx;
+            const postIdx = idx;
             dispatch(sendIsLiked(postIdx));
             setIsLiked(!isLiked);
             getLikesCount();
@@ -171,7 +174,7 @@ function DetailPost() {
 
     const onClickShowComment = () => {
         setShowComment(!showComment);
-        console.log(getPost.writerAvatar)
+        console.log(writerAvatar)
     }
 
     const onKeyPressEnter = (e) => {
@@ -185,7 +188,7 @@ function DetailPost() {
     }
 
     const onClickToDeletePost = () => {
-        const postIdx = getPost.idx;
+        const postIdx = idx;
         dispatch(deletePost(postIdx))
         console.log('삭제')
         history.push('/')
@@ -230,7 +233,7 @@ function DetailPost() {
                                             <home.ImgPreview src={imagePreview} alt=""/>                                                
                                             <home.InfoContainer>
                                                 <home.CustomInput type="text" name = "title" onChange = {onChangeTitle} placeholder = {`제목: ${title}`} autocomplete = 'off'></home.CustomInput>
-                                                <home.CustomInput type="text" name = "hasgtag" onChange = { onChangeHashtag } placeholder = {`해시태그: ${hashtag}`}  min="0" step="1" autocomplete = 'off'/>
+                                                <home.CustomInput type="text" name = "hasgtag" onChange = { onChangeHashtag } placeholder = {`해시태그: ${hashtags}`}  min="0" step="1" autocomplete = 'off'/>
                                                 <home.Pre><home.CustomTextarea name="Text1" cols="90" rows="12" onChange = {onChangeContent} placeholder = {`내용: ${content}`} autocomplete = 'off'/></home.Pre>
                                                 <home.CustomButton type = "submit" onClick = { onClickToUpdate }> 제출</home.CustomButton>
                                             </home.InfoContainer>   
@@ -248,8 +251,8 @@ function DetailPost() {
                             <style.DetailTitle>{title}</style.DetailTitle>
                             <style.UserInfoContainer>
                                 <style.WriterInfoContainer>
-                                    { getPost.writerAvatar != 'https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/' ?
-                                        <style.DetailUserAvatar src={`${getPost.writerAvatar}`}/>    
+                                    { writerAvatar != 'https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/' ?
+                                        <style.DetailUserAvatar src={`${writerAvatar}`}/>    
                                         :
                                         <></>
                                     }
@@ -257,12 +260,14 @@ function DetailPost() {
                                 </style.WriterInfoContainer>
                                 <style.FollowButton>팔로우</style.FollowButton>
                             </style.UserInfoContainer>
-                            <style.Pre><style.DetailText>{getPost.content}</style.DetailText></style.Pre>
-                            {getPost.hashTag !=null && getPost.hashTag.map((hashTag, index) => {
+                            <style.Pre><style.DetailText>{content}</style.DetailText></style.Pre>
+                            {hashtags !=null && hashtags.map((hashTag, index) => {
                                     return <style.HashtagUl key = {index}>
                                         { hashTag != null ?
                                         <>                                        
-                                                <style.HashtagLi>#{hashTag}</style.HashtagLi>  
+                                                <style.HashtagLi>
+                                                    <style.HashTag>#{hashTag}</style.HashTag>
+                                                </style.HashtagLi>  
                                         </>
                                         :
                                         <></>}
@@ -295,9 +300,9 @@ function DetailPost() {
                         <style.CommentContainer>
                         <div>
                             {showComment ? 
-                                            getPost.comments !=null && getPost.comments.map((comment, index) => {
+                                            comments !=null && comments.map((comment, idx) => {
                                                 
-                                                return <style.CustomUl key = {index}>
+                                                return <style.CustomUl key = {idx}>
                                                     <>
                                                         <style.DetailUserAvatar src ={`${comment.writer_avatar}`}/>
                                                         <style.CommentWriterLi>{comment.writer}</style.CommentWriterLi>

@@ -13,13 +13,16 @@ import { CardContainer,
         EyeIcon,
         PostStatusContainer,
         CustomModal,
-        FullImageContainer
+        FullImageContainer,
+        Avatar,
+        WriterContainer,
+        CustomSpan
 } from './style'
 import { useHistory } from 'react-router-dom'
 import { likeBtn } from '../../actions/likeBtn'
 import { currentIdx } from '../../actions/currentIdx'
 
-function Card({idx, title, image, liked}) {
+function Card({idx, title, image, liked, avatar, views, likes}) {
     const [isLiked, setIsLiked] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -50,11 +53,15 @@ function Card({idx, title, image, liked}) {
             <CardContainer>
                     <ImageContainer src={`${image}`} onClick = {onClickHistoryPush}/>
                 <InfoContainer>
-                    <PostTitle>{title}</PostTitle>
+                    <WriterContainer>
+                        <Avatar src={avatar} alt=""/>
+                        <PostTitle>{title}</PostTitle>
+                    </WriterContainer>
                     <PostStatusContainer>
                         <LikesIcon />
-                        <span>{liked}</span>
+                        <CustomSpan>{likes}</CustomSpan>
                         <EyeIcon/>
+                        <CustomSpan>{views}</CustomSpan>
                     </PostStatusContainer>
                 </InfoContainer>
             </CardContainer>

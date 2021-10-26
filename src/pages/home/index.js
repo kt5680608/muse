@@ -76,6 +76,7 @@ function Home() {
             <style.PostButton onClick={handleShow}>
                 <style.PlusButton/>
             </style.PostButton>
+                <style.QaButton/>
             <style.CustomModal show={show} onHide={handleClose} size = {modalSize} aria-labelledby="contained-modal-title-vcenter" centered>
                 <style.CustomModal.Header closeButton>
                 </style.CustomModal.Header>

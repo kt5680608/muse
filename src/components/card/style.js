@@ -11,6 +11,7 @@ export const CardContainer = styled.div`
     align-items: center;
     cursor: pointer;
     overflow: hidden;
+    margin-bottom: 12px;
 `
 
 export const ImageContainer = styled.img`
@@ -45,16 +46,17 @@ export const PostStatusContainer = styled.div`
 
 export const PostTitle = styled.h1`
     font-size: 16px;
-    font-family: Noto-Sans-KR-Bold;
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
 `
 
 export const EyeIcon = styled(FiEye)`
-    font-size: 16px;
+    font-size: 14px;
+    margin: 0 2px 0 2px;
 `
 export const LikesIcon = styled(BiHeart)`
-    font-size: 16px;
+    font-size: 14px;
+    margin: 0 2px 0 2px;
 `
 
 export const CustomModal = styled(Modal)`
@@ -81,4 +83,22 @@ export const CustomModal = styled(Modal)`
 export const FullImageContainer = styled.img`
     width: 600px;
     height: 600px;
+`
+
+export  const WriterContainer = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+`
+
+export const Avatar = styled.img`
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 8px;
+`
+
+export  const CustomSpan = styled.span`
+    font-size: 14px;
+    display: flex;
 `

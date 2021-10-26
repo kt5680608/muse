@@ -36,7 +36,7 @@ export const DetailImage = styled.img`
 `
 
 export const DetailTitle = styled.h1`
-    font-family: Noto-Sans-KR;
+    font-family: "Helvetica";
     font-weight: 900;
     font-size: var(--g-text-font-size-6);
 `
@@ -87,15 +87,13 @@ export const HashTagContainer = styled.div`
     display: inline-block;
 `
 
-export const HashTag = styled.p`
+export const HashTag = styled.a`
     margin-right: 100px;
     font-size: var(--g-text-font-size-1);
-    font-family: Noto-Sans-KR;
+    font-family: 'Helvetica Neue',Helvetica,sans-serif;
     font-weight: 600;
-    color: var(--color-white);
     margin: 0;
-    background-color: var(--g-color-gray100);
-    border-radius: 16px;
+    cursor: pointer;
 `
 
 export const CustomUl = styled.ul`
@@ -129,9 +127,10 @@ export const HashtagUl = styled.ul`
     padding: 0;
 `
 export const HashtagLi = styled.li`
-    
+    margin: 0 3px 0 3px;
     padding: 6px;
     font-size: var(--g-text-font-size-1);
+    background-color: var(--g-color-gray100);
     list-style: none;
     border-radius: 16px;
     display: inline;
@@ -165,8 +164,8 @@ export const DetailText = styled.p`
     white-space: pre-wrap;
     overflow-wrap: break-word;
     word-break: break-word;
-    font-family: Noto-Sans-KR;
-    font-weight: 600;
+    font-family: 'Helvetica';
+    font-weight: 400;
     font-size: var(--g-text-font-size-3);
 `
 
@@ -228,7 +227,7 @@ export const CommentSubmitButton = styled.button`
     border-radius: 32px;
     background-color: var(--g-color-blue);
     color: var(--g-color-white);
-    font-family: Noto-Sans-KR;
+    font-family: 'Helvetica';
     font-size: var(--g-text-font-size-1);
     padding: 0;
     margin: 0;
@@ -259,7 +258,7 @@ export const CommentWriterLi = styled(CommentLi)`
 export const ShowCommentButton = styled.button`
     background-color: var(--g-color-white);
     color: var(--g-color-gray200);
-    font-family: Noto-Sans-KR;
+    font-family: "Helvetica";
     font-size: var(--g-text-font-size-1);
     padding: 0;
     margin: 0;
@@ -315,6 +314,7 @@ export const CustomDropdown = styled(Dropdown)`
         color:black;
         display: flex;
         justify-content: center;
+        font-weight: 600;
         &:hover {
             background-color: var(--g-color-blue);
         }
@@ -347,13 +347,16 @@ export const FollowButton = styled.button`
     border: none;
     border-radius: 20px;
     color: var(--g-color-white);
-    font-family: Noto-Sans-KR;
+    font-family: "Helvetica";
     font-weight: 600;
     font-size: var(--g-text-font-size-3);
     text-align: center;
     margin: 0;
     padding: 0;
     line-height: 33px;
+    &:hover{
+        opacity: 0.8;
+    }
 `
 
 export const WriterInfoContainer = styled.div`

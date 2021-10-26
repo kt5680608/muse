@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
     :root {
     --g-color-blue: #0057ff;
+    --g-color-blue-overlay: #FCFCFF;
     --g-color-black: #000;
     --g-color-white: #fff;
     --g-color-gray0: #fff;
@@ -63,4 +64,10 @@ export const GlobalStyle = createGlobalStyle`
     a:active {
     text-decoration: none;
     }
+
+    h1{
+        font-family: "Helvetica Neue",Helvetica
+    }
+    
 `;
+

@@ -20,6 +20,7 @@ function MainContainer() {
                 const fetchedData = res.data;
                 const mergedData = posts.concat(...fetchedData);
                 setPosts(mergedData);
+                console.log(res.data);
             }
             catch(e){
                 console.log(e);
@@ -57,6 +58,9 @@ function MainContainer() {
                                 title = {post.title}
                                 idx = {post.idx}
                                 liked= {post.liked}
+                                avatar= {post.writer_avatar}
+                                views = {post.views}
+                                likes = {post.likes}
                             />
                         </ListItem>
                     ) : (
@@ -66,6 +70,9 @@ function MainContainer() {
                                 title = {post.title}
                                 idx = {post.idx}
                                 liked= {post.liked}
+                                avatar= {post.writer_avatar}
+                                views = {post.views}
+                                likes = {post.likes}
                             />
                         </ListItem>
                     )

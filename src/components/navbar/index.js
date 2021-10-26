@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, NavLink } from 'react-router-dom'
 import * as actionType from '../../constants/actionTypes';
 import { userInfo } from '../../actions/userInfo'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,7 +17,8 @@ import { Container,
         AvatarIcon,
         BurgerIcon,
         DropdownMenu,
-        Avatar
+        Avatar,
+        CustomNavLink
     } from './style'
 import NavModal from '../navModal'
     function Navbar() {
@@ -37,15 +38,16 @@ import NavModal from '../navModal'
     const logOutBtn = () => {
         dispatch({ type: actionType.LOG_OUT });
     }
+
     return (
         <div>
         {isDesktop &&
             <Container>
             <NavContainerDesktop>
                 <NavContainerLeft>
-                    <Link to = '/Muse'><NavItem>MUSE</NavItem></Link>
-                    <Link to = '/All'><NavItem>Archives</NavItem></Link>
-                    <Link to = '/Contest'><NavItem>Contest</NavItem></Link>
+                    <CustomNavLink to = '/Muse' activeStyle={{color: 'var(--g-color-blue'}}><NavItem>MUSE</NavItem></CustomNavLink>
+                    <NavLink to = '/All' activeStyle = {{color: 'var(--g-color-blue'}}><NavItem>Archives</NavItem></NavLink>
+                    <NavLink to = '/Contest' activeStyle = {{color: 'var(--g-color-blue'}}><NavItem>Contest</NavItem></NavLink>
                 </NavContainerLeft>
                     <Link to = '/'><Logo>MUSE</Logo></Link>
                 <NavContainerRight>
@@ -150,7 +152,7 @@ import NavModal from '../navModal'
                         <CustomDropdown.Menu>
                             <CustomDropdown.Item>
                                 <DropdownMenu>
-                                    <Link to = '/Muse'>MUSE</Link>
+                                    <Link to = '/Muse' activeClassName = "active">MUSE</Link>
                                 </DropdownMenu>
                             </CustomDropdown.Item>
                             <CustomDropdown.Item>

@@ -3,10 +3,13 @@ import { BiSearch } from 'react-icons/bi'
 import { Dropdown } from 'react-bootstrap'
 import { CgProfile } from 'react-icons/cg'
 import { GiHamburgerMenu } from 'react-icons/gi'
+import { NavLink } from 'react-router-dom'
+
 export const Container = styled.div`
 width: 100vw;
 display: flex;
 justify-content: center;
+margin: 8px 0 8px 0;
 `
 export const NavContainerDesktop = styled.div`
     display: flex;
@@ -51,7 +54,7 @@ export const NavItem= styled.div`
     font-weight: 900;
     border-radius: 36px;
     &:hover{
-       color: var(--g-color-blue);
+        color: var(--g-color-blue);
     }
 `
 
@@ -113,6 +116,8 @@ export const CustomDropdown = styled(Dropdown)`
         color:black;
         display: flex;
         justify-content: center;
+        font-family: "Helvetica";
+        font-weight: 600;
         &:hover {
             background-color: var(--g-color-blue);
         }
@@ -132,7 +137,6 @@ export const CustomDropdown = styled(Dropdown)`
 `
 
 export const DropdownMenu = styled.p`
-    font-family: Noto-Sans-KR-Bold;
     font-weight: 600;
     margin: 0;
     font-size: 1em;
@@ -142,4 +146,8 @@ export const Avatar = styled.img`
     width: 24px;
     height: 24px;
     border-radius: 50%;
+`
+
+export const CustomNavLink = styled(NavLink)`
+
 `

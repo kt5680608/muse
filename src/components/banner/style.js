@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Banner = styled.div`
     width: 100vw;
     height: 480px;
-    background-color: white;
+    background-color: var(--g-color-blue-overlay);
     display: flex;
     justify-content: center;
     overflow: hidden;
