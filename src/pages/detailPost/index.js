@@ -16,6 +16,7 @@ function DetailPost() {
     const postIdxUrl = window.location.pathname.split('/')[2];
     const getUserInfo = useSelector( state => state.userInfo);
     const [comments, setComments] = useState('');
+    const [currentComments, setCurrentComments] = useState('');
     const [showComment, setShowComment] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isLiked, setIsLiked] = useState();
@@ -85,16 +86,16 @@ function DetailPost() {
                 setWriterAvatar(data.writer_avatar);
                 setComments(data.comment);
                 console.log(hashtags)
-                console.log(data.comment)
+                console.log(data)
             })
             .finally(() => {
-                setTimeout(() => {setLoading(false);} , 2000)
+                setTimeout(() => {setLoading(false);} , 1000)
             })
         }
     },[])
     const onChangeComment = (e) => {
         e.preventDefault();
-        setComments(e.target.value);
+        setCurrentComments(e.target.value);
     }
 
     const [modalSize, setModalSize] = useState('lg');
@@ -159,7 +160,7 @@ function DetailPost() {
     const onClickToSubmit = async() => {
         try{
             const postIdx = idx;
-            const data = comments;
+            const data = currentComments;
             dispatch(getCommentPost(postIdx, data));
             
         }
@@ -184,17 +185,12 @@ function DetailPost() {
 
     const onClickShowComment = () => {
         setShowComment(!showComment);
-        console.log(writerAvatar)
     }
 
     const onKeyPressEnter = (e) => {
         if(e.key == 'Enter'){
             onClickToSubmit();
         }
-    }
-
-    const onClickToGoHome = () => {
-        history.push('/')
     }
 
     const onClickToDeletePost = () => {
@@ -226,9 +222,9 @@ function DetailPost() {
                 <Loader
         type="TailSpin"
         color="var(--g-color-blue)"
-        height={40}
-        width={40}
-        timeout={2000} //2 secs
+        height={70}
+        width={70}
+        timeout={1000} //2 secs
       />
             </style.LoadingContainer>
         )
@@ -317,7 +313,10 @@ function DetailPost() {
                                 
                             
                                 { !showComment ? 
-                                    <style.BubbleIcon onClick = {onClickShowComment}/>
+                                    <>
+                                        <style.BubbleIcon onClick = {onClickShowComment}/>
+                                        <p>{comments.length}</p>
+                                    </>
                                     :
                                     <style.CloseIcon onClick = {onClickShowComment}/>
                                 }                            

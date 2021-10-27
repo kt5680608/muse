@@ -100,7 +100,7 @@ export const CustomUl = styled.ul`
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    margin: 0px;
+    margin: 4px 0 4px 0;
     padding: 0px;
 
 `
@@ -233,6 +233,12 @@ export const CommentSubmitButton = styled.button`
     margin: 0;
     font-weight: 600;
     border: none;
+    &:hover{
+        opacity: 0.8;
+    }
+    &:focus{
+        border: none;
+    }
 `
 
 export const CommentDisplayContainer = styled.div`
@@ -240,6 +246,8 @@ export const CommentDisplayContainer = styled.div`
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    justify-content: center;
+    align-items: center;
 `
 
 export const CommentLi = styled.li`
@@ -369,11 +377,12 @@ export const LoadingContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
 `
 export const LoadingH1 = styled.h1`
     font-family: R-FLEX-BLACK;
     font-size: 40px;
-    margin-right: 16px;
+    margin-bottom: 24px;
 `
