@@ -6,6 +6,7 @@ import { BsThreeDots } from 'react-icons/bs'
 import { Dropdown } from 'react-bootstrap'
 import { CgProfile } from 'react-icons/cg'
 import { Modal } from 'react-bootstrap'
+import { motion } from 'framer'
 export const Viewport = styled.div`
     width: 100vw;
     height: 100vh;  
@@ -383,7 +384,7 @@ export const LoadingContainer = styled.div`
     width: 100vw;
     height: 100vh;
 `
-export const LoadingH1 = styled.h1`
+export const LoadingH1 = styled(motion.h1)`
     font-family: R-FLEX-BLACK;
     font-size: 40px;
     margin-bottom: 24px;

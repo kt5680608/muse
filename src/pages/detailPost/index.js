@@ -9,7 +9,7 @@ import * as style from './style'
 import * as home from '../home/style'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
-import * as api from '../../api'
+import motion from 'framer'
 function DetailPost() {
     const token = JSON.parse(localStorage.getItem('token'));
     const dispatch = useDispatch();
@@ -89,7 +89,7 @@ function DetailPost() {
                 console.log(data)
             })
             .finally(() => {
-                setTimeout(() => {setLoading(false);} , 1000)
+                setTimeout(() => {setLoading(false);} , 1500)
             })
         }
     },[])
@@ -216,15 +216,23 @@ function DetailPost() {
     if(loading == true){
         return(
             <style.LoadingContainer>
-                <style.LoadingH1>
-                    WAITING PLEASE...
+                <style.LoadingH1
+                    animate = {{
+                        x: [1000 , -80, 20, 0, -1000]
+                    }}
+                    transition = {{
+                        ease: "easeInOut",
+                        times: [0, .75, 1.2]
+                    }}
+                >
+                    MUSE coming on...
                 </style.LoadingH1>
                 <Loader
         type="TailSpin"
         color="var(--g-color-blue)"
         height={70}
         width={70}
-        timeout={1000} //2 secs
+        timeout={1500} //2 secs
       />
             </style.LoadingContainer>
         )

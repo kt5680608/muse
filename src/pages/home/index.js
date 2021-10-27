@@ -11,7 +11,7 @@ function Home() {
     const [image, setImage] = useState(null);
     const [content, setContent] = useState('');
     const [title, setTitle] = useState(null);
-    const [hashtag, setHashtag] = useState(null);
+    const [hashtag, setHashtag] = useState('');
     const [imagePreview, setImagePreview] = useState();
     const [modalSize, setModalSize] = useState('lg');
 
