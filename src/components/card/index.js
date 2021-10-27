@@ -50,7 +50,9 @@ function Card({idx, title, image, liked, avatar, views, likes}) {
     // }
 
     return (
-            <CardContainer>
+            <CardContainer
+                whileHover = {{ scale: 1.05}}
+            >
                     <ImageContainer src={`${image}`} onClick = {onClickHistoryPush}/>
                 <InfoContainer>
                     <WriterContainer>

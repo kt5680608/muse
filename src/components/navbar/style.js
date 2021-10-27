@@ -4,7 +4,7 @@ import { Dropdown } from 'react-bootstrap'
 import { CgProfile } from 'react-icons/cg'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { NavLink } from 'react-router-dom'
-
+import { motion } from 'framer'
 export const Container = styled.div`
 width: 100vw;
 display: flex;
@@ -47,7 +47,7 @@ export const NavContainerRight = styled(NavContainerLeft)`
     justify-content: flex-end;
 `
 
-export const NavItem= styled.div`
+export const NavItem= styled(motion.div)`
     font-size: 16px;
     padding: 4px 16px 4px 16px;
     font-family: R-FLEX-BLACK;
@@ -148,6 +148,3 @@ export const Avatar = styled.img`
     border-radius: 50%;
 `
 
-export const CustomNavLink = styled(NavLink)`
-
-`

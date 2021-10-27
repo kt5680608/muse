@@ -5,13 +5,13 @@ import  { MdClose } from 'react-icons/md'
 import { BsThreeDots } from 'react-icons/bs'
 import { Dropdown } from 'react-bootstrap'
 import { CgProfile } from 'react-icons/cg'
-import { Modal } from 'react-bootstrap'
+import { Alert} from 'react-bootstrap'
 import { motion } from 'framer'
 export const Viewport = styled.div`
     width: 100vw;
     height: 100vh;  
 `
-export const MainContainer = styled.div`
+export const MainContainer = styled(motion.div)`
     height: 94vh;
     display: flex;
     justify-content : center;
@@ -19,7 +19,7 @@ export const MainContainer = styled.div`
 `
 export const DetailContainer = styled.div`
     margin-top: 60px;
-    width: 72vw;
+    width: 84vw;
     height: 80%;
     display: flex;
     border-radius: 40px;
@@ -97,7 +97,7 @@ export const HashTag = styled.a`
     cursor: pointer;
 `
 
-export const CustomUl = styled.ul`
+export const CustomUl = styled(motion.ul)`
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -124,7 +124,6 @@ export const CustomLi = styled.li`
 `
 export const HashtagUl = styled.ul`
     display: inline-block;
-
     padding: 0;
 `
 export const HashtagLi = styled.li`
@@ -231,7 +230,7 @@ export const CommentSubmitButton = styled.button`
     background-color: var(--g-color-blue);
     color: var(--g-color-white);
     font-family: 'Helvetica';
-    font-size: var(--g-text-font-size-1);
+    font-size: var(--g-text-font-size-3);
     padding: 0;
     margin: 0;
     font-weight: 600;
@@ -351,7 +350,7 @@ export const AvatarIcon = styled(CgProfile)`
     }
 `
 
-export const FollowButton = styled.button`
+export const FollowButton = styled(motion.button)`
     width: 60px;
     height: 30px;
     background-color: var(--g-color-blue);
@@ -388,4 +387,8 @@ export const LoadingH1 = styled(motion.h1)`
     font-family: R-FLEX-BLACK;
     font-size: 40px;
     margin-bottom: 24px;
+`
+
+export const AlertModal = styled(Alert)`
+
 `

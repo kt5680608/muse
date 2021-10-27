@@ -6,6 +6,7 @@ import { getUploadPost } from '../../actions/post'
 import { userInfo } from '../../actions/userInfo'
 import { useDispatch, useSelector} from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import Swal from 'sweetalert2'
 function Home() {
     const [show, setShow] = useState(false);
     const [image, setImage] = useState(null);
@@ -13,7 +14,7 @@ function Home() {
     const [title, setTitle] = useState(null);
     const [hashtag, setHashtag] = useState('');
     const [imagePreview, setImagePreview] = useState();
-    const [modalSize, setModalSize] = useState('lg');
+    const [modalSize, setModalSize] = useState('md');
 
     
     const handleClose = () => {
@@ -21,7 +22,7 @@ function Home() {
         setContent('');
         setTitle(null);
         setImagePreview(null);
-        setModalSize('lg')
+        setModalSize('md')
     };
     const handleShow = () => setShow(true);
     const dispatch = useDispatch();
@@ -50,7 +51,7 @@ function Home() {
         setHashtag(e.target.value);
     }
 
-    const onClickToSubmit = async() => {
+    const onClickToSubmit = async(e) => {
         const data = new FormData();
         data.append('title', title);
         data.append('content', content);
@@ -58,9 +59,21 @@ function Home() {
         data.append('hashtag', hashtag);
 
         try{
-            await dispatch(getUploadPost(data));
-            handleClose();
-            history.push('/replace');
+            if ( title == null || '' || content == null|| '' || image == null || '' ) {
+                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '내용을 채워주세요',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+            else{
+                await dispatch(getUploadPost(data));
+                handleClose();
+                history.push('/replace');
+            }
         }
         catch(e){
             console.error(e);
@@ -73,10 +86,14 @@ function Home() {
         <div>
             <Navbar/>
             <Banner/>
-            <style.PostButton onClick={handleShow}>
+            <style.PostButton
+                onClick = {handleShow}
+                whileHover = {{ scale: 1.1 }}
+                whileTap = {{ scale: .9 }}
+            >
                 <style.PlusButton/>
             </style.PostButton>
-                <style.QaButton/>
+            <style.QaButton/>
             <style.CustomModal show={show} onHide={handleClose} size = {modalSize} aria-labelledby="contained-modal-title-vcenter" centered>
                 <style.CustomModal.Header closeButton>
                 </style.CustomModal.Header>

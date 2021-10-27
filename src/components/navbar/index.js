@@ -45,9 +45,27 @@ import NavModal from '../navModal'
             <Container>
             <NavContainerDesktop>
                 <NavContainerLeft>
-                    <CustomNavLink to = '/Muse' activeStyle={{color: 'var(--g-color-blue'}}><NavItem>MUSE</NavItem></CustomNavLink>
-                    <NavLink to = '/All' activeStyle = {{color: 'var(--g-color-blue'}}><NavItem>Archives</NavItem></NavLink>
-                    <NavLink to = '/Contest' activeStyle = {{color: 'var(--g-color-blue'}}><NavItem>Contest</NavItem></NavLink>
+                    <NavLink to = '/Muse' activeStyle={{color: 'var(--g-color-blue'}}>
+                        <NavItem 
+                            whileHover = {{ scale: 1.2}}
+                            whileTap = {{ scale: .9}}>
+                                MUSE
+                            </NavItem>
+                    </NavLink>
+                    <NavLink to = '/All' activeStyle = {{color: 'var(--g-color-blue'}}>
+                        <NavItem
+                            whileHover = {{ scale: 1.2}}
+                            whileTap = {{ scale: .9}}>
+                                Archives
+                        </NavItem>
+                    </NavLink>
+                    <NavLink to = '/Contest' activeStyle = {{color: 'var(--g-color-blue'}}>
+                        <NavItem
+                            whileHover = {{ scale: 1.2}} 
+                            whileTap = {{ scale: .9}}>
+                                Contest
+                        </NavItem>
+                    </NavLink>
                 </NavContainerLeft>
                     <Link to = '/'><Logo>MUSE</Logo></Link>
                 <NavContainerRight>

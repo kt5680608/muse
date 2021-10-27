@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import { FiPlus } from 'react-icons/fi'
 import { BsFillQuestionCircleFill } from 'react-icons/bs'
 import { Modal, Button } from 'react-bootstrap'
-
-export const PostButton = styled.div`
+import { motion } from 'framer'
+export const PostButton = styled(motion.div)`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,6 +18,7 @@ export const PostButton = styled.div`
     top: 78%;
     border-radius: 50%;
     background-color: var(--g-color-blue);   
+    cursor: pointer;
 `
 
 export const PlusButton = styled(FiPlus)`
@@ -28,6 +29,7 @@ export const PlusButton = styled(FiPlus)`
     padding: 0;
     border: none;
     border-radius: 50%;
+    cursor: pointer;
     stroke-width: 3;
 `
 
@@ -42,6 +44,7 @@ export const QaButton = styled(BsFillQuestionCircleFill)`
     padding: 0;
     border: none;
     position: fixed;
+    cursor: pointer;
     left: 93%;
     top: 86%;
     border-radius: 50%;
@@ -49,6 +52,7 @@ export const QaButton = styled(BsFillQuestionCircleFill)`
     color: var(--g-color-blue);   
 `
 export const CustomModal = styled(Modal)`
+    overflow: visible;
 `
 
 export const CustomInput = styled.input`
@@ -111,7 +115,7 @@ export const InfoContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
+    height: auto;
     width: 100%;
     justify-content: flex-start;
 `

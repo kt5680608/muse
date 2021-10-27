@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import { BiHeart } from 'react-icons/bi'
 import { FiEye } from 'react-icons/fi'
 import { Modal } from 'react-bootstrap'
-export const CardContainer = styled.div`
+import { motion } from 'framer'
+export const CardContainer = styled(motion.div)`
     width: 280px;
     height: 260px;
     display: flex;
@@ -23,9 +24,6 @@ export const ImageContainer = styled.img`
     overflow: hidden;
     position: relative;
     z-index: 1;
-    &:hover{
-        filter: brightness(40%);
-    }
 `
 
 export const InfoContainer = styled.div`

@@ -9,7 +9,7 @@ import * as style from './style'
 import * as home from '../home/style'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
-import motion from 'framer'
+import Swal from 'sweetalert2'
 function DetailPost() {
     const token = JSON.parse(localStorage.getItem('token'));
     const dispatch = useDispatch();
@@ -35,6 +35,8 @@ function DetailPost() {
     const [updateHashtag, setUpdateHashtag] = useState('');
     const [imagePreview, setImagePreview] = useState();
     const [writerAvatar, setWriterAvatar] = useState();
+
+    const [showAlert, setShowAlert] = useState(true);
 
     
     const [showModal, setShowModal] = useState(true);
@@ -89,7 +91,7 @@ function DetailPost() {
                 console.log(data)
             })
             .finally(() => {
-                setTimeout(() => {setLoading(false);} , 1500)
+                setTimeout(() => {setLoading(false);} , 1000)
             })
         }
     },[])
@@ -157,12 +159,23 @@ function DetailPost() {
         }
     }
 
-    const onClickToSubmit = async() => {
+    const onClickToSubmit = async(e) => {
         try{
-            const postIdx = idx;
-            const data = currentComments;
-            dispatch(getCommentPost(postIdx, data));
-            
+            if(currentComments == ''){
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '댓글을 입력해주세요!',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
+            else{
+                const postIdx = idx;  
+                const data = currentComments;
+                dispatch(getCommentPost(postIdx, data));
+            }                                                               console.log('살려줭');
         }
         catch(e){
             console.error(e);
@@ -209,8 +222,13 @@ function DetailPost() {
         }
     }
 
-    const closeModal = () => {
-        setShowModal(false);
+
+    const handleCloseAlert = () => {
+        setShowAlert(false);
+    }
+
+    const handleShowAlert = () => {
+        setShowAlert(true);
     }
 
     if(loading == true){
@@ -225,14 +243,14 @@ function DetailPost() {
                         times: [0, .75, 1.2]
                     }}
                 >
-                    MUSE coming on...
+                    MUSE coming...
                 </style.LoadingH1>
                 <Loader
         type="TailSpin"
         color="var(--g-color-blue)"
         height={70}
         width={70}
-        timeout={1500} //2 secs
+        timeout={560}
       />
             </style.LoadingContainer>
         )
@@ -241,7 +259,10 @@ function DetailPost() {
     return (
         <style.Viewport>
             <Navbar/>
-            <style.MainContainer>
+            <style.MainContainer
+                initial = {{ x: 40 }}
+                animate = {{ x: 0 }}
+            >
                 <style.DetailContainer>
                     { loading == false ? <style.DetailImage id="imgID" src={`${image}`}/> : <></> }
                     <style.InfoContainer>
@@ -289,7 +310,11 @@ function DetailPost() {
                                     }
                                     <style.DetailWriter>{writer}</style.DetailWriter>
                                 </style.WriterInfoContainer>
-                                <style.FollowButton>팔로우</style.FollowButton>
+                                <style.FollowButton
+                                    whileHover = {{ scale: 1.1 }}
+                                    whileTap = {{ scale: .9 }}
+                                >팔로우
+                                </style.FollowButton>
                             </style.UserInfoContainer>
                             <style.Pre><style.DetailText>{content}</style.DetailText></style.Pre>
                             {hashtags !=null && hashtags.map((hashTag, index) => {
@@ -336,7 +361,10 @@ function DetailPost() {
                             {showComment ? 
                                             comments !=null && comments.map((comment, idx) => {
                                                 
-                                                return <style.CustomUl key = {idx}>
+                                                return <style.CustomUl key = {idx}
+                                                    initial ={{ y: 100 }}
+                                                    animate ={{ y: 0 }}
+                                                >
                                                     <>
                                                         <style.DetailUserAvatar src ={`${comment.writer_avatar}`}/>
                                                         <style.CommentWriterLi>{comment.writer}</style.CommentWriterLi>
