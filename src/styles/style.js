@@ -66,10 +66,12 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     h1{
-        font-family: "Helvetica"
+        font-family: "Helvetica";
     }
     p{
-        font-family: "Helvetica"
+        font-family: "Helvetica";
+        margin: 0;
+        padding: 0;
     }
 `;
 

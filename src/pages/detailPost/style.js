@@ -204,7 +204,9 @@ export const CloseIcon = styled(MdClose)`
     width: 24px;
     height:24px;
     stroke-width: .5;
-    display: block
+    display: block;
+    padding: 2px;
+    margin: 0 4px 0 4px;
 `
 
 export const IconContainer = styled.div`
