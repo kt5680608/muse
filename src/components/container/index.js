@@ -7,21 +7,23 @@ import Card from  '../card'
 import axios from "axios"
 import { useDispatch, useSelector} from 'react-redux'
 import * as style from './style'
+
 function MainContainer() {
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
-
+    const [options, setOptions] = useState('likes');
     const [ref, inView] = useInView({trackVisibility: true, delay: 100});
     const getPosts = useCallback(async () => {
         setLoading(true)
-        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/`)
+        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/?order=${options}`)
         .then(res => {
             try{
-                const fetchedData = res.data;
-                const mergedData = posts.concat(...fetchedData);
-                setPosts(mergedData);
-                console.log(res.data);
+                    console.log(options);
+                    const fetchedData = res.data;
+                    const mergedData = posts.concat(...fetchedData);
+                    setPosts(mergedData);
+                    console.log(res.data);
             }
             catch(e){
                 console.log(e);
@@ -30,13 +32,100 @@ function MainContainer() {
         setLoading(false)
         }, [page]
     )
+
+    const getPostsLikes = useCallback(async () => {
+        setLoading(true)
+        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/?order=likes`)
+        .then(res => {
+            try{
+                    console.log('좋아요순으로 받기')
+                    const fetchedData = res.data;
+                    const mergedData = posts.concat(...fetchedData);
+                    setPosts(mergedData);
+                    console.log(res.data);
+            }
+            catch(e){
+                console.log(e);
+            }
+        })
+        setLoading(false)
+        }, [page]
+    )
+    const getPostsViews= useCallback(async () => {
+        setLoading(true)
+        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/?order=views`)
+        .then(res => {
+            try{
+                    console.log('조회수순으로 받기')
+                    const fetchedData = res.data;
+                    const mergedData = posts.concat(...fetchedData);
+                    setPosts(mergedData);
+                    console.log(res.data);
+            }
+            catch(e){
+                console.log(e);
+            }
+        })
+        setLoading(false)
+        }, [page]
+    )
+
+    const getPostsRecent= useCallback(async () => {
+        setLoading(true)
+        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/?order=recent`)
+        .then(res => {
+            try{
+                    console.log('최신순으로 받기')
+                    const fetchedData = res.data;
+                    const mergedData = posts.concat(...fetchedData);
+                    setPosts(mergedData);
+                    console.log(res.data);
+            }
+            catch(e){
+                console.log(e);
+            }
+        })
+        setLoading(false)
+        }, [page]
+    )
+
+    const likesOrder = () => {
+        setPosts([]);
+        setPage(1);
+        setOptions('likes');
+        console.log(options)
+        getPostsLikes();
+    }
+
+    const viewsOrder = () => {
+        setPosts([]);
+        setPage(1);
+        setOptions('views');
+        console.log(options)
+        getPostsViews();
+    }
+    
+    const recentOrder = () => {
+        setPosts([]);
+        setPage(1);
+        setOptions('recent');
+        console.log(options);
+        getPostsRecent();
+    }
       
     useEffect(()=>{
         getPosts();
+        if(options == 'likes'){
+            getPostsLikes();
+        }
+        if(options == 'views'){
+            getPostsViews();
+        }
     },[getPosts]);
     useEffect(() => {
         getPosts();
     },[])
+
 
 
     useEffect(() => {
@@ -51,15 +140,15 @@ function MainContainer() {
                 <style.DropDownContainer>
                     <style.CustomDropdown>
                         <style.CustomDropdown.Toggle id="style.CustomDropdown-basic">
-                            좋아요순
+                            정렬
                         </style.CustomDropdown.Toggle>
-
-                        <style.CustomDropdown.Menu>
-                            <style.CustomDropdown.Item href="#/action-1">Action</style.CustomDropdown.Item>
-                            <style.CustomDropdown.Item href="#/action-2">Another action</style.CustomDropdown.Item>
-                            <style.CustomDropdown.Item href="#/action-3">Something else</style.CustomDropdown.Item>
-                        </style.CustomDropdown.Menu>
+                            <style.CustomDropdown.Menu>
+                                <style.CustomDropdown.Item href="#/action-1" onClick = {likesOrder} value = "hi">인기순</style.CustomDropdown.Item>
+                                <style.CustomDropdown.Item href="#/action-2" onClick = {viewsOrder}>조회수순</style.CustomDropdown.Item>
+                                <style.CustomDropdown.Item href="#/action-3" onClick = {recentOrder}>최신순</style.CustomDropdown.Item>
+                            </style.CustomDropdown.Menu>
                     </style.CustomDropdown>
+                    
                 </style.DropDownContainer>
                 <GridContainer>
                     {posts.map((post, idx) => (

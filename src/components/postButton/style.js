@@ -15,7 +15,7 @@ export const PostButton = styled(motion.div)`
     padding: 0;
     border: none;
     position: fixed;
-    left: 93%;
+    left: 94%;
     top: 78%;
     border-radius: 50%;
     background-color: var(--g-color-blue);   
@@ -46,7 +46,7 @@ export const QaButton = styled(BsFillQuestionCircleFill)`
     border: none;
     position: fixed;
     cursor: pointer;
-    left: 93%;
+    left: 94%;
     top: 86%;
     border-radius: 50%;
     background-color: var(--g-color-white);
