@@ -1,7 +1,10 @@
 import styled from 'styled-components'
-
-export const Container = styled.div`
-    height: 100vh;
+import { Dropdown } from 'react-bootstrap'
+export const DropDownContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 104px;
 `
 export const GridContainer = styled.div`
     display: grid;
@@ -10,4 +13,8 @@ export const GridContainer = styled.div`
     justify-content: center;
 `
 export const ListItem = styled.div`
+`
+export const CustomDropdown = styled(Dropdown)`
+    position: relative;
+    margin-bottom: 24px;
 `

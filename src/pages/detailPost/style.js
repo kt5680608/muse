@@ -65,6 +65,9 @@ export const CommentContainer = styled.div`
     padding: 0;
     max-height: 90%;
     overflow: scroll;
+    ::-webkit-scrollbar {
+  display: none;
+}
 `
 
 export const CommentPostContainer = styled.form`

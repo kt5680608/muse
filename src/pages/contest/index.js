@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Navbar,
-    Banner,
-    Container,
-    PostButton } from '../../components'
+import React, { useEffect } from 'react'
+import { Navbar, Banner, PostButton } from '../../components'
 import { userInfo } from '../../actions/userInfo'
 import { useDispatch } from 'react-redux'
-function Home() {
+import * as style from './style'
+function Contest() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(userInfo());
@@ -15,10 +13,8 @@ function Home() {
             <Navbar/>
             <Banner/>
             <PostButton/>
-            <Container>
-            </Container>
         </div>
     )
 }
 
-export default Home
+export default Contest

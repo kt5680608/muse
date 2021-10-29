@@ -52,7 +52,7 @@ import NavModal from '../navModal'
                                 MUSE
                             </NavItem>
                     </NavLink>
-                    <NavLink to = '/All' activeStyle = {{color: 'var(--g-color-blue'}}>
+                    <NavLink to = '/Archives' activeStyle = {{color: 'var(--g-color-blue'}}>
                         <NavItem
                             whileHover = {{ scale: 1.2}}
                             whileTap = {{ scale: .9}}>
@@ -111,16 +111,16 @@ import NavModal from '../navModal'
                                 </Link>
                             </CustomDropdown.Item>
                             <CustomDropdown.Item>
-                                <Link to = '/All'>
+                                <Link to = '/archives'>
                                     <DropdownMenu>
-                                        All
+                                        archives
                                     </DropdownMenu>
                                 </Link>
                             </CustomDropdown.Item>
                             <CustomDropdown.Item>
-                                <Link to = '/All'>
+                                <Link to = '/archives'>
                                     <DropdownMenu>
-                                        Contest
+                                        archives
                                     </DropdownMenu>
                                 </Link>
                             </CustomDropdown.Item>
@@ -175,7 +175,7 @@ import NavModal from '../navModal'
                             </CustomDropdown.Item>
                             <CustomDropdown.Item>
                                 <DropdownMenu>
-                                    <Link to = '/All'>ALL</Link>
+                                    <Link to = '/archives'>archives</Link>
                                 </DropdownMenu>
                             </CustomDropdown.Item>
                             <CustomDropdown.Item>

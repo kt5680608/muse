@@ -6,6 +6,7 @@ import { useInView } from 'react-intersection-observer'
 import Card from  '../card'
 import axios from "axios"
 import { useDispatch, useSelector} from 'react-redux'
+import * as style from './style'
 function MainContainer() {
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
@@ -46,41 +47,56 @@ function MainContainer() {
         }, [inView, loading])
 
         return (
-            <GridContainer>
-                {posts.map((post, idx) => (
-                    <React.Fragment key={idx}>
-                    {posts.length-1 === idx ? (
-                        <ListItem
-                        ref={ref}
-                        >
-                            <Card
-                                image = {post.image}
-                                title = {post.title}
-                                idx = {post.idx}
-                                liked= {post.liked}
-                                avatar= {post.writer_avatar}
-                                views = {post.views}
-                                likes = {post.likes}
-                            />
-                        </ListItem>
-                    ) : (
-                        <ListItem >
-                            <Card
-                                image = {post.image}
-                                title = {post.title}
-                                idx = {post.idx}
-                                liked= {post.liked}
-                                avatar= {post.writer_avatar}
-                                views = {post.views}
-                                likes = {post.likes}
-                            />
-                        </ListItem>
-                    )
+            <>
+                <style.DropDownContainer>
+                    <style.CustomDropdown>
+                        <style.CustomDropdown.Toggle id="style.CustomDropdown-basic">
+                            좋아요순
+                        </style.CustomDropdown.Toggle>
+
+                        <style.CustomDropdown.Menu>
+                            <style.CustomDropdown.Item href="#/action-1">Action</style.CustomDropdown.Item>
+                            <style.CustomDropdown.Item href="#/action-2">Another action</style.CustomDropdown.Item>
+                            <style.CustomDropdown.Item href="#/action-3">Something else</style.CustomDropdown.Item>
+                        </style.CustomDropdown.Menu>
+                    </style.CustomDropdown>
+                </style.DropDownContainer>
+                <GridContainer>
+                    {posts.map((post, idx) => (
+                        <React.Fragment key={idx}>
+                        {posts.length-1 === idx ? (
+                            <ListItem
+                            ref={ref}
+                            >
+                                <Card
+                                    image = {post.image}
+                                    title = {post.title}
+                                    idx = {post.idx}
+                                    liked= {post.liked}
+                                    avatar= {post.writer_avatar}
+                                    views = {post.views}
+                                    likes = {post.likes}
+                                />
+                            </ListItem>
+                        ) : (
+                            <ListItem >
+                                <Card
+                                    image = {post.image}
+                                    title = {post.title}
+                                    idx = {post.idx}
+                                    liked= {post.liked}
+                                    avatar= {post.writer_avatar}
+                                    views = {post.views}
+                                    likes = {post.likes}
+                                />
+                            </ListItem>
+                        )
+                        }
+                        </React.Fragment>
+                    ))
                     }
-                    </React.Fragment>
-                ))
-                }
-            </GridContainer>
+                </GridContainer>
+            </>
         )
         
        

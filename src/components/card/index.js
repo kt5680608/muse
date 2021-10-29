@@ -31,24 +31,6 @@ function Card({idx, title, image, liked, avatar, views, likes}) {
         history.push(`/display-details/${idx}`)
     }
     
-    // const onClickToLike = async() => {
-    //     const post_idx = idx
-    //     const token = JSON.parse(localStorage.getItem('token'));
-    //     await axios.post("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/like/",{
-    //         "user_id": token.user.user_id,
-    //         "post_idx": post_idx
-    //     })
-    //     .then(res => {
-    //         try{
-    //             console.log(res.data);
-    //             setIsLiked(!isLiked);
-    //         }
-    //         catch(e){
-    //             console.log(e)
-    //         }
-    //     })
-    // }
-
     return (
             <CardContainer
                 whileHover = {{ scale: 1.05}}
