@@ -4,37 +4,44 @@ export const Viewport = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: row;
-    align-items: flex-start;
     overflow-y: visible;
-    width: 80vw;
+    width: 94vw;
 `
 
-export const MuseNumContainer = styled.div`
-    display: flex;
-    width: 80vw;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
+export const MuseInfoContainer = styled.div`
+  
 `
 
 export const MuseContainer = styled.div`
-    width: 90%;
+    width: 80%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     padding: 24px;
 `
 
 export const MuseImg = styled(motion.img)`
-    width: 50%;
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+
 `
 
 export const MuseNumber = styled.h1`
     display: block;
-    padding: 24px;
     font-family: R-FLEX-BLACK;
     font-size: var(--g-text-font-size-7);
-    margin: 0;
+    margin-bottom: 24px;
+`
+
+export const MuseH1 = styled.h1`
+    display: block;
+    font-family: Noto-Sans-KR;
+    font-weight: 900;
+    font-size: var(--g-text-font-size-5);
+    margin-bottom: 12px;
+
+
 `
 
 export const MuseImgContainer = styled.div`

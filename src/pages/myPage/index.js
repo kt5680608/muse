@@ -73,7 +73,7 @@ function MyPage() {
                 <h1>{getUserInfo}</h1>
                 <Avatar src={getUserAvatar}></Avatar>
                 <form onSubmit = { handleSubmit } encType="multipart/form-data">
-                    <input type="text" onChange = { onChangeNickname } />
+                    <input type="text" onChange = { onChangeNickname } pattern="[A-Za-z]+"/>
                     <input type="file" name = 'images' onChange = {onChangeProfileImage}/>
                     <button type = "submit" onClick = { onClickToSubmit} onKeyPress = {onPressEnter}> 제출</button>
                 </form>

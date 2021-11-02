@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from 'react'
 import * as style from './style'
-function MuseCard({idx, title, image, avatar, views, likes, week, writer}) {
-    return (
-        <style.Viewport>
-                <style.MuseNumber>MUSE.0{week}</style.MuseNumber>
-            <style.MuseContainer>
-                    <style.MuseImg src = {`${image}`}
+function MuseCard({idx, title, image, avatar, views, likes, week, content, writer}) {
+        return(
+            <style.MuseContainer>   
+                <style.MuseInfoContainer>
+                    <style.MuseNumber>
+                        MUSE.0{week}
+                    </style.MuseNumber>
+                    <style.MuseH1>
+                        Title: {title}
+                    </style.MuseH1>
+                    <style.MuseH1>
+                        Writer: {writer}
+                    </style.MuseH1>
+                    <style.MuseH1>
+                        {content}
+                    </style.MuseH1>
+                </style.MuseInfoContainer>
+                <style.MuseImg src = {`${image}`}
                         whileHover = {{
-                            scale: 1.04
+                            scale: 1.02
                         }}
                         whileTap = {{
-                            scale: .9
+                            scale: .98
                         }}
-                    />      
+                    />   
             </style.MuseContainer>
-            {title}
-        </style.Viewport>
-    )
+        )
 }
 
 export default MuseCard
