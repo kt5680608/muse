@@ -151,8 +151,14 @@ function DetailPost() {
 
         try{
             await dispatch(updatePost(formData, postIdx));
-            handleClose();
-            history.push('/replace');
+            await Swal.fire({
+                icon: 'success',
+                title: 'Change Complete',
+                text: '게시물이 수정되었습니다',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            window.location.reload();
         }
         catch(e){
             console.error(e);
@@ -174,8 +180,8 @@ function DetailPost() {
             else{
                 const postIdx = idx;  
                 const data = currentComments;
-                dispatch(getCommentPost(postIdx, data));
-            }                                                               console.log('살려줭');
+                await dispatch(getCommentPost(postIdx, data));
+            }                                                               
         }
         catch(e){
             console.error(e);
@@ -206,10 +212,16 @@ function DetailPost() {
         }
     }
 
-    const onClickToDeletePost = () => {
+    const onClickToDeletePost = async() => {
         const postIdx = idx;
         dispatch(deletePost(postIdx))
-        console.log('삭제')
+        await Swal.fire({
+            icon: 'success',
+            title: 'Delete Complete',
+            text: '게시물이 삭제되었습니다',
+            showConfirmButton: false,
+            timer: 1500
+          })
         history.push('/')
     }
 
@@ -220,15 +232,6 @@ function DetailPost() {
         else{
             setLikesCount(likesCount+1)
         }
-    }
-
-
-    const handleCloseAlert = () => {
-        setShowAlert(false);
-    }
-
-    const handleShowAlert = () => {
-        setShowAlert(true);
     }
 
     if(loading == true){

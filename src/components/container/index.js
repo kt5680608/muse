@@ -12,11 +12,11 @@ function MainContainer() {
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [options, setOptions] = useState('likes');
+    const [options, setOptions] = useState('인기순');
     const [ref, inView] = useInView({trackVisibility: true, delay: 100});
     const getPosts = useCallback(async () => {
         setLoading(true)
-        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/?order=${options}`)
+        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/`)
         .then(res => {
             try{
                     console.log(options);
@@ -92,7 +92,7 @@ function MainContainer() {
     const likesOrder = () => {
         setPosts([]);
         setPage(1);
-        setOptions('likes');
+        setOptions('인기순');
         console.log(options)
         getPostsLikes();
     }
@@ -100,7 +100,7 @@ function MainContainer() {
     const viewsOrder = () => {
         setPosts([]);
         setPage(1);
-        setOptions('views');
+        setOptions('조회수순');
         console.log(options)
         getPostsViews();
     }
@@ -108,8 +108,7 @@ function MainContainer() {
     const recentOrder = () => {
         setPosts([]);
         setPage(1);
-        setOptions('recent');
-        console.log(options);
+        setOptions('최신순');
         getPostsRecent();
     }
       
@@ -140,7 +139,7 @@ function MainContainer() {
                 <style.DropDownContainer>
                     <style.CustomDropdown>
                         <style.CustomDropdown.Toggle id="style.CustomDropdown-basic">
-                            정렬
+                            {options}
                         </style.CustomDropdown.Toggle>
                             <style.CustomDropdown.Menu>
                                 <style.CustomDropdown.Item href="#/action-1" onClick = {likesOrder} value = "hi">인기순</style.CustomDropdown.Item>

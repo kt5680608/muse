@@ -1,12 +1,14 @@
-import React from 'react'
-import { Navbar } from '../../components'
-import './Muse.css'
-function Muse() {
+import React, { useState, useCallback, useEffect} from 'react'
+import { Navbar, Banner, MuseContainer } from '../../components'
+import * as style from './style'
+import axios from 'axios'
+function Muse() {    
     return (
-        <div>
+        <style.MusePage>
             <Navbar/>            
-            <h1>MUSE PAGE</h1>
-        </div>
+            <Banner/>
+            <MuseContainer/>
+        </style.MusePage>
     )
 }
 

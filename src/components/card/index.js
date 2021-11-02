@@ -34,6 +34,7 @@ function Card({idx, title, image, liked, avatar, views, likes}) {
     return (
             <CardContainer
                 whileHover = {{ scale: 1.05}}
+                whileTap = {{scale: 0.95}}
             >
                     <ImageContainer src={`${image}`} onClick = {onClickHistoryPush}/>
                 <InfoContainer>
