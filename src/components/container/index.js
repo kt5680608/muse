@@ -142,7 +142,7 @@ function MainContainer() {
                             {options}
                         </style.CustomDropdown.Toggle>
                             <style.CustomDropdown.Menu>
-                                <style.CustomDropdown.Item href="#/action-1" onClick = {likesOrder} value = "hi">인기순</style.CustomDropdown.Item>
+                                <style.CustomDropdown.Item href="#/action-1" onClick = {likesOrder}>인기순</style.CustomDropdown.Item>
                                 <style.CustomDropdown.Item href="#/action-2" onClick = {viewsOrder}>조회수순</style.CustomDropdown.Item>
                                 <style.CustomDropdown.Item href="#/action-3" onClick = {recentOrder}>최신순</style.CustomDropdown.Item>
                             </style.CustomDropdown.Menu>

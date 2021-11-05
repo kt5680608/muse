@@ -23,6 +23,7 @@ export const GlobalStyle = createGlobalStyle`
     --g-text-font-size-5: 24px;
     --g-text-font-size-6: 36px;
     --g-text-font-size-7: 48px;
+    --g-text-font-size-8: 60px;
 
     .html{
         width: 100%;

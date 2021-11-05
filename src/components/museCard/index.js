@@ -10,12 +10,12 @@ function MuseCard({idx, title, image, avatar, views, likes, week, content, write
                     <style.MuseH1>
                         Title: {title}
                     </style.MuseH1>
-                    <style.MuseH1>
-                        Writer: {writer}
-                    </style.MuseH1>
-                    <style.MuseH1>
+                    <style.MuseWriterH2>
+                        <style.Avatar src = {avatar}/>{writer}
+                    </style.MuseWriterH2>
+                    <style.MuseH2>
                         {content}
-                    </style.MuseH1>
+                    </style.MuseH2>
                 </style.MuseInfoContainer>
                 <style.MuseImg src = {`${image}`}
                         whileHover = {{
