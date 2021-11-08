@@ -2,14 +2,9 @@ import React, {useState} from 'react'
 import 'gestalt/dist/gestalt.css'
 import { Box, Button, Checkbox, CompositeZIndex, FixedZIndex, Flex, Text, Layer, Modal } from "gestalt";
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-function RulesModal(props) {
-    const [agree, setAgree] = useState(false);
-    const isLogged = useSelector(state => state.authReducer.authData);
-    const onClickAgree = () => {
-        setAgree(!agree);
-        console.log(isLogged);
-    }
+import { RulesModal, Logo } from '../../components'
+import { motion } from 'framer'
+function LoginModal(props) {
     const ModalWithHeading = ({
       onDismiss,
     }) => {
@@ -17,34 +12,29 @@ function RulesModal(props) {
       return (
         <Modal
           accessibilityModalLabel="MUSE 이용약관"
-          heading="MUSE 이용약관"
-          onDismiss={onDismiss}
-          footer={
-            <Flex alignItems="center" justifyContent="end">
-                { agree == true ?
+          heading={
+            <Box paddingX={8} overflow = "hidden">
+            <Box marginBottom={8} marginTop = {8}>
+                <Flex justifyContent = "center">
+                    <Box marginBottom = {3}>
+                        <Logo/>
+                    </Box>
+                </Flex>
+                <Flex alignItems="center" justifyContent="center" direction = "row" gap = "6">
+                    <RulesModal/>
                     <Link to = "/auth">
-                        <Button color="blue" text="다음으로 넘어가기"/>
+                        <Button size="lg" color="blue" text="로그인" />
                     </Link>
-                :
-                    <></>
-                }
             </Flex>
-          }
-          size="sm"
-        >
-          <Box paddingX={8}>
-            <Box marginBottom={8}>
-                <Text>약관에 존나게 동의하십니까?</Text>
+            <Box marginTop = {3}>
+                <Text size = "sm" align = "center" weight = "normal" color = "gray" > 1초 회원가입 후 이용 가능합니다</Text>
             </Box>
-            <Checkbox
-              checked={agree}
-              id="secret"
-              label="동의합니다."
-              subtext="위 약관을 모두 확인하였으며 동의합니다."
-              name="languages"
-              onClick = {onClickAgree}
-            />
+            </Box>
           </Box>
+          }
+          onDismiss={onDismiss}
+          size=""
+        >
         </Modal>
       );
     };
@@ -68,4 +58,4 @@ function RulesModal(props) {
     );
   }
 
-export default RulesModal
+export default LoginModal

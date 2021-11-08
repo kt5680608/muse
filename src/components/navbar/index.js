@@ -4,7 +4,7 @@ import * as actionType from '../../constants/actionTypes';
 import { userInfo } from '../../actions/userInfo'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery as MediaQuery } from 'react-responsive'
-import { RulesModal } from '../../components'
+import { RulesModal, LoginModal } from '../../components'
 import { Container, 
         NavContainerDesktop,
         NavContainerTablet,
@@ -73,7 +73,7 @@ import { Container,
                     <SearchIcon size = {24}/>
                     
                     { isLogged == false || null ?
-                    <RulesModal/>
+                    <LoginModal/>
                     :
                     <CustomDropdown className = "shadow-none">
                         <CustomDropdown.Toggle  id="dropdown-menu-align-end">

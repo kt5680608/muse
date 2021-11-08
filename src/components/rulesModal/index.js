@@ -55,8 +55,8 @@ function RulesModal(props) {
   
     return (
       <React.Fragment>
-        <Button
-          text="로그인"
+        <Button size= "lg"
+          text="회원가입"
           onClick={() => setShouldShow(true)}
         />
         {shouldShow && (
