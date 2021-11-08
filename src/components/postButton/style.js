@@ -54,6 +54,13 @@ export const QaButton = styled(BsFillQuestionCircleFill)`
 `
 export const CustomModal = styled(Modal)`
     overflow: visible;
+    .modal-body{
+        
+    }
+    .modal-content{
+        border: none;
+        border-radius: 16px;
+    }
 `
 
 export const CustomInput = styled.input`

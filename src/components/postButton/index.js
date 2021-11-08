@@ -92,8 +92,6 @@ function PostButton() {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
-                <style.CustomModal.Header closeButton>
-                </style.CustomModal.Header>
                 <style.CustomModal.Body>
                 <style.CustomForm onSubmit = { handleSubmit }
                     encType="multipart/form-data"

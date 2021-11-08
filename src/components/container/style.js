@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Dropdown } from 'react-bootstrap'
+import { Dropdown as GDropdown } from 'gestalt'
 export const DropDownContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -11,6 +12,8 @@ export const GridContainer = styled.div`
     grid-template-columns: auto auto auto auto;
     grid-gap: 12px;
     justify-content: center;
+    position: relavtive;
+    z-index: -1;
 `
 export const ListItem = styled.div`
 `
@@ -60,4 +63,9 @@ export const CustomDropdown = styled(Dropdown)`
     .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
     box-shadow: none;
     }
+`
+
+export const GestaltDropdown = styled(GDropdown)`
+    position: relative;
+    z-index: 1000;
 `

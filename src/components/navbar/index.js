@@ -4,6 +4,7 @@ import * as actionType from '../../constants/actionTypes';
 import { userInfo } from '../../actions/userInfo'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery as MediaQuery } from 'react-responsive'
+import { RulesModal } from '../../components'
 import { Container, 
         NavContainerDesktop,
         NavContainerTablet,
@@ -18,9 +19,9 @@ import { Container,
         BurgerIcon,
         DropdownMenu,
         Avatar,
-        CustomNavLink
+        CustomNavLink,
     } from './style'
-import NavModal from '../navModal'
+
     function Navbar() {
     //반응형 대응
     const isDesktop = MediaQuery({
@@ -72,7 +73,7 @@ import NavModal from '../navModal'
                     <SearchIcon size = {24}/>
                     
                     { isLogged == false || null ?
-                    <NavItem><Link to = '/auth'>로그인</Link></NavItem>
+                    <RulesModal/>
                     :
                     <CustomDropdown className = "shadow-none">
                         <CustomDropdown.Toggle  id="dropdown-menu-align-end">
@@ -83,7 +84,7 @@ import NavModal from '../navModal'
                             <CustomDropdown.Item>
                                 <Link to = '/myPage'>마이페이지</Link>
                             </CustomDropdown.Item>
-                            <CustomDropdown.Item href="#/action-1" onClick = {logOutBtn}>
+                            <CustomDropdown.Item onClick = {logOutBtn}>
                                 로그아웃
                             </CustomDropdown.Item>
                         </CustomDropdown.Menu>

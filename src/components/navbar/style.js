@@ -5,6 +5,9 @@ import { CgProfile } from 'react-icons/cg'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { NavLink } from 'react-router-dom'
 import { motion } from 'framer'
+import { Button, Modal } from 'gestalt'
+import 'gestalt/dist/gestalt.css';
+
 export const Container = styled.div`
 width: 100vw;
 display: flex;
@@ -146,5 +149,9 @@ export const Avatar = styled.img`
     width: 24px;
     height: 24px;
     border-radius: 50%;
+`
+
+export const AgreeModal = styled(Modal)`
+
 `
 

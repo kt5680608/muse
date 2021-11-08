@@ -296,9 +296,6 @@ export const CustomDropdown = styled(Dropdown)`
         background-color: var(--g-color-blue);
         width: 72px;
         height: 36px;
-        position: absolute;
-        top: 16%;
-        right: 2.8%;
     }
     .btn-primary.dropdown-toggle:focus {
     box-shadow: none;
@@ -316,10 +313,10 @@ export const CustomDropdown = styled(Dropdown)`
         padding: 0;
         background-color: transparent;
         border: none;
-        color: var(--g-olor-blue);
+        color: var(--g-color-blue);
     }
     .dropdown-menu{
-        min-width: 48px;
+        min-width: 80px;
         background-color: white;
     }
 

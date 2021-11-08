@@ -5,7 +5,7 @@ import { Container,
 import { useInView } from 'react-intersection-observer'
 import Card from  '../card'
 import axios from "axios"
-import { useDispatch, useSelector} from 'react-redux'
+
 import * as style from './style'
 
 function MainContainer() {
