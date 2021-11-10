@@ -7,12 +7,13 @@ import { Navbar } from '../../components'
 import Image from "react-bootstrap/Image";
 import{ Avatar, MyPageContainer } from './style'
 
-function MyPage() {
+function MyPage({match}) {
     const getUserInfo = useSelector(state => state.userInfo.nickname);
     const getUserAvatar = useSelector(state => state.userInfo.avatar);
     const history = useHistory();
     const dispatch = useDispatch();
     const [nickname, setNickname] = useState('');
+    const myPageOwner = match.params;
     const [cover, setCover] = useState(); 
     const onChangeNickname = (e) => {
         setNickname(e.target.value);
@@ -61,6 +62,18 @@ function MyPage() {
     }
     useEffect(() => {
         dispatch(userInfo());
+        console.log(myPageOwner)
+        const token = JSON.parse(localStorage.getItem('token'));
+        return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/my-page/${myPageOwner.writer}/`,{
+            method: 'GET',
+            headers:{
+                Authorization: `${token.token}`
+            }
+            })
+            .then(res => res.json())
+            .then((data) => {
+                console.log(data)
+            })
         //console.log('페이지 렌더가 될 때마다 userInfo를 가져옵니다')
         //console.log('getUserInfo:', getUserInfo)
     },[])

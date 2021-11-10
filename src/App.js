@@ -28,7 +28,7 @@ function App() {
         <Route path = '/muse' component={ Muse } />
         <Route path = '/archives' component={Archives}/>
         <Route path = "/userUpdate" component = { UserUpdate }/>
-        <Route path = "/mypage" component = { MyPage }/>
+        <Route path = "/my-page/:writer" component = { MyPage }/>
         <Route path = "/replace" component={ Replace }/>
         <Route path = "/contest" component = {Contest} />
         <Route exact path = "/display-details/:currentIdx" component = {DetailPost}/>        

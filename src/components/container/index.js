@@ -162,6 +162,7 @@ function MainContainer() {
                                     idx = {post.idx}
                                     liked= {post.liked}
                                     avatar= {post.writer_avatar}
+                                    writer = {post.writer}
                                     views = {post.views}
                                     likes = {post.likes}
                                 />
@@ -174,6 +175,7 @@ function MainContainer() {
                                     idx = {post.idx}
                                     liked= {post.liked}
                                     avatar= {post.writer_avatar}
+                                    writer = {post.writer}
                                     views = {post.views}
                                     likes = {post.likes}
                                 />

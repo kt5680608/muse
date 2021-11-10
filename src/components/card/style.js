@@ -13,9 +13,10 @@ export const CardContainer = styled(motion.div)`
     cursor: pointer;
     overflow: hidden;
     margin-bottom: 12px;
+    border-radius: 12px;
 `
 
-export const ImageContainer = styled.img`
+export const ImageContainer = styled(motion.img)`
     width: 100%;
     height: 220px;
     display: flex;
@@ -42,7 +43,7 @@ export const PostStatusContainer = styled.div`
     align-items: center;
 `
 
-export const PostTitle = styled.h1`
+export const PostWriter = styled.h1`
     font-size: 16px;
     font-weight: 500;
     margin: 0;

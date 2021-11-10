@@ -35,6 +35,12 @@ import { Container,
     })
     const isLogged = useSelector(state => state.authReducer.authData);
     const getUserAvatar = useSelector(state => state.userInfo.avatar);
+    const getUserNickname = useSelector(state => state.userInfo.nickname);
+
+    const history = useHistory();
+    const onClickHistoryPushMine = () => {
+        history.push(`/my-page/${getUserNickname}`)
+    }
     const dispatch = useDispatch();
     const logOutBtn = () => {
         dispatch({ type: actionType.LOG_OUT });
@@ -85,8 +91,8 @@ import { Container,
                         </CustomDropdown.Toggle>
 
                         <CustomDropdown.Menu>
-                            <CustomDropdown.Item>
-                                <Link to = '/myPage'>마이페이지</Link>
+                            <CustomDropdown.Item onClick = {onClickHistoryPushMine}>
+                                마이페이지
                             </CustomDropdown.Item>
                             <CustomDropdown.Item onClick = {logOutBtn}>
                                 로그아웃

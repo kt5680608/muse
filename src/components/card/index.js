@@ -3,11 +3,10 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter, Link } from 'react-router-dom';
 import { DetailPost } from '../.././pages'
-import { Modal, ModalLink } from 'react-router-modal';
 import 'react-router-modal/css/react-router-modal.css'
 import { CardContainer,
         ImageContainer,
-        PostTitle,
+        PostWriter,
         LikesIcon,
         InfoContainer,
         EyeIcon,
@@ -20,27 +19,31 @@ import { CardContainer,
 } from './style'
 import { useHistory } from 'react-router-dom'
 import { likeBtn } from '../../actions/likeBtn'
-import { currentIdx } from '../../actions/currentIdx'
 
-function Card({idx, title, image, liked, avatar, views, likes}) {
+function Card({idx, title, image, liked, avatar, views, likes, writer}) {
     const [isLiked, setIsLiked] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
-    const onClickHistoryPush = () => { 
+    const onClickHistoryPushIdx = () => { 
         console.log(idx);
         history.push(`/display-details/${idx}`)
     }
+
+    const onClickHistoryPushNickname = () => {
+        console.log(writer);
+        history.push(`/my-page/${writer}`)
+    }
     
     return (
-            <CardContainer
-                whileHover = {{ scale: 1.05}}
-                whileTap = {{scale: 0.95}}
-            >
-                    <ImageContainer src={`${image}`} onClick = {onClickHistoryPush}/>
+            <CardContainer>
+                    <ImageContainer src={`${image}`} onClick = {onClickHistoryPushIdx}
+                        whileHover = {{ scale: 1.05}}
+                        whileTap = {{scale: 0.95}}
+                    />
                 <InfoContainer>
-                    <WriterContainer>
+                    <WriterContainer onClick = {onClickHistoryPushNickname}>
                         <Avatar src={avatar} alt=""/>
-                        <PostTitle>{title}</PostTitle>
+                        <PostWriter>{writer}</PostWriter>
                     </WriterContainer>
                     <PostStatusContainer>
                         <LikesIcon />
