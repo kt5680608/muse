@@ -63,7 +63,7 @@ function DetailPost() {
                 setComments(data.comment);
             })
             .finally(() => {
-                setLoading(false);
+                setTimeout(() => {setLoading(false);} , 500)
             })
         }
         else{
@@ -159,10 +159,11 @@ function DetailPost() {
         }
     }
 
-    const onClickToSubmit = async(e) => {
+    const onClickToSubmit = async() => {
         try{
+            const token = JSON.parse(localStorage.getItem('token'))
+          
             if(currentComments == ''){
-                e.preventDefault();
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -171,10 +172,20 @@ function DetailPost() {
                     timer: 1500
                   })
             }
+            else if( token == undefined){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '로그인을 해주세요',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            }
             else{
                 await dispatch(uploadCommentPost(postIdxUrl, currentComments));
                 window.location.reload();
-            }                                                               
+            }
+                                                   
         }
         catch(e){
             console.error(e);
@@ -184,11 +195,6 @@ function DetailPost() {
     const onChangeComment = (e) => {
         e.preventDefault();
         setCurrentComments(e.target.value);
-        console.log(currentComments);
-    }
-
-    const resetInputTag = () => {
-        setCurrentComments('');
         console.log(currentComments);
     }
 

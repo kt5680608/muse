@@ -1,6 +1,8 @@
 import React from 'react'
 import Success from './pages/auth/Success'
 import Auth from './pages/auth/Auth'
+import Register from './pages/Register/Register'
+import RegisterSuccess from './pages/Register/RegisterSuccess'
 import { Home,
           Archives,
           Muse,
@@ -20,7 +22,9 @@ function App() {
       <Router>
         <Route exact path = '/' component = { Home } />
         <Route path = '/auth' component={ Auth } />
-        <Route path = '/success' component={ Success } />
+        <Route path = '/redirect-login' component={ Success } />
+        <Route path = '/register' component = {Register}/>
+        <Route path = '/redirect-register' component = {RegisterSuccess}/>
         <Route path = '/muse' component={ Muse } />
         <Route path = '/archives' component={Archives}/>
         <Route path = "/userUpdate" component = { UserUpdate }/>

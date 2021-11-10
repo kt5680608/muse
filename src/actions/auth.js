@@ -11,6 +11,16 @@ export const kakaoLogin = ( authorizeCodeFromKakao ) => async(dispatch) => {
     }
 }
 
+export const kakaoRegister= ( authorizeCodeFromKakao ) => async(dispatch) => {
+    try{
+        const response = await api.kakaoRegister(authorizeCodeFromKakao);
+        dispatch({type: AUTH, payload: response});
+    }
+    catch(error){
+        console.log('actions/auth 에러', error)
+    }
+}
+
 export const logOut = () => async(dispatch) => {
     try{
         dispatch({type: LOG_OUT});

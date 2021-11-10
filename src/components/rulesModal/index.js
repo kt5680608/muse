@@ -22,7 +22,7 @@ function RulesModal(props) {
           footer={
             <Flex alignItems="center" justifyContent="end">
                 { agree == true ?
-                    <Link to = "/auth">
+                    <Link to = "/register">
                         <Button color="blue" text="다음으로 넘어가기"/>
                     </Link>
                 :

@@ -35,6 +35,50 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
         })
 }
 
+export const kakaoRegister = (authorizeCodeFromKakao) => {
+  return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/register/",{
+        method: "POST",
+        headers: {
+          'content-type' : 'application/json'
+        },
+        body : JSON.stringify({
+          "code": authorizeCodeFromKakao
+        })
+        
+      })
+      .then(res => res.json())
+      .then((data) => {
+        try{
+          console.log(data);
+          if ( data.result == false ) {
+            return(
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '이미 회원가입 되어있습니다.',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            )
+          }
+          else if ( data.result == true ) {
+            return(
+              Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '회원가입이 완료되었습니다',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            )
+          }
+          return data;
+        }
+        catch{
+          console.log('data')
+        }
+      })
+}
 export const nicknameUpdate = (nickname) => {
   const token = JSON.parse(localStorage.getItem('token'));
   return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update/nickname/",{

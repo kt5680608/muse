@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 function Auth() {
 
     const { Kakao } = window;
-    const redirectUri = "http://localhost:3000/redirect-login"
+    const redirectUri = "http://localhost:3000/redirect-register"
     const onClickToAuthorize = () =>{
         Kakao.Auth.authorize({
         redirectUri : redirectUri
