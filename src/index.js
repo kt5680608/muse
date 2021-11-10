@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router, HashRouter } from 'react-router-dom'
 // redux 셋팅
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -22,7 +22,7 @@ ReactDOM.render(
     <FontStyle/>
     <GlobalStyle/>
       <Provider store = {store}>
-          <App />
+            <App />
       </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export const kakaoLogin = (authorizeCodeFromKakao) => {
     return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/login/",{
@@ -14,6 +15,18 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
         .then(res => res.json())
         .then((data) => {
           try{
+            console.log(data);
+            if ( data.result == false ) {
+              return(
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: '회원가입 해주세요',
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+              )
+            }
             return data;
           }
           catch{
@@ -95,15 +108,15 @@ export const detailPost = (postIdxUrl) => {
   })
 }
 
-export const CommentUpload = (postIdx, data) => {
+export const CommentUpload = (idx, currentComments) => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/comment/upload/${postIdx}/`,{
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/comment/upload/${idx}/`,{
     method: 'POST',
     headers:{
       Authorization: `${token.token}`
     },
     body: JSON.stringify({
-      "comment" : data
+      "comment" : currentComments
     })
   })
 }

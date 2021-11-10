@@ -70,7 +70,7 @@ export const CommentContainer = styled.div`
 }
 `
 
-export const CommentPostContainer = styled.form`
+export const CommentPostContainer = styled.div`
 
 `
 

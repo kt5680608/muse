@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Navbar } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDetailPost, getCommentPost, updatePost, deletePost } from '../../actions/post'
+import { getDetailPost, uploadCommentPost, updatePost, deletePost} from '../../actions/post'
 import { sendIsLiked } from '../../actions/likeBtn'
 import { useHistory, Link } from 'react-router-dom'
 import { userInfo } from '../../actions/userInfo'
@@ -87,18 +87,12 @@ function DetailPost() {
                 setLikesCount(data.likes);
                 setWriterAvatar(data.writer_avatar);
                 setComments(data.comment);
-                console.log(hashtags)
-                console.log(data)
             })
             .finally(() => {
                 setTimeout(() => {setLoading(false);} , 1000)
             })
         }
     },[])
-    const onChangeComment = (e) => {
-        e.preventDefault();
-        setCurrentComments(e.target.value);
-    }
 
     const [modalSize, setModalSize] = useState('lg');
 
@@ -178,14 +172,24 @@ function DetailPost() {
                   })
             }
             else{
-                const postIdx = idx;  
-                const data = currentComments;
-                await dispatch(getCommentPost(postIdx, data));
+                await dispatch(uploadCommentPost(postIdxUrl, currentComments));
+                window.location.reload();
             }                                                               
         }
         catch(e){
             console.error(e);
         }
+    }
+
+    const onChangeComment = (e) => {
+        e.preventDefault();
+        setCurrentComments(e.target.value);
+        console.log(currentComments);
+    }
+
+    const resetInputTag = () => {
+        setCurrentComments('');
+        console.log(currentComments);
     }
 
     const onClickToLike = () => {
@@ -213,7 +217,7 @@ function DetailPost() {
     }
 
     const onClickToDeletePost = async() => {
-        const postIdx = idx;
+        const postIdx = postIdxUrl;
         dispatch(deletePost(postIdx))
         await Swal.fire({
             icon: 'success',
@@ -374,15 +378,14 @@ function DetailPost() {
                                                         <style.CommentLi>{comment.comment}</style.CommentLi>
                                                     </>
                                                 </style.CustomUl>
-                                                
                                             }) :
                                             <></>
-                                        }                                   
+                            }                           
                         </div>
                         </style.CommentContainer>
                         <style.CommentPostContainer>
-                            <style.CommentInput onChange = {onChangeComment}/>
-                            <style.CommentSubmitButton onClick = {onClickToSubmit} onKeyPress = {onKeyPressEnter}>게시</style.CommentSubmitButton>
+                            <style.CommentInput onChange = {onChangeComment} value = {currentComments} onKeyPress = {onKeyPressEnter}/>
+                            <style.CommentSubmitButton onClick = {onClickToSubmit}>게시</style.CommentSubmitButton>
                         </style.CommentPostContainer>
                     </style.CommentAllContainer>
                     </style.InfoContainer>

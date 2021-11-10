@@ -4,12 +4,14 @@ import { Navbar,
     Container,
     PostButton } from '../../components'
 import { userInfo } from '../../actions/userInfo'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 function Home() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(userInfo());
     },[])
+
+
     return (
         <div>
             <Navbar/>

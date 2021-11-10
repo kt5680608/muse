@@ -40,6 +40,10 @@ import { Container,
         dispatch({ type: actionType.LOG_OUT });
     }
 
+    useEffect(() => {
+        dispatch(userInfo());
+    },[])
+
     return (
         <div>
         {isDesktop &&
@@ -72,7 +76,7 @@ import { Container,
                 <NavContainerRight>
                     <SearchIcon size = {24}/>
                     
-                    { isLogged == false || null ?
+                    { isLogged == false || isLogged == null?
                     <LoginModal/>
                     :
                     <CustomDropdown className = "shadow-none">

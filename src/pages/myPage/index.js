@@ -61,7 +61,6 @@ function MyPage() {
     }
     useEffect(() => {
         dispatch(userInfo());
-        
         //console.log('페이지 렌더가 될 때마다 userInfo를 가져옵니다')
         //console.log('getUserInfo:', getUserInfo)
     },[])
