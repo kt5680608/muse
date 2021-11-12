@@ -80,7 +80,7 @@ import { Container,
                 </NavContainerLeft>
                     <Link to = '/'><Logo>MUSE</Logo></Link>
                 <NavContainerRight>
-                    <SearchIcon size = {24}/>
+
                     
                     { isLogged == false || isLogged == null?
                     <LoginModal/>

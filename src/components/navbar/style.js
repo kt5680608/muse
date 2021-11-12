@@ -9,7 +9,6 @@ import { Button, Modal } from 'gestalt'
 import 'gestalt/dist/gestalt.css';
 
 export const Container = styled.div`
-width: 100vw;
 display: flex;
 justify-content: center;
 margin: 8px 0 8px 0;
@@ -44,7 +43,7 @@ export const NavContainerLeft = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-basis: 240px;
+    flex-basis: 258px;
 `
 export const NavContainerRight = styled(NavContainerLeft)`
     justify-content: flex-end;

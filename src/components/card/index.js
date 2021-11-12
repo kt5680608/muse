@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { BrowserRouter, Link } from 'react-router-dom';
-import { DetailPost } from '../.././pages'
 import 'react-router-modal/css/react-router-modal.css'
 import { CardContainer,
         ImageContainer,

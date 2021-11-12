@@ -24,6 +24,7 @@ export const GlobalStyle = createGlobalStyle`
     --g-text-font-size-6: 36px;
     --g-text-font-size-7: 48px;
     --g-text-font-size-8: 60px;
+    --g-text-font-size-9: 72px;
 
     .html{
         width: 100%;
@@ -67,10 +68,10 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     h1{
-        font-family: "Helvetica";
+        margin: 0;
+        padding: 0;
     }
     p{
-        font-family: "Helvetica";
         margin: 0;
         padding: 0;
     }
