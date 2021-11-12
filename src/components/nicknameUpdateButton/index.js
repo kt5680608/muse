@@ -7,13 +7,23 @@ import { Avatar,
 } from './style'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+function Input(nickname){
+    const [originalNickname, setOriginalNickname] = useState(nickname.nickname);
+    const [originalAvatar, setOriginalAvatar] = useState(nickname.avatar);
+    const [changedNickname, setChangedNickname] = useState('');
+    const [changedAvatar, setChangedAvatar] = useState('');
+    const onChangeNickname = (e) => {
+        e.preventDefault();
+        setChangedNickname(e.target.value);
+        console.log(changedNickname);   
+    }
+    return(
+        <NicknameInput type = "text" placeholder = {nickname.nickname} onChange = {onChangeNickname}/>
+    )
+}
 function NicknameUpdateButton(nickname) {
     const [agree, setAgree] = useState(false);
     const isLogged = useSelector(state => state.authReducer.authData);
-    const onClickAgree = () => {
-        setAgree(!agree);
-        console.log(isLogged);
-    }
     useEffect (() => {
         console.log(nickname.nickname);
         console.log(nickname.avatar)
@@ -40,8 +50,11 @@ function NicknameUpdateButton(nickname) {
             </Box>
             <h1>{nickname.nickname}</h1>
             <Avatar src ={nickname.avatar}/>
+            <form>
             <NicknameLabel>닉네임</NicknameLabel>
-            <NicknameInput placeholder = {nickname.nickname}/>
+            <Input/>
+            <button type = "submit">daf</button>
+            </form>
           </Box>
         </Modal>
       );
