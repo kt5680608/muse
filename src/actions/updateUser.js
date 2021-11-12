@@ -1,10 +1,9 @@
 import { UPDATE_USER, PROFILE_IMAGE_UPLOAD } from '../constants/actionTypes'
 import * as api from '../api'
 
-export const updateUser = ( nickname ) => async(dispatch) => {
+export const updateUser = ( formData )  => {
     try{
-        await api.nicknameUpdate(nickname);
-        dispatch({type: UPDATE_USER});
+        api.updateUser(formData);
     }
     catch(error){
         console.log('actions/updateUser 에러', error)

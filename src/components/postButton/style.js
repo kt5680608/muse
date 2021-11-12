@@ -112,6 +112,9 @@ export const CustomTextarea = styled.textarea`
     background-color: var(--g-color-gray100);
     border-radius: 16px;
     padding: 16px;
+    &:focus{
+        outline:
+    }
 `
 
 export const Pre = styled.pre`

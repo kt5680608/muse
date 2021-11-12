@@ -3,30 +3,165 @@ import 'gestalt/dist/gestalt.css'
 import { Box, Button, Checkbox, CompositeZIndex, FixedZIndex, Flex, Text, Layer, Modal } from "gestalt";
 import { Avatar,
     NicknameInput,
-    NicknameLabel
+    NicknameLabel,
+    SubmitButton,
+    SubmitButtonContainer,
+    InputContainer,
+    ModalName,
+    Form,
+    Pre,
+    Textarea,
+    DeleteButton,
+    AvatarContainer
 } from './style'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-function Input(nickname){
-    const [originalNickname, setOriginalNickname] = useState(nickname.nickname);
-    const [originalAvatar, setOriginalAvatar] = useState(nickname.avatar);
+function Input(ownerInfo){
+    const [originalNickname, setOriginalNickname] = useState(ownerInfo.nickname);
+    const [originalAvatar, setOriginalAvatar] = useState(ownerInfo.avatar);
     const [changedNickname, setChangedNickname] = useState('');
-    const [changedAvatar, setChangedAvatar] = useState('');
+    const [changedAvatar, setChangedAvatar] = useState(null);
+    const [avatarPreview, setAvatarPreview ] = useState(null);
+    const [originalIntroduce, setOriginalIntroduce] = useState(ownerInfo.selfIntroduce);
+    const [changedIntroduce, setChangedIntroduce] = useState('');
+    const [deleteAvatarButton, setDeleteAvatarButton] = useState(false); 
+
     const onChangeNickname = (e) => {
         e.preventDefault();
         setChangedNickname(e.target.value);
-        console.log(changedNickname);   
+        console.log(changedNickname);
+    }
+
+    const onChangeAvatar = (e) => {
+        e.preventDefault();
+        setChangedAvatar(e.target.files[0]);
+        const imgTarget = (e.target.files)[0];
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL (imgTarget);
+        fileReader.onload = function(e){
+            setAvatarPreview(e.target.result);
+        }
+    }
+
+    const onChangeIntroduce = (e) => {
+        e.preventDefault();
+        setChangedIntroduce(e.target.value);
+        console.log(changedIntroduce);
+    }
+
+    const updateUser = (formData) => {
+        const token = JSON.parse(localStorage.getItem('token'));
+        return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update/`,{
+            method: 'POST',
+            headers:{
+            Authorization: `${token.token}`
+            },
+            body: formData
+        })
+        .then(res => res.json())
+        .then((data) =>{
+            console.log(data);
+            return data
+        }
+        )
+    }
+
+    const deleteAvatar = (e) => {
+        e.preventDefault();
+        setDeleteAvatarButton(true);
+        console.log(deleteAvatarButton);
+        console.log(originalIntroduce)
+        
+    }
+
+
+    const handleSubmit = async(e) => {
+        const formData = new FormData();
+        formData.append('nickname',changedNickname);
+        formData.append('avatar', changedAvatar);
+        formData.append('self_introduce', changedIntroduce);
+
+        if(changedNickname == ''){
+            formData.append('nickname', originalNickname);
+        }
+
+        if(changedAvatar == null){
+            //프로필 사진 안바뀌면 'original'
+            formData.append('avatar_state', 'original');
+        }
+        // 프로필 사진 제거하면 avatar_state = delete
+        if(deleteAvatarButton == true && changedAvatar == null){
+            formData.append('avatar_state', 'delete');
+        }
+        
+        if(changedIntroduce == ''){
+            formData.append('self_introduce', originalIntroduce);
+        }
+
+        try{
+            e.preventDefault();
+            await updateUser(formData);
+            if(changedNickname ==''){
+                console.log(originalNickname)
+                window.location.href = `http://localhost:3000/my-page/${originalNickname}`;
+            }
+            else{
+                window.location.href = `http://localhost:3000/my-page/${changedNickname}`;
+            }
+        }
+        catch(e){
+            console.error(e);
+        }
     }
     return(
-        <NicknameInput type = "text" placeholder = {nickname.nickname} onChange = {onChangeNickname}/>
+        <>
+            <form>
+                <InputContainer>
+                    <ModalName>프로필 수정</ModalName>
+                    <Form>
+                        <label htmlFor="input-file">
+                            { avatarPreview == null ?
+                                <AvatarContainer>
+                                    { deleteAvatarButton == false ?
+                                        <Avatar src ={ownerInfo.avatar}/> 
+                                    :
+                                        <Avatar src ="https://muse-bucket.s3.ap-northeast-2.amazonaws.com/media/public/default_avatar.png"/> 
+                                    }
+                                    <DeleteButton onClick = {deleteAvatar}>삭제</DeleteButton>
+                                </AvatarContainer>
+                                :
+                                <AvatarContainer>
+                                    <Avatar src = {avatarPreview} />
+                                    <DeleteButton onClick = {deleteAvatar}>삭제</DeleteButton>
+                                </AvatarContainer>
+                            }
+                        </label>
+                        <input type="file" id = "input-file" style ={{ display: "none" }} onChange = {onChangeAvatar}/>
+                        <div>
+                            <NicknameLabel>닉네임</NicknameLabel>
+                            <NicknameInput type = "text" placeholder = {ownerInfo.nickname} onChange = {onChangeNickname}/>
+                        </div>
+                        <div>
+                            <NicknameLabel>자기소개</NicknameLabel>
+                            <Pre>
+                                <Textarea placeholder = {originalIntroduce} onChange = {onChangeIntroduce}></Textarea>
+                            </Pre>
+                        </div>
+                    </Form>
+                    <SubmitButtonContainer>
+                        <SubmitButton type = "submit" onClick = {handleSubmit}>제출</SubmitButton>
+                    </SubmitButtonContainer>
+                </InputContainer>
+            </form>
+        </>
     )
 }
 function NicknameUpdateButton(nickname) {
-    const [agree, setAgree] = useState(false);
-    const isLogged = useSelector(state => state.authReducer.authData);
     useEffect (() => {
         console.log(nickname.nickname);
         console.log(nickname.avatar)
+        console.log(nickname.selfIntroduce)
     },[])
     const ModalWithHeading = ({
       onDismiss,
@@ -35,27 +170,16 @@ function NicknameUpdateButton(nickname) {
       return (
         <Modal
           accessibilityModalLabel="MUSE 이용약관"
-          heading="프로필 수정"
           onDismiss={onDismiss}
           footer={
-            <Flex alignItems="center" justifyContent="end">
-                        <Button color="blue" text="제출"/>
-            </Flex>
+            <Input
+                nickname = {nickname.nickname}
+                avatar = {nickname.avatar}
+                selfIntroduce = {nickname.selfIntroduce}
+            />
           }
           size="sm"
         >
-          <Box paddingX={8}>
-            <Box marginBottom={8}>
-                
-            </Box>
-            <h1>{nickname.nickname}</h1>
-            <Avatar src ={nickname.avatar}/>
-            <form>
-            <NicknameLabel>닉네임</NicknameLabel>
-            <Input/>
-            <button type = "submit">daf</button>
-            </form>
-          </Box>
         </Modal>
       );
     };

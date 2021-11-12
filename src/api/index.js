@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { useHistory } from 'react-router-dom'
 
 export const kakaoLogin = (authorizeCodeFromKakao) => {
     return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/login/",{
@@ -195,4 +196,22 @@ export const deletePost = (postIdx) => {
       Authorization: `${token.token}`
     }
   })
+}
+
+export const updateUser = (formData) => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update/`,{
+    method: 'POST',
+    headers:{
+      Authorization: `${token.token}`
+    },
+    body: formData
+  })
+  .then(res => res.json())
+  .then((data) =>{
+    useHistory.push(`/my-page/${data.nickname}`)
+    console.log(data);
+    return data
+  }
+  )
 }

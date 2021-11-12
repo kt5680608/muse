@@ -119,6 +119,7 @@ function MyPage({match}) {
                                 <NicknameUpdateButton
                                     avatar = {ownerInfo.avatar}
                                     nickname = {ownerInfo.nickname}
+                                    selfIntroduce = {ownerInfo.self_introduce}
                                 />
                                 :
                                 <></>
