@@ -8,7 +8,8 @@ function MuseContainer() {
     const [loading, setLoading] = useState(true);
     const getMuse = async() => {
         setLoading(true);
-        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/muse/`)
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+        await axios.get(`${API_DOMAIN}/posts/display/muse/`)
         .then(res => {
             try{
                 console.log(res.data);

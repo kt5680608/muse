@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Navbar } from '../../components'
+import { Navbar, Loading } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDetailPost, uploadCommentPost, updatePost, deletePost} from '../../actions/post'
 import { sendIsLiked } from '../../actions/likeBtn'
@@ -42,8 +42,9 @@ function DetailPost() {
     const [showModal, setShowModal] = useState(true);
     useEffect (() => {
         setLoading(true);
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         if (localStorage.getItem('token') == undefined) {
-            return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
+            return fetch(`${API_DOMAIN}/display/detail/${postIdxUrl}/`,{
             method: 'GET',
             })
             .then(res => res.json())
@@ -67,7 +68,7 @@ function DetailPost() {
             })
         }
         else{
-            return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
+            return fetch(`${API_DOMAIN}/posts/display/detail/${postIdxUrl}/`,{
                 method: 'GET',
                 headers: {
                 'Authorization' : `${token.token}`,
@@ -246,26 +247,7 @@ function DetailPost() {
 
     if(loading == true){
         return(
-            <style.LoadingContainer>
-                <style.LoadingH1
-                    animate = {{
-                        x: [1000 , -80, 20, 0, -1000]
-                    }}
-                    transition = {{
-                        ease: "easeInOut",
-                        times: [0, .75, 1.2]
-                    }}
-                >
-                    MUSE coming...
-                </style.LoadingH1>
-                <Loader
-        type="TailSpin"
-        color="var(--g-color-blue)"
-        height={70}
-        width={70}
-        timeout={560}
-      />
-            </style.LoadingContainer>
+            <Loading/>
         )
     }
 

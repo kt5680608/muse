@@ -2,8 +2,9 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useHistory } from 'react-router-dom'
 
+const API_DOMAIN = process.env.REACT_APP_API_DOMAIN
 export const kakaoLogin = (authorizeCodeFromKakao) => {
-    return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/login/",{
+    return fetch(`${API_DOMAIN}/accounts/login/`,{
           method: "POST",
           headers: {
             'content-type' : 'application/json'
@@ -37,7 +38,7 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
 }
 
 export const kakaoRegister = (authorizeCodeFromKakao) => {
-  return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/register/",{
+  return fetch(`${API_DOMAIN}/accounts/register/`,{
         method: "POST",
         headers: {
           'content-type' : 'application/json'
@@ -82,7 +83,7 @@ export const kakaoRegister = (authorizeCodeFromKakao) => {
 }
 export const nicknameUpdate = (nickname) => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch("http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update/nickname/",{
+  return fetch(`${API_DOMAIN}/accounts/update/nickname/`,{
     method: "POST",
     headers: {
       'Authorization' : `${token.token}`,
@@ -96,7 +97,7 @@ export const nicknameUpdate = (nickname) => {
 
 export const getUserInfo = () => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/info/`,{
+  return fetch(`${API_DOMAIN}/accounts/info/`,{
     method: 'GET',
     headers:{
       'content-type' : 'application/json',
@@ -111,7 +112,7 @@ export const getUserInfo = () => {
 
 export const profileImageUpload = (data) => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update/avatar/`,{
+  return fetch(`${API_DOMAIN}/accounts/update/avatar/`,{
     method: "POST",
     headers:{
       'Authorization' : `${token.token}`
@@ -122,7 +123,7 @@ export const profileImageUpload = (data) => {
 
 export const uploadPost = (data) => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/upload/`,{
+  return fetch(`${API_DOMAIN}/posts/upload/`,{
     method: "POST",
     headers: {
       'Authorization' : `${token.token}`
@@ -134,14 +135,14 @@ export const uploadPost = (data) => {
 export const detailPost = (postIdxUrl) => {
   const token = JSON.parse(localStorage.getItem('token'));
   if (localStorage.getItem('token') == undefined){
-    return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
+    return fetch(`${API_DOMAIN}/posts/display/detail/${postIdxUrl}/`,{
     })
     .then(res => res.json())
     .then((data) => {
       return data;
     })
   }
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/detail/${postIdxUrl}/`,{
+  return fetch(`${API_DOMAIN}/posts/display/detail/${postIdxUrl}/`,{
     method: 'GET',
     headers: {
       'Authorization' : `${token.token}`,
@@ -155,7 +156,7 @@ export const detailPost = (postIdxUrl) => {
 
 export const CommentUpload = (idx, currentComments) => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/comment/upload/${idx}/`,{
+  return fetch(`${API_DOMAIN}/posts/comment/upload/${idx}/`,{
     method: 'POST',
     headers:{
       Authorization: `${token.token}`
@@ -169,7 +170,7 @@ export const CommentUpload = (idx, currentComments) => {
 export const sendIsLiked = (postIdx) => {
   console.log( '좋아요 버튼 클릭')
   const token = JSON.parse(localStorage.getItem('token'))
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/like/${postIdx}/`,{
+  return fetch(`${API_DOMAIN}/posts/like/${postIdx}/`,{
     method: 'POST',
     headers:{
       Authorization: `${token.token}`
@@ -179,7 +180,7 @@ export const sendIsLiked = (postIdx) => {
 
 export const updatePost = (formData, postIdx) => {
   const token = JSON.parse(localStorage.getItem('token'))
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/update/${postIdx}/`,{
+  return fetch(`${API_DOMAIN}/posts/update/${postIdx}/`,{
     method: "POST",
     headers:{
       Authorization: `${token.token}`
@@ -190,7 +191,7 @@ export const updatePost = (formData, postIdx) => {
 
 export const deletePost = (postIdx) => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/delete/${postIdx}/`,{
+  return fetch(`${API_DOMAIN}/posts/delete/${postIdx}/`,{
     method: 'DELETE',
     headers:{
       Authorization: `${token.token}`
@@ -200,7 +201,7 @@ export const deletePost = (postIdx) => {
 
 export const updateUser = (formData) => {
   const token = JSON.parse(localStorage.getItem('token'));
-  return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update/`,{
+  return fetch(`${API_DOMAIN}/accounts/update/`,{
     method: 'POST',
     headers:{
       Authorization: `${token.token}`

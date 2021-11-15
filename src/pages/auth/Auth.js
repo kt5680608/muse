@@ -3,7 +3,8 @@ import React, { useEffect } from 'react'
 function Auth() {
 
     const { Kakao } = window;
-    const redirectUri = "http://localhost:3000/redirect-login"
+    const MUSE_DOMAIN = process.env.REACT_APP_MUSE_DOMAIN;
+    const redirectUri = `${MUSE_DOMAIN}/redirect-login`
     const onClickToAuthorize = () =>{
         Kakao.Auth.authorize({
         redirectUri : redirectUri

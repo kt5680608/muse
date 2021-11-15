@@ -10,120 +10,61 @@ import * as style from './style'
 
 function MainContainer() {
     const [posts, setPosts] = useState([]);
+    const [label, setLabel] = useState('인기순');
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [options, setOptions] = useState('인기순');
+    const [options, setOptions] = useState('likes');
     const [ref, inView] = useInView({trackVisibility: true, delay: 100});
     const getPosts = useCallback(async () => {
         setLoading(true)
-        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/`)
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+        await axios.get(`${API_DOMAIN}/posts/display/all/${page}/?order=${options}`)
         .then(res => {
             try{
-                    console.log(options);
                     const fetchedData = res.data;
                     const mergedData = posts.concat(...fetchedData);
                     setPosts(mergedData);
-                    console.log(res.data);
             }
             catch(e){
                 console.log(e);
             }
         })
         setLoading(false)
-        }, [page]
+        }, [page, options]
     )
-
-    const getPostsLikes = useCallback(async () => {
-        setLoading(true)
-        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/?order=likes`)
-        .then(res => {
-            try{
-                    console.log('좋아요순으로 받기')
-                    const fetchedData = res.data;
-                    const mergedData = posts.concat(...fetchedData);
-                    setPosts(mergedData);
-                    console.log(res.data);
-            }
-            catch(e){
-                console.log(e);
-            }
-        })
-        setLoading(false)
-        }, [page]
-    )
-    const getPostsViews= useCallback(async () => {
-        setLoading(true)
-        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/?order=views`)
-        .then(res => {
-            try{
-                    console.log('조회수순으로 받기')
-                    const fetchedData = res.data;
-                    const mergedData = posts.concat(...fetchedData);
-                    setPosts(mergedData);
-                    console.log(res.data);
-            }
-            catch(e){
-                console.log(e);
-            }
-        })
-        setLoading(false)
-        }, [page]
-    )
-
-    const getPostsRecent= useCallback(async () => {
-        setLoading(true)
-        await axios.get(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/posts/display/all/${page}/?order=recent`)
-        .then(res => {
-            try{
-                    console.log('최신순으로 받기')
-                    const fetchedData = res.data;
-                    const mergedData = posts.concat(...fetchedData);
-                    setPosts(mergedData);
-                    console.log(res.data);
-            }
-            catch(e){
-                console.log(e);
-            }
-        })
-        setLoading(false)
-        }, [page]
-    )
-
     const likesOrder = () => {
         setPosts([]);
         setPage(1);
-        setOptions('인기순');
-        console.log(options)
-        getPostsLikes();
+        setOptions('likes');
+        setLabel('인기순')
+        getPosts();
     }
 
     const viewsOrder = () => {
         setPosts([]);
         setPage(1);
-        setOptions('조회수순');
-        console.log(options)
-        getPostsViews();
+        setOptions('views');
+        setLabel('조회수순')
+        getPosts();
     }
     
     const recentOrder = () => {
         setPosts([]);
         setPage(1);
-        setOptions('최신순');
-        getPostsRecent();
+        setOptions('recent');
+        setLabel('최신순')
+        getPosts();
     }
       
     useEffect(()=>{
         getPosts();
-        if(options == 'likes'){
-            getPostsLikes();
-        }
-        if(options == 'views'){
-            getPostsViews();
-        }
     },[getPosts]);
     useEffect(() => {
         getPosts();
     },[])
+    useEffect(() => {
+        getPosts();
+    },[options])
 
 
 
@@ -139,7 +80,7 @@ function MainContainer() {
                 <style.DropDownContainer>
                     <style.CustomDropdown>
                         <style.CustomDropdown.Toggle id="style.CustomDropdown-basic">
-                            {options}
+                            {label}
                         </style.CustomDropdown.Toggle>
                             <style.CustomDropdown.Menu>
                                 <style.CustomDropdown.Item href="#/action-1" onClick = {likesOrder}>인기순</style.CustomDropdown.Item>

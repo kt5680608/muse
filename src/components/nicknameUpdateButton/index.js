@@ -27,14 +27,17 @@ function Input(ownerInfo){
     const [changedIntroduce, setChangedIntroduce] = useState('');
     const [deleteAvatarButton, setDeleteAvatarButton] = useState(false); 
 
+    const MUSE_DOMAIN = process.env.REACT_APP_MUSE_DOMAIN
+
     const onChangeNickname = (e) => {
         e.preventDefault();
         setChangedNickname(e.target.value);
-        console.log(changedNickname);
+        console.log('2')
     }
 
     const onChangeAvatar = (e) => {
         e.preventDefault();
+        console.log('1')
         setChangedAvatar(e.target.files[0]);
         const imgTarget = (e.target.files)[0];
         const fileReader = new FileReader();
@@ -50,9 +53,16 @@ function Input(ownerInfo){
         console.log(changedIntroduce);
     }
 
+    const onPressEnter = (e) => {
+        if(e.key == 'Enter'){
+            handleSubmit();
+        }
+    }
+
     const updateUser = (formData) => {
         const token = JSON.parse(localStorage.getItem('token'));
-        return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/update/`,{
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN
+        return fetch(`${API_DOMAIN}/accounts/update/`,{
             method: 'POST',
             headers:{
             Authorization: `${token.token}`
@@ -70,13 +80,10 @@ function Input(ownerInfo){
     const deleteAvatar = (e) => {
         e.preventDefault();
         setDeleteAvatarButton(true);
-        console.log(deleteAvatarButton);
-        console.log(originalIntroduce)
-        
     }
 
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async() => {
         const formData = new FormData();
         formData.append('nickname',changedNickname);
         formData.append('avatar', changedAvatar);
@@ -100,14 +107,13 @@ function Input(ownerInfo){
         }
 
         try{
-            e.preventDefault();
             await updateUser(formData);
             if(changedNickname ==''){
                 console.log(originalNickname)
-                window.location.href = `http://localhost:3000/my-page/${originalNickname}`;
+                window.location.href = `${MUSE_DOMAIN}/my-page/${originalNickname}`;
             }
             else{
-                window.location.href = `http://localhost:3000/my-page/${changedNickname}`;
+                window.location.href = `${MUSE_DOMAIN}/my-page/${changedNickname}`;
             }
         }
         catch(e){
@@ -140,7 +146,7 @@ function Input(ownerInfo){
                         <input type="file" id = "input-file" style ={{ display: "none" }} onChange = {onChangeAvatar}/>
                         <div>
                             <NicknameLabel>닉네임</NicknameLabel>
-                            <NicknameInput type = "text" placeholder = {ownerInfo.nickname} onChange = {onChangeNickname}/>
+                            <NicknameInput type = "text" placeholder = {ownerInfo.nickname} onChange = {onChangeNickname} onKeyPress = {onPressEnter}/>
                         </div>
                         <div>
                             <NicknameLabel>자기소개</NicknameLabel>

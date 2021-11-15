@@ -19,7 +19,10 @@ export const ListItem = styled.div`
 `
 export const CustomDropdown = styled(Dropdown)`
     position: relative;
-    margin-bottom: 24px;
+    margin: 12px 0 12px 0;
+    .btn{
+        border-radius: 24px;
+    }
     .btn-primary{
         background-color: var(--g-color-blue);
         border-color: var(--g-color-blue);
@@ -43,10 +46,8 @@ export const CustomDropdown = styled(Dropdown)`
         background-color: white;
     }
     .dropdown-item{
-        color:black;
         display: flex;
         justify-content: center;
-        font-family: "Helvetica";
         font-weight: 600;
         &:hover {
             background-color: var(--g-color-blue);

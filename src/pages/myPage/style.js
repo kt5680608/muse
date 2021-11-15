@@ -8,6 +8,7 @@ export const MyPageContainer = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    width: 100vw;
 `
 export const Avatar = styled.img`
     width: 144px;
@@ -26,17 +27,17 @@ export const OwnerInfoContainer = styled.div`
 export const OwnerNicknameContainer = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-top: 24px;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
 `
 
 export const OwnerNickname = styled.h1`
     font-weight: 900;
     font-size: var(--g-text-font-size-6);
     display: inline;
-    margin-right: 12px;
+    margin: 0px 6px 0px 6px;
 `
 
 export const OwnerFollower = styled(motion.p)`
@@ -48,7 +49,7 @@ export const OwnerFollower = styled(motion.p)`
 export const FollowCountContainer = styled(motion.div)`
     background-color: var(--g-color-gray100);
     padding: 6px 18px 6px 18px;
-    margin-right: 12px;
+    margin: 0px 6px 0px 6px;
     display: flex !important;
     justify-content: center;
     align-items: center;
@@ -68,9 +69,9 @@ export const FollowButton = styled(motion.button)`
     font-weight: 600;
     font-size: var(--g-text-font-size-3);
     text-align: center;
-    margin: 0 0 0 12px;
-    padding: 8px 16px 8px 16px;
-    line-height: 33px;
+    padding: 0 16px 0 16px;
+    margin-bottom: 24px;
+    line-height: 36px;
     &:hover{
         opacity: 0.8;
     }
@@ -81,6 +82,7 @@ export const FollowContainer = styled.div`
     display: flex !important;
     flex-direction: row;
     align-items: center;
+    margin-bottom: 24px;
 `
 
 export const ProfileUpdateButton = styled(FollowButton)`
@@ -106,4 +108,32 @@ export const UpdateIcon = styled(HiOutlinePencilAlt)`
     &:hover{
         color: var(--g-color-blue);
     }
+`
+
+export const GridContainer = styled.div`
+    display: grid;
+    margin-top: 24px;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 100px 300px;
+    z-index: -1;
+`
+
+export const ListItem = styled.div`
+`
+export const MyPostContainer = styled.div`
+    margin: 24px 96px 24px 96px
+    
+`
+
+export const Introduce = styled.h2`
+    font-weight: 600;
+    font-size: var(--g-text-font-size-3);
+`
+
+export const Pre = styled.pre`
+    font-weight: 600;
+    background-color: var(--g-color-gray100);
+    padding: 12px 24px 12px 24px;
+    border-radius: 16px;
+    margin-bottom: 24px;
 `

@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { updateUser, profileImageUpload} from '../../actions/updateUser'
 import { userInfo} from '../../actions/userInfo'
-import { Navbar, NicknameUpdateButton } from '../../components'
-import Image from "react-bootstrap/Image";
+import { Navbar, NicknameUpdateButton, OwnerPost } from '../../components'
+import StackGrid from 'react-stack-grid'
+
 import{ Avatar,
     MyPageContainer,
     OwnerInfoContainer,
@@ -13,8 +14,10 @@ import{ Avatar,
     OwnerFollower,
     FollowButton,
     FollowContainer,
-    UpdateIcon,
     FollowCountContainer,
+    MyPostContainer,
+    Introduce,
+    Pre
 } from './style'
 
 function MyPage({match}) {
@@ -31,7 +34,8 @@ function MyPage({match}) {
     const [ followingList, setFollowingList ] = useState([]);
     const [ followerCount, setFollowerCount ] = useState();
     const [ followerList, setFollowerList ] = useState([]);
-    const [ ownerPost, setOwnerPost ] = useState([]);
+    const [ ownerPosts, setOwnerPosts ] = useState([]);
+    const [introduce, setIntroduce] = useState('');
     const myPageOwner = match.params;
     const [cover, setCover] = useState(); 
     const onChangeNickname = (e) => {
@@ -79,14 +83,16 @@ function MyPage({match}) {
             onClickToSubmit();
         }
     }
+    
     useEffect(() => {
         dispatch(userInfo());
         const url = window.location.pathname;
         const urlParts = url.replace(/\/\s*$/,'').split('/'); 
         urlParts.shift();
         console.log(urlParts);
-        const token = JSON.parse(localStorage.getItem('token'));        
-        return fetch(`http://ec2-3-38-107-219.ap-northeast-2.compute.amazonaws.com:8080/accounts/my-page/${urlParts[1]}/`,{
+        const token = JSON.parse(localStorage.getItem('token'));     
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;   
+        return fetch(`${API_DOMAIN}/accounts/my-page/${urlParts[1]}/`,{
             method: 'GET',
             headers:{
                 Authorization: `${token.token}`
@@ -98,12 +104,13 @@ function MyPage({match}) {
                 setIsOwner(data.is_owner);
                 setIsLoginUserFollow(data.is_login_user_follow);
                 setOwnerInfo(data.owner_info);
-                setOwnerPost(data.owner_post);
+                setOwnerPosts(data.owner_post);
                 setFollowingCount(data.following_count);
                 setFollowingList(data.following_list);
                 setFollowerCount(data.follower_count);
                 setFollowerList(data.follower_list);
         })
+
     },[])
 
     return (
@@ -115,6 +122,7 @@ function MyPage({match}) {
                     <Avatar src = {ownerInfo.avatar} />
                         <OwnerNicknameContainer>
                            <OwnerNickname>{ownerInfo.nickname}</OwnerNickname>
+                           
                             { isOwner == true ?
                                 <NicknameUpdateButton
                                     avatar = {ownerInfo.avatar}
@@ -125,12 +133,14 @@ function MyPage({match}) {
                                 <></>
                             }
                         </OwnerNicknameContainer>
+                        <div><Pre><Introduce>{ownerInfo.self_introduce}</Introduce></Pre></div>
+                        { isOwner == false && isLoginUserFollow == false ?
+                            <FollowButton>팔로우</FollowButton>
+                            :
+                            <></>
+                        }
+                        
                         <FollowContainer>
-                            { isOwner == false ? 
-                                <FollowButton>팔로우</FollowButton>
-                                :
-                                <></>
-                            }
                             <FollowCountContainer
                                 whileHover = {{
                                     scale: 1.05
@@ -142,8 +152,29 @@ function MyPage({match}) {
                                 }}
                             ><OwnerFollower>팔로잉<br/>{followingCount}명</OwnerFollower></FollowCountContainer>
                         </FollowContainer>
-            </OwnerInfoContainer>
+                    </OwnerInfoContainer>
             </MyPageContainer>
+            <MyPostContainer>
+                <StackGrid
+                    columnWidth = "25%"
+                    duration ={0}
+                    monitorImagesLoaded = {true}
+                >
+                {ownerPosts.map((post) => (
+                                <OwnerPost
+                                    image = {post.image}
+                                    title = {post.title}
+                                    idx = {post.idx}
+                                    liked= {post.liked}
+                                    avatar= {post.writer_avatar}
+                                    writer = {post.writer}
+                                    views = {post.views}
+                                    likes = {post.likes}
+                                />
+                ))
+                }
+                </StackGrid>
+            </MyPostContainer>
         </div>
     )
 }
