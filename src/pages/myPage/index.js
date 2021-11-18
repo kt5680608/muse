@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { updateUser, profileImageUpload} from '../../actions/updateUser'
 import { userInfo} from '../../actions/userInfo'
-import { Navbar, NicknameUpdateButton, OwnerPost } from '../../components'
+import { Navbar, NicknameUpdateButton, OwnerPost, LikedPost} from '../../components'
 import StackGrid from 'react-stack-grid'
+import ReactResizeDetector from 'react-resize-detector';
 
 import{ Avatar,
     MyPageContainer,
@@ -17,16 +18,18 @@ import{ Avatar,
     FollowCountContainer,
     MyPostContainer,
     Introduce,
-    Pre
+    Pre,
+    DisplayOrderButton,
+    DisplayOrderButton2,
+    OrderButtonContainer,
 } from './style'
 
 function MyPage({match}) {
-    const getUserInfo = useSelector(state => state.userInfo.nickname);
-    const getUserAvatar = useSelector(state => state.userInfo.avatar);
     
+    const grid = React.useRef(null);
     const history = useHistory();
     const dispatch = useDispatch();
-    const [nickname, setNickname] = useState('');
+    const [ nickname, setNickname ] = useState('');
     const [ isOwner, setIsOwner ] = useState();
     const [ isLoginUserFollow, setIsLoginUserFollow] = useState();
     const [ ownerInfo, setOwnerInfo ] = useState([]);
@@ -35,9 +38,10 @@ function MyPage({match}) {
     const [ followerCount, setFollowerCount ] = useState();
     const [ followerList, setFollowerList ] = useState([]);
     const [ ownerPosts, setOwnerPosts ] = useState([]);
-    const [introduce, setIntroduce] = useState('');
+    const [ introduce, setIntroduce] = useState('');
     const myPageOwner = match.params;
-    const [cover, setCover] = useState(); 
+    const [ cover, setCover] = useState(); 
+    const [ displayOwnerPosts, setDisplayOwnerPosts ] = useState(true);
     const onChangeNickname = (e) => {
         setNickname(e.target.value);
       };
@@ -83,9 +87,34 @@ function MyPage({match}) {
             onClickToSubmit();
         }
     }
-    
-    useEffect(() => {
-        dispatch(userInfo());
+
+    const followAction = () => {
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN
+        const token = JSON.parse(localStorage.getItem('token'));     
+        return fetch(`${API_DOMAIN}/accounts/follow/`,{
+            method:'POST',
+            headers:{
+                'Authorization': `${token.token}`,
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify({
+                'follower' : ownerInfo.nickname
+            })
+        })
+        .then(() => {
+            setIsLoginUserFollow(!isLoginUserFollow);
+            if(isLoginUserFollow == false){
+                setFollowerCount(followerCount +1);
+            }
+            if(isLoginUserFollow == true){
+                setFollowerCount(followerCount -1)
+            }
+            console.log('팔로잉 클릭!')
+            console.log(ownerInfo.nickname);
+        })
+    }
+
+    const getOwnerPosts =() => {
         const url = window.location.pathname;
         const urlParts = url.replace(/\/\s*$/,'').split('/'); 
         urlParts.shift();
@@ -110,8 +139,41 @@ function MyPage({match}) {
                 setFollowerCount(data.follower_count);
                 setFollowerList(data.follower_list);
         })
-
+    }
+    
+    useEffect(() => {
+        getOwnerPosts();
     },[])
+    const getLikedPosts = () =>{ 
+        const url = window.location.pathname;
+        const urlParts = url.replace(/\/\s*$/,'').split('/'); 
+        urlParts.shift();
+        const token = JSON.parse(localStorage.getItem('token'));     
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;   
+        return fetch(`${API_DOMAIN}/accounts/my-page/owner/${urlParts[1]}/`,{
+            method: 'GET',
+            headers:{
+                Authorization: `${token.token}`
+            }
+            })
+            .then(res => res.json())
+            .then((data) => {
+                console.log(data);
+                setOwnerPosts(data)
+        })
+    }
+
+    const likesOrder = () => {
+        setDisplayOwnerPosts(false);
+        setOwnerPosts([]);
+        getLikedPosts();
+    }
+
+    const ownerOrder = () => {
+        setDisplayOwnerPosts(true);
+        setOwnerPosts([]);
+        getOwnerPosts();
+    }
 
     return (
         <div>
@@ -122,7 +184,7 @@ function MyPage({match}) {
                     <Avatar src = {ownerInfo.avatar} />
                         <OwnerNicknameContainer>
                            <OwnerNickname>{ownerInfo.nickname}</OwnerNickname>
-                           
+
                             { isOwner == true ?
                                 <NicknameUpdateButton
                                     avatar = {ownerInfo.avatar}
@@ -132,13 +194,22 @@ function MyPage({match}) {
                                 :
                                 <></>
                             }
+                            {/* { isLoginUserFollow == false && isOwner == false ?
+                            <FollowButton onClick = {followAction}>팔로우</FollowButton>
+                            :
+                            <FollowButton>팔로잉</FollowButton>
+                            } */}
+                            { isOwner == false ? 
+                                ( isLoginUserFollow == false ?
+                                    <FollowButton onClick = {followAction}>팔로우</FollowButton>
+                                    :
+                                    <FollowButton onClick = {followAction}>팔로잉</FollowButton>
+                                )
+                                :
+                                <></>
+                            }
                         </OwnerNicknameContainer>
                         <div><Pre><Introduce>{ownerInfo.self_introduce}</Introduce></Pre></div>
-                        { isOwner == false && isLoginUserFollow == false ?
-                            <FollowButton>팔로우</FollowButton>
-                            :
-                            <></>
-                        }
                         
                         <FollowContainer>
                             <FollowCountContainer
@@ -155,25 +226,51 @@ function MyPage({match}) {
                     </OwnerInfoContainer>
             </MyPageContainer>
             <MyPostContainer>
-                <StackGrid
+                <OrderButtonContainer>
+                    <DisplayOrderButton onClick = {ownerOrder}> 내 게시물</DisplayOrderButton>
+                    <DisplayOrderButton onClick = {likesOrder}> 좋아하는 게시물</DisplayOrderButton>
+                </OrderButtonContainer>
+                { displayOwnerPosts == true ? 
+                    <StackGrid
                     columnWidth = "25%"
                     duration ={0}
                     monitorImagesLoaded = {true}
-                >
-                {ownerPosts.map((post) => (
-                                <OwnerPost
-                                    image = {post.image}
-                                    title = {post.title}
-                                    idx = {post.idx}
-                                    liked= {post.liked}
-                                    avatar= {post.writer_avatar}
-                                    writer = {post.writer}
-                                    views = {post.views}
-                                    likes = {post.likes}
-                                />
-                ))
-                }
+                    >
+                    {ownerPosts.map((post) => (
+                        <OwnerPost
+                            image = {post.image}
+                            title = {post.title}
+                            idx = {post.idx}
+                            liked= {post.liked}
+                            avatar= {post.writer_avatar}
+                            writer = {post.writer}
+                            views = {post.views}
+                            likes = {post.likes}
+                        />
+                    ))
+                    }
                 </StackGrid>
+                :
+                <StackGrid
+                columnWidth = "25%"
+                duration ={0}
+                monitorImagesLoaded = {true}
+                >
+                    {ownerPosts.map((post) => (
+                        <LikedPost
+                            image = {post.image}
+                            title = {post.title}
+                            idx = {post.idx}
+                            liked= {post.liked}
+                            avatar= {post.writer_avatar}
+                            writer = {post.writer}
+                            views = {post.views}
+                            likes = {post.likes}
+                        />
+                    ))
+                    }
+                </StackGrid>
+                }
             </MyPostContainer>
         </div>
     )

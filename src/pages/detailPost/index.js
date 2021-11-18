@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getDetailPost, uploadCommentPost, updatePost, deletePost} from '../../actions/post'
 import { sendIsLiked } from '../../actions/likeBtn'
 import { useHistory, Link } from 'react-router-dom'
-import { userInfo } from '../../actions/userInfo'
 import * as style from './style'
 import * as home from '../home/style'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -35,11 +34,8 @@ function DetailPost() {
     const [updateHashtag, setUpdateHashtag] = useState('');
     const [imagePreview, setImagePreview] = useState();
     const [writerAvatar, setWriterAvatar] = useState();
+    const [isLoginUserFollowed, setIsLoginUserFollowed] = useState();
 
-    const [showAlert, setShowAlert] = useState(true);
-
-    
-    const [showModal, setShowModal] = useState(true);
     useEffect (() => {
         setLoading(true);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
@@ -54,6 +50,7 @@ function DetailPost() {
                 setTitle(data.title);
                 setImage(data.image);
                 setImagePreview(data.image);
+                setIsLoginUserFollowed(data.is_login_user_follow);
                 setHashtags(data.hashtag);
                 setIdx(data.idx);
                 setWriter(data.writer);
@@ -78,6 +75,7 @@ function DetailPost() {
             .then((data) => {
                 setIsLiked(data.is_login_user_liked);
                 setTitle(data.title);
+                setIsLoginUserFollowed(data.is_login_user_follow);
                 setImage(data.image);
                 setImagePreview(data.image);
                 setHashtags(data.hashtag);
@@ -97,7 +95,24 @@ function DetailPost() {
 
     const [modalSize, setModalSize] = useState('lg');
 
-    
+    const followAction = () => {
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN
+        const token = JSON.parse(localStorage.getItem('token'));     
+        return fetch(`${API_DOMAIN}/accounts/follow/`,{
+            method:'POST',
+            headers:{
+                'Authorization': `${token.token}`,
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify({
+                'follower' : writer
+            })
+        })
+        .then(() => {
+            setIsLoginUserFollowed(!isLoginUserFollowed);
+        })
+    }
+
     const handleClose = () => {
         setShow(false);
         setUpdateContent('');
@@ -305,11 +320,19 @@ function DetailPost() {
                                     }
                                     <style.DetailWriter>{writer}</style.DetailWriter>
                                 </style.WriterInfoContainer>
-                                <style.FollowButton
-                                    whileHover = {{ scale: 1.1 }}
-                                    whileTap = {{ scale: .9 }}
-                                >팔로우
-                                </style.FollowButton>
+                                {isLoginUserFollowed == true ?
+                                    <style.FollowButton onClick = {followAction}
+                                        whileHover = {{ scale: 1.1 }}
+                                        whileTap = {{ scale: .9 }}
+                                        >팔로잉
+                                    </style.FollowButton>
+                                    :
+                                    <style.FollowButton onClick = {followAction}
+                                        whileHover = {{ scale: 1.1 }}
+                                        whileTap = {{ scale: .9 }}
+                                        >팔로우
+                                    </style.FollowButton>
+                                }
                             </style.UserInfoContainer>
                             <style.Pre><style.DetailText>{content}</style.DetailText></style.Pre>
                             {hashtags !=null && hashtags.map((hashTag, index) => {
@@ -317,7 +340,7 @@ function DetailPost() {
                                         { hashTag != null ?
                                         <>                                        
                                                 <style.HashtagLi>
-                                                    <style.HashTag>#{hashTag}</style.HashTag>
+                                                    <style.HashTag>{hashTag}</style.HashTag>
                                                 </style.HashtagLi>  
                                         </>
                                         :

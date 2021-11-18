@@ -8,12 +8,8 @@ export const DropDownContainer = styled.div`
     margin-right: 104px;
 `
 export const GridContainer = styled.div`
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    grid-gap: 12px;
-    justify-content: center;
-    position: relavtive;
-    z-index: -1;
+    margin: 24px 96px 24px 96px
+    
 `
 export const ListItem = styled.div`
 `
@@ -70,3 +66,4 @@ export const GestaltDropdown = styled(GDropdown)`
     position: relative;
     z-index: 1000;
 `
+

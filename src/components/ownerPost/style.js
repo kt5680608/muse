@@ -12,14 +12,18 @@ export const CardContainer = styled(motion.div)`
     cursor: pointer;
     overflow: hidden;
     margin-bottom: 12px;
+`
+export const ImageContainerDiv = styled.div`
+    width: 100%;
+    max-height: 560px;
     border-radius: 12px;
+    overflow: hidden;
 `
 
 export const ImageContainer = styled(motion.img)`
     width: 100%;
     display: flex;
     justify-content: center;
-    border-radius: 12px;
     overflow: hidden;
     position: relative;
     z-index: 1;

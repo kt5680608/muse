@@ -22,6 +22,7 @@
     "react-loader-spinner": "^4.0.0",
     "react-loading-skeleton": "^3.0.1",
     "react-redux": "^7.2.4",
+    "react-resize-detector": "^6.7.6",
     "react-responsive": "^9.0.0-beta.4",
     "react-router-dom": "^5.2.0",
     "react-router-modal": "^1.5.2",

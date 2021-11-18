@@ -5,7 +5,7 @@ import { Modal } from 'react-bootstrap'
 import { motion } from 'framer'
 export const CardContainer = styled(motion.div)`
     width: 280px;
-    height: 260px;
+    max-height: 600px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -15,13 +15,18 @@ export const CardContainer = styled(motion.div)`
     margin-bottom: 12px;
     border-radius: 12px;
 `
+export const ImageContainerDiv = styled.div`
+    width: 100%;
+    max-height: 560px;
+    border-radius: 12px;
+    overflow: hidden;
+`
 
 export const ImageContainer = styled(motion.img)`
     width: 100%;
-    height: 220px;
+    max-height: 560px;
     display: flex;
     justify-content: center;
-    border-radius: 12px;
     overflow: hidden;
     position: relative;
     z-index: 1;

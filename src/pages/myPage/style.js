@@ -37,7 +37,7 @@ export const OwnerNickname = styled.h1`
     font-weight: 900;
     font-size: var(--g-text-font-size-6);
     display: inline;
-    margin: 0px 6px 0px 6px;
+    margin: 12px 12px 12px 12px;
 `
 
 export const OwnerFollower = styled(motion.p)`
@@ -50,7 +50,8 @@ export const FollowCountContainer = styled(motion.div)`
     background-color: var(--g-color-gray100);
     padding: 6px 18px 6px 18px;
     margin: 0px 6px 0px 6px;
-    display: flex !important;
+    display: flex;
+    
     justify-content: center;
     align-items: center;
     border-radius: 16px;
@@ -68,13 +69,34 @@ export const FollowButton = styled(motion.button)`
     color: var(--g-color-white);
     font-weight: 600;
     font-size: var(--g-text-font-size-3);
-    text-align: center;
     padding: 0 16px 0 16px;
-    margin-bottom: 24px;
     line-height: 36px;
     &:hover{
         opacity: 0.8;
     }
+`
+
+export const OrderButtonContainer = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+`
+
+export const DisplayOrderButton = styled(FollowButton)`
+    margin-bottom: 24px;
+    width: 50%;
+    margin-right: 12px;
+    border-radius: 0px;
+    background-color: var(--g-color-gray100);
+    color: black;
+`
+
+export const DislayOrderButton2 = styled(FollowButton)`
+    margin-bottom: 24px;
+    background-color: transparent;
+    width: 50%;
+    border-radius: 0px;
+    color: black;
 `
 
 
@@ -120,6 +142,7 @@ export const GridContainer = styled.div`
 
 export const ListItem = styled.div`
 `
+
 export const MyPostContainer = styled.div`
     margin: 24px 96px 24px 96px
     
@@ -136,4 +159,8 @@ export const Pre = styled.pre`
     padding: 12px 24px 12px 24px;
     border-radius: 16px;
     margin-bottom: 24px;
+`
+
+export const FollowedButton = styled(FollowButton)`
+    background-color: var(--g-color-gray100);
 `

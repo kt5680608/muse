@@ -10,11 +10,12 @@ import { Home,
           MyPage,
           Replace,
           DetailPost,
-          Contest
+          Contest,
         }
         from './pages'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import 'react-router-modal/css/react-router-modal.css'
+import { DetailModal } from './components'
 import './App.css'
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
         <Route path = "/my-page/:writer" component = { MyPage }/>
         <Route path = "/replace" component={ Replace }/>
         <Route path = "/contest" component = {Contest} />
-        <Route exact path = "/display-details/:currentIdx" component = {DetailPost}/>        
+        <Route exact path = "/display-details/:currentPostIdx" component = {DetailPost}/>        
       </Router>
     </div>
   );

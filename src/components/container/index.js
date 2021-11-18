@@ -5,8 +5,9 @@ import { Container,
 import { useInView } from 'react-intersection-observer'
 import Card from  '../card'
 import axios from "axios"
-
+import { DetailModal } from  '../../components/'
 import * as style from './style'
+import StackGrid from 'react-stack-grid'
 
 function MainContainer() {
     const [posts, setPosts] = useState([]);
@@ -91,11 +92,16 @@ function MainContainer() {
                     
                 </style.DropDownContainer>
                 <GridContainer>
+                <StackGrid
+                    columnWidth = "25%"
+                    duration ={0}
+                    monitorImagesLoaded = {true}
+                >
                     {posts.map((post, idx) => (
                         <React.Fragment key={idx}>
                         {posts.length-1 === idx ? (
                             <ListItem
-                            ref={ref}
+                            ref = {ref}
                             >
                                 <Card
                                     image = {post.image}
@@ -126,7 +132,8 @@ function MainContainer() {
                         </React.Fragment>
                     ))
                     }
-                </GridContainer>
+                    </StackGrid>
+                    </GridContainer>
             </>
         )
         

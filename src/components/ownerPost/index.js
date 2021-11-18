@@ -12,7 +12,8 @@ import { CardContainer,
         FullImageContainer,
         Avatar,
         WriterContainer,
-        CustomSpan
+        CustomSpan,
+        ImageContainerDiv
 } from './style'
 import { useHistory } from 'react-router-dom'
 import { likeBtn } from '../../actions/likeBtn'
@@ -33,10 +34,12 @@ function OwnerPost({idx, title, image, liked, avatar, views, likes, writer}) {
     
     return (
             <CardContainer>
+                <ImageContainerDiv>
                     <ImageContainer src={`${image}`} onClick = {onClickHistoryPushIdx}
                         whileHover = {{ scale: 1.05}}
                         whileTap = {{scale: 0.95}}
                     />
+                </ImageContainerDiv>
                 <InfoContainer>
                     <WriterContainer onClick = {onClickHistoryPushNickname}>
                         <Avatar src={avatar} alt=""/>

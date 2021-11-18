@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter, Link } from 'react-router-dom';
+import { DetailPost } from '../.././pages'
 import 'react-router-modal/css/react-router-modal.css'
 import { CardContainer,
         ImageContainer,
@@ -12,10 +15,12 @@ import { CardContainer,
         FullImageContainer,
         Avatar,
         WriterContainer,
-        CustomSpan
+        CustomSpan,
+        ImageContainerDiv
 } from './style'
 import { useHistory } from 'react-router-dom'
 import { likeBtn } from '../../actions/likeBtn'
+import { Box, Button, Checkbox, CompositeZIndex, FixedZIndex, Flex, Text, Layer, Modal, Image} from "gestalt";
 
 function Card({idx, title, image, liked, avatar, views, likes, writer}) {
     const [isLiked, setIsLiked] = useState(false);
@@ -33,10 +38,12 @@ function Card({idx, title, image, liked, avatar, views, likes, writer}) {
     
     return (
             <CardContainer>
+                <ImageContainerDiv>
                     <ImageContainer src={`${image}`} onClick = {onClickHistoryPushIdx}
                         whileHover = {{ scale: 1.05}}
-                        whileTap = {{scale: 0.95}}
+                        whileTap = {{scale: 0.98}}
                     />
+                </ImageContainerDiv>
                 <InfoContainer>
                     <WriterContainer onClick = {onClickHistoryPushNickname}>
                         <Avatar src={avatar} alt=""/>
