@@ -228,7 +228,11 @@ function MyPage({match}) {
             <MyPostContainer>
                 <OrderButtonContainer>
                     <DisplayOrderButton onClick = {ownerOrder}> 내 게시물</DisplayOrderButton>
-                    <DisplayOrderButton onClick = {likesOrder}> 좋아하는 게시물</DisplayOrderButton>
+                    {isOwner == true ? 
+                        <DisplayOrderButton onClick = {likesOrder}> 좋아하는 게시물</DisplayOrderButton>
+                    :
+                        <></>   
+                    }
                 </OrderButtonContainer>
                 { displayOwnerPosts == true ? 
                     <StackGrid
