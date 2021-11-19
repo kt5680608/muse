@@ -114,7 +114,7 @@ function MyPage({match}) {
         })
     }
 
-    const getOwnerPosts =() => {
+    const getOwnerInfo =() => {
         const url = window.location.pathname;
         const urlParts = url.replace(/\/\s*$/,'').split('/'); 
         urlParts.shift();
@@ -133,15 +133,35 @@ function MyPage({match}) {
                 setIsOwner(data.is_owner);
                 setIsLoginUserFollow(data.is_login_user_follow);
                 setOwnerInfo(data.owner_info);
-                setOwnerPosts(data.owner_post);
                 setFollowingCount(data.following_count);
                 setFollowingList(data.following_list);
                 setFollowerCount(data.follower_count);
                 setFollowerList(data.follower_list);
         })
     }
+
+    const getOwnerPosts =() => {
+        const url = window.location.pathname;
+        const urlParts = url.replace(/\/\s*$/,'').split('/'); 
+        urlParts.shift();
+        console.log(urlParts);
+        const token = JSON.parse(localStorage.getItem('token'));     
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;   
+        return fetch(`${API_DOMAIN}/accounts/my-page/owner/post/${urlParts[1]}/`,{
+            method: 'GET',
+            headers:{
+                Authorization: `${token.token}`
+            }
+            })
+            .then(res => res.json())
+            .then((data) => {
+                console.log(data);
+                setOwnerPosts(data);
+        })
+    }
     
     useEffect(() => {
+        getOwnerInfo();
         getOwnerPosts();
     },[])
     const getLikedPosts = () =>{ 
@@ -150,7 +170,7 @@ function MyPage({match}) {
         urlParts.shift();
         const token = JSON.parse(localStorage.getItem('token'));     
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;   
-        return fetch(`${API_DOMAIN}/accounts/my-page/owner/${urlParts[1]}/`,{
+        return fetch(`${API_DOMAIN}/accounts/my-page/owner/liked-post/${urlParts[1]}/`,{
             method: 'GET',
             headers:{
                 Authorization: `${token.token}`
