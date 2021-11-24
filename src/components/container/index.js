@@ -8,8 +8,9 @@ import axios from "axios"
 import { DetailModal } from  '../../components/'
 import * as style from './style'
 import StackGrid from 'react-stack-grid'
+import { withSize } from 'react-sizeme'
 
-function MainContainer() {
+function MainContainer({size}) {
     const [posts, setPosts] = useState([]);
     const [label, setLabel] = useState('인기순');
     const [page, setPage] = useState(1);
@@ -74,10 +75,11 @@ function MainContainer() {
         if (inView && !loading) {
             setPage(state => state + 1)
         }
-        }, [inView, loading])
+        }, [inView, loading]);
 
         return (
-            <>
+            <style.MainContainer>
+            <div>My width is {size.width}px</div>
                 <style.DropDownContainer>
                     <style.CustomDropdown>
                         <style.CustomDropdown.Toggle id="style.CustomDropdown-basic">
@@ -93,9 +95,10 @@ function MainContainer() {
                 </style.DropDownContainer>
                 <GridContainer>
                 <StackGrid
-                    columnWidth = "25%"
+                    columnWidth = {280}
                     duration ={0}
                     monitorImagesLoaded = {true}
+                    gutterWidth = {10}
                 >
                     {posts.map((post, idx) => (
                         <React.Fragment key={idx}>
@@ -134,10 +137,10 @@ function MainContainer() {
                     }
                     </StackGrid>
                     </GridContainer>
-            </>
+            </style.MainContainer>
         )
         
        
 }
 
-export default MainContainer
+export default withSize()(MainContainer)

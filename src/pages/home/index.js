@@ -16,7 +16,7 @@ function Home() {
         <div>
             <Navbar/>
             <Banner/>
-            <PostButton/>
+            {/* <PostButton/> */}
             <Container>
             </Container>
         </div>

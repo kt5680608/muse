@@ -38,12 +38,10 @@ function Card({idx, title, image, liked, avatar, views, likes, writer}) {
     
     return (
             <CardContainer>
-                <ImageContainerDiv>
                     <ImageContainer src={`${image}`} onClick = {onClickHistoryPushIdx}
                         whileHover = {{ scale: 1.05}}
                         whileTap = {{scale: 0.98}}
                     />
-                </ImageContainerDiv>
                 <InfoContainer>
                     <WriterContainer onClick = {onClickHistoryPushNickname}>
                         <Avatar src={avatar} alt=""/>

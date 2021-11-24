@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { updateUser, profileImageUpload} from '../../actions/updateUser'
 import { userInfo} from '../../actions/userInfo'
-import { Navbar, NicknameUpdateButton, OwnerPost, LikedPost} from '../../components'
+import { Navbar, NicknameUpdateButton, OwnerPost, LikedPost, FollowListModal, Loading} from '../../components'
 import StackGrid from 'react-stack-grid'
-import ReactResizeDetector from 'react-resize-detector';
-
+import { AiOutlineCheck } from 'react-icons/ai'
 import{ Avatar,
     MyPageContainer,
     OwnerInfoContainer,
@@ -22,6 +21,8 @@ import{ Avatar,
     DisplayOrderButton,
     DisplayOrderButton2,
     OrderButtonContainer,
+    PostContainer,
+    FollowedButton
 } from './style'
 
 function MyPage({match}) {
@@ -42,6 +43,7 @@ function MyPage({match}) {
     const myPageOwner = match.params;
     const [ cover, setCover] = useState(); 
     const [ displayOwnerPosts, setDisplayOwnerPosts ] = useState(true);
+    const [loading, setLoading] = useState(); 
     const onChangeNickname = (e) => {
         setNickname(e.target.value);
       };
@@ -141,6 +143,7 @@ function MyPage({match}) {
     }
 
     const getOwnerPosts =() => {
+        setLoading(true)
         const url = window.location.pathname;
         const urlParts = url.replace(/\/\s*$/,'').split('/'); 
         urlParts.shift();
@@ -152,12 +155,15 @@ function MyPage({match}) {
             headers:{
                 Authorization: `${token.token}`
             }
-            })
+        })
             .then(res => res.json())
             .then((data) => {
                 console.log(data);
                 setOwnerPosts(data);
-        })
+            })
+            .finally(() => {
+                setLoading(false);
+            })
     }
     
     useEffect(() => {
@@ -223,7 +229,7 @@ function MyPage({match}) {
                                 ( isLoginUserFollow == false ?
                                     <FollowButton onClick = {followAction}>팔로우</FollowButton>
                                     :
-                                    <FollowButton onClick = {followAction}>팔로잉</FollowButton>
+                                    <FollowedButton onClick = {followAction}>팔로잉</FollowedButton>
                                 )
                                 :
                                 <></>
@@ -245,57 +251,61 @@ function MyPage({match}) {
                         </FollowContainer>
                     </OwnerInfoContainer>
             </MyPageContainer>
-            <MyPostContainer>
-                <OrderButtonContainer>
-                    <DisplayOrderButton onClick = {ownerOrder}> 내 게시물</DisplayOrderButton>
-                    {isOwner == true ? 
-                        <DisplayOrderButton onClick = {likesOrder}> 좋아하는 게시물</DisplayOrderButton>
+            <PostContainer>
+                <MyPostContainer>
+                    <OrderButtonContainer>
+                        {isOwner == true ?
+                            <>
+                                <DisplayOrderButton onClick = {ownerOrder}> 내 게시물</DisplayOrderButton>
+                                <DisplayOrderButton onClick = {likesOrder}> 좋아하는 게시물</DisplayOrderButton>
+                            </>
+                        :
+                            <></>   
+                        }
+                    </OrderButtonContainer>
+                    { displayOwnerPosts == true ? 
+                        <StackGrid
+                        columnWidth = {284}
+                        duration ={0}
+                        monitorImagesLoaded = {true}
+                        >
+                        {ownerPosts.map((post) => (
+                            <OwnerPost
+                                image = {post.image}
+                                title = {post.title}
+                                idx = {post.idx}
+                                liked= {post.liked}
+                                avatar= {post.writer_avatar}
+                                writer = {post.writer}
+                                views = {post.views}
+                                likes = {post.likes}
+                            />
+                        ))
+                        }
+                    </StackGrid>
                     :
-                        <></>   
-                    }
-                </OrderButtonContainer>
-                { displayOwnerPosts == true ? 
                     <StackGrid
-                    columnWidth = "25%"
+                    columnWidth = {284}
                     duration ={0}
                     monitorImagesLoaded = {true}
                     >
-                    {ownerPosts.map((post) => (
-                        <OwnerPost
-                            image = {post.image}
-                            title = {post.title}
-                            idx = {post.idx}
-                            liked= {post.liked}
-                            avatar= {post.writer_avatar}
-                            writer = {post.writer}
-                            views = {post.views}
-                            likes = {post.likes}
-                        />
-                    ))
+                        {ownerPosts.map((post) => (
+                            <LikedPost
+                                image = {post.image}
+                                title = {post.title}
+                                idx = {post.idx}
+                                liked= {post.liked}
+                                avatar= {post.writer_avatar}
+                                writer = {post.writer}
+                                views = {post.views}
+                                likes = {post.likes}
+                            />
+                        ))
+                        }
+                    </StackGrid>
                     }
-                </StackGrid>
-                :
-                <StackGrid
-                columnWidth = "25%"
-                duration ={0}
-                monitorImagesLoaded = {true}
-                >
-                    {ownerPosts.map((post) => (
-                        <LikedPost
-                            image = {post.image}
-                            title = {post.title}
-                            idx = {post.idx}
-                            liked= {post.liked}
-                            avatar= {post.writer_avatar}
-                            writer = {post.writer}
-                            views = {post.views}
-                            likes = {post.likes}
-                        />
-                    ))
-                    }
-                </StackGrid>
-                }
-            </MyPostContainer>
+                </MyPostContainer>
+            </PostContainer>
         </div>
     )
 }

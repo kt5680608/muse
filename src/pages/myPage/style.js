@@ -78,14 +78,14 @@ export const FollowButton = styled(motion.button)`
 
 export const OrderButtonContainer = styled.div`
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 `
 
 export const DisplayOrderButton = styled(FollowButton)`
     margin-bottom: 24px;
-    width: 50%;
-    margin-right: 12px;
+    padding: 12px 100px 12px 100px;
+    width: 49.7%;
     border-radius: 0px;
     background-color: var(--g-color-gray100);
     color: black;
@@ -94,8 +94,9 @@ export const DisplayOrderButton = styled(FollowButton)`
 export const DislayOrderButton2 = styled(FollowButton)`
     margin-bottom: 24px;
     background-color: transparent;
-    width: 50%;
+    width: 48%;
     border-radius: 0px;
+    background-color: var(--g-color-gray100);
     color: black;
 `
 
@@ -133,18 +134,14 @@ export const UpdateIcon = styled(HiOutlinePencilAlt)`
 `
 
 export const GridContainer = styled.div`
-    display: grid;
-    margin-top: 24px;
-    grid-template-columns: auto auto auto auto;
-    grid-gap: 100px 300px;
-    z-index: -1;
+    
 `
 
 export const ListItem = styled.div`
 `
 
 export const MyPostContainer = styled.div`
-    margin: 24px 96px 24px 96px
+margin: 24px 144px 24px 144px;
     
 `
 
@@ -155,7 +152,6 @@ export const Introduce = styled.h2`
 
 export const Pre = styled.pre`
     font-weight: 600;
-    background-color: var(--g-color-gray100);
     padding: 12px 24px 12px 24px;
     border-radius: 16px;
     margin-bottom: 24px;
@@ -163,4 +159,8 @@ export const Pre = styled.pre`
 
 export const FollowedButton = styled(FollowButton)`
     background-color: var(--g-color-gray100);
+    color: black;
+`
+
+export const PostContainer = styled.div`
 `

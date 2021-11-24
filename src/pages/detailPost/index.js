@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react'
-import { Navbar, Loading } from '../../components'
+import { Navbar, Loading, Card } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDetailPost, uploadCommentPost, updatePost, deletePost} from '../../actions/post'
 import { sendIsLiked } from '../../actions/likeBtn'
 import { useHistory, Link } from 'react-router-dom'
 import * as style from './style'
 import * as home from '../home/style'
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from "react-loader-spinner";
+import { AiOutlineCheck } from 'react-icons/ai'
 import Swal from 'sweetalert2'
+import StackGrid from 'react-stack-grid'
 function DetailPost() {
     const token = JSON.parse(localStorage.getItem('token'));
     const dispatch = useDispatch();
@@ -19,11 +19,11 @@ function DetailPost() {
     const [showComment, setShowComment] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isLiked, setIsLiked] = useState();
-    const [post, setPost] = useState();
+    const [otherPosts, setOtherPosts] = useState([]);
     const [title, setTitle] = useState('');
     const [image, setImage] = useState('');
     const [writer, setWriter] = useState('');
-    const[isWriter, setIsWriter] = useState();
+    const [isWriter, setIsWriter] = useState();
     const [content, setContent] = useState('');
     const [hashtags, setHashtags] = useState();
     const [likesCount, setLikesCount] = useState();
@@ -73,6 +73,7 @@ function DetailPost() {
             })
             .then(res => res.json())
             .then((data) => {
+                console.log(data);
                 setIsLiked(data.is_login_user_liked);
                 setTitle(data.title);
                 setIsLoginUserFollowed(data.is_login_user_follow);
@@ -86,6 +87,7 @@ function DetailPost() {
                 setLikesCount(data.likes);
                 setWriterAvatar(data.writer_avatar);
                 setComments(data.comment);
+                setOtherPosts(data.writer_other_post);
             })
             .finally(() => {
                 setTimeout(() => {setLoading(false);} , 1000)
@@ -266,6 +268,11 @@ function DetailPost() {
         )
     }
 
+    const onClickHistoryPushNickname = () => {
+        console.log(writer);
+        history.push(`/my-page/${writer}`)
+    }
+
     return (
         <style.Viewport>
             <Navbar/>
@@ -318,20 +325,24 @@ function DetailPost() {
                                         :
                                         <></>
                                     }
-                                    <style.DetailWriter>{writer}</style.DetailWriter>
+                                    <style.DetailWriter onClick = {onClickHistoryPushNickname}>{writer}</style.DetailWriter>
                                 </style.WriterInfoContainer>
-                                {isLoginUserFollowed == true ?
-                                    <style.FollowButton onClick = {followAction}
-                                        whileHover = {{ scale: 1.1 }}
-                                        whileTap = {{ scale: .9 }}
-                                        >팔로잉
-                                    </style.FollowButton>
-                                    :
-                                    <style.FollowButton onClick = {followAction}
-                                        whileHover = {{ scale: 1.1 }}
-                                        whileTap = {{ scale: .9 }}
-                                        >팔로우
-                                    </style.FollowButton>
+                                {isWriter == true ? 
+                                    <></>
+                                :
+                                    (isLoginUserFollowed == true ?
+                                        <style.FollowButton onClick = {followAction}
+                                            whileHover = {{ scale: 1.1 }}
+                                            whileTap = {{ scale: .9 }}
+                                            ><AiOutlineCheck />팔로잉
+                                        </style.FollowButton>
+                                        :
+                                        <style.FollowButton onClick = {followAction}
+                                            whileHover = {{ scale: 1.1 }}
+                                            whileTap = {{ scale: .9 }}
+                                            >팔로우
+                                        </style.FollowButton>
+                                    )
                                 }
                             </style.UserInfoContainer>
                             <style.Pre><style.DetailText>{content}</style.DetailText></style.Pre>
@@ -402,6 +413,29 @@ function DetailPost() {
                     </style.InfoContainer>
                 </style.DetailContainer>
             </style.MainContainer>
+                <StackGrid
+                    columnWidth = "25%"
+                    duration ={0}
+                    monitorImagesLoaded = {true}
+                >
+                    {otherPosts.map((post, idx) => (
+                        <React.Fragment key={idx}>
+                            <style.ListItem >
+                                <Card
+                                    image = {post.image}
+                                    title = {post.title}
+                                    idx = {post.idx}
+                                    liked= {post.liked}
+                                    avatar= {post.writer_avatar}
+                                    writer = {post.writer}
+                                    views = {post.views}
+                                    likes = {post.likes}
+                                />
+                            </style.ListItem>
+                        </React.Fragment>
+                    ))
+                    }
+                    </StackGrid>
         </style.Viewport>
     )
 }

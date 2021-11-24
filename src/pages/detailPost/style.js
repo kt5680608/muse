@@ -8,8 +8,7 @@ import { CgProfile } from 'react-icons/cg'
 import { Alert} from 'react-bootstrap'
 import { motion } from 'framer'
 export const Viewport = styled.div`
-    width: 100vw;
-    height: 100vh;  
+    width: 100vw; 
 `
 export const MainContainer = styled(motion.div)`
     height: 94vh;
@@ -148,6 +147,7 @@ export const DetailWriter = styled.h5`
     padding-left: 6px;
     font-family: Noto-Sans-KR;
     font-weight: 900;
+    cursor: pointer;
     margin: 0;
 `
 
@@ -351,7 +351,8 @@ export const AvatarIcon = styled(CgProfile)`
 `
 
 export const FollowButton = styled(motion.button)`
-    width: 60px;
+    width: 80px;
+    max-width: 100px;
     height: 30px;
     background-color: var(--g-color-blue);
     border: none;
@@ -364,6 +365,9 @@ export const FollowButton = styled(motion.button)`
     margin: 0;
     padding: 0;
     line-height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &:hover{
         opacity: 0.8;
     }
@@ -391,4 +395,15 @@ export const LoadingH1 = styled(motion.h1)`
 
 export const AlertModal = styled(Alert)`
 
+`
+
+export const GridContainer = styled.div`
+    display: grid;
+    margin-top: 24px;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 100px 300px;
+    z-index: -1;
+`
+
+export const ListItem = styled.div`
 `

@@ -27,6 +27,7 @@
     "react-router-dom": "^5.2.0",
     "react-router-modal": "^1.5.2",
     "react-scripts": "4.0.3",
+    "react-sizeme": "^3.0.2",
     "react-stack-grid": "^0.7.1",
     "reactstrap": "^8.10.0",
     "redux": "^4.1.1",

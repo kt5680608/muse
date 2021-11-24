@@ -3,36 +3,31 @@ import { BiHeart } from 'react-icons/bi'
 import { FiEye } from 'react-icons/fi'
 import { Modal } from 'react-bootstrap'
 import { motion } from 'framer'
-export const CardContainer = styled(motion.div)`
+export const CardContainer = styled(motion.figure)`
     width: 280px;
     max-height: 600px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+    
     cursor: pointer;
     overflow: hidden;
-    margin-bottom: 12px;
+    margin: 0;
     border-radius: 12px;
-`
-export const ImageContainerDiv = styled.div`
-    width: 100%;
-    max-height: 560px;
-    border-radius: 12px;
-    overflow: hidden;
+    @media ( max-width: 320px ){
+        width: 280px;
+        max-height: 600px;
+    }
 `
 
 export const ImageContainer = styled(motion.img)`
     width: 100%;
     max-height: 560px;
-    display: flex;
+    vertical-align: top; 
     justify-content: center;
     overflow: hidden;
     position: relative;
     z-index: 1;
 `
 
-export const InfoContainer = styled.div`
+export const InfoContainer = styled.figcaption`
     width: 100%;
     height: 40px;
     display: flex;

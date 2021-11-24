@@ -1,6 +1,13 @@
 import styled from 'styled-components'
 import { Dropdown } from 'react-bootstrap'
 import { Dropdown as GDropdown } from 'gestalt'
+
+export const MainContainer = styled.div`
+    padding: 30px;
+    @media ( max-width: 320px ){
+        padding: 10px;
+    }
+`
 export const DropDownContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -8,7 +15,6 @@ export const DropDownContainer = styled.div`
     margin-right: 104px;
 `
 export const GridContainer = styled.div`
-    margin: 24px 96px 24px 96px
     
 `
 export const ListItem = styled.div`
