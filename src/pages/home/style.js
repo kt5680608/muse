@@ -13,7 +13,6 @@ export const PostButton = styled(motion.div)`
     border: none;
     padding: 0;
     border: none;
-    position: fixed;
     left: 93%;
     top: 78%;
     border-radius: 50%;
@@ -43,7 +42,6 @@ export const QaButton = styled(BsFillQuestionCircleFill)`
     border: none;
     padding: 0;
     border: none;
-    position: fixed;
     cursor: pointer;
     left: 93%;
     top: 86%;
@@ -118,4 +116,8 @@ export const InfoContainer = styled.div`
     height: auto;
     width: 100%;
     justify-content: flex-start;
+`
+
+export const HomeContainer = styled.div`
+    width: 96vw;
 `

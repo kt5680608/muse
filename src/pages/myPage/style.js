@@ -80,15 +80,24 @@ export const OrderButtonContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media(max-width: 724px){
+        flex-direction: column;
+    }
 `
 
 export const DisplayOrderButton = styled(FollowButton)`
     margin-bottom: 24px;
     padding: 12px 100px 12px 100px;
-    width: 49.7%;
+    width: 48%;
     border-radius: 0px;
     background-color: var(--g-color-gray100);
     color: black;
+    @media(max-width: 724px){
+        width: 320px;
+    }
+    @media(max-width: 386px){
+        width: 300px;
+    }
 `
 
 export const DislayOrderButton2 = styled(FollowButton)`
@@ -98,6 +107,12 @@ export const DislayOrderButton2 = styled(FollowButton)`
     border-radius: 0px;
     background-color: var(--g-color-gray100);
     color: black;
+    @media(max-width: 724px){
+        width: 320px;
+    }
+    @media(max-width: 386px){
+        width: 300px;
+    }
 `
 
 
@@ -141,8 +156,14 @@ export const ListItem = styled.div`
 `
 
 export const MyPostContainer = styled.div`
-margin: 24px 144px 24px 144px;
-    
+margin: 24px 48px 24px 48px;
+@media(max-width:425px){
+    margin: 24px 6px 24px 6px;
+}   
+`
+export const ButtonH1 = styled.h1`
+    font-weight: 900;
+    font-size: 1em;
 `
 
 export const Introduce = styled.h2`

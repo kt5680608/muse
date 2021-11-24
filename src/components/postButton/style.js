@@ -14,11 +14,9 @@ export const PostButton = styled(motion.div)`
     border: none;
     padding: 0;
     border: none;
-    position: fixed;
-    left: 94%;
-    top: 78%;
     border-radius: 50%;
     background-color: var(--g-color-blue);   
+    margin-bottom: 12px;
     cursor: pointer;
 `
 
@@ -44,10 +42,7 @@ export const QaButton = styled(BsFillQuestionCircleFill)`
     border: none;
     padding: 0;
     border: none;
-    position: fixed;
     cursor: pointer;
-    left: 94%;
-    top: 86%;
     border-radius: 50%;
     background-color: var(--g-color-white);
     color: var(--g-color-blue);   
@@ -113,7 +108,7 @@ export const CustomTextarea = styled.textarea`
     border-radius: 16px;
     padding: 16px;
     &:focus{
-        outline:
+        outline: none;
     }
 `
 
@@ -129,4 +124,13 @@ export const InfoContainer = styled.div`
     height: auto;
     width: 100%;
     justify-content: flex-start;
+`
+
+export const IconContainer = styled.div`
+    margin: 24px 24px 24px 24px;
+    display: block;
+    z-index: 999;
+    position: fixed;
+    right: 0;
+    bottom: 0;
 `

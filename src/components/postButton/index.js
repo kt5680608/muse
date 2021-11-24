@@ -77,15 +77,17 @@ function PostButton() {
         }
     }
     return (
-        <>
-            <style.PostButton
-                onClick = {handleShow}
-                whileHover = {{ scale: 1.1 }}
-                whileTap = {{ scale: .9 }}
-            >
-                <style.PlusButton/>
-            </style.PostButton>
-            <style.QaButton/>
+        <>  
+            <style.IconContainer>
+                <style.PostButton
+                    onClick = {handleShow}
+                    whileHover = {{ scale: 1.1 }}
+                    whileTap = {{ scale: .9 }}
+                >
+                    <style.PlusButton/>
+                </style.PostButton>
+                <style.QaButton/>
+            </style.IconContainer>
             <style.CustomModal show={show}
                 onHide={handleClose}
                 size = {modalSize}

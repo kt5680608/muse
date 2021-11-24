@@ -6,6 +6,7 @@ import { motion } from 'framer'
 export const CardContainer = styled(motion.figure)`
     width: 280px;
     max-height: 600px;
+    overflow: hidden;
     
     cursor: pointer;
     overflow: hidden;

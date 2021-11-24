@@ -22,7 +22,8 @@ import{ Avatar,
     DisplayOrderButton2,
     OrderButtonContainer,
     PostContainer,
-    FollowedButton
+    FollowedButton,
+    ButtonH1,
 } from './style'
 
 function MyPage({match}) {
@@ -256,8 +257,8 @@ function MyPage({match}) {
                     <OrderButtonContainer>
                         {isOwner == true ?
                             <>
-                                <DisplayOrderButton onClick = {ownerOrder}> 내 게시물</DisplayOrderButton>
-                                <DisplayOrderButton onClick = {likesOrder}> 좋아하는 게시물</DisplayOrderButton>
+                                <DisplayOrderButton onClick = {ownerOrder}> <ButtonH1>내 게시물</ButtonH1></DisplayOrderButton>
+                                <DisplayOrderButton onClick = {likesOrder}> <ButtonH1>좋아하는 게시물</ButtonH1></DisplayOrderButton>
                             </>
                         :
                             <></>   
@@ -265,9 +266,10 @@ function MyPage({match}) {
                     </OrderButtonContainer>
                     { displayOwnerPosts == true ? 
                         <StackGrid
-                        columnWidth = {284}
-                        duration ={0}
-                        monitorImagesLoaded = {true}
+                            columnWidth = {280}
+                            duration ={0}
+                            monitorImagesLoaded = {true}
+                            gutterWidth = {10}
                         >
                         {ownerPosts.map((post) => (
                             <OwnerPost

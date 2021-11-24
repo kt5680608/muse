@@ -5,6 +5,7 @@ import { Navbar,
     PostButton } from '../../components'
 import { userInfo } from '../../actions/userInfo'
 import { useDispatch, useSelector } from 'react-redux'
+import { HomeContainer } from './style'
 function Home() {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -13,13 +14,13 @@ function Home() {
 
 
     return (
-        <div>
+        <HomeContainer>
             <Navbar/>
             <Banner/>
-            {/* <PostButton/> */}
+            <PostButton/>
             <Container>
             </Container>
-        </div>
+        </HomeContainer>
     )
 }
 
