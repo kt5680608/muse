@@ -18,8 +18,7 @@ function Home() {
             <Navbar/>
             <Banner/>
             <PostButton/>
-            <Container>
-            </Container>
+            <Container/>
         </HomeContainer>
     )
 }

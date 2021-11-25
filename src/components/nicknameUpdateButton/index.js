@@ -32,12 +32,10 @@ function Input(ownerInfo){
     const onChangeNickname = (e) => {
         e.preventDefault();
         setChangedNickname(e.target.value);
-        console.log('2')
     }
 
     const onChangeAvatar = (e) => {
         e.preventDefault();
-        console.log('1')
         setChangedAvatar(e.target.files[0]);
         const imgTarget = (e.target.files)[0];
         const fileReader = new FileReader();
@@ -83,7 +81,8 @@ function Input(ownerInfo){
     }
 
 
-    const handleSubmit = async() => {
+    const handleSubmit = async(e) => {
+        e.preventDefault();
         const formData = new FormData();
         formData.append('nickname',changedNickname);
         formData.append('avatar', changedAvatar);
@@ -112,7 +111,7 @@ function Input(ownerInfo){
                 console.log(originalNickname)
                 window.location.href = `${MUSE_DOMAIN}/my-page/${originalNickname}`;
             }
-            else{
+            else if(changedNickname != '' || changedNickname != undefined){
                 window.location.href = `${MUSE_DOMAIN}/my-page/${changedNickname}`;
             }
         }

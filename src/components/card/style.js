@@ -6,16 +6,19 @@ import { motion } from 'framer'
 export const CardContainer = styled(motion.figure)`
     width: 280px;
     max-height: 600px;
-    overflow: hidden;
-    
     cursor: pointer;
-    overflow: hidden;
     margin: 0;
-    border-radius: 12px;
     @media ( max-width: 320px ){
         width: 280px;
         max-height: 600px;
     }
+`
+
+export const ImageContainerDiv = styled.div`
+    width: 280px;
+    max-height: 600px;
+    border-radius: 16px;
+    overflow: hidden
 `
 
 export const ImageContainer = styled(motion.img)`

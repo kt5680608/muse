@@ -119,5 +119,5 @@ export const InfoContainer = styled.div`
 `
 
 export const HomeContainer = styled.div`
-    width: 96vw;
+    width: 100vw;
 `

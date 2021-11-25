@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { updateUser, profileImageUpload} from '../../actions/updateUser'
-import { userInfo} from '../../actions/userInfo'
 import { Navbar, NicknameUpdateButton, OwnerPost, LikedPost, FollowListModal, Loading} from '../../components'
 import StackGrid from 'react-stack-grid'
-import { AiOutlineCheck } from 'react-icons/ai'
 import{ Avatar,
     MyPageContainer,
     OwnerInfoContainer,
@@ -258,7 +256,7 @@ function MyPage({match}) {
                         {isOwner == true ?
                             <>
                                 <DisplayOrderButton onClick = {ownerOrder}> <ButtonH1>내 게시물</ButtonH1></DisplayOrderButton>
-                                <DisplayOrderButton onClick = {likesOrder}> <ButtonH1>좋아하는 게시물</ButtonH1></DisplayOrderButton>
+                                <DisplayOrderButton2 onClick = {likesOrder}> <ButtonH1>좋아하는 게시물</ButtonH1></DisplayOrderButton2>
                             </>
                         :
                             <></>   

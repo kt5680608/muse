@@ -40,7 +40,7 @@ import { Container,
     const history = useHistory();
     const onClickHistoryPushMine = () => {
         history.push(`/my-page/${getUserNickname}`)
-        window.location.reload();
+        
     }
     const dispatch = useDispatch();
     const logOutBtn = () => {

@@ -78,7 +78,7 @@ export const FollowButton = styled(motion.button)`
 
 export const OrderButtonContainer = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     @media(max-width: 724px){
         flex-direction: column;
@@ -86,9 +86,9 @@ export const OrderButtonContainer = styled.div`
 `
 
 export const DisplayOrderButton = styled(FollowButton)`
-    margin-bottom: 24px;
+    margin: 0 3px 24px 3px;
     padding: 12px 100px 12px 100px;
-    width: 48%;
+    width: 360px;
     border-radius: 0px;
     background-color: var(--g-color-gray100);
     color: black;
@@ -100,11 +100,12 @@ export const DisplayOrderButton = styled(FollowButton)`
     }
 `
 
-export const DislayOrderButton2 = styled(FollowButton)`
-    margin-bottom: 24px;
+export const DisplayOrderButton2 = styled(FollowButton)`
+    margin: 0 3px 24px 3px;
+    padding: 12px 100px 12px 100px;
     background-color: transparent;
-    width: 48%;
     border-radius: 0px;
+    width: 360px;
     background-color: var(--g-color-gray100);
     color: black;
     @media(max-width: 724px){
