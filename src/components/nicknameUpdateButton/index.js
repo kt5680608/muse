@@ -164,9 +164,6 @@ function Input(ownerInfo){
 }
 function NicknameUpdateButton(nickname) {
     useEffect (() => {
-        console.log(nickname.nickname);
-        console.log(nickname.avatar)
-        console.log(nickname.selfIntroduce)
     },[])
     const ModalWithHeading = ({
       onDismiss,
@@ -174,7 +171,6 @@ function NicknameUpdateButton(nickname) {
   
       return (
         <Modal
-          accessibilityModalLabel="MUSE 이용약관"
           onDismiss={onDismiss}
           footer={
             <Input

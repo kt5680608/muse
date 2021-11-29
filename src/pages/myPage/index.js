@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { updateUser, profileImageUpload} from '../../actions/updateUser'
-import { Navbar, NicknameUpdateButton, OwnerPost, LikedPost, FollowListModal, Loading} from '../../components'
+import { Navbar, NicknameUpdateButton, OwnerPost, LikedPost, FollowListModal, FollowingListModal, Loading} from '../../components'
 import StackGrid from 'react-stack-grid'
 import{ Avatar,
     MyPageContainer,
@@ -25,8 +25,6 @@ import{ Avatar,
 } from './style'
 
 function MyPage({match}) {
-    
-    const grid = React.useRef(null);
     const history = useHistory();
     const dispatch = useDispatch();
     const [ nickname, setNickname ] = useState('');
@@ -34,9 +32,9 @@ function MyPage({match}) {
     const [ isLoginUserFollow, setIsLoginUserFollow] = useState();
     const [ ownerInfo, setOwnerInfo ] = useState([]);
     const [ followingCount, setFollowingCount ] = useState();
-    const [ followingList, setFollowingList ] = useState([]);
+    const [ followingLists, setFollowingLists ] = useState([]);
     const [ followerCount, setFollowerCount ] = useState();
-    const [ followerList, setFollowerList ] = useState([]);
+    const [ followerLists, setFollowerLists ] = useState([]);
     const [ ownerPosts, setOwnerPosts ] = useState([]);
     const [ introduce, setIntroduce] = useState('');
     const myPageOwner = match.params;
@@ -48,7 +46,6 @@ function MyPage({match}) {
       };
     const handleSubmit = (e) => {
         e.preventDefault();
-        //console.log('변경');
     }
     const onChangeProfileImage = (e) => {
         e.preventDefault();
@@ -130,14 +127,14 @@ function MyPage({match}) {
             })
             .then(res => res.json())
             .then((data) => {
-                console.log(data);
                 setIsOwner(data.is_owner);
                 setIsLoginUserFollow(data.is_login_user_follow);
                 setOwnerInfo(data.owner_info);
                 setFollowingCount(data.following_count);
-                setFollowingList(data.following_list);
+                setFollowingLists(data.following_list);
                 setFollowerCount(data.follower_count);
-                setFollowerList(data.follower_list);
+                setFollowerLists(data.follower_list);
+                console.log(followerLists);
         })
     }
 
@@ -157,18 +154,13 @@ function MyPage({match}) {
         })
             .then(res => res.json())
             .then((data) => {
-                console.log(data);
                 setOwnerPosts(data);
             })
             .finally(() => {
                 setLoading(false);
             })
     }
-    
-    useEffect(() => {
-        getOwnerInfo();
-        getOwnerPosts();
-    },[])
+
     const getLikedPosts = () =>{ 
         const url = window.location.pathname;
         const urlParts = url.replace(/\/\s*$/,'').split('/'); 
@@ -183,11 +175,10 @@ function MyPage({match}) {
             })
             .then(res => res.json())
             .then((data) => {
-                console.log(data);
                 setOwnerPosts(data)
         })
     }
-
+    // ----------------------------------------------------------------정렬--------------------------------------------------------
     const likesOrder = () => {
         setDisplayOwnerPosts(false);
         setOwnerPosts([]);
@@ -199,6 +190,13 @@ function MyPage({match}) {
         setOwnerPosts([]);
         getOwnerPosts();
     }
+
+    // --------------------------------------------------------------------------------------------------------------------------
+
+    useEffect(() => {
+        getOwnerInfo();
+        getOwnerPosts();
+    },[])
 
     return (
         <div>
@@ -236,17 +234,14 @@ function MyPage({match}) {
                         </OwnerNicknameContainer>
                         <div><Pre><Introduce>{ownerInfo.self_introduce}</Introduce></Pre></div>
                         
-                        <FollowContainer>
-                            <FollowCountContainer
-                                whileHover = {{
-                                    scale: 1.05
-                                }}
-                            ><OwnerFollower>팔로워<br/>{followerCount}명</OwnerFollower></FollowCountContainer>
-                            <FollowCountContainer
-                                whileHover = {{
-                                    scale: 1.05
-                                }}
-                            ><OwnerFollower>팔로잉<br/>{followingCount}명</OwnerFollower></FollowCountContainer>
+                        <FollowContainer>                    
+                            <FollowListModal
+                                followerCount = {followerCount}
+                                followerLists = {followerLists}
+                            />
+                            <FollowingListModal
+                                followingCount = {followingCount}
+                            />
                         </FollowContainer>
                     </OwnerInfoContainer>
             </MyPageContainer>
