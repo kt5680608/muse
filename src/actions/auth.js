@@ -26,3 +26,7 @@ export const logOut = () => async (dispatch) => {
         console.log("actions/logOut 에러", error);
     }
 };
+
+export const test = () => async (dispatch) => {
+    return "test";
+};
