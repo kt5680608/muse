@@ -5,8 +5,8 @@ export const kakaoLogin = (authorizeCodeFromKakao) => async (dispatch) => {
     try {
         const response = await api.kakaoLogin(authorizeCodeFromKakao);
         dispatch({ type: AUTH, payload: response });
-    } catch (error) {
-        console.log("actions/auth 에러", error);
+    } catch (e) {
+        console.error(e);
     }
 };
 
@@ -15,18 +15,14 @@ export const kakaoRegister = (authorizeCodeFromKakao) => async (dispatch) => {
         const response = await api.kakaoRegister(authorizeCodeFromKakao);
         dispatch({ type: AUTH, payload: response });
     } catch (error) {
-        console.log("actions/auth 에러", error);
+        console.error(error);
     }
 };
 
 export const logOut = () => async (dispatch) => {
     try {
         dispatch({ type: LOG_OUT });
-    } catch (error) {
-        console.log("actions/logOut 에러", error);
+    } catch (e) {
+        console.error(e);
     }
-};
-
-export const test = () => async (dispatch) => {
-    return "test";
 };

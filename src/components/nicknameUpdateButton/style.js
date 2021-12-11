@@ -1,5 +1,4 @@
-import styled from 'styled-components'
-import { HiOutlinePencilAlt } from 'react-icons/hi'
+import styled from "styled-components";
 
 export const Avatar = styled.img`
     width: 120px;
@@ -8,10 +7,10 @@ export const Avatar = styled.img`
     margin-bottom: 12px;
     display: block;
     cursor: pointer;
-    &:hover{
-        opacity: .7;
+    &:hover {
+        opacity: 0.7;
     }
-`
+`;
 
 export const NicknameInput = styled.input`
     width: 360px;
@@ -23,17 +22,17 @@ export const NicknameInput = styled.input`
     background-color: var(--g-color-gray100);
     padding: 12px;
     margin-bottom: 24px;
-    &:focus{
+    &:focus {
         outline: none;
     }
-`
+`;
 
 export const NicknameLabel = styled.label`
     font-weight: 900;
     font-size: var(--g-text-font-size-5);
     margin-right: 12px;
     display: block;
-`
+`;
 
 export const SubmitButton = styled.button`
     border: none;
@@ -42,11 +41,11 @@ export const SubmitButton = styled.button`
     font-weight: 900;
     font-size: var(--g-text-font-size-3);
     border-radius: 24px;
-    &:hover{
+    &:hover {
         background-color: var(--g-color-blue);
         color: var(--g-color-white);
     }
-`
+`;
 
 export const DeleteButton = styled.button`
     border: none;
@@ -57,7 +56,7 @@ export const DeleteButton = styled.button`
     background-color: #cc3300;
     border-radius: 24px;
     color: var(--g-color-white);
-`
+`;
 
 export const SubmitButtonContainer = styled.div`
     display: flex;
@@ -65,34 +64,34 @@ export const SubmitButtonContainer = styled.div`
     width: 100%;
     justify-content: flex-end;
     margin-top: 24px;
-`
+`;
 
 export const AvatarContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-`
+`;
 
 export const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`
+`;
 
 export const ModalName = styled.h1`
     font-weight: 900;
     font-size: var(--g-text-font-size-5);
     margin-bottom: 24px;
-`
+`;
 
 export const Form = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-`
+`;
 
 export const Textarea = styled.textarea`
     white-space: pre-wrap;
@@ -106,11 +105,11 @@ export const Textarea = styled.textarea`
     padding: 16px;
     display: inline;
     font-size: var(--g-text-font-size-4);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-`
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+`;
 
 export const Pre = styled.pre`
     justify-content: center;
-`
+`;

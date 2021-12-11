@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Banner = styled.div`
     width: 100vw;
@@ -17,28 +17,27 @@ export const Banner = styled.div`
     @media (max-width: 425px) {
         font-size: 12px;
     }
-`
+`;
 export const Label = styled.h1`
     color: black;
     font-family: R-FLEX-BLACK;
     font-size: 3em;
-    
-`
+`;
 export const Paragraph = styled.h2`
     margin-top: 24px;
     color: black;
     font-family: Noto-Sans-KR-Black;
     font-weight: 900;
     font-size: 1.2em;
-`
+`;
 export const Highlight = styled.span`
     color: var(--g-color-blue);
     font-family: R-FLEX-BLACK;
-`
+`;
 
 export const Span = styled.span`
     color: black;
     font-family: R-FLEX-BLACK;
     font-weight: 900;
     font-size: 1.2em;
-`
+`;

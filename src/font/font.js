@@ -1,12 +1,12 @@
-import { createGlobalStyle } from 'styled-components'
-import RFLEXBLACK from './R-FLEX-BLACK.woff2'
-import NotoSansKRBold from './NotoSansKR-Bold.woff2'
-import NotoSansKRBlack from './NotoSansKR-Black.woff2'
+import { createGlobalStyle } from "styled-components";
+import RFLEXBLACK from "./R-FLEX-BLACK.woff2";
+import NotoSansKRBold from "./NotoSansKR-Bold.woff2";
+import NotoSansKRBlack from "./NotoSansKR-Black.woff2";
 
-export const FontStyle = createGlobalStyle `		    
+export const FontStyle = createGlobalStyle`		    
   @font-face {
     font-family: 'R-FLEX-BLACK';	
-    src: url(${ RFLEXBLACK }) format('woff2');
+    src: url(${RFLEXBLACK}) format('woff2');
     font-weight: 900;
     font-style: normal;
   }
@@ -22,4 +22,4 @@ export const FontStyle = createGlobalStyle `
     font-weight: 900;
     font-style: normal;
   }
-`
+`;

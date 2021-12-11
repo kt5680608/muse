@@ -1,34 +1,34 @@
-import styled from 'styled-components'
-import { BiSearch } from 'react-icons/bi'
-import { Dropdown } from 'react-bootstrap'
-import { CgProfile } from 'react-icons/cg'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import { NavLink } from 'react-router-dom'
-import { motion } from 'framer'
-import { Button, Modal } from 'gestalt'
-import 'gestalt/dist/gestalt.css';
+import styled from "styled-components";
+import { BiSearch } from "react-icons/bi";
+import { Dropdown } from "react-bootstrap";
+import { CgProfile } from "react-icons/cg";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { NavLink } from "react-router-dom";
+import { motion } from "framer";
+import { Button, Modal } from "gestalt";
+import "gestalt/dist/gestalt.css";
 
 export const Container = styled.div`
-display: flex;
-justify-content: center;
-margin: 8px 0 8px 0;
-`
+    display: flex;
+    justify-content: center;
+    margin: 8px 0 8px 0;
+`;
 export const NavContainerDesktop = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 92vw;
     height: 6vh;
-    background-color: #fff
-`
+    background-color: #fff;
+`;
 export const NavContainerTablet = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 94vw;
     height: 80px;
-    background-color: #fff
-`
+    background-color: #fff;
+`;
 
 export const NavContainerMobile = styled.div`
     display: flex;
@@ -36,35 +36,35 @@ export const NavContainerMobile = styled.div`
     align-items: center;
     width: 96vw;
     height: 80px;
-    background-color: #fff
-`
+    background-color: #fff;
+`;
 
 export const NavContainerLeft = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-basis: 258px;
-`
+`;
 export const NavContainerRight = styled(NavContainerLeft)`
     justify-content: flex-end;
-`
+`;
 
-export const NavItem= styled(motion.div)`
+export const NavItem = styled(motion.div)`
     font-size: 16px;
     padding: 4px 16px 4px 16px;
     font-family: R-FLEX-BLACK;
     font-weight: 900;
     border-radius: 36px;
-    &:hover{
+    &:hover {
         color: var(--g-color-blue);
     }
-`
+`;
 
 export const Logo = styled.div`
     font-family: R-FLEX-BLACK;
     font-size: 36px;
     color: var(--g-color-blue);
-`
+`;
 
 export const SearchIcon = styled(BiSearch)`
     margin-right: 24px;
@@ -75,47 +75,46 @@ export const SearchIcon = styled(BiSearch)`
     @media (max-width: 767px) {
         margin-right: 12px;
     }
-`
+`;
 export const BurgerIcon = styled(GiHamburgerMenu)`
     font-size: 24px;
-    &:hover{
+    &:hover {
         color: var(--color-blue);
     }
-`
+`;
 export const AvatarIcon = styled(CgProfile)`
-    
     font-size: 24px;
-    &:hover{
+    &:hover {
         color: var(--g-color-blue);
     }
-`
+`;
 
 export const CustomDropdown = styled(Dropdown)`
     button {
         background-color: var(--g-color-blue);
         width: 36px;
     }
-    
-    .btn-success{
+
+    .btn-success {
         background-color: var(--g-color-blue);
         border-color: var(--g-color-blue);
     }
-    .btn-success:hover{
+    .btn-success:hover {
         background-color: var(--g-color-blue);
     }
-    #dropdown-menu-align-end{
+    #dropdown-menu-align-end {
         width: 100%;
         padding: 0;
         background-color: transparent;
         border: none;
         color: var(--g-olor-blue);
     }
-    .dropdown-menu{
+    .dropdown-menu {
         min-width: 120px;
         background-color: white;
     }
-    .dropdown-item{
-        color:black;
+    .dropdown-item {
+        color: black;
         display: flex;
         justify-content: center;
         font-family: "Helvetica";
@@ -124,33 +123,37 @@ export const CustomDropdown = styled(Dropdown)`
             background-color: var(--g-color-blue);
         }
     }
-    .dropdown-toggle::after{display:none}
-    .btn-check:focus + &, &:focus{
+    .dropdown-toggle::after {
+        display: none;
+    }
+    .btn-check:focus + &,
+    &:focus {
         background-color: transparent;
         box-shadow: none;
     }
-    .btn-check:focus + .btn-primary, .btn-primary:focus{
+    .btn-check:focus + .btn-primary,
+    .btn-primary:focus {
         box-shadow: none;
     }
-    .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
-    box-shadow: none;
+    .btn-check:checked + .btn-primary:focus,
+    .btn-check:active + .btn-primary:focus,
+    .btn-primary:active:focus,
+    .btn-primary.active:focus,
+    .show > .btn-primary.dropdown-toggle:focus {
+        box-shadow: none;
     }
-    
-`
+`;
 
 export const DropdownMenu = styled.p`
     font-weight: 600;
     margin: 0;
     font-size: 1em;
-`
+`;
 
 export const Avatar = styled.img`
     width: 24px;
     height: 24px;
     border-radius: 50%;
-`
+`;
 
-export const AgreeModal = styled(Modal)`
-
-`
-
+export const AgreeModal = styled(Modal)``;
