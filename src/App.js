@@ -3,19 +3,18 @@ import Success from './pages/auth/Success'
 import Auth from './pages/auth/Auth'
 import Register from './pages/Register/Register'
 import RegisterSuccess from './pages/Register/RegisterSuccess'
-import { Home,
-          Archives,
-          Muse,
-          UserUpdate,
-          MyPage,
-          Replace,
-          DetailPost,
-          Contest,
-        }
-        from './pages'
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import 'react-router-modal/css/react-router-modal.css'
-import { DetailModal } from './components'
+import { Home,
+  Archives,
+  Muse,
+  UserUpdate,
+  MyPage,
+  Replace,
+  DetailPost,
+  Contest,
+}
+from './pages'
 import './App.css'
 function App() {
   return (

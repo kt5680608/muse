@@ -78,6 +78,7 @@ export const CustomButton = styled.button`
     color: white;
     padding: 4px 16px 4px 16px;
     background-color: var(--g-color-blue);
+    margin-top: 36px;
     border-radius: 16px;
     &:hover{
         opacity: .7;
@@ -96,6 +97,12 @@ export const ImgPreview = styled.img`
     max-width: 50%;
     width: 100%;
     border-radius: 16px;
+`
+
+export const ImgPreviewSkeleton = styled.div`
+    max-width: 50%;
+    width: 100%;
+    background-color: var(--g-color-gray100);
 `
 
 export const CustomTextarea = styled.textarea`
