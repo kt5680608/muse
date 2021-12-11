@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import { FiPlus } from 'react-icons/fi'
-import { BsFillQuestionCircleFill } from 'react-icons/bs'
-import { Modal, Button } from 'react-bootstrap'
-import { motion } from 'framer'
+import styled from "styled-components";
+import { FiPlus } from "react-icons/fi";
+import { BsFillQuestionCircleFill } from "react-icons/bs";
+import { Modal, Button } from "react-bootstrap";
+import { motion } from "framer";
 export const PostButton = styled(motion.div)`
     display: flex;
     justify-content: center;
@@ -16,9 +16,9 @@ export const PostButton = styled(motion.div)`
     left: 93%;
     top: 78%;
     border-radius: 50%;
-    background-color: var(--g-color-blue);   
+    background-color: var(--g-color-blue);
     cursor: pointer;
-`
+`;
 
 export const PlusButton = styled(FiPlus)`
     width: 36px;
@@ -30,10 +30,10 @@ export const PlusButton = styled(FiPlus)`
     border-radius: 50%;
     cursor: pointer;
     stroke-width: 3;
-`
+`;
 
 export const QaButton = styled(BsFillQuestionCircleFill)`
-     display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     width: 56px;
@@ -47,11 +47,11 @@ export const QaButton = styled(BsFillQuestionCircleFill)`
     top: 86%;
     border-radius: 50%;
     background-color: var(--g-color-white);
-    color: var(--g-color-blue);   
-`
+    color: var(--g-color-blue);
+`;
 export const CustomModal = styled(Modal)`
     overflow: visible;
-`
+`;
 
 export const CustomInput = styled.input`
     background-color: var(--g-color-gray100);
@@ -61,12 +61,12 @@ export const CustomInput = styled.input`
     height: 36px;
     border-radius: 24px;
     margin: 12px;
-`
+`;
 
 export const CustomInputFile = styled.input`
     padding: 0px;
     width: 80%;
-`
+`;
 
 export const CustomButton = styled.button`
     border: none;
@@ -74,24 +74,22 @@ export const CustomButton = styled.button`
     padding: 4px 16px 4px 16px;
     background-color: var(--g-color-blue);
     border-radius: 16px;
-    &:hover{
-        opacity: .7;
+    &:hover {
+        opacity: 0.7;
     }
-`
+`;
 
 export const CustomForm = styled.form`
     display: flex;
-`
+`;
 
-export const ImageContainer = styled.div`
-
-`
+export const ImageContainer = styled.div``;
 
 export const ImgPreview = styled.img`
     max-width: 50%;
     width: 100%;
     border-radius: 16px;
-`
+`;
 
 export const CustomTextarea = styled.textarea`
     white-space: pre-wrap;
@@ -102,12 +100,12 @@ export const CustomTextarea = styled.textarea`
     background-color: var(--g-color-gray100);
     border-radius: 16px;
     padding: 16px;
-`
+`;
 
 export const Pre = styled.pre`
     display: flex;
     justify-content: center;
-`
+`;
 
 export const InfoContainer = styled.div`
     display: flex;
@@ -116,8 +114,8 @@ export const InfoContainer = styled.div`
     height: auto;
     width: 100%;
     justify-content: flex-start;
-`
+`;
 
 export const HomeContainer = styled.div`
     width: 100vw;
-`
+`;

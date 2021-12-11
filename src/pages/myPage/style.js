@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import { HiOutlinePencilAlt } from 'react-icons/hi'
-import{ motion } from 'framer'
+import styled from "styled-components";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+import { motion } from "framer";
 
 export const MyPageContainer = styled.div`
     margin-top: 40px;
@@ -9,12 +9,12 @@ export const MyPageContainer = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100vw;
-`
+`;
 export const Avatar = styled.img`
     width: 144px;
     height: 144px;
     border-radius: 50%;
-`
+`;
 
 export const OwnerInfoContainer = styled.div`
     display: flex;
@@ -22,7 +22,7 @@ export const OwnerInfoContainer = styled.div`
     flex-direction: column;
     align-items: center;
     width: 92vw;
-`
+`;
 
 export const OwnerNicknameContainer = styled.div`
     display: flex;
@@ -31,36 +31,36 @@ export const OwnerNicknameContainer = styled.div`
     align-items: center;
     margin-top: 24px;
     margin-bottom: 12px;
-`
+`;
 
 export const OwnerNickname = styled.h1`
     font-weight: 900;
     font-size: var(--g-text-font-size-6);
     display: inline;
     margin: 12px 12px 12px 12px;
-`
+`;
 
 export const OwnerFollower = styled(motion.p)`
     font-weight: 600;
     font-size: var(--g-text-font-size-4);
     text-align: center;
-`
+`;
 
 export const FollowCountContainer = styled(motion.div)`
     background-color: var(--g-color-gray100);
     padding: 6px 18px 6px 18px;
     margin: 0px 6px 0px 6px;
     display: flex;
-    
+
     justify-content: center;
     align-items: center;
     border-radius: 16px;
     cursor: pointer;
-    &:hover{
+    &:hover {
         background-color: var(--g-color-blue);
         color: var(--g-color-white);
     }
-`
+`;
 
 export const FollowButton = styled(motion.button)`
     background-color: var(--g-color-blue);
@@ -71,19 +71,19 @@ export const FollowButton = styled(motion.button)`
     font-size: var(--g-text-font-size-3);
     padding: 0 16px 0 16px;
     line-height: 36px;
-    &:hover{
+    &:hover {
         opacity: 0.8;
     }
-`
+`;
 
 export const OrderButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    @media(max-width: 724px){
+    @media (max-width: 724px) {
         flex-direction: column;
     }
-`
+`;
 
 export const DisplayOrderButton = styled(FollowButton)`
     margin: 0 3px 24px 3px;
@@ -92,13 +92,13 @@ export const DisplayOrderButton = styled(FollowButton)`
     border-radius: 0px;
     background-color: var(--g-color-gray100);
     color: black;
-    @media(max-width: 724px){
+    @media (max-width: 724px) {
         width: 320px;
     }
-    @media(max-width: 386px){
+    @media (max-width: 386px) {
         width: 300px;
     }
-`
+`;
 
 export const DisplayOrderButton2 = styled(FollowButton)`
     margin: 0 3px 24px 3px;
@@ -108,21 +108,20 @@ export const DisplayOrderButton2 = styled(FollowButton)`
     width: 360px;
     background-color: var(--g-color-gray100);
     color: black;
-    @media(max-width: 724px){
+    @media (max-width: 724px) {
         width: 320px;
     }
-    @media(max-width: 386px){
+    @media (max-width: 386px) {
         width: 300px;
     }
-`
-
+`;
 
 export const FollowContainer = styled.div`
     display: flex !important;
     flex-direction: row;
     align-items: center;
     margin-bottom: 24px;
-`
+`;
 
 export const ProfileUpdateButton = styled(FollowButton)`
     background-color: var(--g-color-gray100);
@@ -135,54 +134,50 @@ export const ProfileUpdateButton = styled(FollowButton)`
     margin: 0 0 0 12px;
     padding: 8px 16px 8px 16px;
     line-height: 33px;
-    &:hover{
+    &:hover {
         opacity: 0.8;
     }
-`
+`;
 
 export const UpdateIcon = styled(HiOutlinePencilAlt)`
     font-size: 24px;
     margin-left: 6px;
     cursor: pointer;
-    &:hover{
+    &:hover {
         color: var(--g-color-blue);
     }
-`
+`;
 
-export const GridContainer = styled.div`
-    
-`
+export const GridContainer = styled.div``;
 
-export const ListItem = styled.div`
-`
+export const ListItem = styled.div``;
 
 export const MyPostContainer = styled.div`
-margin: 24px 48px 24px 48px;
-@media(max-width:425px){
-    margin: 24px 6px 24px 6px;
-}   
-`
+    margin: 24px 48px 24px 48px;
+    @media (max-width: 425px) {
+        margin: 24px 6px 24px 6px;
+    }
+`;
 export const ButtonH1 = styled.h1`
     font-weight: 900;
     font-size: 1em;
-`
+`;
 
 export const Introduce = styled.h2`
     font-weight: 600;
     font-size: var(--g-text-font-size-3);
-`
+`;
 
 export const Pre = styled.pre`
     font-weight: 600;
     padding: 12px 24px 12px 24px;
     border-radius: 16px;
     margin-bottom: 24px;
-`
+`;
 
 export const FollowedButton = styled(FollowButton)`
     background-color: var(--g-color-gray100);
     color: black;
-`
+`;
 
-export const PostContainer = styled.div`
-`
+export const PostContainer = styled.div``;

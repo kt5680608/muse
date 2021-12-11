@@ -1,25 +1,27 @@
-import { AUTH, LOG_OUT } from '../constants/actionTypes'
-export const authReducer = (state = { authData: null}, action) => {
-    switch(action.type) {
+import { AUTH, LOG_OUT } from "../constants/actionTypes";
+export const authReducer = (state = { authData: null }, action) => {
+    switch (action.type) {
         case AUTH:
-            if( action.payload.result == false){
-                console.log('회원가입 하세요');
-                return {...state, authData: false}
-            }
-            else if ( action.payload.result == true){
-                localStorage.setItem('token', JSON.stringify({...action?.payload}))
-                const token = JSON.parse(localStorage.getItem('token'));
+            if (action.payload.result == false) {
+                console.log("회원가입 하세요");
+                return { ...state, authData: false };
+            } else if (action.payload.result == true) {
+                localStorage.setItem(
+                    "token",
+                    JSON.stringify({ ...action?.payload })
+                );
+                const token = JSON.parse(localStorage.getItem("token"));
                 console.log(token.token);
-                return { ...state, authData: true}
+                return { ...state, authData: true };
             }
         case LOG_OUT:
             localStorage.clear();
-            console.log('로그아웃 완료')
-            return {...state, authData: false };
+            console.log("로그아웃 완료");
+            return { ...state, authData: false };
         default:
-            if(localStorage.getItem('token') != null){
-                return{...state, authData: true };
+            if (localStorage.getItem("token") != null) {
+                return { ...state, authData: true };
             }
             return state;
     }
-}
+};

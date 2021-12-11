@@ -1,48 +1,43 @@
-import { POST_UPLOAD, DETAIL_POST } from '../constants/actionTypes'
-import * as api from '../api/index'
+import { POST_UPLOAD, DETAIL_POST } from "../constants/actionTypes";
+import * as api from "../api/index";
 
-export const getUploadPost = (data) => async() => {
-    try{
+export const getUploadPost = (data) => async () => {
+    try {
         api.uploadPost(data);
+    } catch (e) {
+        console.error(e);
     }
-    catch(e){
-        console.log(e);
-    }
-}   
+};
 
-export const getDetailPost = (postIdxUrl) => async(dispatch) => {
-    try{
+export const getDetailPost = (postIdxUrl) => async (dispatch) => {
+    try {
         const response = await api.detailPost(postIdxUrl);
-        dispatch({type: DETAIL_POST, payload: response})
+        dispatch({ type: DETAIL_POST, payload: response });
+    } catch (e) {
+        console.error(e);
     }
-    catch(e){
-        console.log(e);
-    }
-}
+};
 
-export const uploadCommentPost = (idx, currentComments) => async() => {
-    try{
+export const uploadCommentPost = (idx, currentComments) => async () => {
+    try {
         await api.CommentUpload(idx, currentComments);
-    }
-    catch(e){
+    } catch (e) {
         console.error(e);
     }
-}
+};
 
-export const updatePost = (postIdx, formData) => async() => {
-    try{
+export const updatePost = (postIdx, formData) => async () => {
+    try {
         await api.updatePost(postIdx, formData);
-    }
-    catch(e){
+    } catch (e) {
         console.error(e);
     }
-}
+};
 
-export const deletePost = (postIdx) => async() => {
-    try{
+export const deletePost = (postIdx) => async () => {
+    try {
         await api.deletePost(postIdx);
-    }
-    catch(e){
+    } catch (e) {
         console.error(e);
     }
-}
+};
