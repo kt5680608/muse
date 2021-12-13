@@ -55,8 +55,8 @@ function Input(ownerInfo) {
 
     const handleDuplication = (e) => {
         e.preventDefault();
-        console.log(changedNickname);
         const token = JSON.parse(localStorage.getItem("token"));
+        console.log(token.token);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         return fetch(`${API_DOMAIN}/accounts/check/nickname/`, {
             method: "POST",
