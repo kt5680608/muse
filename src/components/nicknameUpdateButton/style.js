@@ -13,7 +13,7 @@ export const Avatar = styled.img`
 `;
 
 export const NicknameInput = styled.input`
-    width: 360px;
+    width: 288px;
     height: 48px;
     font-size: var(--g-text-font-size-4);
     color: var(--g-color-gray200);
@@ -21,12 +21,21 @@ export const NicknameInput = styled.input`
     border: none;
     background-color: var(--g-color-gray100);
     padding: 12px;
-    margin-bottom: 24px;
+
     &:focus {
         outline: none;
     }
 `;
 
+export const NicknameDuplicateButton = styled.button`
+    margin-left: 12px;
+    width: 72px;
+    height: 36px;
+    border-radius: 12px;
+    background-color: var(--g-color-gray100);
+    border: none;
+    font-weight: 600;
+`;
 export const NicknameLabel = styled.label`
     font-weight: 900;
     font-size: var(--g-text-font-size-5);
@@ -112,4 +121,12 @@ export const Textarea = styled.textarea`
 
 export const Pre = styled.pre`
     justify-content: center;
+`;
+
+export const NicknameContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 12px;
 `;

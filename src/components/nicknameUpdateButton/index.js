@@ -24,6 +24,8 @@ import {
     Textarea,
     DeleteButton,
     AvatarContainer,
+    NicknameContainer,
+    NicknameDuplicateButton,
 } from "./style";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -39,6 +41,7 @@ function Input(ownerInfo) {
     const [originalIntroduce, setOriginalIntroduce] = useState(
         ownerInfo.selfIntroduce
     );
+    const [nicknameCheck, setNicknameCheck] = useState();
     const [changedIntroduce, setChangedIntroduce] = useState("");
     const [deleteAvatarButton, setDeleteAvatarButton] = useState(false);
 
@@ -47,6 +50,27 @@ function Input(ownerInfo) {
     const onChangeNickname = (e) => {
         e.preventDefault();
         setChangedNickname(e.target.value);
+        console.log(changedNickname);
+    };
+
+    const handleDuplication = (e) => {
+        e.preventDefault();
+        console.log(changedNickname);
+        const token = JSON.parse(localStorage.getItem("token"));
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+        return fetch(`${API_DOMAIN}/accounts/check/nickname/`, {
+            method: "POST",
+            headers: {
+                Authorization: `${token.token}`,
+            },
+            body: changedNickname,
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setNicknameCheck(data);
+                return data;
+            });
     };
 
     const onChangeAvatar = (e) => {
@@ -165,12 +189,19 @@ function Input(ownerInfo) {
                         />
                         <div>
                             <NicknameLabel>닉네임</NicknameLabel>
-                            <NicknameInput
-                                type="text"
-                                placeholder={ownerInfo.nickname}
-                                onChange={onChangeNickname}
-                                onKeyPress={onPressEnter}
-                            />
+                            <NicknameContainer>
+                                <NicknameInput
+                                    type="text"
+                                    placeholder={ownerInfo.nickname}
+                                    onChange={onChangeNickname}
+                                    onKeyPress={onPressEnter}
+                                />
+                                <NicknameDuplicateButton
+                                    onClick={handleDuplication}
+                                >
+                                    중복검사
+                                </NicknameDuplicateButton>
+                            </NicknameContainer>
                         </div>
                         <div>
                             <NicknameLabel>자기소개</NicknameLabel>

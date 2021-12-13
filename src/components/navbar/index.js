@@ -24,6 +24,9 @@ import {
 } from "./style";
 
 function Navbar() {
+    const isLogged = useSelector((state) => state.authReducer.authData);
+    const getUserAvatar = useSelector((state) => state.userInfo.avatar);
+    const getUserNickname = useSelector((state) => state.userInfo.nickname);
     //반응형 대응
     const isDesktop = MediaQuery({
         query: "(min-width: 1024px",
@@ -34,9 +37,6 @@ function Navbar() {
     const isMobile = MediaQuery({
         query: "(max-width: 767px)",
     });
-    const isLogged = useSelector((state) => state.authReducer.authData);
-    const getUserAvatar = useSelector((state) => state.userInfo.avatar);
-    const getUserNickname = useSelector((state) => state.userInfo.nickname);
 
     const history = useHistory();
     const handleHistoryMyPage = () => {

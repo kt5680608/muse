@@ -34,6 +34,7 @@ import {
 } from "./style";
 
 function MyPage({ match }) {
+    const getUserNickname = useSelector((state) => state.userInfo.nickname);
     const history = useHistory();
     const dispatch = useDispatch();
     const [nickname, setNickname] = useState("");
@@ -80,7 +81,9 @@ function MyPage({ match }) {
         const url = window.location.pathname;
         const urlParts = url.replace(/\/\s*$/, "").split("/");
         urlParts.shift();
-        console.log(urlParts);
+        if (urlParts === null || undefined) {
+            urlParts = getUserNickname;
+        }
         const token = JSON.parse(localStorage.getItem("token"));
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         return fetch(`${API_DOMAIN}/accounts/my-page/${urlParts[1]}/`, {
