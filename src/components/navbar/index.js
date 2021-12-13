@@ -40,6 +40,7 @@ function Navbar() {
 
     const history = useHistory();
     const handleHistoryMyPage = () => {
+        console.log("내 페이지");
         history.push(`/my-page/${getUserNickname}`);
     };
     const dispatch = useDispatch();
