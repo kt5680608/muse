@@ -181,7 +181,6 @@ export const deletePost = (postIdx) => {
 };
 
 export const updateUser = (formData) => {
-    const token = JSON.parse(localStorage.getItem("token"));
     return fetch(`${API_DOMAIN}/accounts/update/`, {
         method: "POST",
         headers: {
@@ -193,5 +192,40 @@ export const updateUser = (formData) => {
         .then((data) => {
             useHistory.push(`/my-page/${data.nickname}`);
             return data;
+        });
+};
+
+export const checkDuplication = (nicknameDuplicationFormData) => {
+    return fetch(`${API_DOMAIN}/accounts/check/nickname/`, {
+        method: "POST",
+        headers: {
+            Authorization: `${token.token}`,
+        },
+        body: nicknameDuplicationFormData,
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            try {
+                if (data.result == false) {
+                    return Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "이미 존재하는 닉네임입니다.",
+                        showConfirmButton: true,
+                        timer: 1000,
+                    });
+                } else if (data.result == true) {
+                    return Swal.fire({
+                        icon: "success",
+                        title: "Success!",
+                        text: "사용 가능한 닉네임입니다.",
+                        showConfirmButton: true,
+                        timer: 1000,
+                    });
+                }
+                return data;
+            } catch (e) {
+                console.error(e);
+            }
         });
 };

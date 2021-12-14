@@ -1,4 +1,8 @@
-import { UPDATE_USER, PROFILE_IMAGE_UPLOAD } from "../constants/actionTypes";
+import {
+    UPDATE_USER,
+    PROFILE_IMAGE_UPLOAD,
+    CHECK_NICKNAME_DUPLICATION,
+} from "../constants/actionTypes";
 import * as api from "../api";
 
 export const updateUser = (formData) => {
@@ -13,6 +17,17 @@ export const profileImageUpload = (data) => async (dispatch) => {
     try {
         await api.profileImageUpload(data);
         dispatch({ type: PROFILE_IMAGE_UPLOAD });
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+export const checkDuplication = (nicknameDuplicationFormData) => async (
+    dispatch
+) => {
+    try {
+        await api.checkDuplication(nicknameDuplicationFormData);
+        dispatch({ type: CHECK_NICKNAME_DUPLICATION });
     } catch (e) {
         console.log(e);
     }

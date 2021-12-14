@@ -24,10 +24,13 @@ import {
     Textarea,
     DeleteButton,
     AvatarContainer,
+    NicknameContainer,
+    NicknameDuplicateButton,
 } from "./style";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { checkDuplication } from "../../actions/updateUser";
 function Input(ownerInfo) {
     const [originalNickname, setOriginalNickname] = useState(
         ownerInfo.nickname
@@ -39,14 +42,25 @@ function Input(ownerInfo) {
     const [originalIntroduce, setOriginalIntroduce] = useState(
         ownerInfo.selfIntroduce
     );
+    const [nicknameCheck, setNicknameCheck] = useState();
     const [changedIntroduce, setChangedIntroduce] = useState("");
     const [deleteAvatarButton, setDeleteAvatarButton] = useState(false);
 
     const MUSE_DOMAIN = process.env.REACT_APP_MUSE_DOMAIN;
 
+    const dispatch = useDispatch();
+
     const onChangeNickname = (e) => {
         e.preventDefault();
         setChangedNickname(e.target.value);
+        console.log(changedNickname);
+    };
+
+    const handleDuplication = (e) => {
+        e.preventDefault();
+        const nicknameDuplicationFormData = new FormData();
+        nicknameDuplicationFormData.append("nickname", changedNickname);
+        dispatch(checkDuplication(nicknameDuplicationFormData));
     };
 
     const onChangeAvatar = (e) => {
@@ -64,12 +78,6 @@ function Input(ownerInfo) {
         e.preventDefault();
         setChangedIntroduce(e.target.value);
         console.log(changedIntroduce);
-    };
-
-    const onPressEnter = (e) => {
-        if (e.key == "Enter") {
-            handleSubmit();
-        }
     };
 
     const updateUser = (formData) => {
@@ -165,12 +173,24 @@ function Input(ownerInfo) {
                         />
                         <div>
                             <NicknameLabel>닉네임</NicknameLabel>
-                            <NicknameInput
-                                type="text"
-                                placeholder={ownerInfo.nickname}
-                                onChange={onChangeNickname}
-                                onKeyPress={onPressEnter}
-                            />
+                            <NicknameContainer>
+                                <NicknameInput
+                                    type="text"
+                                    placeholder={ownerInfo.nickname}
+                                    onChange={onChangeNickname}
+                                />
+                                <NicknameDuplicateButton
+                                    onClick={handleDuplication}
+                                >
+                                    중복검사
+                                </NicknameDuplicateButton>
+                            </NicknameContainer>
+                            {nicknameCheck == true && (
+                                <h1>사용 가능한 닉네임입니다.</h1>
+                            )}
+                            {nicknameCheck == false && (
+                                <h1>이미 사용중인 닉네임입니다.</h1>
+                            )}
                         </div>
                         <div>
                             <NicknameLabel>자기소개</NicknameLabel>
