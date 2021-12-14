@@ -30,6 +30,7 @@ import {
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { checkDuplication } from "../../actions/updateUser";
 function Input(ownerInfo) {
     const [originalNickname, setOriginalNickname] = useState(
         ownerInfo.nickname
@@ -47,6 +48,8 @@ function Input(ownerInfo) {
 
     const MUSE_DOMAIN = process.env.REACT_APP_MUSE_DOMAIN;
 
+    const dispatch = useDispatch();
+
     const onChangeNickname = (e) => {
         e.preventDefault();
         setChangedNickname(e.target.value);
@@ -55,22 +58,9 @@ function Input(ownerInfo) {
 
     const handleDuplication = (e) => {
         e.preventDefault();
-        const token = JSON.parse(localStorage.getItem("token"));
-        console.log(token.token);
-        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        return fetch(`${API_DOMAIN}/accounts/check/nickname/`, {
-            method: "POST",
-            headers: {
-                Authorization: `${token.token}`,
-            },
-            body: changedNickname,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setNicknameCheck(data);
-                return data;
-            });
+        const nicknameDuplicationFormData = new FormData();
+        nicknameDuplicationFormData.append("nickname", changedNickname);
+        dispatch(checkDuplication(nicknameDuplicationFormData));
     };
 
     const onChangeAvatar = (e) => {
@@ -88,12 +78,6 @@ function Input(ownerInfo) {
         e.preventDefault();
         setChangedIntroduce(e.target.value);
         console.log(changedIntroduce);
-    };
-
-    const onPressEnter = (e) => {
-        if (e.key == "Enter") {
-            handleSubmit();
-        }
     };
 
     const updateUser = (formData) => {
@@ -194,7 +178,6 @@ function Input(ownerInfo) {
                                     type="text"
                                     placeholder={ownerInfo.nickname}
                                     onChange={onChangeNickname}
-                                    onKeyPress={onPressEnter}
                                 />
                                 <NicknameDuplicateButton
                                     onClick={handleDuplication}
@@ -202,6 +185,12 @@ function Input(ownerInfo) {
                                     중복검사
                                 </NicknameDuplicateButton>
                             </NicknameContainer>
+                            {nicknameCheck == true && (
+                                <h1>사용 가능한 닉네임입니다.</h1>
+                            )}
+                            {nicknameCheck == false && (
+                                <h1>이미 사용중인 닉네임입니다.</h1>
+                            )}
                         </div>
                         <div>
                             <NicknameLabel>자기소개</NicknameLabel>
