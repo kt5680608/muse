@@ -195,37 +195,19 @@ export const updateUser = (formData) => {
         });
 };
 
-export const checkDuplication = (nicknameDuplicationFormData) => {
-    return fetch(`${API_DOMAIN}/accounts/check/nickname/`, {
+export const updateUserProfile = (userProfileFormData) => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+    return fetch(`${API_DOMAIN}/accounts/update/`, {
         method: "POST",
         headers: {
             Authorization: `${token.token}`,
         },
-        body: nicknameDuplicationFormData,
+        body: userProfileFormData,
     })
         .then((res) => res.json())
         .then((data) => {
-            try {
-                if (data.result == false) {
-                    return Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "이미 존재하는 닉네임입니다.",
-                        showConfirmButton: true,
-                        timer: 1000,
-                    });
-                } else if (data.result == true) {
-                    return Swal.fire({
-                        icon: "success",
-                        title: "Success!",
-                        text: "사용 가능한 닉네임입니다.",
-                        showConfirmButton: true,
-                        timer: 1000,
-                    });
-                }
-                return data;
-            } catch (e) {
-                console.error(e);
-            }
+            console.log(data);
+            return data;
         });
 };
