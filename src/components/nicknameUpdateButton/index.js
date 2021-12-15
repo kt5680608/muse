@@ -30,7 +30,8 @@ import {
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { checkDuplication } from "../../actions/updateUser";
+import { updateUserProfile } from "../../actions/updateUser";
+import Swal from "sweetalert2";
 function Input(ownerInfo) {
     const [originalNickname, setOriginalNickname] = useState(
         ownerInfo.nickname
@@ -42,10 +43,10 @@ function Input(ownerInfo) {
     const [originalIntroduce, setOriginalIntroduce] = useState(
         ownerInfo.selfIntroduce
     );
-    const [nicknameCheck, setNicknameCheck] = useState();
+    const [nicknameCheck, setNicknameCheck] = useState(null);
     const [changedIntroduce, setChangedIntroduce] = useState("");
     const [deleteAvatarButton, setDeleteAvatarButton] = useState(false);
-
+    const [duplicationData, setDuplicationData] = useState(null);
     const MUSE_DOMAIN = process.env.REACT_APP_MUSE_DOMAIN;
 
     const dispatch = useDispatch();
@@ -60,7 +61,37 @@ function Input(ownerInfo) {
         e.preventDefault();
         const nicknameDuplicationFormData = new FormData();
         nicknameDuplicationFormData.append("nickname", changedNickname);
-        dispatch(checkDuplication(nicknameDuplicationFormData));
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+        const token = JSON.parse(localStorage.getItem("token"));
+        return fetch(`${API_DOMAIN}/accounts/check/nickname/`, {
+            method: "POST",
+            headers: {
+                Authorization: `${token.token}`,
+            },
+            body: nicknameDuplicationFormData,
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setDuplicationData(data.result);
+                if (data.result === true) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: "사용 가능한 닉네임입니다.",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+                if (data.result === false) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "이미 존재하는 닉네임입니다.",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            });
     };
 
     const onChangeAvatar = (e) => {
@@ -80,23 +111,6 @@ function Input(ownerInfo) {
         console.log(changedIntroduce);
     };
 
-    const updateUser = (formData) => {
-        const token = JSON.parse(localStorage.getItem("token"));
-        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        return fetch(`${API_DOMAIN}/accounts/update/`, {
-            method: "POST",
-            headers: {
-                Authorization: `${token.token}`,
-            },
-            body: formData,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                return data;
-            });
-    };
-
     const deleteAvatar = (e) => {
         e.preventDefault();
         setDeleteAvatarButton(true);
@@ -104,35 +118,60 @@ function Input(ownerInfo) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("nickname", changedNickname);
-        formData.append("avatar", changedAvatar);
-        formData.append("self_introduce", changedIntroduce);
+        const userProfileFormData = new FormData();
+        userProfileFormData.append("nickname", changedNickname);
+        userProfileFormData.append("avatar", changedAvatar);
+        userProfileFormData.append("self_introduce", changedIntroduce);
 
         if (changedNickname == "") {
-            formData.append("nickname", originalNickname);
+            userProfileFormData.append("nickname", originalNickname);
         }
 
         if (changedAvatar == null) {
             //프로필 사진 안바뀌면 'original'
-            formData.append("avatar_state", "original");
+            userProfileFormData.append("avatar_state", "original");
         }
         // 프로필 사진 제거하면 avatar_state = delete
         if (deleteAvatarButton == true && changedAvatar == null) {
-            formData.append("avatar_state", "delete");
+            userProfileFormData.append("avatar_state", "delete");
         }
 
         if (changedIntroduce == "") {
-            formData.append("self_introduce", originalIntroduce);
+            userProfileFormData.append("self_introduce", originalIntroduce);
         }
 
         try {
-            await updateUser(formData);
-            if (changedNickname == "") {
-                console.log(originalNickname);
-                window.location.href = `${MUSE_DOMAIN}/my-page/${originalNickname}`;
-            } else if (changedNickname != "" || changedNickname != undefined) {
-                window.location.href = `${MUSE_DOMAIN}/my-page/${changedNickname}`;
+            if (duplicationData === true) {
+                const token = JSON.parse(localStorage.getItem("token"));
+                const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+                return fetch(`${API_DOMAIN}/accounts/update/`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: `${token.token}`,
+                    },
+                    body: userProfileFormData,
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+                        if (changedNickname == "") {
+                            console.log(originalNickname);
+                            window.location.href = `${MUSE_DOMAIN}/my-page/${originalNickname}`;
+                        } else if (
+                            changedNickname != "" ||
+                            changedNickname != undefined
+                        ) {
+                            window.location.href = `${MUSE_DOMAIN}/my-page/${changedNickname}`;
+                        }
+                    });
+            } else {
+                return Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "중복검사를 완료해주세요.",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
             }
         } catch (e) {
             console.error(e);
@@ -185,12 +224,6 @@ function Input(ownerInfo) {
                                     중복검사
                                 </NicknameDuplicateButton>
                             </NicknameContainer>
-                            {nicknameCheck == true && (
-                                <h1>사용 가능한 닉네임입니다.</h1>
-                            )}
-                            {nicknameCheck == false && (
-                                <h1>이미 사용중인 닉네임입니다.</h1>
-                            )}
                         </div>
                         <div>
                             <NicknameLabel>자기소개</NicknameLabel>

@@ -18,3 +18,4 @@ export { default as LikedPost } from "./likedPost";
 export { default as FollowListModal } from "./followListModal";
 export { default as FollowingListModal } from "./followingListModal";
 export { default as FollowerListLi } from "./followerListLi";
+export { default as PreviewReference } from "./previewReference";

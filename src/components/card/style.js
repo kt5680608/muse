@@ -3,7 +3,7 @@ import { BiHeart } from "react-icons/bi";
 import { FiEye } from "react-icons/fi";
 import { Modal } from "react-bootstrap";
 import { motion } from "framer";
-export const CardContainer = styled(motion.figure)`
+export const CardContainer = styled(motion.div)`
     width: 280px;
     max-height: 600px;
     cursor: pointer;

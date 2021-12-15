@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUploadPost } from "../../actions/post";
 import * as style from "./style";
 import Swal from "sweetalert2";
-function PostButton() {
+import {
+    Box,
+    Button,
+    Checkbox,
+    IconButton,
+    CompositeZIndex,
+    FixedZIndex,
+    Flex,
+    Text,
+    Layer,
+    Modal,
+} from "gestalt";
+function Input() {
     const [show, setShow] = useState(false);
     const [image, setImage] = useState(null);
     const [content, setContent] = useState("");
@@ -12,7 +24,15 @@ function PostButton() {
     const [hashtag, setHashtag] = useState("");
     const [imagePreview, setImagePreview] = useState();
     const [modalSize, setModalSize] = useState("lg");
+    const [inputStatus, setInputStatus] = useState(false);
+    const [inputStatus2, setInputStatus2] = useState(false);
+    const [imageUrl, setImageUrl] = useState("");
 
+    const hiddenFileInput = useRef(null);
+
+    const onChangeImageUrl = (e) => {
+        setImageUrl(e.target.value);
+    };
     const handleClose = () => {
         setShow(false);
         setContent("");
@@ -24,6 +44,7 @@ function PostButton() {
     const dispatch = useDispatch();
     const history = useHistory();
     const onChangeTitle = (e) => {
+        e.preventDefault();
         setTitle(e.target.value);
     };
     const onChangeContent = (e) => {
@@ -42,6 +63,10 @@ function PostButton() {
     };
     const onChangeHashtag = (e) => {
         setHashtag(e.target.value);
+    };
+
+    const handleHiddenInputFile = () => {
+        hiddenFileInput.current.click();
     };
 
     const handleSubmit = async (e) => {
@@ -76,79 +101,116 @@ function PostButton() {
             console.error(e);
         }
     };
+
     return (
         <>
-            <style.IconContainer>
-                <style.PostButton
-                    onClick={handleShow}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                >
-                    <style.PlusButton />
-                </style.PostButton>
-                <style.QaButton />
-            </style.IconContainer>
-            <style.CustomModal
-                show={show}
-                onHide={handleClose}
-                size={modalSize}
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <style.CustomModal.Body>
-                    <style.CustomForm
-                        onSubmit={handleSubmit}
-                        encType="multipart/form-data"
+            <Box paddingX={8} overflow="hidden">
+                <Box marginBottom={8} marginTop={8}>
+                    <Flex justifyContent="center">
+                        <Box marginBottom={3}></Box>
+                    </Flex>
+                    <Flex
+                        alignItems="center"
+                        justifyContent="center"
+                        direction="row"
+                        gap="6"
                     >
-                        {imagePreview != null ? (
-                            <style.ImgPreview src={imagePreview} alt="" />
-                        ) : (
-                            <style.ImgPreviewSkeleton />
-                        )}
-                        <style.InfoContainer>
-                            <style.CustomInput
-                                type="text"
-                                name="title"
-                                onChange={onChangeTitle}
-                                placeholder="제목"
-                                autocomplete="off"
-                            />
-                            <style.CustomInputFile
-                                type="file"
-                                name="images"
-                                onChange={onChangeImage}
-                            />
-                            <style.CustomInput
-                                type="text"
-                                name="hasgtag"
-                                onChange={onChangeHashtag}
-                                placeholder="#해시태그"
-                                min="0"
-                                step="1"
-                                autocomplete="off"
-                            />
-                            <style.Pre>
-                                <style.CustomTextarea
-                                    name="Text1"
-                                    cols="90"
-                                    Rows="4"
-                                    maxLength="90"
-                                    onChange={onChangeContent}
-                                    placeholder="내용"
+                        <style.CustomForm
+                            onSubmit={handleSubmit}
+                            encType="multipart/form-data"
+                        >
+                            {imagePreview != null ? (
+                                <style.ImgPreview src={imagePreview} alt="" />
+                            ) : (
+                                <style.ImgPreviewSkeleton
+                                    onClick={handleHiddenInputFile}
+                                >
+                                    <style.ImgPreviewSkeletonPlusButton />
+                                </style.ImgPreviewSkeleton>
+                            )}
+                            <style.InfoContainer>
+                                <style.CustomInput
+                                    type="text"
+                                    name="title"
+                                    onChange={onChangeTitle}
+                                    placeholder="제목"
                                     autocomplete="off"
                                 />
-                            </style.Pre>
-                            <style.CustomButton
-                                type="submit"
-                                onClick={handleSubmit}
-                            >
-                                제출
-                            </style.CustomButton>
-                        </style.InfoContainer>
-                    </style.CustomForm>
-                </style.CustomModal.Body>
-            </style.CustomModal>
+                                <style.CustomInputFile
+                                    type="file"
+                                    name="images"
+                                    onChange={onChangeImage}
+                                    ref={hiddenFileInput}
+                                />
+                                <style.CustomInput
+                                    type="text"
+                                    name="hasgtag"
+                                    onChange={onChangeHashtag}
+                                    placeholder="#해시태그"
+                                    min="0"
+                                    step="1"
+                                    autocomplete="off"
+                                />
+                                <style.CustomInput
+                                    type="text"
+                                    name="이미지주소"
+                                    onChange={onChangeImageUrl}
+                                    placeholder="이미지 URL"
+                                    min="0"
+                                    step="1"
+                                    autocomplete="off"
+                                />
+                                <style.Pre>
+                                    <style.CustomTextarea
+                                        name="Text1"
+                                        cols="90"
+                                        Rows="4"
+                                        maxLength="90"
+                                        onChange={onChangeContent}
+                                        placeholder="내용"
+                                        autocomplete="off"
+                                    />
+                                </style.Pre>
+                                <style.CustomButton
+                                    type="submit"
+                                    onClick={handleSubmit}
+                                >
+                                    제출
+                                </style.CustomButton>
+                            </style.InfoContainer>
+                        </style.CustomForm>
+                    </Flex>
+                    <Box marginTop={3}></Box>
+                </Box>
+            </Box>
         </>
+    );
+}
+
+function PostButton() {
+    const [shouldShow, setShouldShow] = React.useState(false);
+    const HEADER_ZINDEX = new FixedZIndex(10);
+    const modalZIndex = new CompositeZIndex([HEADER_ZINDEX]);
+
+    const ModalWithHeading = ({ onDismiss }) => {
+        return (
+            <Modal onDismiss={onDismiss} footer={<Input />} size="lg"></Modal>
+        );
+    };
+
+    return (
+        <React.Fragment>
+            <style.IconContainer>
+                <style.PostButton onClick={() => setShouldShow(true)}>
+                    <style.PlusButton />
+                </style.PostButton>
+            </style.IconContainer>
+            {shouldShow && (
+                <Layer zIndex={modalZIndex}>
+                    <ModalWithHeading onDismiss={() => setShouldShow(false)} />
+                </Layer>
+            )}
+        </React.Fragment>
     );
 }
 

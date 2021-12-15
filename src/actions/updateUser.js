@@ -13,21 +13,18 @@ export const updateUser = (formData) => {
     }
 };
 
+export const updateUserProfile = (userProfileFormData) => {
+    try {
+        api.updateUserProfile(userProfileFormData);
+    } catch (e) {
+        console.error(e);
+    }
+};
+
 export const profileImageUpload = (data) => async (dispatch) => {
     try {
         await api.profileImageUpload(data);
         dispatch({ type: PROFILE_IMAGE_UPLOAD });
-    } catch (e) {
-        console.log(e);
-    }
-};
-
-export const checkDuplication = (nicknameDuplicationFormData) => async (
-    dispatch
-) => {
-    try {
-        await api.checkDuplication(nicknameDuplicationFormData);
-        dispatch({ type: CHECK_NICKNAME_DUPLICATION });
     } catch (e) {
         console.log(e);
     }

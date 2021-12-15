@@ -6,7 +6,7 @@ import * as style from "./style";
 import StackGrid from "react-stack-grid";
 import { Container, ListItem, GridContainer } from "./style";
 
-function MainContainer() {
+function MainContainer(props) {
     const [posts, setPosts] = useState([]);
     const [label, setLabel] = useState("인기순");
     const [page, setPage] = useState(1);
@@ -18,7 +18,9 @@ function MainContainer() {
         setLoading(true);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         await axios
-            .get(`${API_DOMAIN}/posts/display/all/${page}/?order=${options}`)
+            .get(
+                `${API_DOMAIN}/posts/display/all/${props.name}/${page}/?order=${options}`
+            )
             .then((res) => {
                 try {
                     const fetchedData = res.data;
