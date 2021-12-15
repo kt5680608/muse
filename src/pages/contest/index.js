@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { Navbar, Banner, PostButton } from "../../components";
+import { Navbar, Banner, PostButton, Container } from "../../components";
 import { userInfo } from "../../actions/userInfo";
 import { useDispatch } from "react-redux";
-import * as style from "./style";
 function Contest() {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -12,6 +11,7 @@ function Contest() {
         <div>
             <Navbar />
             <Banner />
+            <Container name="cur-contest" />
             <PostButton />
         </div>
     );

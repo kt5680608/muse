@@ -1,8 +1,19 @@
 import styled from "styled-components";
 import { FiPlus } from "react-icons/fi";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
-import { Modal, Button } from "react-bootstrap";
 import { motion } from "framer";
+import {
+    Box,
+    Button,
+    Checkbox,
+    IconButton,
+    CompositeZIndex,
+    FixedZIndex,
+    Flex,
+    Text,
+    Layer,
+    Modal,
+} from "gestalt";
 
 export const PostButton = styled(motion.div)`
     display: flex;
@@ -62,23 +73,31 @@ export const CustomInput = styled.input`
     padding: 16px;
     border: none;
     width: 80%;
-    height: 36px;
+    height: 48px;
     border-radius: 24px;
     margin: 12px;
 `;
 
 export const CustomInputFile = styled.input`
-    padding: 0px;
-    width: 80%;
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
 `;
 
+const FileButton = styled.button``;
+
 export const CustomButton = styled.button`
+    width: 84px;
+    height: 36px;
     border: none;
     color: white;
     padding: 4px 16px 4px 16px;
     background-color: var(--g-color-blue);
     margin-top: 36px;
-    border-radius: 16px;
+    border-radius: 40px;
     &:hover {
         opacity: 0.7;
     }
@@ -96,10 +115,19 @@ export const ImgPreview = styled.img`
     border-radius: 16px;
 `;
 
-export const ImgPreviewSkeleton = styled.div`
+export const ImgPreviewSkeleton = styled.label`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     max-width: 50%;
     width: 100%;
     background-color: var(--g-color-gray100);
+    border-radius: 16px;
+`;
+
+export const ImgPreviewSkeletonPlusButton = styled(FiPlus)`
+    stroke-width: 4;
+    font-size: 24px;
 `;
 
 export const CustomTextarea = styled.textarea`
@@ -108,6 +136,8 @@ export const CustomTextarea = styled.textarea`
     word-break: break-word;
     width: 80%;
     border: none;
+    height: 120px;
+    margin: 12px;
     background-color: var(--g-color-gray100);
     border-radius: 16px;
     padding: 16px;
@@ -137,4 +167,21 @@ export const IconContainer = styled.div`
     position: fixed;
     right: 0;
     bottom: 0;
+`;
+
+export const RadioInput = styled.input`
+    width: auto;
+    height: auto;
+`;
+
+export const RadioInputContainer = styled.div`
+    padding: 16px;
+    border: none;
+    width: 80%;
+    margin: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px;
 `;
