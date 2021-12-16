@@ -2,9 +2,16 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
 import Card from "../card";
 import axios from "axios";
-import * as style from "./style";
+import {
+    MainContainer,
+    PreviewH1,
+    Container,
+    ListItem,
+    GridContainer,
+    PreviewH2,
+    PreviewInfoContainer,
+} from "./style";
 import StackGrid from "react-stack-grid";
-import { Container, ListItem, GridContainer } from "./style";
 
 function PreviewReference(props) {
     const [posts, setPosts] = useState([]);
@@ -29,9 +36,12 @@ function PreviewReference(props) {
     }, []);
 
     return (
-        <style.MainContainer>
-            {props.name == "reference" && <h1>레퍼런스</h1>}
-            {props.name == "contest" && <h1>콘테스트</h1>}
+        <MainContainer>
+            <PreviewInfoContainer>
+                {props.name == "reference" && <PreviewH1>Reference</PreviewH1>}
+                {props.name == "contest" && <PreviewH1>Contest</PreviewH1>}
+                <PreviewH2>more</PreviewH2>
+            </PreviewInfoContainer>
             <GridContainer>
                 {posts.map((post, idx) => (
                     <React.Fragment key={idx}>
@@ -50,7 +60,7 @@ function PreviewReference(props) {
                     </React.Fragment>
                 ))}
             </GridContainer>
-        </style.MainContainer>
+        </MainContainer>
     );
 }
 

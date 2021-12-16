@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Dropdown } from "react-bootstrap";
-import { Dropdown as GDropdown } from "gestalt";
+import { motion } from "framer";
 
 export const MainContainer = styled.div`
-    padding: 80px;
+    padding: 12px 80px 0px 80px;
     @media (max-width: 320px) {
         padding: 10px;
     }
@@ -77,7 +77,20 @@ export const CustomDropdown = styled(Dropdown)`
     }
 `;
 
-export const GestaltDropdown = styled(GDropdown)`
-    position: relative;
-    z-index: 1000;
+export const PreviewH1 = styled.h1`
+    font-family: R-FLEX-BLACK;
+    font-size: 3em;
+`;
+
+export const PreviewInfoContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px 0 24px;
+`;
+
+export const PreviewH2 = styled(motion.h2)`
+    font-family: R-FLEX-BLACK;
+    font-size: 1em;
 `;
