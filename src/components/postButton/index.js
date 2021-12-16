@@ -27,10 +27,12 @@ function Input() {
     const [inputStatus, setInputStatus] = useState(false);
     const [inputStatus2, setInputStatus2] = useState(false);
     const [imageUrl, setImageUrl] = useState("");
+    const tag = "reference";
 
     const hiddenFileInput = useRef(null);
 
     const onChangeImageUrl = (e) => {
+        e.preventDefault();
         setImageUrl(e.target.value);
     };
     const handleClose = () => {
@@ -40,7 +42,6 @@ function Input() {
         setImagePreview(null);
         setModalSize("lg");
     };
-    const handleShow = () => setShow(true);
     const dispatch = useDispatch();
     const history = useHistory();
     const onChangeTitle = (e) => {
@@ -51,16 +52,15 @@ function Input() {
         setContent(e.target.value);
     };
     const onChangeImage = (e) => {
-        e.preventDefault();
         setImage(e.target.files[0]);
         const imgTarget = e.target.files[0];
         const fileReader = new FileReader();
         fileReader.readAsDataURL(imgTarget);
         fileReader.onload = function (e) {
             setImagePreview(e.target.result);
-            setModalSize("lg");
         };
     };
+
     const onChangeHashtag = (e) => {
         setHashtag(e.target.value);
     };
@@ -73,6 +73,7 @@ function Input() {
         const data = new FormData();
         data.append("title", title);
         data.append("content", content);
+        data.append("ref_url", imageUrl);
         data.append("image", image);
         data.append("hashtag", hashtag);
 
@@ -83,6 +84,8 @@ function Input() {
                 content == null ||
                 "" ||
                 image == null ||
+                "" ||
+                imageUrl == null ||
                 ""
             ) {
                 Swal.fire({
@@ -93,7 +96,7 @@ function Input() {
                     timer: 1500,
                 });
             } else {
-                await dispatch(getUploadPost(data));
+                await dispatch(getUploadPost(data, tag));
                 handleClose();
                 history.push("/replace");
             }
@@ -124,6 +127,7 @@ function Input() {
                             ) : (
                                 <style.ImgPreviewSkeleton
                                     onClick={handleHiddenInputFile}
+                                    onChange={onChangeImage}
                                 >
                                     <style.ImgPreviewSkeletonPlusButton />
                                 </style.ImgPreviewSkeleton>
@@ -172,7 +176,7 @@ function Input() {
                                     />
                                 </style.Pre>
                                 <style.CustomButton
-                                    type="submit"
+                                    type="button"
                                     onClick={handleSubmit}
                                 >
                                     제출
