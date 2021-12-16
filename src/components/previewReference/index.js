@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
-import Card from "../card";
+import PreviewCard from "../previewCard";
 import axios from "axios";
 import {
     MainContainer,
@@ -40,13 +40,20 @@ function PreviewReference(props) {
             <PreviewInfoContainer>
                 {props.name == "reference" && <PreviewH1>Reference</PreviewH1>}
                 {props.name == "contest" && <PreviewH1>Contest</PreviewH1>}
-                <PreviewH2>more</PreviewH2>
+                <PreviewH2
+                    whileHover={{
+                        scale: 1.05,
+                        color: "#0057ff",
+                    }}
+                >
+                    more
+                </PreviewH2>
             </PreviewInfoContainer>
             <GridContainer>
                 {posts.map((post, idx) => (
                     <React.Fragment key={idx}>
                         <ListItem ref={ref}>
-                            <Card
+                            <PreviewCard
                                 image={post.image}
                                 title={post.title}
                                 idx={post.idx}

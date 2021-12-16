@@ -3,7 +3,7 @@ import { Dropdown } from "react-bootstrap";
 import { motion } from "framer";
 
 export const MainContainer = styled.div`
-    padding: 12px 80px 0px 80px;
+    padding: 36px 80px 36px 80px;
     @media (max-width: 320px) {
         padding: 10px;
     }
@@ -92,5 +92,6 @@ export const PreviewInfoContainer = styled.div`
 
 export const PreviewH2 = styled(motion.h2)`
     font-family: R-FLEX-BLACK;
-    font-size: 1em;
+    font-size: 1.5em;
+    cursor: pointer;
 `;

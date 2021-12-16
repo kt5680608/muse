@@ -9,11 +9,13 @@ import { Alert } from "react-bootstrap";
 import { motion } from "framer";
 export const Viewport = styled.div`
     width: 100vw;
+    overflow-x: hidden;
 `;
 export const MainContainer = styled(motion.div)`
     height: 94vh;
     display: flex;
     justify-content: center;
+    overflow-x: hidden;
     align-items: flex-start;
 `;
 export const DetailContainer = styled.div`
