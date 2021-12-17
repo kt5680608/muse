@@ -17,7 +17,7 @@ function MainContainer(props) {
     const getPosts = useCallback(async () => {
         setLoading(true);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        await axios
+        axios
             .get(
                 `${API_DOMAIN}/posts/display/all/${props.name}/${page}/?order=${options}`
             )
@@ -103,45 +103,47 @@ function MainContainer(props) {
                     </style.CustomDropdown.Menu>
                 </style.CustomDropdown>
             </style.DropDownContainer>
-            <GridContainer>
-                <StackGrid
-                    columnWidth={280}
-                    duration={0}
-                    monitorImagesLoaded={true}
-                >
-                    {posts.map((post, idx) => (
-                        <React.Fragment key={idx}>
-                            {posts.length - 1 === idx ? (
-                                <ListItem ref={ref}>
-                                    <Card
-                                        image={post.image}
-                                        title={post.title}
-                                        idx={post.idx}
-                                        liked={post.liked}
-                                        avatar={post.writer_avatar}
-                                        writer={post.writer}
-                                        views={post.views}
-                                        likes={post.likes}
-                                    />
-                                </ListItem>
-                            ) : (
-                                <ListItem>
-                                    <Card
-                                        image={post.image}
-                                        title={post.title}
-                                        idx={post.idx}
-                                        liked={post.liked}
-                                        avatar={post.writer_avatar}
-                                        writer={post.writer}
-                                        views={post.views}
-                                        likes={post.likes}
-                                    />
-                                </ListItem>
-                            )}
-                        </React.Fragment>
-                    ))}
-                </StackGrid>
-            </GridContainer>
+
+            <StackGrid
+                columnWidth={312}
+                gutterWidth={8}
+                duration={0}
+                monitorImagesLoaded={true}
+                style={{ width: "100%" }}
+            >
+                {posts.map((post, idx) => (
+                    <React.Fragment key={idx}>
+                        {posts.length - 1 === idx ? (
+                            <ListItem ref={ref}>
+                                <Card
+                                    rect="rect"
+                                    image={post.image}
+                                    title={post.title}
+                                    idx={post.idx}
+                                    liked={post.liked}
+                                    avatar={post.writer_avatar}
+                                    writer={post.writer}
+                                    views={post.views}
+                                    likes={post.likes}
+                                />
+                            </ListItem>
+                        ) : (
+                            <ListItem>
+                                <Card
+                                    image={post.image}
+                                    title={post.title}
+                                    idx={post.idx}
+                                    liked={post.liked}
+                                    avatar={post.writer_avatar}
+                                    writer={post.writer}
+                                    views={post.views}
+                                    likes={post.likes}
+                                />
+                            </ListItem>
+                        )}
+                    </React.Fragment>
+                ))}
+            </StackGrid>
         </style.MainContainer>
     );
 }

@@ -107,8 +107,8 @@ export const profileImageUpload = (data) => {
     });
 };
 
-export const uploadPost = (data) => {
-    return fetch(`${API_DOMAIN}/posts/upload/`, {
+export const uploadPost = (data, tag) => {
+    return fetch(`${API_DOMAIN}/posts/upload/${tag}/`, {
         method: "POST",
         headers: {
             Authorization: `${token.token}`,

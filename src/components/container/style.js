@@ -3,7 +3,7 @@ import { Dropdown } from "react-bootstrap";
 import { Dropdown as GDropdown } from "gestalt";
 
 export const MainContainer = styled.div`
-    padding: 30px;
+    padding: 36px 80px 36px 80px;
     @media (max-width: 320px) {
         padding: 10px;
     }

@@ -1,9 +1,9 @@
 import { POST_UPLOAD, DETAIL_POST } from "../constants/actionTypes";
 import * as api from "../api/index";
 
-export const getUploadPost = (data) => async () => {
+export const getUploadPost = (data, tag) => async () => {
     try {
-        api.uploadPost(data);
+        api.uploadPost(data, tag);
     } catch (e) {
         console.error(e);
     }

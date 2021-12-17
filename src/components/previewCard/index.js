@@ -35,7 +35,7 @@ import {
     Image,
 } from "gestalt";
 
-function Card({
+function PreviewCard({
     idx,
     title,
     image,
@@ -109,4 +109,4 @@ function Card({
     );
 }
 
-export default Card;
+export default PreviewCard;

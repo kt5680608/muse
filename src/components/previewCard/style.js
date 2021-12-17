@@ -14,7 +14,7 @@ export const CardContainer = styled(motion.div)`
     }
 `;
 export const FourSquareCardContainer = styled(motion.div)`
-    width: 312px;
+    width: 300px;
     height: 280px;
     cursor: pointer;
     margin: 0;
