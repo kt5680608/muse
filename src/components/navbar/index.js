@@ -70,14 +70,14 @@ function Navbar() {
                                 </NavItem>
                             </NavLink>
                             <NavLink
-                                to="/Archives"
+                                to="/reference"
                                 activeStyle={{ color: "var(--g-color-blue" }}
                             >
                                 <NavItem
                                     whileHover={{ scale: 1.2 }}
                                     whileTap={{ scale: 0.9 }}
                                 >
-                                    Archives
+                                    Reference
                                 </NavItem>
                             </NavLink>
                             <NavLink
@@ -138,16 +138,16 @@ function Navbar() {
                                         </Link>
                                     </CustomDropdown.Item>
                                     <CustomDropdown.Item>
-                                        <Link to="/archives">
+                                        <Link to="/reference">
                                             <DropdownMenu>
-                                                archives
+                                                Reference
                                             </DropdownMenu>
                                         </Link>
                                     </CustomDropdown.Item>
                                     <CustomDropdown.Item>
-                                        <Link to="/archives">
+                                        <Link to="/reference">
                                             <DropdownMenu>
-                                                archives
+                                                reference
                                             </DropdownMenu>
                                         </Link>
                                     </CustomDropdown.Item>
@@ -214,7 +214,9 @@ function Navbar() {
                                     </CustomDropdown.Item>
                                     <CustomDropdown.Item>
                                         <DropdownMenu>
-                                            <Link to="/archives">archives</Link>
+                                            <Link to="/reference">
+                                                Reference
+                                            </Link>
                                         </DropdownMenu>
                                     </CustomDropdown.Item>
                                     <CustomDropdown.Item>

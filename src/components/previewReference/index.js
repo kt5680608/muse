@@ -11,7 +11,7 @@ import {
     PreviewH2,
     PreviewInfoContainer,
 } from "./style";
-import StackGrid from "react-stack-grid";
+import { Link } from "react-router-dom";
 
 function PreviewReference(props) {
     const [posts, setPosts] = useState([]);
@@ -40,14 +40,16 @@ function PreviewReference(props) {
             <PreviewInfoContainer>
                 {props.name == "reference" && <PreviewH1>Reference</PreviewH1>}
                 {props.name == "contest" && <PreviewH1>Contest</PreviewH1>}
-                <PreviewH2
-                    whileHover={{
-                        scale: 1.05,
-                        color: "#0057ff",
-                    }}
-                >
-                    more
-                </PreviewH2>
+                <Link to={`/${props.name}`}>
+                    <PreviewH2
+                        whileHover={{
+                            scale: 1.05,
+                            color: "#0057ff",
+                        }}
+                    >
+                        more
+                    </PreviewH2>
+                </Link>
             </PreviewInfoContainer>
             <GridContainer>
                 {posts.map((post, idx) => (

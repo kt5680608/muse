@@ -25,7 +25,7 @@ function App() {
                 <Route path="/register" component={Register} />
                 <Route path="/redirect-register" component={RegisterSuccess} />
                 <Route path="/muse" component={Muse} />
-                <Route path="/archives" component={Archives} />
+                <Route path="/reference" component={Archives} />
                 <Route path="/userUpdate" component={UserUpdate} />
                 <Route path="/my-page/:writer" component={MyPage} />
                 <Route path="/replace" component={Replace} />
