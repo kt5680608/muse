@@ -26,14 +26,14 @@ export const FourSquareCardContainer = styled(motion.div)`
 
 export const ImageContainerDiv = styled.div`
     width: 312px;
-    height: 280px;
+    max-height: 600px;
     border-radius: 16px;
     overflow: hidden;
 `;
 
 export const ImageContainer = styled(motion.img)`
     width: 100%;
-    height: 280px;
+    max-height: 600px;
     vertical-align: top;
     justify-content: center;
     overflow: hidden;
