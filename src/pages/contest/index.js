@@ -3,10 +3,6 @@ import { Navbar, Banner, PostButton, Container } from "../../components";
 import { userInfo } from "../../actions/userInfo";
 import { useDispatch } from "react-redux";
 function Contest() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(userInfo());
-    }, []);
     return (
         <div>
             <Navbar />

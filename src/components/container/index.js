@@ -4,8 +4,54 @@ import Card from "../card";
 import axios from "axios";
 import * as style from "./style";
 import StackGrid from "react-stack-grid";
-import { Container, ListItem, GridContainer } from "./style";
+import { Container, ListItem, ToggleH1, ToggleContainer } from "./style";
+import { motion } from "framer";
 
+function ToggleButton(props) {
+    return (
+        <ToggleContainer>
+            <div
+                name="Switch"
+                style={{
+                    width: 60,
+                    height: 30,
+                    backgroundColor: "#0057ff",
+                    borderRadius: 50,
+                    padding: 10,
+                    cursor: "pointer",
+                    // Flexbox
+                    display: "flex",
+                    justifyContent: props.isOn ? "flex-end" : "flex-start",
+                    alignItems: "center",
+                }}
+                href="#/action-4"
+                onClick={props.handleContest}
+            >
+                <motion.div
+                    name="Handle"
+                    style={{
+                        width: 20,
+                        height: 20,
+                        backgroundColor: "white",
+                        borderRadius: 40,
+                    }}
+                    // Animation
+                    layout
+                    transition={{
+                        type: "spring",
+                        stiffness: 700,
+                        damping: 30,
+                    }}
+                />
+            </div>
+            {props.contestBool === true ? (
+                <ToggleH1>Current Contest</ToggleH1>
+            ) : (
+                <ToggleH1>Past Contest</ToggleH1>
+            )}
+        </ToggleContainer>
+    );
+}
 function MainContainer(props) {
     const [posts, setPosts] = useState([]);
     const [label, setLabel] = useState("인기순");
@@ -13,32 +59,38 @@ function MainContainer(props) {
     const [loading, setLoading] = useState(false);
     const [options, setOptions] = useState("likes");
     const [ref, inView] = useInView({ trackVisibility: true, delay: 100 });
+    const [contestBool, setContestBool] = useState(true);
+    const [isOn, setIsOn] = useState(false);
 
-    const getPosts = useCallback(async () => {
+    const getPosts = useCallback(() => {
         setLoading(true);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+        let contestT = "cur-contest";
+        if (contestBool == false) {
+            contestT = "past-contest";
+        }
         axios
             .get(
-                `${API_DOMAIN}/posts/display/all/${props.name}/${page}/?order=${options}`
+                `${API_DOMAIN}/posts/display/all/?type=${contestT}&page=${page}&order=${options}`
             )
             .then((res) => {
                 try {
                     const fetchedData = res.data;
                     const mergedData = posts.concat(...fetchedData);
                     setPosts(mergedData);
+                    console.log("hi");
                 } catch (e) {
                     console.error(e);
                 }
             });
         setLoading(false);
-    }, [page, options]);
+    }, [page, options, contestBool]);
 
     const likesOrder = () => {
         setPosts([]);
         setPage(1);
         setOptions("likes");
         setLabel("인기순");
-        getPosts();
     };
 
     const viewsOrder = () => {
@@ -46,7 +98,6 @@ function MainContainer(props) {
         setPage(1);
         setOptions("views");
         setLabel("조회수순");
-        getPosts();
     };
 
     const recentOrder = () => {
@@ -54,18 +105,18 @@ function MainContainer(props) {
         setPage(1);
         setOptions("recent");
         setLabel("최신순");
-        getPosts();
+    };
+
+    const handleContest = () => {
+        setPosts([]);
+        setPage(1);
+        setIsOn(!isOn);
+        setContestBool(!contestBool);
     };
 
     useEffect(() => {
         getPosts();
     }, [getPosts]);
-    useEffect(() => {
-        getPosts();
-    }, []);
-    useEffect(() => {
-        getPosts();
-    }, [options]);
 
     useEffect(() => {
         // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
@@ -73,10 +124,14 @@ function MainContainer(props) {
             setPage((state) => state + 1);
         }
     }, [inView, loading]);
-
     return (
         <style.MainContainer>
             <style.DropDownContainer>
+                <ToggleButton
+                    isOn={isOn}
+                    contestBool={contestBool}
+                    handleContest={handleContest}
+                />
                 <style.CustomDropdown>
                     <style.CustomDropdown.Toggle id="style.CustomDropdown-basic">
                         {label}
