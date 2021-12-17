@@ -10,8 +10,10 @@ export const MainContainer = styled.div`
 `;
 export const DropDownContainer = styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
 `;
 export const GridContainer = styled.div``;
 export const ListItem = styled.div``;
@@ -73,4 +75,17 @@ export const CustomDropdown = styled(Dropdown)`
 export const GestaltDropdown = styled(GDropdown)`
     position: relative;
     z-index: 1000;
+`;
+
+export const ToggleH1 = styled.h1`
+    font-family: R-FLEX-BLACK;
+    font-size: 1em;
+    margin-left: 1em;
+`;
+
+export const ToggleContainer = styled.div`
+    display: flex !important;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
 `;

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Banner, Label, Highlight, Paragraph, Span } from "./style";
-
-function index() {
+import { motion } from "framer";
+function BannerContainer() {
+    const [isOn, setIsOn] = useState(false);
     return (
         <div>
             <Banner>
@@ -16,4 +17,4 @@ function index() {
     );
 }
 
-export default index;
+export default BannerContainer;
