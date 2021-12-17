@@ -156,7 +156,7 @@ function Input() {
                                     autocomplete="off"
                                 />
                                 <style.CustomInput
-                                    type="text"
+                                    type="url"
                                     name="이미지주소"
                                     onChange={onChangeImageUrl}
                                     placeholder="이미지 URL"
