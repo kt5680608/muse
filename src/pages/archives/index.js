@@ -4,10 +4,6 @@ import { userInfo } from "../../actions/userInfo";
 import { useDispatch } from "react-redux";
 import * as style from "./style";
 function Archives() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(userInfo());
-    }, []);
     return (
         <div>
             <Navbar />

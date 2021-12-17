@@ -13,13 +13,16 @@ function MainContainer(props) {
     const [loading, setLoading] = useState(false);
     const [options, setOptions] = useState("likes");
     const [ref, inView] = useInView({ trackVisibility: true, delay: 100 });
+    const [contestBool, setContestBool] = useState(true);
+    const [contestType, setContestType] = useState("cur-contest");
 
     const getPosts = useCallback(async () => {
         setLoading(true);
+        console.log(contestBool);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         axios
             .get(
-                `${API_DOMAIN}/posts/display/all/${props.name}/${page}/?order=${options}`
+                `${API_DOMAIN}/posts/display/all/${contestType}/${page}/?order=${options}`
             )
             .then((res) => {
                 try {
@@ -31,7 +34,7 @@ function MainContainer(props) {
                 }
             });
         setLoading(false);
-    }, [page, options]);
+    }, [page, options, contestType]);
 
     const likesOrder = () => {
         setPosts([]);
@@ -57,12 +60,20 @@ function MainContainer(props) {
         getPosts();
     };
 
-    useEffect(() => {
-        getPosts();
-    }, [getPosts]);
-    useEffect(() => {
-        getPosts();
-    }, []);
+    const handleContest = () => {
+        setPosts([]);
+        setPage(1);
+        setContestBool(!contestBool);
+        if (contestBool === false) {
+            setContestType("past-contest");
+        }
+        if (contestBool === true) {
+            setContestType("cur-contest");
+        }
+        setOptions("likes");
+        setLabel("인기순");
+    };
+
     useEffect(() => {
         getPosts();
     }, [options]);
@@ -73,9 +84,9 @@ function MainContainer(props) {
             setPage((state) => state + 1);
         }
     }, [inView, loading]);
-
     return (
         <style.MainContainer>
+            <button onClick={handleContest}>바꾸기</button>
             <style.DropDownContainer>
                 <style.CustomDropdown>
                     <style.CustomDropdown.Toggle id="style.CustomDropdown-basic">

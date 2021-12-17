@@ -11,11 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { HomeContainer } from "./style";
 
 function Home() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(userInfo());
-    }, []);
-
     return (
         <HomeContainer>
             <Navbar />
