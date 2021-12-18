@@ -3,17 +3,18 @@ import { Dropdown } from "react-bootstrap";
 import { Dropdown as GDropdown } from "gestalt";
 
 export const MainContainer = styled.div`
-    padding: 36px 80px 36px 80px;
+    padding: 0 72px 36px 72px;
     @media (max-width: 320px) {
         padding: 10px;
     }
 `;
-export const DropDownContainer = styled.div`
+export const DropdownContainer = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    margin: 12px 0 12px 0;
 `;
 export const GridContainer = styled.div``;
 export const ListItem = styled.div``;
@@ -75,17 +76,4 @@ export const CustomDropdown = styled(Dropdown)`
 export const GestaltDropdown = styled(GDropdown)`
     position: relative;
     z-index: 1000;
-`;
-
-export const ToggleH1 = styled.h1`
-    font-family: R-FLEX-BLACK;
-    font-size: 1em;
-    margin-left: 1em;
-`;
-
-export const ToggleContainer = styled.div`
-    display: flex !important;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
 `;

@@ -1,6 +1,6 @@
 export { default as Navbar } from "./navbar";
 export { default as Banner } from "./banner";
-export { default as Container } from "./container";
+export { default as Container } from "./contestContainer";
 export { default as SearchBar } from "./searchBar";
 export { default as PostButton } from "./postButton";
 export { default as MuseCard } from "./museCard";
@@ -22,3 +22,4 @@ export { default as PreviewReference } from "./previewReference";
 export { default as PreviewCard } from "./previewCard";
 export { default as ContestBanner } from "./contestBanner";
 export { default as ContestPostButton } from "./contestPostButton";
+export { default as ReferenceContainer } from "./referenceContainer";
