@@ -106,19 +106,12 @@ function Navbar() {
                                 <LoginModal />
                             ) : (
                                 <Flex justifyContent="center">
-                                    <IconButton
-                                        accessibilityControls="action-variant-dropdown-example"
-                                        accessibilityExpanded={open}
-                                        accessibilityHaspopup
+                                    <Avatar
+                                        src={getUserAvatar}
+                                        ref={anchorRef}
                                         onClick={() =>
                                             setOpen((prevVal) => !prevVal)
                                         }
-                                        ref={anchorRef}
-                                        selected={open}
-                                        icon="apps"
-                                        size="lg"
-                                        bgColor="transparent"
-                                        iconColor="blue"
                                     />
                                     {open && (
                                         <Dropdown

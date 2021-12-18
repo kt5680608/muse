@@ -151,9 +151,10 @@ export const DropdownMenu = styled.p`
 `;
 
 export const Avatar = styled.img`
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
+    cursor: pointer;
 `;
 
 export const AgreeModal = styled(Modal)``;
