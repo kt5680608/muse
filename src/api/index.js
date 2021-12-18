@@ -84,6 +84,7 @@ export const nicknameUpdate = (nickname) => {
 };
 
 export const getUserInfo = () => {
+    const token = JSON.parse(localStorage.getItem("token"));
     return fetch(`${API_DOMAIN}/accounts/info/`, {
         method: "GET",
         headers: {

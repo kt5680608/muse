@@ -5,6 +5,8 @@ import { userInfo } from "../../actions/userInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery as MediaQuery } from "react-responsive";
 import { RulesModal, LoginModal } from "../../components";
+import { Button, Flex, Dropdown, FixedZIndex, IconButton } from "gestalt";
+import "gestalt/dist/gestalt.css";
 import {
     Container,
     NavContainerDesktop,
@@ -40,7 +42,6 @@ function Navbar() {
 
     const history = useHistory();
     const handleHistoryMyPage = () => {
-        console.log("내 페이지");
         history.push(`/my-page/${getUserNickname}`);
     };
     const dispatch = useDispatch();
@@ -52,6 +53,11 @@ function Navbar() {
         dispatch(userInfo());
     }, []);
 
+    // 드롭다운 state
+    const [open, setOpen] = React.useState(false);
+    const [selected, setSelected] = React.useState(null);
+    const anchorRef = React.useRef(null);
+    const DROPDOWN_ZINDEX = new FixedZIndex(10);
     return (
         <div>
             {isDesktop && (
@@ -99,24 +105,65 @@ function Navbar() {
                             {isLogged == false || isLogged == null ? (
                                 <LoginModal />
                             ) : (
-                                <CustomDropdown className="shadow-none">
-                                    <CustomDropdown.Toggle id="dropdown-menu-align-end">
-                                        <Avatar src={getUserAvatar} />
-                                    </CustomDropdown.Toggle>
+                                <Flex justifyContent="center">
+                                    <IconButton
+                                        accessibilityControls="action-variant-dropdown-example"
+                                        accessibilityExpanded={open}
+                                        accessibilityHaspopup
+                                        onClick={() =>
+                                            setOpen((prevVal) => !prevVal)
+                                        }
+                                        ref={anchorRef}
+                                        selected={open}
+                                        icon="apps"
+                                        size="lg"
+                                        bgColor="transparent"
+                                        iconColor="blue"
+                                    />
+                                    {open && (
+                                        <Dropdown
+                                            zIndex={DROPDOWN_ZINDEX}
+                                            anchor={anchorRef.current}
+                                            id="action-variant-dropdown-example"
+                                            onDismiss={() => setOpen(false)}
+                                        >
+                                            <Dropdown.Item
+                                                onSelect={handleHistoryMyPage}
+                                                option={{
+                                                    value: "조회수순",
+                                                    label: "마이페이지",
+                                                }}
+                                                selected={selected}
+                                            />
+                                            <Dropdown.Item
+                                                onSelect={logOutBtn}
+                                                option={{
+                                                    value: "최신순",
+                                                    label: "로그아웃",
+                                                }}
+                                                selected={selected}
+                                            />
+                                        </Dropdown>
+                                    )}
+                                </Flex>
+                                // <CustomDropdown className="shadow-none">
+                                //     <CustomDropdown.Toggle id="dropdown-menu-align-end">
+                                //         <Avatar src={getUserAvatar} />
+                                //     </CustomDropdown.Toggle>
 
-                                    <CustomDropdown.Menu>
-                                        <CustomDropdown.Item
-                                            onClick={handleHistoryMyPage}
-                                        >
-                                            마이페이지
-                                        </CustomDropdown.Item>
-                                        <CustomDropdown.Item
-                                            onClick={logOutBtn}
-                                        >
-                                            로그아웃
-                                        </CustomDropdown.Item>
-                                    </CustomDropdown.Menu>
-                                </CustomDropdown>
+                                //     <CustomDropdown.Menu>
+                                //         <CustomDropdown.Item
+                                //             onClick={handleHistoryMyPage}
+                                //         >
+                                //             마이페이지
+                                //         </CustomDropdown.Item>
+                                //         <CustomDropdown.Item
+                                //             onClick={logOutBtn}
+                                //         >
+                                //             로그아웃
+                                //         </CustomDropdown.Item>
+                                //     </CustomDropdown.Menu>
+                                // </CustomDropdown>
                             )}
                         </NavContainerRight>
                     </NavContainerDesktop>

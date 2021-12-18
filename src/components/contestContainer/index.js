@@ -69,7 +69,7 @@ function MainContainer(props) {
     const [ref, inView] = useInView({ trackVisibility: true, delay: 100 });
     const [contestBool, setContestBool] = useState(true);
     const [isOn, setIsOn] = useState(false);
-
+    // 드롭다운 state
     const [open, setOpen] = React.useState(false);
     const [selected, setSelected] = React.useState(null);
     const anchorRef = React.useRef(null);
@@ -91,7 +91,6 @@ function MainContainer(props) {
                     const fetchedData = res.data;
                     const mergedData = posts.concat(...fetchedData);
                     setPosts(mergedData);
-                    console.log("hi");
                 } catch (e) {
                     console.error(e);
                 }
@@ -105,6 +104,7 @@ function MainContainer(props) {
         setPage(1);
         setOptions("likes");
         setLabel("인기순");
+        setOpen(false);
     };
 
     const viewsOrder = ({ item }) => {
@@ -113,6 +113,7 @@ function MainContainer(props) {
         setPage(1);
         setOptions("views");
         setLabel("조회수순");
+        setOpen(false);
     };
 
     const recentOrder = ({ item }) => {
@@ -121,6 +122,7 @@ function MainContainer(props) {
         setPage(1);
         setOptions("recent");
         setLabel("최신순");
+        setOpen(false);
     };
 
     const handleContest = () => {
@@ -158,7 +160,7 @@ function MainContainer(props) {
                         ref={anchorRef}
                         selected={open}
                         size="lg"
-                        text={selected ? selected.label : "Display"}
+                        text={selected ? selected.label : "인기순"}
                     />
                     {open && (
                         <Dropdown
