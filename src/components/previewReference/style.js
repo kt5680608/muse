@@ -87,7 +87,7 @@ export const PreviewInfoContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0 24px 0 24px;
+    padding: 0 24px 0 0;
 `;
 
 export const PreviewH2 = styled(motion.h2)`
