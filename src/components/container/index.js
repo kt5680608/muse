@@ -33,14 +33,14 @@ function ToggleButton(props) {
                         width: 20,
                         height: 20,
                         backgroundColor: "white",
-                        borderRadius: 40,
+                        borderRadius: 50,
                     }}
                     // Animation
                     layout
                     transition={{
                         type: "spring",
-                        stiffness: 700,
-                        damping: 30,
+                        stiffness: 400,
+                        damping: 10,
                     }}
                 />
             </div>

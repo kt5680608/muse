@@ -79,7 +79,7 @@ export const CustomDropdown = styled(Dropdown)`
 
 export const PreviewH1 = styled.h1`
     font-family: R-FLEX-BLACK;
-    font-size: 3em;
+    font-size: 2.5em;
 `;
 
 export const PreviewInfoContainer = styled.div`
