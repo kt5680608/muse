@@ -4,8 +4,16 @@ import Card from "../card";
 import axios from "axios";
 import * as style from "./style";
 import StackGrid from "react-stack-grid";
-import { Container, ListItem, ToggleH1, ToggleContainer } from "./style";
+import {
+    Container,
+    ListItem,
+    ToggleButtonH1,
+    ToggleContainer,
+    DropdownContainer,
+} from "./style";
 import { motion } from "framer";
+import { Button, Flex, Dropdown, FixedZIndex } from "gestalt";
+import "gestalt/dist/gestalt.css";
 
 function ToggleButton(props) {
     return (
@@ -45,9 +53,9 @@ function ToggleButton(props) {
                 />
             </div>
             {props.contestBool === true ? (
-                <ToggleH1>Current Contest</ToggleH1>
+                <ToggleButtonH1>Current Contest</ToggleButtonH1>
             ) : (
-                <ToggleH1>Past Contest</ToggleH1>
+                <ToggleButtonH1>Past Contest</ToggleButtonH1>
             )}
         </ToggleContainer>
     );
@@ -61,6 +69,11 @@ function MainContainer(props) {
     const [ref, inView] = useInView({ trackVisibility: true, delay: 100 });
     const [contestBool, setContestBool] = useState(true);
     const [isOn, setIsOn] = useState(false);
+
+    const [open, setOpen] = React.useState(false);
+    const [selected, setSelected] = React.useState(null);
+    const anchorRef = React.useRef(null);
+    const DROPDOWN_ZINDEX = new FixedZIndex(10);
 
     const getPosts = useCallback(() => {
         setLoading(true);
@@ -86,21 +99,24 @@ function MainContainer(props) {
         setLoading(false);
     }, [page, options, contestBool]);
 
-    const likesOrder = () => {
+    const likesOrder = ({ item }) => {
+        setSelected(item);
         setPosts([]);
         setPage(1);
         setOptions("likes");
         setLabel("인기순");
     };
 
-    const viewsOrder = () => {
+    const viewsOrder = ({ item }) => {
+        setSelected(item);
         setPosts([]);
         setPage(1);
         setOptions("views");
         setLabel("조회수순");
     };
 
-    const recentOrder = () => {
+    const recentOrder = ({ item }) => {
+        setSelected(item);
         setPosts([]);
         setPage(1);
         setOptions("recent");
@@ -126,38 +142,53 @@ function MainContainer(props) {
     }, [inView, loading]);
     return (
         <style.MainContainer>
-            <style.DropDownContainer>
+            <DropdownContainer>
                 <ToggleButton
                     isOn={isOn}
                     contestBool={contestBool}
                     handleContest={handleContest}
                 />
-                <style.CustomDropdown>
-                    <style.CustomDropdown.Toggle id="style.CustomDropdown-basic">
-                        {label}
-                    </style.CustomDropdown.Toggle>
-                    <style.CustomDropdown.Menu>
-                        <style.CustomDropdown.Item
-                            href="#/action-1"
-                            onClick={likesOrder}
+                <Flex justifyContent="center">
+                    <Button
+                        accessibilityControls="action-variant-dropdown-example"
+                        accessibilityExpanded={open}
+                        accessibilityHaspopup
+                        iconEnd="arrow-down"
+                        onClick={() => setOpen((prevVal) => !prevVal)}
+                        ref={anchorRef}
+                        selected={open}
+                        size="lg"
+                        text={selected ? selected.label : "Display"}
+                    />
+                    {open && (
+                        <Dropdown
+                            zIndex={DROPDOWN_ZINDEX}
+                            anchor={anchorRef.current}
+                            id="action-variant-dropdown-example"
+                            onDismiss={() => setOpen(false)}
                         >
-                            인기순
-                        </style.CustomDropdown.Item>
-                        <style.CustomDropdown.Item
-                            href="#/action-2"
-                            onClick={viewsOrder}
-                        >
-                            조회수순
-                        </style.CustomDropdown.Item>
-                        <style.CustomDropdown.Item
-                            href="#/action-3"
-                            onClick={recentOrder}
-                        >
-                            최신순
-                        </style.CustomDropdown.Item>
-                    </style.CustomDropdown.Menu>
-                </style.CustomDropdown>
-            </style.DropDownContainer>
+                            <Dropdown.Item
+                                onSelect={likesOrder}
+                                option={{ value: "인기순", label: "인기순" }}
+                                selected={selected}
+                            />
+                            <Dropdown.Item
+                                onSelect={viewsOrder}
+                                option={{
+                                    value: "조회수순",
+                                    label: "조회수순",
+                                }}
+                                selected={selected}
+                            />
+                            <Dropdown.Item
+                                onSelect={recentOrder}
+                                option={{ value: "최신순", label: "최신순" }}
+                                selected={selected}
+                            />
+                        </Dropdown>
+                    )}
+                </Flex>
+            </DropdownContainer>
 
             <StackGrid
                 columnWidth={300}

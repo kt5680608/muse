@@ -3,6 +3,7 @@ import { useInView } from "react-intersection-observer";
 import Card from "../card";
 import axios from "axios";
 import { Button, Flex, Dropdown, FixedZIndex } from "gestalt";
+import "gestalt/dist/gestalt.css";
 import StackGrid from "react-stack-grid";
 import {
     CustomDropdown,
@@ -11,7 +12,6 @@ import {
     ToggleH1,
     MainContainer,
 } from "./style";
-import "gestalt/dist/gestalt.css";
 import { motion } from "framer";
 
 function ReferenceContainer(props) {
@@ -32,13 +32,9 @@ function ReferenceContainer(props) {
     const getPosts = useCallback(() => {
         setLoading(true);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        let contestT = "cur-contest";
-        if (contestBool == false) {
-            contestT = "past-contest";
-        }
         axios
             .get(
-                `${API_DOMAIN}/posts/display/all/?type=${contestT}&page=${page}&order=${options}`
+                `${API_DOMAIN}/posts/display/all/?type=${props.name}&page=${page}&order=${options}`
             )
             .then((res) => {
                 try {
@@ -59,7 +55,6 @@ function ReferenceContainer(props) {
         setPage(1);
         setOptions("likes");
         setLabel("인기순");
-        getPosts();
     };
 
     const viewsOrder = ({ item }) => {
@@ -68,7 +63,6 @@ function ReferenceContainer(props) {
         setPage(1);
         setOptions("views");
         setLabel("조회수순");
-        getPosts();
     };
 
     const recentOrder = ({ item }) => {
@@ -77,7 +71,6 @@ function ReferenceContainer(props) {
         setPage(1);
         setOptions("recent");
         setLabel("최신순");
-        getPosts();
     };
 
     useEffect(() => {
