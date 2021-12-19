@@ -7,8 +7,9 @@ import {
     NicknameUpdateButton,
     OwnerPost,
     LikedPost,
-    FollowListModal,
     FollowingListModal,
+    FollowerListLi,
+    FollowerListModal,
     Loading,
 } from "../../components";
 import StackGrid from "react-stack-grid";
@@ -101,7 +102,6 @@ function MyPage({ match }) {
                 setFollowingLists(data.following_list);
                 setFollowerCount(data.follower_count);
                 setFollowerLists(data.follower_list);
-                console.log(followerLists);
             });
     };
 
@@ -189,11 +189,6 @@ function MyPage({ match }) {
                         ) : (
                             <></>
                         )}
-                        {/* { isLoginUserFollow == false && isOwner == false ?
-                            <FollowButton onClick = {handleFollow}>팔로우</FollowButton>
-                            :
-                            <FollowButton>팔로잉</FollowButton>
-                            } */}
                         {isOwner == false ? (
                             isLoginUserFollow == false ? (
                                 <FollowButton onClick={handleFollow}>
@@ -215,7 +210,7 @@ function MyPage({ match }) {
                     </div>
 
                     <FollowContainer>
-                        <FollowListModal
+                        <FollowerListModal
                             followerCount={followerCount}
                             followerLists={followerLists}
                         />

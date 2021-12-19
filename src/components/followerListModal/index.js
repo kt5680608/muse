@@ -17,7 +17,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FollowerListLi } from "../../components";
 
-function FollowListModal(props) {
+function FollowerListModal(props) {
     const anchorRef = React.useRef(null);
     const [shouldShow, setShouldShow] = React.useState(false);
     const HEADER_ZINDEX = new FixedZIndex(10);
@@ -60,7 +60,7 @@ function FollowListModal(props) {
     );
 }
 
-export default FollowListModal;
+export default FollowerListModal;
 
 function FollowingList(props) {
     const [followers, setFollowers] = useState([]);
