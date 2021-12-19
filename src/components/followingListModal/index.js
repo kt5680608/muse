@@ -19,19 +19,21 @@ import { useSelector } from "react-redux";
 function FollowingListModal(props) {
     const anchorRef = React.useRef(null);
 
-    const [shouldShow, setShouldShow] = React.useState(false);
-    const HEADER_ZINDEX = new FixedZIndex(10);
-    const modalZIndex = new CompositeZIndex([HEADER_ZINDEX]);
-
+    useEffect(() => {}, []);
     const ModalWithHeading = ({ onDismiss }) => {
         return (
             <Modal
                 accessibilityModalLabel="MUSE 이용약관"
                 onDismiss={onDismiss}
                 size="sm"
+                footer={<>h</>}
             ></Modal>
         );
     };
+
+    const [shouldShow, setShouldShow] = React.useState(false);
+    const HEADER_ZINDEX = new FixedZIndex(10);
+    const modalZIndex = new CompositeZIndex([HEADER_ZINDEX]);
 
     return (
         <React.Fragment>
