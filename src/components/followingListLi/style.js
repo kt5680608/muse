@@ -24,11 +24,6 @@ export const FollowButton = styled(motion.button)`
     }
 `;
 
-export const FollowerNickname = styled.h1`
-    font-size: 24px;
-    font-weight: 600;
-`;
-
 export const UnFollowButton = styled(motion.button)`
     width: 120px;
     max-width: 100px;
@@ -52,9 +47,15 @@ export const UnFollowButton = styled(motion.button)`
     }
 `;
 
-export const FollowerModalContainer = styled.div`
+export const FollowingModalContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 6px 0 6px 0;
+`;
+
+export const FollowingNickname = styled.h1`
+    font-weight: 600;
+    font-size: 24px;
+    cursor: pointer;
 `;

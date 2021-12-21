@@ -4,7 +4,7 @@ import { FiEye } from "react-icons/fi";
 import { Modal } from "react-bootstrap";
 import { motion } from "framer";
 export const CardContainer = styled(motion.div)`
-    width: 312px;
+    width: 294px;
     max-height: 600px;
     cursor: pointer;
     margin: 0;
@@ -14,7 +14,7 @@ export const CardContainer = styled(motion.div)`
     }
 `;
 export const FourSquareCardContainer = styled(motion.div)`
-    width: 300px;
+    width: 288px;
     height: 280px;
     cursor: pointer;
     margin: 0;
@@ -25,7 +25,7 @@ export const FourSquareCardContainer = styled(motion.div)`
 `;
 
 export const ImageContainerDiv = styled.div`
-    width: 312px;
+    width: 294px;
     height: 280px;
     border-radius: 16px;
     overflow: hidden;

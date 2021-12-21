@@ -95,6 +95,7 @@ function MyPage({ match }) {
         })
             .then((res) => res.json())
             .then((data) => {
+                console.log(data);
                 setIsOwner(data.is_owner);
                 setIsLoginUserFollow(data.is_login_user_follow);
                 setOwnerInfo(data.owner_info);
@@ -214,7 +215,10 @@ function MyPage({ match }) {
                             followerCount={followerCount}
                             followerLists={followerLists}
                         />
-                        <FollowingListModal followingCount={followingCount} />
+                        <FollowingListModal
+                            followingCount={followingCount}
+                            followingLists={followingLists}
+                        />
                     </FollowContainer>
                 </OwnerInfoContainer>
             </MyPageContainer>

@@ -9,19 +9,20 @@ import { Alert } from "react-bootstrap";
 import { motion } from "framer";
 export const Viewport = styled.div`
     width: 100vw;
+    height: 200vh;
     overflow-x: hidden;
 `;
 export const MainContainer = styled(motion.div)`
-    height: 94vh;
     display: flex;
     justify-content: center;
     overflow-x: hidden;
+    overflow-y: scroll;
     align-items: flex-start;
 `;
 export const DetailContainer = styled.div`
-    margin-top: 60px;
+    margin: 60px 0 60px 0;
     width: 84vw;
-    height: 80%;
+    height: 100%;
     display: flex;
     border-radius: 40px;
     box-shadow: 10px 10px 28px 4px rgba(156, 156, 156, 0.64);
@@ -30,7 +31,7 @@ export const DetailContainer = styled.div`
 `;
 
 export const DetailImage = styled.img`
-    width: 60%;
+    width: 50%;
     object-fit: fill;
     height: 100%;
     // original height: 50vh + 100%;
@@ -46,7 +47,7 @@ export const DetailTitle = styled.h1`
 export const InfoContainer = styled.div`
     padding: 36px 24px 36px 24px;
     background-color: white;
-    width: 40%;
+    width: 50%;
     border-radius: 0px 40px 40px 0px;
     max-height: 100%;
     display: flex;

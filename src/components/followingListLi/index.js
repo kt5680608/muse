@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import {
-    FollowButton,
-    FollowerNickname,
     UnFollowButton,
-    FollowerModalContainer,
+    FollowButton,
+    FollowingModalContainer,
+    FollowingNickname,
 } from "./style";
+import { useHistory } from "react-router-dom";
 
-function FollowerListLi(props) {
+function FollowingListLi(props) {
     const [isLoginUserFollowed, setIsLoginUserFollowed] = useState(true);
+    const history = useHistory();
+
+    const handleHistoryPushNickname = () => {
+        history.push(`/my-page/${props.nickname}`);
+        window.location.reload();
+    };
 
     const handleFollow = () => {
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
@@ -26,15 +33,19 @@ function FollowerListLi(props) {
         });
     };
     return (
-        <FollowerModalContainer>
-            <FollowerNickname>{props.nickname}</FollowerNickname>
-            {/* {isLoginUserFollowed == true ? (
-                <FollowButton onClick={handleFollow}>팔로잉</FollowButton>
+        <FollowingModalContainer>
+            <FollowingNickname onClick={handleHistoryPushNickname}>
+                {props.nickname}
+            </FollowingNickname>
+            {isLoginUserFollowed == true ? (
+                <UnFollowButton onClick={handleFollow}>
+                    팔로잉 취소
+                </UnFollowButton>
             ) : (
                 <FollowButton onClick={handleFollow}>팔로우</FollowButton>
-            )} */}
-        </FollowerModalContainer>
+            )}
+        </FollowingModalContainer>
     );
 }
 
-export default FollowerListLi;
+export default FollowingListLi;
