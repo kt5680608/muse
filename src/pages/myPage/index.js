@@ -87,7 +87,7 @@ function MyPage({ match }) {
         }
         const token = JSON.parse(localStorage.getItem("token"));
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        return fetch(`${API_DOMAIN}/accounts/my-page/${urlParts[1]}/`, {
+        return fetch(`${API_DOMAIN}/account/${urlParts[1]}/my_page`, {
             method: "GET",
             headers: {
                 Authorization: `${token.token}`,
@@ -114,17 +114,15 @@ function MyPage({ match }) {
         console.log(urlParts);
         const token = JSON.parse(localStorage.getItem("token"));
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        return fetch(
-            `${API_DOMAIN}/accounts/my-page/owner/post/${urlParts[1]}/`,
-            {
-                method: "GET",
-                headers: {
-                    Authorization: `${token.token}`,
-                },
-            }
-        )
+        return fetch(`${API_DOMAIN}/account/${urlParts[1]}/owner_post/`, {
+            method: "GET",
+            headers: {
+                Authorization: `${token.token}`,
+            },
+        })
             .then((res) => res.json())
             .then((data) => {
+                console.log(data);
                 setOwnerPosts(data);
             })
             .finally(() => {
@@ -138,15 +136,12 @@ function MyPage({ match }) {
         urlParts.shift();
         const token = JSON.parse(localStorage.getItem("token"));
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        return fetch(
-            `${API_DOMAIN}/accounts/my-page/owner/liked-post/${urlParts[1]}/`,
-            {
-                method: "GET",
-                headers: {
-                    Authorization: `${token.token}`,
-                },
-            }
-        )
+        return fetch(`${API_DOMAIN}/account/${urlParts[1]}/owner_liked_post/`, {
+            method: "GET",
+            headers: {
+                Authorization: `${token.token}`,
+            },
+        })
             .then((res) => res.json())
             .then((data) => {
                 setOwnerPosts(data);

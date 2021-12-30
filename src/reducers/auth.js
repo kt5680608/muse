@@ -8,10 +8,8 @@ export const authReducer = (state = { authData: null }, action) => {
             } else if (action.payload.result == true) {
                 localStorage.setItem(
                     "token",
-                    JSON.stringify({ ...action?.payload })
+                    JSON.stringify(action?.payload.token)
                 );
-                const token = JSON.parse(localStorage.getItem("token"));
-                console.log(token.token);
                 return { ...state, authData: true };
             }
         case LOG_OUT:

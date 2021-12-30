@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { BiHeart } from "react-icons/bi";
 import { FiEye } from "react-icons/fi";
-import { Modal } from "react-bootstrap";
 import { motion } from "framer";
+import { Modal } from "gestalt";
+import "./style.css";
 export const CardContainer = styled(motion.div)`
     width: 300px;
+    z-index: -1;
     max-height: 600px;
     cursor: pointer;
     margin: 0;
@@ -13,32 +15,20 @@ export const CardContainer = styled(motion.div)`
         max-height: 600px;
     }
 `;
-export const FourSquareCardContainer = styled(motion.div)`
-    width: 300px;
-    height: 280px;
-    cursor: pointer;
-    margin: 0;
-    @media (max-width: 320px) {
-        width: 300px;
-        height: 280px;
-    }
-`;
-
-export const ImageContainerDiv = styled.div`
+export const ImageContainer = styled.div`
     width: 300px;
     max-height: 600px;
     border-radius: 16px;
     overflow: hidden;
 `;
 
-export const ImageContainer = styled(motion.img)`
+export const Image = styled(motion.img)`
     width: 100%;
     max-height: 600px;
     vertical-align: top;
     justify-content: center;
     overflow: hidden;
     position: relative;
-    z-index: 1;
 `;
 
 export const InfoContainer = styled.figcaption`
@@ -72,27 +62,6 @@ export const LikesIcon = styled(BiHeart)`
     margin: 0 2px 0 2px;
 `;
 
-export const CustomModal = styled(Modal)`
-    .modal-dialog {
-        display: flex;
-        justify-content: center;
-    }
-    .modal-content {
-        width: 80vw;
-        height: 90vh;
-    }
-    .modal-header {
-    }
-    .modal-body {
-        width: 80vw;
-        height: 90vh;
-    }
-    .modal-footer {
-        width: 80vw;
-        height: 100%;
-    }
-`;
-
 export const FullImageContainer = styled.img`
     width: 600px;
     height: 600px;
@@ -114,4 +83,66 @@ export const Avatar = styled.img`
 export const CustomSpan = styled.span`
     font-size: 14px;
     display: flex;
+`;
+
+//Modal Styling
+
+export const ModalContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    max-height: 100vh;
+    overflow-y: auto;
+`;
+
+export const ModalHeading = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const ModalWriterInfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const ModalImageContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    border-radius: 12px;
+`;
+export const ModalImage = styled.img`
+    width: 100%;
+    height: 90vh;
+    object-fit: fill;
+`;
+
+export const Writer = styled.h1`
+    font-size: var(--g-text-font-size-5);
+    font-weight: 600;
+`;
+
+export const Title = styled.h1`
+    font-size: var(--g-text-font-size-5);
+    font-weight: 600;
+`;
+
+export const Date = styled(Writer)`
+    font-size: var(--g-text-font-size-3);
+    font-weight: 400;
+`;
+
+export const ModalAvatar = styled.img`
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 8px;
+`;
+
+export const ReactModal = styled(Modal)`
+    background-color: black;
+    padding: 0;
 `;

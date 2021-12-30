@@ -19,7 +19,7 @@ function FollowingListLi(props) {
     const handleFollow = () => {
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         const token = JSON.parse(localStorage.getItem("token"));
-        return fetch(`${API_DOMAIN}/accounts/follow/`, {
+        return fetch(`${API_DOMAIN}/account/follow/`, {
             method: "POST",
             headers: {
                 Authorization: `${token.token}`,

@@ -43,7 +43,6 @@ function Input(ownerInfo) {
     const [originalIntroduce, setOriginalIntroduce] = useState(
         ownerInfo.selfIntroduce
     );
-    const [nicknameCheck, setNicknameCheck] = useState(null);
     const [changedIntroduce, setChangedIntroduce] = useState("");
     const [deleteAvatarButton, setDeleteAvatarButton] = useState(false);
     const [duplicationData, setDuplicationData] = useState(null);
@@ -51,19 +50,13 @@ function Input(ownerInfo) {
 
     const dispatch = useDispatch();
 
-    const onChangeNickname = (e) => {
-        e.preventDefault();
-        setChangedNickname(e.target.value);
-        console.log(changedNickname);
-    };
-
     const handleDuplication = (e) => {
         e.preventDefault();
         const nicknameDuplicationFormData = new FormData();
         nicknameDuplicationFormData.append("nickname", changedNickname);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         const token = JSON.parse(localStorage.getItem("token"));
-        return fetch(`${API_DOMAIN}/accounts/check/nickname/`, {
+        return fetch(`${API_DOMAIN}/account/check_nickname/`, {
             method: "POST",
             headers: {
                 Authorization: `${token.token}`,
@@ -92,6 +85,12 @@ function Input(ownerInfo) {
                     });
                 }
             });
+    };
+
+    const onChangeNickname = (e) => {
+        e.preventDefault();
+        setChangedNickname(e.target.value);
+        console.log(changedNickname);
     };
 
     const onChangeAvatar = (e) => {
@@ -127,25 +126,27 @@ function Input(ownerInfo) {
             userProfileFormData.append("nickname", originalNickname);
         }
 
-        if (changedAvatar == null) {
-            //프로필 사진 안바뀌면 'original'
-            userProfileFormData.append("avatar_state", "original");
-        }
-        // 프로필 사진 제거하면 avatar_state = delete
-        if (deleteAvatarButton == true && changedAvatar == null) {
-            userProfileFormData.append("avatar_state", "delete");
-        }
-
         if (changedIntroduce == "") {
             userProfileFormData.append("self_introduce", originalIntroduce);
         }
 
+        if (changedAvatar == null) {
+            userProfileFormData.append("avatar", originalAvatar);
+        }
+
+        if (deleteAvatarButton === true) {
+            userProfileFormData.delete("avatar");
+        }
+
         try {
-            if (duplicationData === true) {
+            if (
+                (duplicationData === true && changedNickname != null) ||
+                changedNickname === ""
+            ) {
                 const token = JSON.parse(localStorage.getItem("token"));
                 const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-                return fetch(`${API_DOMAIN}/accounts/update/`, {
-                    method: "POST",
+                return fetch(`${API_DOMAIN}/account/${originalNickname}/`, {
+                    method: "PATCH",
                     headers: {
                         Authorization: `${token.token}`,
                     },

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUploadPost } from "../../actions/post";
@@ -17,6 +17,28 @@ import {
     Modal,
 } from "gestalt";
 function Input() {
+    const getUserInfo = () => {
+        const token = JSON.parse(localStorage.getItem("token"));
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+        return fetch(`${API_DOMAIN}/accounts/info/`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+                Authorization: `${token.token}`,
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setBadge(data.badge);
+                return data;
+            });
+    };
+    useEffect(() => {
+        getUserInfo();
+    }, []);
+    const [badge, setBadge] = useState("");
+    const [handle, setHandle] = useState();
     const [show, setShow] = useState(false);
     const [image, setImage] = useState(null);
     const [content, setContent] = useState("");
@@ -71,6 +93,7 @@ function Input() {
 
     const handleSubmit = async (e) => {
         const data = new FormData();
+        data.append("type", tag);
         data.append("title", title);
         data.append("content", content);
         data.append("ref_url", imageUrl);
@@ -96,7 +119,7 @@ function Input() {
                     timer: 1500,
                 });
             } else {
-                await dispatch(getUploadPost(data, tag));
+                await dispatch(getUploadPost(data));
                 handleClose();
                 history.push("/replace");
             }
@@ -195,6 +218,10 @@ function PostButton() {
     const [shouldShow, setShouldShow] = React.useState(false);
     const HEADER_ZINDEX = new FixedZIndex(10);
     const modalZIndex = new CompositeZIndex([HEADER_ZINDEX]);
+
+    useEffect(() => {
+        console.log("hi");
+    }, []);
 
     const ModalWithHeading = ({ onDismiss }) => {
         return (

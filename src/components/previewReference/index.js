@@ -20,7 +20,7 @@ function PreviewReference(props) {
     const getPosts = async () => {
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         await axios
-            .get(`${API_DOMAIN}/posts/display/preview/${props.name}/`)
+            .get(`${API_DOMAIN}/post/preview_${props.name}/`)
             .then((res) => {
                 try {
                     const fetchedData = res.data;

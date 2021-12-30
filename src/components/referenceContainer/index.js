@@ -35,7 +35,7 @@ function ReferenceContainer(props) {
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         axios
             .get(
-                `${API_DOMAIN}/posts/display/all/?type=${props.name}&page=${page}&order=${options}`
+                `${API_DOMAIN}/post/?type=${props.name}&page=${page}&order=${options}`
             )
             .then((res) => {
                 try {
@@ -129,31 +129,6 @@ function ReferenceContainer(props) {
                         </Dropdown>
                     )}
                 </Flex>
-                {/* <CustomDropdown>
-                    <CustomDropdown.Toggle id="style.CustomDropdown-basic">
-                        {label}
-                    </CustomDropdown.Toggle>
-                    <CustomDropdown.Menu>
-                        <CustomDropdown.Item
-                            href="#/action-1"
-                            onClick={likesOrder}
-                        >
-                            인기순
-                        </CustomDropdown.Item>
-                        <CustomDropdown.Item
-                            href="#/action-2"
-                            onClick={viewsOrder}
-                        >
-                            조회수순
-                        </CustomDropdown.Item>
-                        <CustomDropdown.Item
-                            href="#/action-3"
-                            onClick={recentOrder}
-                        >
-                            최신순
-                        </CustomDropdown.Item>
-                    </CustomDropdown.Menu>
-                </CustomDropdown> */}
             </DropdownContainer>
 
             <StackGrid

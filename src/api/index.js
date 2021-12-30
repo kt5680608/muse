@@ -4,14 +4,16 @@ import { useHistory } from "react-router-dom";
 
 const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
 const token = JSON.parse(localStorage.getItem("token"));
-
+/*------------------------------------------------------------------------------------------------*/
+// 로그인 및 회원가입
 export const kakaoLogin = (authorizeCodeFromKakao) => {
-    return fetch(`${API_DOMAIN}/accounts/login/`, {
+    return fetch(`${API_DOMAIN}/account/`, {
         method: "POST",
         headers: {
             "content-type": "application/json",
         },
         body: JSON.stringify({
+            type: "login",
             code: authorizeCodeFromKakao,
         }),
     })
@@ -35,13 +37,14 @@ export const kakaoLogin = (authorizeCodeFromKakao) => {
 };
 
 export const kakaoRegister = (authorizeCodeFromKakao) => {
-    return fetch(`${API_DOMAIN}/accounts/register/`, {
+    return fetch(`${API_DOMAIN}/account/`, {
         method: "POST",
         headers: {
             "content-type": "application/json",
         },
         body: JSON.stringify({
             code: authorizeCodeFromKakao,
+            type: "register",
         }),
     })
         .then((res) => res.json())
@@ -70,22 +73,12 @@ export const kakaoRegister = (authorizeCodeFromKakao) => {
             }
         });
 };
-export const nicknameUpdate = (nickname) => {
-    return fetch(`${API_DOMAIN}/accounts/update/nickname/`, {
-        method: "POST",
-        headers: {
-            Authorization: `${token.token}`,
-            "content-type": "application/json",
-        },
-        body: JSON.stringify({
-            nickname: nickname,
-        }),
-    });
-};
 
+/*------------------------------------------------------------------------------------------------*/
+// 유저 정보 가져오기
 export const getUserInfo = () => {
     const token = JSON.parse(localStorage.getItem("token"));
-    return fetch(`${API_DOMAIN}/accounts/info/`, {
+    return fetch(`${API_DOMAIN}/account/`, {
         method: "GET",
         headers: {
             "content-type": "application/json",
@@ -94,22 +87,15 @@ export const getUserInfo = () => {
     })
         .then((res) => res.json())
         .then((data) => {
+            console.log(data);
             return data;
         });
 };
 
-export const profileImageUpload = (data) => {
-    return fetch(`${API_DOMAIN}/accounts/update/avatar/`, {
-        method: "POST",
-        headers: {
-            Authorization: `${token.token}`,
-        },
-        body: data,
-    });
-};
-
-export const uploadPost = (data, tag) => {
-    return fetch(`${API_DOMAIN}/posts/upload/${tag}/`, {
+/*------------------------------------------------------------------------------------------------*/
+// 포스트 관련
+export const uploadPost = (data) => {
+    return fetch(`${API_DOMAIN}/post/`, {
         method: "POST",
         headers: {
             Authorization: `${token.token}`,
@@ -152,10 +138,11 @@ export const CommentUpload = (idx, currentComments) => {
 
 export const sendIsLiked = (postIdx) => {
     const token = JSON.parse(localStorage.getItem("token"));
-    return fetch(`${API_DOMAIN}/posts/like/${postIdx}/`, {
+    console.log(token);
+    return fetch(`${API_DOMAIN}/post/${postIdx}/like/`, {
         method: "POST",
         headers: {
-            Authorization: `${token.token}`,
+            Authorization: token,
         },
     });
 };
@@ -182,7 +169,7 @@ export const deletePost = (postIdx) => {
 };
 
 export const updateUser = (formData) => {
-    return fetch(`${API_DOMAIN}/accounts/update/`, {
+    return fetch(`${API_DOMAIN}/account/update/`, {
         method: "POST",
         headers: {
             Authorization: `${token.token}`,
@@ -192,23 +179,6 @@ export const updateUser = (formData) => {
         .then((res) => res.json())
         .then((data) => {
             useHistory.push(`/my-page/${data.nickname}`);
-            return data;
-        });
-};
-
-export const updateUserProfile = (userProfileFormData) => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-    return fetch(`${API_DOMAIN}/accounts/update/`, {
-        method: "POST",
-        headers: {
-            Authorization: `${token.token}`,
-        },
-        body: userProfileFormData,
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
             return data;
         });
 };

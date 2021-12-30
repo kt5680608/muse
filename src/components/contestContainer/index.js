@@ -84,7 +84,7 @@ function MainContainer(props) {
         }
         axios
             .get(
-                `${API_DOMAIN}/posts/display/all/?type=${contestT}&page=${page}&order=${options}`
+                `${API_DOMAIN}/post/?type=${contestT}&page=${page}&order=${options}`
             )
             .then((res) => {
                 try {
