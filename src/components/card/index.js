@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import { useInView } from "react-intersection-observer";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link } from "react-router-dom";
 import "react-router-modal/css/react-router-modal.css";
 import Swal from "sweetalert2";
-import { sendIsLiked } from "../../actions/likeBtn";
+import { sendIsLiked, sendIsSaved } from "../../actions/post";
+import Loader from "react-loader-spinner";
+import StackGrid from "react-stack-grid";
 import {
     getDetailPost,
     uploadCommentPost,
@@ -15,17 +18,18 @@ import moment from "moment";
 import {
     CardContainer,
     Image,
+    ImageContainerRect,
     PostWriter,
     LikesIcon,
     InfoContainer,
     EyeIcon,
     PostStatusContainer,
-    Avatar,
     WriterContainer,
     CustomSpan,
     ImageContainer,
     ModalImage,
     ModalImageContainer,
+    Comment,
     ModalContainer,
     ModalInfoContainer,
     Writer,
@@ -35,6 +39,11 @@ import {
     ModalHeading,
     ModalWriterInfoContainer,
     Title,
+    OtherPostsImg,
+    CommentWriter,
+    Avatar,
+    LoadingBack,
+    ListItem,
 } from "./style";
 import { useHistory } from "react-router-dom";
 import { likeBtn } from "../../actions/likeBtn";
@@ -49,17 +58,17 @@ import {
     Layer,
     Modal,
     IconButton,
+    TextArea,
 } from "gestalt";
 
 function DetailPost(props) {
     const token = JSON.parse(localStorage.getItem("token"));
     const dispatch = useDispatch();
-    const postIdxUrl = window.location.pathname.split("/")[2];
     const getUserInfo = useSelector((state) => state.userInfo);
-
-    const [comments, setComments] = useState("");
+    const [submit, setSubmit] = useState(false);
+    const [comments, setComments] = useState([]);
     const [created, setCreated] = useState("");
-    const [currentComments, setCurrentComments] = useState("");
+    const [currentComments, setCurrentComments] = React.useState("");
     const [showComment, setShowComment] = useState(false);
     const [loading, setLoading] = useState(false);
     const [otherPosts, setOtherPosts] = useState([]);
@@ -69,7 +78,7 @@ function DetailPost(props) {
     const [content, setContent] = useState("");
     const [hashtags, setHashtags] = useState();
     const [likesCount, setLikesCount] = useState();
-    const [idx, setIdx] = useState();
+    const [idx, setIdx] = useState(props.idx);
     const [show, setShow] = useState(false);
     const [updateContent, setUpdateContent] = useState("");
     const [updateTitle, setUpdateTitle] = useState("");
@@ -83,46 +92,78 @@ function DetailPost(props) {
     const [isSaved, setIsSaved] = useState();
     const [isWriter, setIsWriter] = useState();
 
-    useEffect(() => {
-        setLoading(true);
+    //무한스크롤
+    const [page, setPage] = useState(1);
+    const [recommendLoading, setRecommendLoading] = useState(false);
+    const [options, setOptions] = useState("likes");
+    const [ref, inView] = useInView({ trackVisibility: true, delay: 100 });
+
+    const getRecommendedPosts = useCallback(() => {
+        setRecommendLoading(true);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        const token = JSON.parse(localStorage.getItem("token"));
-        return fetch(`${API_DOMAIN}/post/${props.idx}/`, {
-            method: "GET",
-            headers: {
-                Authorization: token,
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setIsLiked(data.is_login_user_liked);
-                setTitle(data.title);
-                setImage(data.image);
-                setImagePreview(data.image);
-                setIsLoginUserFollowed(data.is_login_user_follow);
-                setHashtags(data.hashtag);
-                setIdx(data.idx);
-                setWriter(data.writer);
-                setContent(data.content);
-                setIsWriter(data.is_writer);
-                setLikesCount(data.likes);
-                setWriterAvatar(data.writer_avatar);
-                setComments(data.comment);
-                setOtherPosts(data.writer_other_post);
-                setCreated(moment(data.created_at).format("YYYY-MM-DD"));
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    setLoading(false);
-                }, 500);
+        axios
+            .get(`${API_DOMAIN}/post/${idx}/recommend/?page=${page}`)
+            .then((res) => {
+                try {
+                    console.log(res.data);
+                    const fetchedData = res.data;
+                    const mergedData = otherPosts.concat(...fetchedData);
+                    setOtherPosts(mergedData);
+                } catch (e) {
+                    console.error(e);
+                }
             });
-    }, []);
+        setRecommendLoading(false);
+    }, [page, idx]);
+
+    useEffect(() => {
+        // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
+        if (inView && !recommendLoading) {
+            setPage((state) => state + 1);
+        }
+    }, [inView, recommendLoading]);
+
+    useEffect(() => {
+        getRecommendedPosts();
+    }, [getRecommendedPosts]);
 
     useEffect(() => {
         setLoading(true);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        if (idx !== undefined) {
+        const token = JSON.parse(localStorage.getItem("token"));
+        if (token !== null) {
+            return fetch(`${API_DOMAIN}/post/${idx}/`, {
+                method: "GET",
+                headers: {
+                    Authorization: `${token}`,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    setIsLiked(data.is_login_user_liked);
+                    setTitle(data.title);
+                    setImage(data.image);
+                    setImagePreview(data.image);
+                    setIsLoginUserFollowed(data.is_login_user_follow);
+                    setHashtags(data.hashtag);
+                    setIdx(data.idx);
+                    setWriter(data.writer);
+                    setContent(data.content);
+                    setIsWriter(data.is_writer);
+                    setLikesCount(data.likes);
+                    setWriterAvatar(data.writer_avatar);
+                    setComments(data.comment);
+                    setCreated(moment(data.created_at).format("YYYY-MM-DD"));
+                    setIsSaved(data.is_login_user_bookmark);
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        setLoading(false);
+                    }, 500);
+                });
+        }
+        if (token === null) {
             return fetch(`${API_DOMAIN}/post/${idx}/`, {
                 method: "GET",
             })
@@ -142,7 +183,8 @@ function DetailPost(props) {
                     setLikesCount(data.likes);
                     setWriterAvatar(data.writer_avatar);
                     setComments(data.comment);
-                    setOtherPosts(data.writer_other_post);
+                    setCreated(moment(data.created_at).format("YYYY-MM-DD"));
+                    setIsSaved(data.is_login_user_bookmark);
                 })
                 .finally(() => {
                     setTimeout(() => {
@@ -150,7 +192,7 @@ function DetailPost(props) {
                     }, 500);
                 });
         }
-    }, [idx]);
+    }, [idx, submit]);
 
     const handleFollow = () => {
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
@@ -226,7 +268,7 @@ function DetailPost(props) {
         }
     };
 
-    const handleSubmit = async () => {
+    const handleSubmitComment = async () => {
         try {
             const token = JSON.parse(localStorage.getItem("token"));
 
@@ -247,8 +289,9 @@ function DetailPost(props) {
                     timer: 1000,
                 });
             } else {
-                await dispatch(uploadCommentPost(postIdxUrl, currentComments));
-                window.location.reload();
+                await dispatch(uploadCommentPost(idx, currentComments));
+                setSubmit(!submit);
+                setCurrentComments("");
             }
         } catch (e) {
             console.error(e);
@@ -256,7 +299,6 @@ function DetailPost(props) {
     };
 
     const onChangeComment = (e) => {
-        e.preventDefault();
         setCurrentComments(e.target.value);
         console.log(currentComments);
     };
@@ -277,7 +319,9 @@ function DetailPost(props) {
     const handleSave = () => {
         try {
             const PostIdx = idx;
+            dispatch(sendIsSaved(PostIdx));
             setIsSaved(!isSaved);
+            console.log("saved");
         } catch (e) {
             console.error(e);
         }
@@ -293,13 +337,12 @@ function DetailPost(props) {
 
     const onKeyPressEnter = (e) => {
         if (e.key == "Enter") {
-            handleSubmit();
+            handleSubmitComment();
         }
     };
 
     const handleDeletePost = async () => {
-        const postIdx = postIdxUrl;
-        dispatch(deletePost(postIdx));
+        dispatch(deletePost(idx));
         await Swal.fire({
             icon: "success",
             title: "Delete Complete",
@@ -311,7 +354,26 @@ function DetailPost(props) {
     };
 
     if (loading == true) {
-        return <></>;
+        return (
+            <Box height="100vh" width="100%">
+                <Flex
+                    width="100%"
+                    height="100%"
+                    alignItems="center"
+                    justifyContent="center"
+                >
+                    <Loader
+                        type="Oval"
+                        color="var(--g-color-blue)"
+                        height={70}
+                        radius={100}
+                        width={70}
+                        timeout={560}
+                        border={100}
+                    />
+                </Flex>
+            </Box>
+        );
     }
 
     const handleHistoryPushNickname = () => {
@@ -397,17 +459,133 @@ function DetailPost(props) {
                     <ModalImageContainer>
                         <ModalImage src={image} alt="" />
                     </ModalImageContainer>
-                    {otherPosts.map((post) => (
-                        <React.Fragment key={post.idx}>
-                            <img
-                                src={`${post.image}`}
-                                onClick={() => {
-                                    setIdx(post.idx);
-                                    console.log(idx);
-                                }}
-                            />
+
+                    {comments.map((comment) => (
+                        <React.Fragment key={comment.idx}>
+                            <Box
+                                marginTop={2}
+                                borderStyle="sm"
+                                rounding={4}
+                                padding={2}
+                            >
+                                <Flex
+                                    direction="row"
+                                    alignItems="center"
+                                    justifyContent="between"
+                                >
+                                    <Box>
+                                        <Flex
+                                            direction="row"
+                                            alignItems="center"
+                                        >
+                                            <Avatar
+                                                src={`${comment.writer_avatar}`}
+                                            />
+                                            <Box>
+                                                <CommentWriter>
+                                                    {comment.writer}
+                                                </CommentWriter>
+                                                <Comment>
+                                                    {comment.comment}
+                                                </Comment>
+                                            </Box>
+                                        </Flex>
+                                    </Box>
+                                    {comment.is_writer === true ? (
+                                        <Flex justifyContent="end">
+                                            <IconButton icon="ellipsis" />
+                                        </Flex>
+                                    ) : (
+                                        <></>
+                                    )}
+                                </Flex>
+                            </Box>
                         </React.Fragment>
                     ))}
+
+                    {token !== undefined ? (
+                        <>
+                            <Box paddingY={4} width="100%">
+                                <TextArea
+                                    id="comment"
+                                    placeholder="댓글 작성"
+                                    rows="2"
+                                    onChange={({ value }) =>
+                                        setCurrentComments(value)
+                                    }
+                                    value={currentComments}
+                                />
+                            </Box>
+                            <Flex justifyContent="end">
+                                <Box>
+                                    <Button
+                                        text="제출"
+                                        onClick={handleSubmitComment}
+                                    ></Button>
+                                </Box>
+                            </Flex>
+                        </>
+                    ) : (
+                        <>
+                            <Box paddingY={2} width="100%">
+                                <TextArea
+                                    disabled
+                                    placeholder="댓글 작성"
+                                    rows="2"
+                                    onChange={({ currentComments }) =>
+                                        setCurrentComments(currentComments)
+                                    }
+                                />
+                            </Box>
+                            <Flex justifyContent="end">
+                                <Box>
+                                    <Button
+                                        text="제출"
+                                        onClick={handleSubmitComment}
+                                    />
+                                </Box>
+                            </Flex>
+                        </>
+                    )}
+                    <Box marginTop={4}>
+                        <StackGrid
+                            columnWidth={260}
+                            gutterWidth={8}
+                            duration={0}
+                            monitorImagesLoaded={true}
+                            style={{ width: "100%" }}
+                        >
+                            {otherPosts.map((otherPost, idx) => (
+                                <React.Fragment key={idx}>
+                                    {otherPosts.length - 1 === idx ? (
+                                        <ListItem ref={ref}>
+                                            <OtherPostsImg
+                                                src={`${otherPost.image}`}
+                                                onClick={() => {
+                                                    setIdx(otherPost.idx);
+                                                    setPage(1);
+                                                    setOtherPosts([]);
+                                                    console.log(idx);
+                                                }}
+                                            />
+                                        </ListItem>
+                                    ) : (
+                                        <ListItem>
+                                            <OtherPostsImg
+                                                src={`${otherPost.image}`}
+                                                onClick={() => {
+                                                    setIdx(otherPost.idx);
+                                                    setOtherPosts([]);
+                                                    setPage(1);
+                                                    console.log(idx);
+                                                }}
+                                            />
+                                        </ListItem>
+                                    )}
+                                </React.Fragment>
+                            ))}
+                        </StackGrid>
+                    </Box>
                 </Box>
             </Box>
         </Box>
@@ -418,11 +596,6 @@ function DetailPostPreview(props) {
     const [shouldShow, setShouldShow] = React.useState(false);
     const HEADER_ZINDEX = new FixedZIndex(10);
     const modalZIndex = new CompositeZIndex([HEADER_ZINDEX]);
-
-    useEffect(() => {
-        console.log("hi");
-    });
-
     const ModalWithHeading = ({ onDismiss }) => {
         return (
             <>
@@ -447,14 +620,23 @@ function DetailPostPreview(props) {
 
     return (
         <React.Fragment>
-            <CardContainer>
-                <ImageContainer onClick={() => setShouldShow(true)}>
+            <CardContainer color="transparent">
+                {props.rect === "rect" && (
+                    <ImageContainer onClick={() => setShouldShow(true)}>
+                        <Image
+                            src={`${props.image}`}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.98 }}
+                        />
+                    </ImageContainer>
+                )}
+                <ImageContainerRect onClick={() => setShouldShow(true)}>
                     <Image
                         src={`${props.image}`}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.98 }}
                     />
-                </ImageContainer>
+                </ImageContainerRect>
                 <InfoContainer>
                     <WriterContainer>
                         <Avatar src={props.avatar} alt="" />
@@ -477,17 +659,7 @@ function DetailPostPreview(props) {
     );
 }
 
-function Card({
-    idx,
-    title,
-    image,
-    liked,
-    avatar,
-    views,
-    likes,
-    writer,
-    rect,
-}) {
+function Card({ idx, title, image, liked, avatar, views, writer }) {
     return (
         <DetailPostPreview
             idx={idx}

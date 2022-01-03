@@ -18,10 +18,7 @@ export const GridContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 `;
-export const ListItem = styled.div`
-    display: flex;
-    justify-content: center;
-`;
+export const ListItem = styled.div``;
 export const CustomDropdown = styled(Dropdown)`
     position: relative;
     margin: 12px 0 12px 0;

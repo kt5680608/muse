@@ -5,7 +5,7 @@ import { userInfo } from "../../actions/userInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery as MediaQuery } from "react-responsive";
 import { RulesModal, LoginModal } from "../../components";
-import { Button, Flex, Dropdown, FixedZIndex, IconButton } from "gestalt";
+import { Button, Flex, Dropdown, FixedZIndex, Box, IconButton } from "gestalt";
 import "gestalt/dist/gestalt.css";
 import {
     Container,
@@ -105,7 +105,16 @@ function Navbar() {
                             {isLogged == false || isLogged == null ? (
                                 <LoginModal />
                             ) : (
-                                <Flex justifyContent="center">
+                                <Flex
+                                    justifyContent="center"
+                                    alignItems="center"
+                                >
+                                    <Box marginEnd={4}>
+                                        <IconButton
+                                            icon="search"
+                                            iconColor="black"
+                                        />
+                                    </Box>
                                     <Avatar
                                         src={getUserAvatar}
                                         ref={anchorRef}

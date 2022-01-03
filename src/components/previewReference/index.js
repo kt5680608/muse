@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useInView } from "react-intersection-observer";
-import PreviewCard from "../previewCard";
+
 import axios from "axios";
 import {
     MainContainer,
@@ -11,11 +11,11 @@ import {
     PreviewH2,
     PreviewInfoContainer,
 } from "./style";
+import Card from "../card";
 import { Link } from "react-router-dom";
 
 function PreviewReference(props) {
     const [posts, setPosts] = useState([]);
-    const [ref, inView] = useInView({ trackVisibility: true, delay: 100 });
 
     const getPosts = async () => {
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
@@ -54,8 +54,9 @@ function PreviewReference(props) {
             <GridContainer>
                 {posts.map((post, idx) => (
                     <React.Fragment key={idx}>
-                        <ListItem ref={ref}>
-                            <PreviewCard
+                        <ListItem>
+                            <Card
+                                rect="rect"
                                 image={post.image}
                                 title={post.title}
                                 idx={post.idx}

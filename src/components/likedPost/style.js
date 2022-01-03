@@ -12,6 +12,7 @@ export const CardContainer = styled(motion.div)`
     cursor: pointer;
     overflow: hidden;
     margin-bottom: 12px;
+    
 `;
 export const ImageContainerDiv = styled.div`
     width: 100%;

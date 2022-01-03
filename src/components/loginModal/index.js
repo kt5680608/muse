@@ -22,9 +22,12 @@ function LoginModal(props) {
     const ModalWithHeading = ({ onDismiss }) => {
         return (
             <Modal
+                size={300}
                 accessibilityModalLabel="MUSE 이용약관"
-                heading={
-                    <Box paddingX={8} overflow="hidden">
+                onDismiss={onDismiss}
+            >
+                <Flex justifyContent="center" alignItems="center">
+                    <Box paddingX={8} paddingY={8} overflow="hidden">
                         <Box marginBottom={8} marginTop={8}>
                             <Flex justifyContent="center">
                                 <Box marginBottom={3}>
@@ -59,10 +62,8 @@ function LoginModal(props) {
                             </Box>
                         </Box>
                     </Box>
-                }
-                onDismiss={onDismiss}
-                size=""
-            ></Modal>
+                </Flex>
+            </Modal>
         );
     };
 

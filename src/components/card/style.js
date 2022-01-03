@@ -8,12 +8,16 @@ export const CardContainer = styled(motion.div)`
     width: 300px;
     z-index: -1;
     max-height: 600px;
+    background-color: ${(props) => props.color};
     cursor: pointer;
     margin: 0;
     @media (max-width: 320px) {
         width: 300px;
         max-height: 600px;
     }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 export const ImageContainer = styled.div`
     width: 300px;
@@ -22,9 +26,16 @@ export const ImageContainer = styled.div`
     overflow: hidden;
 `;
 
+export const ImageContainerRect = styled.div`
+    width: 300px;
+    height: 360px;
+    border-radius: 16px;
+    overflow: hidden;
+`;
+
 export const Image = styled(motion.img)`
     width: 100%;
-    max-height: 600px;
+    height: 100%;
     vertical-align: top;
     justify-content: center;
     overflow: hidden;
@@ -32,7 +43,7 @@ export const Image = styled(motion.img)`
 `;
 
 export const InfoContainer = styled.figcaption`
-    width: 100%;
+    width: 94%;
     height: 40px;
     display: flex;
     justify-content: space-between;
@@ -74,8 +85,8 @@ export const WriterContainer = styled.div`
 `;
 
 export const Avatar = styled.img`
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     margin-right: 8px;
 `;
@@ -116,7 +127,7 @@ export const ModalImageContainer = styled.div`
 `;
 export const ModalImage = styled.img`
     width: 100%;
-    height: 90vh;
+    max-height: 100vh;
     object-fit: fill;
 `;
 
@@ -146,3 +157,25 @@ export const ReactModal = styled(Modal)`
     background-color: black;
     padding: 0;
 `;
+
+export const CommentWriter = styled.h1`
+    font-size: 14px;
+    font-weight: 600;
+`;
+
+export const Comment = styled.p`
+    font-size: 14px;
+    font-weight: 400;
+`;
+
+export const OtherPostsImg = styled.img`
+    border-radius: 12px;
+    width: 260px;
+    object-fit: contain;
+`;
+
+export const LoadingBack = styled.div`
+    background-color: transparent;
+`;
+
+export const ListItem = styled.div``;

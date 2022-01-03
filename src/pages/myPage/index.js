@@ -59,7 +59,7 @@ function MyPage({ match }) {
         return fetch(`${API_DOMAIN}/accounts/follow/`, {
             method: "POST",
             headers: {
-                Authorization: `${token.token}`,
+                Authorization: `${token}`,
                 "content-type": "application/json",
             },
             body: JSON.stringify({
@@ -90,7 +90,7 @@ function MyPage({ match }) {
         return fetch(`${API_DOMAIN}/account/${urlParts[1]}/my_page`, {
             method: "GET",
             headers: {
-                Authorization: `${token.token}`,
+                Authorization: `${token}`,
             },
         })
             .then((res) => res.json())
@@ -117,7 +117,7 @@ function MyPage({ match }) {
         return fetch(`${API_DOMAIN}/account/${urlParts[1]}/owner_post/`, {
             method: "GET",
             headers: {
-                Authorization: `${token.token}`,
+                Authorization: `${token}`,
             },
         })
             .then((res) => res.json())
@@ -130,18 +130,21 @@ function MyPage({ match }) {
             });
     };
 
-    const getLikedPosts = () => {
+    const getSavedPosts = () => {
         const url = window.location.pathname;
         const urlParts = url.replace(/\/\s*$/, "").split("/");
         urlParts.shift();
         const token = JSON.parse(localStorage.getItem("token"));
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        return fetch(`${API_DOMAIN}/account/${urlParts[1]}/owner_liked_post/`, {
-            method: "GET",
-            headers: {
-                Authorization: `${token.token}`,
-            },
-        })
+        return fetch(
+            `${API_DOMAIN}/account/${urlParts[1]}/owner_bookmark_post/`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization: `${token}`,
+                },
+            }
+        )
             .then((res) => res.json())
             .then((data) => {
                 setOwnerPosts(data);
@@ -151,7 +154,7 @@ function MyPage({ match }) {
     const likesOrder = () => {
         setDisplayOwnerPosts(false);
         setOwnerPosts([]);
-        getLikedPosts();
+        getSavedPosts();
     };
 
     const ownerOrder = () => {
@@ -228,7 +231,7 @@ function MyPage({ match }) {
                                 </DisplayOrderButton>
                                 <DisplayOrderButton2 onClick={likesOrder}>
                                     {" "}
-                                    <ButtonH1>좋아하는 게시물</ButtonH1>
+                                    <ButtonH1>저장된 게시물</ButtonH1>
                                 </DisplayOrderButton2>
                             </>
                         ) : (

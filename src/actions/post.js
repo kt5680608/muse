@@ -41,3 +41,19 @@ export const deletePost = (postIdx) => async () => {
         console.error(e);
     }
 };
+
+export const sendIsLiked = (postIdx) => async () => {
+    try {
+        await api.sendIsLiked(postIdx);
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+export const sendIsSaved = (postIdx) => async () => {
+    try {
+        await api.sendIsSaved(postIdx);
+    } catch (e) {
+        console.error(e);
+    }
+};

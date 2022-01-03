@@ -1396,8 +1396,8 @@ html[dir="rtl"] .ddc {
     margin-bottom: -0px;
 }
 .Lej {
-    padding-bottom: 0px;
-    padding-top: 0px;
+    padding-bottom: 12px;
+    padding-top: 12px;
 }
 .LCN {
     padding-left: 0px;
@@ -4046,7 +4046,7 @@ html[dir="rtl"] .mQC {
     border-radius: 999px;
 }
 .eEj {
-    border-radius: 0;
+    border-radius: 12px;
 }
 .Pja {
     border-radius: 4px;
@@ -4070,7 +4070,7 @@ html[dir="rtl"] .mQC {
     border-radius: 28px;
 }
 .OVX {
-    border-radius: 0px;
+    border-radius: 12px;
 }
 .adn {
     border: 0;

@@ -82,7 +82,7 @@ export const getUserInfo = () => {
         method: "GET",
         headers: {
             "content-type": "application/json",
-            Authorization: `${token.token}`,
+            Authorization: `${token}`,
         },
     })
         .then((res) => res.json())
@@ -98,7 +98,7 @@ export const uploadPost = (data) => {
     return fetch(`${API_DOMAIN}/post/`, {
         method: "POST",
         headers: {
-            Authorization: `${token.token}`,
+            Authorization: `${token}`,
         },
         body: data,
     });
@@ -112,10 +112,10 @@ export const detailPost = (postIdxUrl) => {
                 return data;
             });
     }
-    return fetch(`${API_DOMAIN}/posts/display/detail/${postIdxUrl}/`, {
+    fetch(`${API_DOMAIN}/posts/display/detail/${postIdxUrl}/`, {
         method: "GET",
         headers: {
-            Authorization: `${token.token}`,
+            Authorization: `${token}`,
         },
     })
         .then((res) => res.json())
@@ -125,12 +125,16 @@ export const detailPost = (postIdxUrl) => {
 };
 
 export const CommentUpload = (idx, currentComments) => {
-    return fetch(`${API_DOMAIN}/posts/comment/upload/${idx}/`, {
+    const token = JSON.parse(localStorage.getItem("token"));
+    console.log(token);
+    fetch(`${API_DOMAIN}/comment/`, {
         method: "POST",
         headers: {
-            Authorization: `${token.token}`,
+            Authorization: token,
+            "content-type": "application/json",
         },
         body: JSON.stringify({
+            post_idx: idx,
             comment: currentComments,
         }),
     });
@@ -147,12 +151,21 @@ export const sendIsLiked = (postIdx) => {
     });
 };
 
+export const sendIsSaved = (postIdx) => {
+    return fetch(`${API_DOMAIN}/post/${postIdx}/bookmark/`, {
+        method: "POST",
+        headers: {
+            Authorization: token,
+        },
+    });
+};
+
 export const updatePost = (formData, postIdx) => {
     const token = JSON.parse(localStorage.getItem("token"));
     return fetch(`${API_DOMAIN}/posts/update/${postIdx}/`, {
         method: "POST",
         headers: {
-            Authorization: `${token.token}`,
+            Authorization: `${token}`,
         },
         body: formData,
     });
@@ -163,7 +176,7 @@ export const deletePost = (postIdx) => {
     return fetch(`${API_DOMAIN}/posts/delete/${postIdx}/`, {
         method: "DELETE",
         headers: {
-            Authorization: `${token.token}`,
+            Authorization: `${token}`,
         },
     });
 };
@@ -172,7 +185,7 @@ export const updateUser = (formData) => {
     return fetch(`${API_DOMAIN}/account/update/`, {
         method: "POST",
         headers: {
-            Authorization: `${token.token}`,
+            Authorization: `${token}`,
         },
         body: formData,
     })

@@ -20,11 +20,11 @@ function Input() {
     const getUserInfo = () => {
         const token = JSON.parse(localStorage.getItem("token"));
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        return fetch(`${API_DOMAIN}/accounts/info/`, {
+        return fetch(`${API_DOMAIN}/account/`, {
             method: "GET",
             headers: {
                 "content-type": "application/json",
-                Authorization: `${token.token}`,
+                Authorization: `${token}`,
             },
         })
             .then((res) => res.json())
