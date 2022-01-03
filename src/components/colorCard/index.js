@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import {
+    MainContainer,
+    Test,
+    Logo,
+    ColorName,
+    InfoContainer,
+    ColorHexa,
+} from "./style";
+import { SvgBlob } from "react-svg-blob";
 
-function ColorCard() {
-    return <div></div>;
+function ColorCard(props) {
+    return (
+        <MainContainer
+            whileHover={{
+                scale: 1.04,
+            }}
+        >
+            <InfoContainer>
+                <Logo>MUSE</Logo>
+                <ColorName>{props.color}</ColorName>
+                <ColorHexa>{props.hexa}</ColorHexa>
+            </InfoContainer>
+            <Test color={`${props.hexa}`} />
+        </MainContainer>
+    );
 }
 
 export default ColorCard;

@@ -16,6 +16,7 @@ export const DropDownContainer = styled.div`
 `;
 export const GridContainer = styled.div`
     display: grid;
+    margin-top: 12px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 `;
 export const ListItem = styled.div``;

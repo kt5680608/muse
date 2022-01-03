@@ -5,6 +5,7 @@ import {
     Container,
     PostButton,
     PreviewReference,
+    WeeklyColorContainer,
 } from "../../components";
 import { userInfo } from "../../actions/userInfo";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +17,7 @@ function Home() {
             <Navbar />
             <Banner />
             <PostButton />
+            <WeeklyColorContainer />
             <PreviewReference name="reference" />
             <PreviewReference name="contest" />
         </HomeContainer>
