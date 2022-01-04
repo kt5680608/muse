@@ -1,7 +1,6 @@
 export { default as Navbar } from "./navbar";
 export { default as Banner } from "./banner";
 export { default as Container } from "./contestContainer";
-export { default as SearchBar } from "./searchBar";
 export { default as PostButton } from "./postButton";
 export { default as MuseCard } from "./museCard";
 export { default as Card } from "./card";
@@ -13,6 +12,7 @@ export { default as LoginModal } from "./loginModal";
 export { default as Logo } from "./logo";
 export { default as NicknameUpdateButton } from "./nicknameUpdateButton";
 export { default as Loading } from "./loading";
+export { default as SearchBar } from "./searchBar";
 export { default as OwnerPost } from "./ownerPost";
 export { default as DetailModal } from "./detailModal";
 export { default as LikedPost } from "./likedPost";

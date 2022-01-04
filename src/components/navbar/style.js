@@ -11,7 +11,7 @@ import "gestalt/dist/gestalt.css";
 export const Container = styled.div`
     display: flex;
     justify-content: center;
-    margin: 8px 0 8px 0;
+    margin: 16px 0 16px 0;
 `;
 export const NavContainerDesktop = styled.div`
     display: flex;
@@ -60,7 +60,7 @@ export const NavItem = styled(motion.div)`
     }
 `;
 
-export const Logo = styled.div`
+export const Logo = styled(motion.div)`
     font-family: R-FLEX-BLACK;
     font-size: 36px;
     color: var(--g-color-blue);

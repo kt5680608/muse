@@ -14,6 +14,7 @@ import {
     Replace,
     DetailPost,
     Contest,
+    Search,
 } from "./pages";
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
                     path="/display-details/:currentPostIdx"
                     component={DetailPost}
                 />
+                <Route path="/search" component={Search} />
             </Router>
         </div>
     );

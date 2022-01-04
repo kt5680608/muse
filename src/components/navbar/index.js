@@ -110,10 +110,12 @@ function Navbar() {
                                     alignItems="center"
                                 >
                                     <Box marginEnd={4}>
-                                        <IconButton
-                                            icon="search"
-                                            iconColor="black"
-                                        />
+                                        <Link to="/search">
+                                            <IconButton
+                                                icon="search"
+                                                iconColor="black"
+                                            />
+                                        </Link>
                                     </Box>
                                     <Avatar
                                         src={getUserAvatar}
@@ -148,24 +150,6 @@ function Navbar() {
                                         </Dropdown>
                                     )}
                                 </Flex>
-                                // <CustomDropdown className="shadow-none">
-                                //     <CustomDropdown.Toggle id="dropdown-menu-align-end">
-                                //         <Avatar src={getUserAvatar} />
-                                //     </CustomDropdown.Toggle>
-
-                                //     <CustomDropdown.Menu>
-                                //         <CustomDropdown.Item
-                                //             onClick={handleHistoryMyPage}
-                                //         >
-                                //             마이페이지
-                                //         </CustomDropdown.Item>
-                                //         <CustomDropdown.Item
-                                //             onClick={logOutBtn}
-                                //         >
-                                //             로그아웃
-                                //         </CustomDropdown.Item>
-                                //     </CustomDropdown.Menu>
-                                // </CustomDropdown>
                             )}
                         </NavContainerRight>
                     </NavContainerDesktop>
