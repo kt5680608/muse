@@ -9,6 +9,7 @@ import {
     Text,
     Layer,
     Modal,
+    Spinner,
     Image,
 } from "gestalt";
 import { Navbar, Loading } from "../../components";
@@ -23,8 +24,7 @@ import { sendIsLiked } from "../../actions/likeBtn";
 import { useHistory, Link } from "react-router-dom";
 import * as style from "./style";
 import * as home from "../../pages/home/style";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from "react-loader-spinner";
+
 import Swal from "sweetalert2";
 
 function DetailModal(details) {

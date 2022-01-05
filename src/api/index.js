@@ -195,3 +195,20 @@ export const updateUser = (formData) => {
             return data;
         });
 };
+
+export const updateComment = (comment, commentIdx) => {
+    return fetch(`${API_DOMAIN}/comment/${commentIdx}/`, {
+        method: "PATCH",
+        header: {
+            Authorization: `${token}`,
+        },
+        body: comment,
+    });
+};
+
+export const deleteComment = (commentIdx) => {
+    return fetch(`${API_DOMAIN}/comment/${commentIdx}`, {
+        method: "DELETE",
+        headers: { Authorization: token },
+    });
+};

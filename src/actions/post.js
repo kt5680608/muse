@@ -57,3 +57,19 @@ export const sendIsSaved = (postIdx) => async () => {
         console.error(e);
     }
 };
+
+export const deleteComment = (commentIdx) => async () => {
+    try {
+        await api.deleteComment(commentIdx);
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+export const updateComment = (commentIdx, comment) => async () => {
+    try {
+        await api.updateComment(commentIdx, comment);
+    } catch (e) {
+        console.error(e);
+    }
+};

@@ -11,6 +11,7 @@ import {
     FollowerListLi,
     FollowerListModal,
     Loading,
+    Card,
 } from "../../components";
 import StackGrid from "react-stack-grid";
 import {
@@ -36,7 +37,6 @@ import {
 
 function MyPage({ match }) {
     const getUserNickname = useSelector((state) => state.userInfo.nickname);
-    const history = useHistory();
     const dispatch = useDispatch();
     const [nickname, setNickname] = useState("");
     const [isOwner, setIsOwner] = useState();
@@ -240,13 +240,14 @@ function MyPage({ match }) {
                     </OrderButtonContainer>
                     {displayOwnerPosts == true ? (
                         <StackGrid
-                            columnWidth={280}
+                            columnWidth={300}
+                            gutterWidth={4}
                             duration={0}
                             monitorImagesLoaded={true}
-                            gutterWidth={10}
+                            style={{ width: "100%" }}
                         >
                             {ownerPosts.map((post) => (
-                                <OwnerPost
+                                <Card
                                     image={post.image}
                                     title={post.title}
                                     idx={post.idx}
@@ -260,12 +261,14 @@ function MyPage({ match }) {
                         </StackGrid>
                     ) : (
                         <StackGrid
-                            columnWidth={284}
+                            columnWidth={300}
+                            gutterWidth={4}
                             duration={0}
                             monitorImagesLoaded={true}
+                            style={{ width: "100%" }}
                         >
                             {ownerPosts.map((post) => (
-                                <LikedPost
+                                <Card
                                     image={post.image}
                                     title={post.title}
                                     idx={post.idx}

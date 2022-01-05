@@ -1,10 +1,11 @@
 import React from "react";
-import { Navbar, SearchBar } from "../../components";
+import { Navbar, SearchBar, PostButton } from "../../components";
 function Search() {
     return (
         <>
             <Navbar />
             <SearchBar />
+            <PostButton />
         </>
     );
 }

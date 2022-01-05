@@ -41,7 +41,7 @@ function Input() {
     const [handle, setHandle] = useState();
     const [show, setShow] = useState(false);
     const [image, setImage] = useState(null);
-    const [content, setContent] = useState("");
+    const [content, setContent] = useState(null);
     const [title, setTitle] = useState(null);
     const [hashtag, setHashtag] = useState("");
     const [imagePreview, setImagePreview] = useState();
@@ -114,7 +114,7 @@ function Input() {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "내용을 채워주세요",
+                    text: "형식을 채워주세요",
                     showConfirmButton: false,
                     timer: 1500,
                 });

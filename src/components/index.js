@@ -26,3 +26,4 @@ export { default as FollowerListModal } from "./followerListModal";
 export { default as ReferenceContainer } from "./referenceContainer";
 export { default as FollowingListLi } from "./followingListLi";
 export { default as WeeklyColorContainer } from "./weeklyColorContainer";
+export { default as UserCard } from "./userCard";

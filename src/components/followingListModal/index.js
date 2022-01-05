@@ -11,7 +11,7 @@ import {
     Layer,
     Modal,
 } from "gestalt";
-import { FollowingListUl } from "./style";
+import { FollowingListUl, FollowingListUlContainer } from "./style";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -31,7 +31,7 @@ function FollowingListModal(props) {
                 size="sm"
                 heading="팔로잉"
             >
-                <Box paddingX={8} paddingY={4}>
+                <Box padding={8}>
                     <FollowingList followingLists={props.followingLists} />
                 </Box>
             </Modal>
@@ -69,12 +69,12 @@ function FollowingList(props) {
         setFollowings(props.followingLists);
     }, []);
     return (
-        <FollowingListUl>
-            {followings.map((following) => (
-                <>
+        <FollowingListUlContainer>
+            <FollowingListUl>
+                {followings.map((following) => (
                     <FollowingListLi nickname={following.follower} />
-                </>
-            ))}
-        </FollowingListUl>
+                ))}
+            </FollowingListUl>
+        </FollowingListUlContainer>
     );
 }

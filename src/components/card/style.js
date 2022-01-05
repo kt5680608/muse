@@ -171,6 +171,7 @@ export const Comment = styled.p`
 export const OtherPostsImg = styled.img`
     border-radius: 12px;
     width: 260px;
+    cursor: pointer;
     object-fit: contain;
 `;
 
@@ -179,3 +180,12 @@ export const LoadingBack = styled.div`
 `;
 
 export const ListItem = styled.div``;
+
+export const DropdownContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 12px 0 12px 0;
+`;

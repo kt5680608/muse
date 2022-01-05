@@ -20,32 +20,19 @@ import { useHistory } from "react-router-dom";
 import { likeBtn } from "../../actions/likeBtn";
 
 function OwnerPost({ idx, title, image, liked, avatar, views, likes, writer }) {
-    const history = useHistory();
-    const handleHistoryPushIdx = () => {
-        console.log(idx);
-        history.push(`/display-details/${idx}`);
-    };
-
-    const handleHistoryPushNickname = () => {
-        console.log(writer);
-        history.push(`/my-page/${writer}`);
-    };
-
     return (
         <CardContainer>
             <ImageContainerDiv>
                 <ImageContainer
                     src={`${image}`}
-                    onClick={handleHistoryPushIdx}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 />
             </ImageContainerDiv>
             <InfoContainer>
-                <WriterContainer onClick={handleHistoryPushNickname}>
-                    <Avatar src={avatar} alt="" />
-                    <PostWriter>{writer}</PostWriter>
-                </WriterContainer>
+                <Avatar src={avatar} alt="" />
+                <PostWriter>{writer}</PostWriter>
+
                 <PostStatusContainer>
                     <LikesIcon />
                     <CustomSpan>{likes}</CustomSpan>

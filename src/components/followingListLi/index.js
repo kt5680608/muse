@@ -6,6 +6,7 @@ import {
     FollowingNickname,
 } from "./style";
 import { useHistory } from "react-router-dom";
+import { Box, Flex } from "gestalt";
 
 function FollowingListLi(props) {
     const [isLoginUserFollowed, setIsLoginUserFollowed] = useState(true);
@@ -22,7 +23,7 @@ function FollowingListLi(props) {
         return fetch(`${API_DOMAIN}/account/follow/`, {
             method: "POST",
             headers: {
-                Authorization: `${token.token}`,
+                Authorization: `${token}`,
                 "content-type": "application/json",
             },
             body: JSON.stringify({

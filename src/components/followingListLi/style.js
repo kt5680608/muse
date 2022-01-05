@@ -52,6 +52,7 @@ export const FollowingModalContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 6px 0 6px 0;
+    width: 100%;
 `;
 
 export const FollowingNickname = styled.h1`

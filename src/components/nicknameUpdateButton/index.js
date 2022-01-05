@@ -59,7 +59,7 @@ function Input(ownerInfo) {
         return fetch(`${API_DOMAIN}/account/check_nickname/`, {
             method: "POST",
             headers: {
-                Authorization: `${token.token}`,
+                Authorization: `${token}`,
             },
             body: nicknameDuplicationFormData,
         })

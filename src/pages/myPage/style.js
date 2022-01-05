@@ -153,7 +153,7 @@ export const GridContainer = styled.div``;
 export const ListItem = styled.div``;
 
 export const MyPostContainer = styled.div`
-    margin: 24px 48px 24px 48px;
+    margin: 36px 80px 36px 80px;
     @media (max-width: 425px) {
         margin: 24px 6px 24px 6px;
     }

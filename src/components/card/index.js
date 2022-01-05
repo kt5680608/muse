@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +17,7 @@ import {
 import moment from "moment";
 import {
     CardContainer,
+    DropdownContainer,
     Image,
     ImageContainerRect,
     PostWriter,
@@ -51,6 +52,7 @@ import {
     Box,
     Button,
     Checkbox,
+    Spinner,
     CompositeZIndex,
     FixedZIndex,
     Flex,
@@ -59,6 +61,7 @@ import {
     Modal,
     IconButton,
     TextArea,
+    Dropdown,
 } from "gestalt";
 
 function DetailPost(props) {
@@ -80,6 +83,7 @@ function DetailPost(props) {
     const [likesCount, setLikesCount] = useState();
     const [idx, setIdx] = useState(props.idx);
     const [show, setShow] = useState(false);
+    const [showSpinner, setShowSpinner] = useState(false);
     const [updateContent, setUpdateContent] = useState("");
     const [updateTitle, setUpdateTitle] = useState("");
     const [updateHashtag, setUpdateHashtag] = useState("");
@@ -97,6 +101,12 @@ function DetailPost(props) {
     const [recommendLoading, setRecommendLoading] = useState(false);
     const [options, setOptions] = useState("likes");
     const [ref, inView] = useInView({ trackVisibility: true, delay: 100 });
+
+    //드롭다운
+    const [open, setOpen] = React.useState(false);
+    const [selected, setSelected] = React.useState(null, []);
+    const anchorRef = React.useRef(null);
+    const DROPDOWN_ZINDEX = new FixedZIndex(999);
 
     const getRecommendedPosts = useCallback(() => {
         setRecommendLoading(true);
@@ -129,6 +139,7 @@ function DetailPost(props) {
 
     useEffect(() => {
         setLoading(true);
+        setShowSpinner(true);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         const token = JSON.parse(localStorage.getItem("token"));
         if (token !== null) {
@@ -160,6 +171,7 @@ function DetailPost(props) {
                 .finally(() => {
                     setTimeout(() => {
                         setLoading(false);
+                        setShowSpinner(false);
                     }, 500);
                 });
         }
@@ -189,6 +201,7 @@ function DetailPost(props) {
                 .finally(() => {
                     setTimeout(() => {
                         setLoading(false);
+                        setShowSpinner(false);
                     }, 500);
                 });
         }
@@ -335,8 +348,8 @@ function DetailPost(props) {
         }
     };
 
-    const onKeyPressEnter = (e) => {
-        if (e.key == "Enter") {
+    const onKeyDownTagManagement = ({ event: { keyCode } }) => {
+        if (keyCode === 13 /* Enter */) {
             handleSubmitComment();
         }
     };
@@ -362,24 +375,11 @@ function DetailPost(props) {
                     alignItems="center"
                     justifyContent="center"
                 >
-                    <Loader
-                        type="Oval"
-                        color="var(--g-color-blue)"
-                        height={70}
-                        radius={100}
-                        width={70}
-                        timeout={560}
-                        border={100}
-                    />
+                    <Spinner show={showSpinner} />
                 </Flex>
             </Box>
         );
     }
-
-    const handleHistoryPushNickname = () => {
-        console.log(writer);
-        history.push(`/my-page/${writer}`);
-    };
 
     return (
         <Box>
@@ -493,7 +493,64 @@ function DetailPost(props) {
                                     </Box>
                                     {comment.is_writer === true ? (
                                         <Flex justifyContent="end">
-                                            <IconButton icon="ellipsis" />
+                                            <DropdownContainer>
+                                                <Flex justifyContent="center">
+                                                    <IconButton
+                                                        accessibilityControls="action-variant-dropdown-example"
+                                                        accessibilityExpanded={
+                                                            open
+                                                        }
+                                                        accessibilityHaspopup
+                                                        icon="ellipsis"
+                                                        onClick={() =>
+                                                            setOpen(
+                                                                (prevVal) =>
+                                                                    !prevVal
+                                                            )
+                                                        }
+                                                        ref={anchorRef}
+                                                        selected={open}
+                                                        size="sm"
+                                                    />
+                                                    {open && (
+                                                        <Dropdown
+                                                            zIndex={
+                                                                DROPDOWN_ZINDEX
+                                                            }
+                                                            anchor={
+                                                                anchorRef.current
+                                                            }
+                                                            id="action-variant-dropdown-example"
+                                                            onDismiss={() =>
+                                                                setOpen(false)
+                                                            }
+                                                        >
+                                                            <Dropdown.Item
+                                                                option={{
+                                                                    value:
+                                                                        "수정",
+                                                                    label:
+                                                                        "수정",
+                                                                }}
+                                                                selected={
+                                                                    selected
+                                                                }
+                                                            />
+                                                            <Dropdown.Item
+                                                                option={{
+                                                                    value:
+                                                                        "삭제",
+                                                                    label:
+                                                                        "삭제",
+                                                                }}
+                                                                selected={
+                                                                    selected
+                                                                }
+                                                            />
+                                                        </Dropdown>
+                                                    )}
+                                                </Flex>
+                                            </DropdownContainer>
                                         </Flex>
                                     ) : (
                                         <></>
@@ -513,6 +570,7 @@ function DetailPost(props) {
                                     onChange={({ value }) =>
                                         setCurrentComments(value)
                                     }
+                                    onKeyDown={onKeyDownTagManagement}
                                     value={currentComments}
                                 />
                             </Box>
