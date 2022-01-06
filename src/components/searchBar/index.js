@@ -67,29 +67,41 @@ function SearchBar(props) {
                         <SearchedDataNameContainer>
                             <SearchedDataName>USERS</SearchedDataName>
                         </SearchedDataNameContainer>
-                        {searchedUsers !== null ? (
-                            searchedUsers.map((searchedUser, idx) => (
+                        <StackGrid
+                            columnWidth={300}
+                            gutterWidth={12}
+                            duration={0}
+                            monitorImagesLoaded={true}
+                            style={{ width: "100%" }}
+                        >
+                            {searchedUsers !== null ? (
+                                searchedUsers.map((searchedUser, idx) => (
+                                    <SearchedDataGridContainer>
+                                        <UserCard
+                                            nickname={searchedUser.nickname}
+                                            introduce={
+                                                searchedUser.self_introduce
+                                            }
+                                            badge={searchedUser.badge}
+                                            avatar={searchedUser.avatar}
+                                        />
+                                    </SearchedDataGridContainer>
+                                ))
+                            ) : (
                                 <SearchedDataGridContainer>
-                                    <UserCard
-                                        nickname={searchedUser.nickname}
-                                        introduce={searchedUser.self_introduce}
-                                        badge={searchedUser.badge}
-                                        avatar={searchedUser.avatar}
-                                    />
+                                    <SearchedDataNone>
+                                        no result.
+                                    </SearchedDataNone>
                                 </SearchedDataGridContainer>
-                            ))
-                        ) : (
-                            <SearchedDataGridContainer>
-                                <SearchedDataNone>no result.</SearchedDataNone>
-                            </SearchedDataGridContainer>
-                        )}
+                            )}
+                        </StackGrid>
                         <SearchedDataNameContainer>
                             <SearchedDataName>POSTS</SearchedDataName>
                         </SearchedDataNameContainer>
 
                         <StackGrid
                             columnWidth={300}
-                            gutterWidth={4}
+                            gutterWidth={12}
                             duration={0}
                             monitorImagesLoaded={true}
                             style={{ width: "100%" }}

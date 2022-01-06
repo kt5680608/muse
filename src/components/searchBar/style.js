@@ -7,7 +7,7 @@ export const MainContainer = styled.div`
     flex-direction: row;
     padding: 0 36px 0 36px;
     overflow-x: hidden;
-    overflow-y: scroll;
+
     flex-direction: column;
 `;
 
@@ -16,7 +16,7 @@ export const SearchBarContainer = styled.div`
 `;
 
 export const SearchedDataContainer = styled.div`
-    overflow: auto;
+    overflow: hidden;
 `;
 
 export const SearchedDataName = styled.h1`
@@ -29,12 +29,14 @@ export const SearchedDataNameContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-bottom: 24px;
+    margin-top: 24px;
 `;
 
 export const SearchedDataGridContainer = styled.div`
     width: 92vw;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 `;
 
 export const SearchedDataNone = styled.h1`

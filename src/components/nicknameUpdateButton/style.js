@@ -73,6 +73,7 @@ export const SubmitButtonContainer = styled.div`
     width: 100%;
     justify-content: flex-end;
     margin-top: 24px;
+    margin-right: 48px;
 `;
 
 export const AvatarContainer = styled.div`

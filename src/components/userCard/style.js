@@ -2,18 +2,22 @@ import styled from "styled-components";
 
 export const MainContainer = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-
     border-radius: 12px;
     padding: 12px;
-    box-shadow: 8px 10px 12px 6px rgba(156, 156, 156, 0.64);
+    box-shadow: 4px 5px 6px 4px rgba(156, 156, 156, 0.64);
     -webkit-box-shadow: 8px 8px 12px 4px rgba(156, 156, 156, 0.64);
+    max-width: 300px;
+    height: auto;
+    overflow: hidden;
 `;
 export const InfoContainer = styled.div`
-    display: flex;
+    width: 240px;
     margin-left: 12px;
+    display: block;
     flex-direction: column;
+    overflow: hidden;
 `;
 
 export const Avatar = styled.img`
@@ -29,5 +33,10 @@ export const Nickname = styled.h1`
 
 export const Introduce = styled.p`
     font-size: var(--g-text-font-size-3);
+    text-overflow: ellipsis ellipsis;
     font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    overflow: hidden;
 `;

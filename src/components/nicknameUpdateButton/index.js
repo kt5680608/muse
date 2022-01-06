@@ -118,24 +118,17 @@ function Input(ownerInfo) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const userProfileFormData = new FormData();
-        userProfileFormData.append("nickname", changedNickname);
-        userProfileFormData.append("avatar", changedAvatar);
-        userProfileFormData.append("self_introduce", changedIntroduce);
-
-        if (changedNickname == "") {
-            userProfileFormData.append("nickname", originalNickname);
+        if (changedNickname !== "") {
+            userProfileFormData.append("nickname", changedNickname);
         }
-
-        if (changedIntroduce == "") {
-            userProfileFormData.append("self_introduce", originalIntroduce);
+        if (changedIntroduce !== "") {
+            userProfileFormData.append("self_introduce", changedIntroduce);
         }
-
-        if (changedAvatar == null) {
-            userProfileFormData.append("avatar", originalAvatar);
-        }
-
         if (deleteAvatarButton === true) {
-            userProfileFormData.delete("avatar");
+            userProfileFormData.append("avatar", "default_avatar.png");
+        }
+        if (changedAvatar !== null) {
+            userProfileFormData.append("avatar", changedAvatar);
         }
 
         try {
@@ -148,12 +141,12 @@ function Input(ownerInfo) {
                 return fetch(`${API_DOMAIN}/account/${originalNickname}/`, {
                     method: "PATCH",
                     headers: {
-                        Authorization: `${token.token}`,
+                        Authorization: `${token}`,
                     },
                     body: userProfileFormData,
                 })
                     .then((res) => res.json())
-                    .then((data) => {
+                    .finally((data) => {
                         console.log(data);
                         if (changedNickname == "") {
                             console.log(originalNickname);

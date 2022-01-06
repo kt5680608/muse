@@ -13,6 +13,8 @@ import {
     uploadCommentPost,
     updatePost,
     deletePost,
+    updateComment,
+    deleteComment,
 } from "../../actions/post";
 import moment from "moment";
 import {
@@ -366,6 +368,15 @@ function DetailPost(props) {
         history.push("/");
     };
 
+    const handleCommentDelete = (commentIdx) => {
+        try {
+            dispatch(deleteComment(commentIdx));
+            setSubmit(!submit);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     if (loading == true) {
         return (
             <Box height="100vh" width="100%">
@@ -493,64 +504,14 @@ function DetailPost(props) {
                                     </Box>
                                     {comment.is_writer === true ? (
                                         <Flex justifyContent="end">
-                                            <DropdownContainer>
-                                                <Flex justifyContent="center">
-                                                    <IconButton
-                                                        accessibilityControls="action-variant-dropdown-example"
-                                                        accessibilityExpanded={
-                                                            open
-                                                        }
-                                                        accessibilityHaspopup
-                                                        icon="ellipsis"
-                                                        onClick={() =>
-                                                            setOpen(
-                                                                (prevVal) =>
-                                                                    !prevVal
-                                                            )
-                                                        }
-                                                        ref={anchorRef}
-                                                        selected={open}
-                                                        size="sm"
-                                                    />
-                                                    {open && (
-                                                        <Dropdown
-                                                            zIndex={
-                                                                DROPDOWN_ZINDEX
-                                                            }
-                                                            anchor={
-                                                                anchorRef.current
-                                                            }
-                                                            id="action-variant-dropdown-example"
-                                                            onDismiss={() =>
-                                                                setOpen(false)
-                                                            }
-                                                        >
-                                                            <Dropdown.Item
-                                                                option={{
-                                                                    value:
-                                                                        "수정",
-                                                                    label:
-                                                                        "수정",
-                                                                }}
-                                                                selected={
-                                                                    selected
-                                                                }
-                                                            />
-                                                            <Dropdown.Item
-                                                                option={{
-                                                                    value:
-                                                                        "삭제",
-                                                                    label:
-                                                                        "삭제",
-                                                                }}
-                                                                selected={
-                                                                    selected
-                                                                }
-                                                            />
-                                                        </Dropdown>
-                                                    )}
-                                                </Flex>
-                                            </DropdownContainer>
+                                            <IconButton
+                                                icon="trash-can"
+                                                onClick={() =>
+                                                    handleCommentDelete(
+                                                        comment.idx
+                                                    )
+                                                }
+                                            />
                                         </Flex>
                                     ) : (
                                         <></>
@@ -679,7 +640,15 @@ function DetailPostPreview(props) {
     return (
         <React.Fragment>
             <CardContainer color="transparent">
-                {props.rect === "rect" && (
+                {props.rect === "rect" ? (
+                    <ImageContainerRect onClick={() => setShouldShow(true)}>
+                        <Image
+                            src={`${props.image}`}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.98 }}
+                        />
+                    </ImageContainerRect>
+                ) : (
                     <ImageContainer onClick={() => setShouldShow(true)}>
                         <Image
                             src={`${props.image}`}
@@ -688,13 +657,6 @@ function DetailPostPreview(props) {
                         />
                     </ImageContainer>
                 )}
-                <ImageContainerRect onClick={() => setShouldShow(true)}>
-                    <Image
-                        src={`${props.image}`}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.98 }}
-                    />
-                </ImageContainerRect>
                 <InfoContainer>
                     <WriterContainer>
                         <Avatar src={props.avatar} alt="" />
@@ -717,7 +679,7 @@ function DetailPostPreview(props) {
     );
 }
 
-function Card({ idx, title, image, liked, avatar, views, writer }) {
+function Card({ idx, title, image, liked, avatar, views, writer, rect }) {
     return (
         <DetailPostPreview
             idx={idx}
@@ -727,6 +689,7 @@ function Card({ idx, title, image, liked, avatar, views, writer }) {
             avatar={avatar}
             writer={writer}
             views={views}
+            rect={rect}
         />
     );
 }

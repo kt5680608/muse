@@ -207,7 +207,7 @@ export const updateComment = (comment, commentIdx) => {
 };
 
 export const deleteComment = (commentIdx) => {
-    return fetch(`${API_DOMAIN}/comment/${commentIdx}`, {
+    fetch(`${API_DOMAIN}/comment/${commentIdx}/`, {
         method: "DELETE",
         headers: { Authorization: token },
     });

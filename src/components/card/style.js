@@ -28,7 +28,7 @@ export const ImageContainer = styled.div`
 
 export const ImageContainerRect = styled.div`
     width: 300px;
-    height: 360px;
+    height: 300px;
     border-radius: 16px;
     overflow: hidden;
 `;
@@ -39,6 +39,7 @@ export const Image = styled(motion.img)`
     vertical-align: top;
     justify-content: center;
     overflow: hidden;
+    object-fit: fill;
     position: relative;
 `;
 
@@ -85,8 +86,8 @@ export const WriterContainer = styled.div`
 `;
 
 export const Avatar = styled.img`
-    width: 36px;
-    height: 36px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     margin-right: 8px;
 `;
