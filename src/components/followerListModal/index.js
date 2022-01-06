@@ -22,6 +22,7 @@ function FollowerListModal(props) {
     const [shouldShow, setShouldShow] = React.useState(false);
     const HEADER_ZINDEX = new FixedZIndex(10);
     const modalZIndex = new CompositeZIndex([HEADER_ZINDEX]);
+    const [getSubmit, setGetSubmit] = useState(props.submit);
 
     const ModalWithHeading = ({ onDismiss }) => {
         return (
@@ -32,7 +33,10 @@ function FollowerListModal(props) {
                 heading="팔로워"
             >
                 <Box paddingX={8} paddingY={4}>
-                    <FollowingList followerLists={props.followerLists} />
+                    <FollowingList
+                        followerLists={props.followerLists}
+                        submit={props.submit}
+                    />
                 </Box>
             </Modal>
         );
@@ -64,10 +68,11 @@ export default FollowerListModal;
 
 function FollowingList(props) {
     const [followers, setFollowers] = useState([]);
-
+    const [submit, setSubmit] = useState(props.submit);
     useEffect(() => {
         setFollowers(props.followerLists);
-    }, []);
+        setSubmit(props.submit);
+    });
     return (
         <FollowerListUl>
             {followers.map((follower) => (

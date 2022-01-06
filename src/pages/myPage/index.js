@@ -37,6 +37,7 @@ import {
 
 function MyPage({ match }) {
     const getUserNickname = useSelector((state) => state.userInfo.nickname);
+
     const dispatch = useDispatch();
     const [nickname, setNickname] = useState("");
     const [isOwner, setIsOwner] = useState();
@@ -52,11 +53,12 @@ function MyPage({ match }) {
     const [cover, setCover] = useState();
     const [displayOwnerPosts, setDisplayOwnerPosts] = useState(true);
     const [loading, setLoading] = useState();
+    const [submit, setSubmit] = useState(false);
 
     const handleFollow = () => {
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         const token = JSON.parse(localStorage.getItem("token"));
-        return fetch(`${API_DOMAIN}/accounts/follow/`, {
+        return fetch(`${API_DOMAIN}/account/follow/`, {
             method: "POST",
             headers: {
                 Authorization: `${token}`,
@@ -69,12 +71,15 @@ function MyPage({ match }) {
             setIsLoginUserFollow(!isLoginUserFollow);
             if (isLoginUserFollow == false) {
                 setFollowerCount(followerCount + 1);
+                const myData = {
+                    following: `${getUserNickname}`,
+                    avatar: {},
+                };
             }
             if (isLoginUserFollow == true) {
                 setFollowerCount(followerCount - 1);
             }
-            console.log("팔로잉 클릭!");
-            console.log(ownerInfo.nickname);
+            setSubmit(!submit);
         });
     };
 
@@ -212,6 +217,7 @@ function MyPage({ match }) {
                         <FollowerListModal
                             followerCount={followerCount}
                             followerLists={followerLists}
+                            submit={submit}
                         />
                         <FollowingListModal
                             followingCount={followingCount}

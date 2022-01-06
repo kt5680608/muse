@@ -23,6 +23,7 @@ function SearchBar(props) {
     const regexSpace = /\u0020/gi;
     const processedValue = searchValue.replace(regexSpace, "%2B");
     const getSearchedData = async () => {
+        console.log(processedValue);
         setLoading(true);
         setShow(true);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;

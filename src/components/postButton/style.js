@@ -105,6 +105,7 @@ export const CustomButton = styled.button`
 
 export const CustomForm = styled.form`
     display: flex;
+    padding: 24px;
 `;
 
 export const ImageContainer = styled.div``;
