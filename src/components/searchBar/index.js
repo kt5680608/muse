@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Flex, SearchField, Box, Spinner } from "gestalt";
 import axios from "axios";
 import StackGrid from "react-stack-grid";
-import { Card, UserCard } from "../../components";
+import { Card, UserCard, SearchTag } from "../../components";
 import {
     MainContainer,
     SearchBarContainer,
@@ -11,20 +11,24 @@ import {
     SearchedDataNameContainer,
     SearchedDataGridContainer,
     SearchedDataNone,
+    TagMainContainer,
+    TagContainer,
+    TagName,
 } from "./style";
-function SearchBar(props) {
+function SearchBar() {
     const [searchValue, setSearchValue] = useState("");
     const [loading, setLoading] = useState(false);
     const [searchedUsers, setSearchedUsers] = useState([{ nickname: null }]);
     const [searchedPosts, setSearchedPosts] = useState([]);
     const [isUserUsed, setIsUserUsed] = useState(false);
     const [show, setShow] = useState(false);
+    const [tagArray, setTagArray] = useState(["adsf", "일러스트", "포스터"]);
+    const [isSearched, setIsSearched] = useState(false);
 
     const regexSpace = /\u0020/gi;
-    const processedValue = searchValue.replace(regexSpace, "%2B");
-    const getSearchedData = async () => {
-        console.log(processedValue);
+    const getSearchedDataWithValue = async () => {
         setLoading(true);
+        const processedValue = searchValue.replace(regexSpace, "%2B");
         setShow(true);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         await axios
@@ -40,14 +44,33 @@ function SearchBar(props) {
                     console.log(e);
                 }
             });
+        setIsSearched(true);
         setLoading(false);
     };
 
+    const getSearchedDataWithTag = async (tag) => {
+        setLoading(true);
+        setShow(true);
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+        await axios
+            .get(`${API_DOMAIN}/search/?q=${tag}`)
+            //http://ec2-3-36-100-177.ap-northeast-2.compute.amazonaws.com/api/search/q?=gdgd
+            .then((res) => {
+                try {
+                    console.log(res.data);
+                    setSearchedPosts(res.data.post);
+                    setSearchedUsers(res.data.user);
+                    setIsUserUsed(true);
+                } catch (e) {
+                    console.log(e);
+                }
+            });
+        setIsSearched(true);
+        setLoading(false);
+    };
     const onKeyDownTagManagement = ({ event: { keyCode } }) => {
         if (keyCode === 13 /* Enter */) {
-            console.log(processedValue);
-            console.log("엔터");
-            getSearchedData();
+            getSearchedDataWithValue();
         }
     };
 
@@ -62,6 +85,17 @@ function SearchBar(props) {
                     />
                 </SearchBarContainer>
             </Box>
+            <TagMainContainer>
+                {tagArray.map((tag) => (
+                    <TagContainer
+                        onClick={() => {
+                            getSearchedDataWithTag(tag);
+                        }}
+                    >
+                        <TagName>{tag}</TagName>
+                    </TagContainer>
+                ))}
+            </TagMainContainer>
             {loading === false ? (
                 isUserUsed === true ? (
                     <SearchedDataContainer>

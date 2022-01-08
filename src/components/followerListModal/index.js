@@ -71,8 +71,7 @@ function FollowingList(props) {
     const [submit, setSubmit] = useState(props.submit);
     useEffect(() => {
         setFollowers(props.followerLists);
-        setSubmit(props.submit);
-    });
+    }, []);
     return (
         <FollowerListUl>
             {followers.map((follower) => (

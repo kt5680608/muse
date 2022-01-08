@@ -71,10 +71,6 @@ function MyPage({ match }) {
             setIsLoginUserFollow(!isLoginUserFollow);
             if (isLoginUserFollow == false) {
                 setFollowerCount(followerCount + 1);
-                const myData = {
-                    following: `${getUserNickname}`,
-                    avatar: {},
-                };
             }
             if (isLoginUserFollow == true) {
                 setFollowerCount(followerCount - 1);
@@ -171,9 +167,9 @@ function MyPage({ match }) {
     // --------------------------------------------------------------------------------------------------------------------------
 
     useEffect(() => {
-        getOwnerInfo();
         getOwnerPosts();
-    }, []);
+        getOwnerInfo();
+    }, [followingCount, followerCount]);
 
     return (
         <div>

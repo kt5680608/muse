@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     UnFollowButton,
     FollowButton,
@@ -10,12 +10,17 @@ import { Box, Flex } from "gestalt";
 
 function FollowingListLi(props) {
     const [isLoginUserFollowed, setIsLoginUserFollowed] = useState(true);
+    const [submit, setSubmit] = useState(false);
     const history = useHistory();
 
     const handleHistoryPushNickname = () => {
         history.push(`/my-page/${props.nickname}`);
         window.location.reload();
     };
+
+    useEffect(() => {
+        console.log("팔로우 액션");
+    }, [setIsLoginUserFollowed]);
 
     const handleFollow = () => {
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
@@ -30,7 +35,9 @@ function FollowingListLi(props) {
                 follower: props.nickname,
             }),
         }).then(() => {
+            console.log("완료");
             setIsLoginUserFollowed(!isLoginUserFollowed);
+            setSubmit(!submit);
         });
     };
     return (

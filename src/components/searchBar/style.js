@@ -12,7 +12,7 @@ export const MainContainer = styled.div`
 `;
 
 export const SearchBarContainer = styled.div`
-    width: 80vw;
+    width: 92vw;
 `;
 
 export const SearchedDataContainer = styled.div`
@@ -43,4 +43,31 @@ export const SearchedDataNone = styled.h1`
     font-size: var(--g-text-font-size-4);
     color: var(--g-color-gray150);
     font-weight: 600;
+`;
+
+//TAG
+
+export const TagMainContainer = styled.div`
+    width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+export const TagContainer = styled.div`
+    background-color: black;
+    width: 360px;
+    height: 144px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 12px;
+    margin: 0 6px 0 6px;
+`;
+
+export const TagName = styled.h1`
+    font-weight: 900;
+    color: white;
+    font-size: var(--g-text-font-size-5);
 `;

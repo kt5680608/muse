@@ -6,8 +6,8 @@ export const MainContainer = styled.div`
     align-items: center;
     border-radius: 12px;
     padding: 12px;
-    box-shadow: 4px 5px 6px 4px rgba(156, 156, 156, 0.64);
-    -webkit-box-shadow: 8px 8px 12px 4px rgba(156, 156, 156, 0.64);
+    box-shadow: 2px 3px 3px 2px rgba(156, 156, 156, 0.64);
+    -webkit-box-shadow: 2px 3px 3px 2px rgba(156, 156, 156, 0.64);
     max-width: 300px;
     height: auto;
     overflow: hidden;
