@@ -1,30 +1,31 @@
-export { default as Navbar } from "./navbar";
-export { default as Banner } from "./banner";
-export { default as Container } from "./contestContainer";
-export { default as PostButton } from "./postButton";
-export { default as MuseCard } from "./museCard";
-export { default as Card } from "./card";
-export { default as ColorCard } from "./colorCard";
-export { default as MuseContainer } from "./museContainer";
-export { default as CounterBanner } from "./counterBanner";
-export { default as RulesModal } from "./rulesModal";
-export { default as LoginModal } from "./loginModal";
-export { default as Logo } from "./logo";
-export { default as NicknameUpdateButton } from "./nicknameUpdateButton";
-export { default as Loading } from "./loading";
-export { default as SearchBar } from "./searchBar";
-export { default as OwnerPost } from "./ownerPost";
-export { default as DetailModal } from "./detailModal";
-export { default as LikedPost } from "./likedPost";
-export { default as FollowingListModal } from "./followingListModal";
-export { default as FollowerListLi } from "./followerListLi";
-export { default as PreviewReference } from "./previewReference";
-export { default as PreviewCard } from "./previewCard";
-export { default as ContestBanner } from "./contestBanner";
-export { default as ContestPostButton } from "./contestPostButton";
-export { default as FollowerListModal } from "./followerListModal";
-export { default as ReferenceContainer } from "./referenceContainer";
-export { default as FollowingListLi } from "./followingListLi";
-export { default as WeeklyColorContainer } from "./weeklyColorContainer";
-export { default as UserCard } from "./userCard";
-export { default as SearchTag } from "./searchTag";
+//global 관련 컴포넌트
+export { default as GlobalNavbar } from "./global/navbar";
+export { default as GlobalBanner } from "./global/banner";
+export { default as GlobalPostButton } from "./global/postButton";
+export { default as LoginModal } from "./global/loginModal";
+export { default as RulesModal } from "./global/rulesModal";
+export { default as Card } from "./global/card";
+export { default as Logo } from "./global/logo";
+
+// home 관련 컴포넌트
+export { default as ColorCard } from "./homepage/colorCard";
+export { default as WeeklyColorContainer } from "./homepage/weeklyColorContainer";
+export { default as PreviewContainer } from "./homepage/previewContainer";
+
+// reference 관련 컴포넌트
+export { default as ReferenceContainer } from "./reference/referenceContainer";
+
+//contest 관련 컴포넌트
+export { default as ContestContainer } from "./contest/contestContainer";
+export { default as ContestPostButton } from "./contest/contestPostButton";
+
+//myPage 관련 컴포넌트
+export { default as FollowerLi } from "./mypage/followerList";
+export { default as FollowingLi } from "./mypage/followingLi";
+export { default as FollowerModal } from "./mypage/followerModal";
+export { default as FollowingModal } from "./mypage/followingModal";
+export { default as NicknameUpdateButton } from "./mypage/nicknameUpdateButton";
+
+//search 관련 컴포넌트
+export { default as UserCard } from "./search/userCard";
+export { default as SearchContainer } from "./search/searchContainer";

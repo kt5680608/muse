@@ -3,14 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { updateUser, profileImageUpload } from "../../actions/updateUser";
 import {
-    Navbar,
+    GlobalNavbar,
     NicknameUpdateButton,
-    OwnerPost,
-    LikedPost,
-    FollowingListModal,
-    FollowerListLi,
-    FollowerListModal,
-    Loading,
+    FollowingModal,
+    FollowerModal,
     Card,
 } from "../../components";
 import StackGrid from "react-stack-grid";
@@ -35,6 +31,8 @@ import {
     ButtonH1,
 } from "./style";
 
+import { Spinner, Box, Flex } from "gestalt";
+
 function MyPage({ match }) {
     const getUserNickname = useSelector((state) => state.userInfo.nickname);
 
@@ -49,12 +47,15 @@ function MyPage({ match }) {
     const [followerLists, setFollowerLists] = useState([]);
     const [ownerPosts, setOwnerPosts] = useState([]);
     const [introduce, setIntroduce] = useState("");
-    const myPageOwner = match.params;
     const [cover, setCover] = useState();
     const [displayOwnerPosts, setDisplayOwnerPosts] = useState(true);
-    const [loading, setLoading] = useState();
     const [submit, setSubmit] = useState(false);
 
+    // 로딩 스피너 관련
+    const [loading, setLoading] = useState();
+    const [showSpinner, setShowSpinner] = useState(false);
+
+    //팔로우
     const handleFollow = () => {
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         const token = JSON.parse(localStorage.getItem("token"));
@@ -79,7 +80,10 @@ function MyPage({ match }) {
         });
     };
 
+    //마이페이지 주인 정보 불러오기
     const getOwnerInfo = () => {
+        setLoading(true);
+        setShowSpinner(true);
         const url = window.location.pathname;
         const urlParts = url.replace(/\/\s*$/, "").split("/");
         urlParts.shift();
@@ -104,11 +108,16 @@ function MyPage({ match }) {
                 setFollowingLists(data.following_list);
                 setFollowerCount(data.follower_count);
                 setFollowerLists(data.follower_list);
+            })
+            .finally(() => {
+                setLoading(false);
+                setShowSpinner(false);
             });
     };
 
     const getOwnerPosts = () => {
         setLoading(true);
+        setShowSpinner(true);
         const url = window.location.pathname;
         const urlParts = url.replace(/\/\s*$/, "").split("/");
         urlParts.shift();
@@ -128,10 +137,13 @@ function MyPage({ match }) {
             })
             .finally(() => {
                 setLoading(false);
+                setShowSpinner(false);
             });
     };
 
     const getSavedPosts = () => {
+        setLoading(true);
+        setShowSpinner(false);
         const url = window.location.pathname;
         const urlParts = url.replace(/\/\s*$/, "").split("/");
         urlParts.shift();
@@ -149,6 +161,10 @@ function MyPage({ match }) {
             .then((res) => res.json())
             .then((data) => {
                 setOwnerPosts(data);
+            })
+            .finally(() => {
+                setLoading(false);
+                setShowSpinner(false);
             });
     };
     // ----------------------------------------------------------------정렬--------------------------------------------------------
@@ -173,7 +189,7 @@ function MyPage({ match }) {
 
     return (
         <div>
-            <Navbar />
+            <GlobalNavbar />
             <MyPageContainer>
                 <OwnerInfoContainer>
                     <Avatar src={ownerInfo.avatar} />
@@ -210,12 +226,12 @@ function MyPage({ match }) {
                     </div>
 
                     <FollowContainer>
-                        <FollowerListModal
+                        <FollowerModal
                             followerCount={followerCount}
                             followerLists={followerLists}
                             submit={submit}
                         />
-                        <FollowingListModal
+                        <FollowingModal
                             followingCount={followingCount}
                             followingLists={followingLists}
                         />
@@ -240,27 +256,52 @@ function MyPage({ match }) {
                             <></>
                         )}
                     </OrderButtonContainer>
-                    {displayOwnerPosts == true ? (
-                        <StackGrid
-                            columnWidth={300}
-                            gutterWidth={4}
-                            duration={0}
-                            monitorImagesLoaded={true}
-                            style={{ width: "100%" }}
-                        >
-                            {ownerPosts.map((post) => (
-                                <Card
-                                    image={post.image}
-                                    title={post.title}
-                                    idx={post.idx}
-                                    liked={post.liked}
-                                    avatar={post.writer_avatar}
-                                    writer={post.writer}
-                                    views={post.views}
-                                    likes={post.likes}
-                                />
-                            ))}
-                        </StackGrid>
+
+                    {displayOwnerPosts === true ? (
+                        loading === true ? (
+                            <Box height="100vh" width="100%">
+                                <Flex
+                                    width="100%"
+                                    height="100%"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                >
+                                    <Spinner show={showSpinner} />
+                                </Flex>
+                            </Box>
+                        ) : (
+                            <StackGrid
+                                columnWidth={300}
+                                gutterWidth={4}
+                                duration={0}
+                                monitorImagesLoaded={true}
+                                style={{ width: "100%" }}
+                            >
+                                {ownerPosts.map((post) => (
+                                    <Card
+                                        image={post.image}
+                                        title={post.title}
+                                        idx={post.idx}
+                                        liked={post.liked}
+                                        avatar={post.writer_avatar}
+                                        writer={post.writer}
+                                        views={post.views}
+                                        likes={post.likes}
+                                    />
+                                ))}
+                            </StackGrid>
+                        )
+                    ) : loading === true ? (
+                        <Box height="100vh" width="100%">
+                            <Flex
+                                width="100%"
+                                height="100%"
+                                alignItems="start"
+                                justifyContent="center"
+                            >
+                                <Spinner show={showSpinner} />
+                            </Flex>
+                        </Box>
                     ) : (
                         <StackGrid
                             columnWidth={300}

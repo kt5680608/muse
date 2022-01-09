@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
     Navbar,
-    Banner,
+    GlobalBanner,
+    GlobalPostButton,
     Container,
     PostButton,
-    PreviewReference,
+    PreviewContainer,
     WeeklyColorContainer,
+    GlobalNavbar,
 } from "../../components";
 import { userInfo } from "../../actions/userInfo";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,12 +16,12 @@ import { HomeContainer } from "./style";
 function Home() {
     return (
         <HomeContainer>
-            <Navbar />
-            <Banner />
-            <PostButton />
+            <GlobalNavbar />
+            <GlobalBanner />
+            <GlobalPostButton />
             <WeeklyColorContainer />
-            <PreviewReference name="reference" />
-            <PreviewReference name="contest" />
+            <PreviewContainer name="reference" />
+            <PreviewContainer name="contest" />
         </HomeContainer>
     );
 }

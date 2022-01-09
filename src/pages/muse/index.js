@@ -1,13 +1,12 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Navbar, CounterBanner, Banner, MuseContainer } from "../../components";
+import { GlobalNavbar, GlobalBanner } from "../../components";
 import * as style from "./style";
 import axios from "axios";
 function Muse() {
     return (
         <style.MusePage>
-            <Navbar />
-            <CounterBanner />
-            <MuseContainer />
+            <GlobalNavbar />
+            <GlobalBanner />
         </style.MusePage>
     );
 }

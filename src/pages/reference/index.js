@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import {
-    Navbar,
-    Banner,
-    PostButton,
+    GlobalNavbar,
+    GlobalBanner,
+    GlobalPostButton,
     ReferenceContainer,
 } from "../../components";
 function Archives() {
     return (
         <div>
-            <Navbar />
-            <Banner />
+            <GlobalNavbar />
+            <GlobalBanner />
             <ReferenceContainer name="reference" />
-            <PostButton />
+            <GlobalPostButton />
         </div>
     );
 }

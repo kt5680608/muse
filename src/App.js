@@ -12,7 +12,6 @@ import {
     UserUpdate,
     MyPage,
     Replace,
-    DetailPost,
     Contest,
     Search,
 } from "./pages";
@@ -31,11 +30,6 @@ function App() {
                 <Route path="/my-page/:writer" component={MyPage} />
                 <Route path="/replace" component={Replace} />
                 <Route path="/contest" component={Contest} />
-                <Route
-                    exact
-                    path="/display-details/:currentPostIdx"
-                    component={DetailPost}
-                />
                 <Route path="/search" component={Search} />
             </Router>
         </div>

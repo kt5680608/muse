@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
-import { Navbar, ContestBanner, Container } from "../../components";
-import { userInfo } from "../../actions/userInfo";
-import { useDispatch } from "react-redux";
+import { GlobalNavbar, GlobalBanner, ContestContainer } from "../../components";
 function Contest() {
     return (
         <div>
-            <Navbar />
-            <ContestBanner />
-            <Container name="cur-contest" />
+            <GlobalNavbar />
+            <GlobalBanner name="contest" />
+            <ContestContainer name="cur-contest" />
         </div>
     );
 }
