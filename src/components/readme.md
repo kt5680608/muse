@@ -1,4 +1,4 @@
-# ALL COMPONENT HERE.
+# ALL COMPONENTS HERE.
 
 ## 전체 페이지에서 사용되는 컴포넌트 저장소
 
