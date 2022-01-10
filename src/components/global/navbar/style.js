@@ -43,7 +43,7 @@ export const NavContainerLeft = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-basis: 126px; // if item 3 => flex-basis: 258px;
+    width: 12%;
 `;
 export const NavContainerRight = styled(NavContainerLeft)`
     justify-content: flex-end;

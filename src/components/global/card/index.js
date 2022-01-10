@@ -611,6 +611,7 @@ function DetailPost(props) {
 }
 
 function DetailPostPreview(props) {
+    const history = useHistory();
     const [shouldShow, setShouldShow] = React.useState(false);
     const HEADER_ZINDEX = new FixedZIndex(10);
     const modalZIndex = new CompositeZIndex([HEADER_ZINDEX]);
@@ -659,7 +660,13 @@ function DetailPostPreview(props) {
                 <InfoContainer>
                     <WriterContainer>
                         <Avatar src={props.avatar} alt="" />
-                        <PostWriter>{props.writer}</PostWriter>
+                        <PostWriter
+                            onClick={() => {
+                                history.push(`/my-page/${props.writer}`);
+                            }}
+                        >
+                            {props.writer}
+                        </PostWriter>
                     </WriterContainer>
                     <PostStatusContainer>
                         <LikesIcon />
