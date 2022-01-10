@@ -678,7 +678,17 @@ function DetailPostPreview(props) {
     );
 }
 
-function Card({ idx, title, image, liked, avatar, views, writer, rect }) {
+function Card({
+    idx,
+    title,
+    image,
+    liked,
+    avatar,
+    views,
+    writer,
+    rect,
+    likes,
+}) {
     return (
         <DetailPostPreview
             idx={idx}
@@ -689,6 +699,7 @@ function Card({ idx, title, image, liked, avatar, views, writer, rect }) {
             writer={writer}
             views={views}
             rect={rect}
+            likes={likes}
         />
     );
 }

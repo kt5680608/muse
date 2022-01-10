@@ -64,7 +64,7 @@ function Navbar() {
                 <Container>
                     <NavContainerDesktop>
                         <NavContainerLeft>
-                            <NavLink
+                            {/* <NavLink
                                 to="/Muse"
                                 activeStyle={{ color: "var(--g-color-blue" }}
                             >
@@ -74,7 +74,7 @@ function Navbar() {
                                 >
                                     MUSE
                                 </NavItem>
-                            </NavLink>
+                            </NavLink> */}
                             <NavLink
                                 to="/reference"
                                 activeStyle={{ color: "var(--g-color-blue" }}
@@ -165,11 +165,11 @@ function Navbar() {
                                     <BurgerIcon />
                                 </CustomDropdown.Toggle>
                                 <CustomDropdown.Menu>
-                                    <CustomDropdown.Item>
+                                    {/* <CustomDropdown.Item>
                                         <Link to="/Muse">
                                             <DropdownMenu>MUSE</DropdownMenu>
                                         </Link>
-                                    </CustomDropdown.Item>
+                                    </CustomDropdown.Item> */}
                                     <CustomDropdown.Item>
                                         <Link to="/reference">
                                             <DropdownMenu>
@@ -235,7 +235,7 @@ function Navbar() {
                                 </CustomDropdown.Toggle>
 
                                 <CustomDropdown.Menu>
-                                    <CustomDropdown.Item>
+                                    {/* <CustomDropdown.Item>
                                         <DropdownMenu>
                                             <Link
                                                 to="/Muse"
@@ -244,7 +244,7 @@ function Navbar() {
                                                 MUSE
                                             </Link>
                                         </DropdownMenu>
-                                    </CustomDropdown.Item>
+                                    </CustomDropdown.Item> */}
                                     <CustomDropdown.Item>
                                         <DropdownMenu>
                                             <Link to="/reference">
