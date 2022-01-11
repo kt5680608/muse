@@ -126,11 +126,7 @@ export const ModalImageContainer = styled.div`
     justify-content: center;
     border-radius: 12px;
 `;
-export const ModalImage = styled.img`
-    width: 100%;
-    max-height: 100vh;
-    object-fit: fill;
-`;
+export const ModalImage = styled.img``;
 
 export const Writer = styled.h1`
     font-size: var(--g-text-font-size-5);

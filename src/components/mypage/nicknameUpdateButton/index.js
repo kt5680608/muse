@@ -26,6 +26,8 @@ import {
     AvatarContainer,
     NicknameContainer,
     NicknameDuplicateButton,
+    InstagramInput,
+    InstagramContainer,
 } from "./style";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
@@ -43,6 +45,8 @@ function Input(ownerInfo) {
     const [changedIntroduce, setChangedIntroduce] = useState("");
     const [deleteAvatarButton, setDeleteAvatarButton] = useState(false);
     const [duplicationData, setDuplicationData] = useState(null);
+    const introducePlaceholder = "자기소개 해주세요";
+    const instagramPlaceholder = "instagram ID를 적어서 자신을 홍보하세요!";
     const MUSE_DOMAIN = process.env.REACT_APP_MUSE_DOMAIN;
 
     const dispatch = useDispatch();
@@ -202,7 +206,7 @@ function Input(ownerInfo) {
                             onChange={onChangeAvatar}
                         />
                         <div>
-                            <NicknameLabel>닉네임</NicknameLabel>
+                            <NicknameLabel>Nickname</NicknameLabel>
                             <NicknameContainer>
                                 <NicknameInput
                                     type="text"
@@ -215,12 +219,20 @@ function Input(ownerInfo) {
                                     중복검사
                                 </NicknameDuplicateButton>
                             </NicknameContainer>
+                            <NicknameLabel>Instagram ID</NicknameLabel>
+                            <InstagramContainer>
+                                <InstagramInput
+                                    type="text"
+                                    placeholder={instagramPlaceholder}
+                                    onChange={onChangeNickname}
+                                />
+                            </InstagramContainer>
                         </div>
                         <div>
-                            <NicknameLabel>자기소개</NicknameLabel>
+                            <NicknameLabel>Introduce</NicknameLabel>
                             <Pre>
                                 <Textarea
-                                    placeholder={originalIntroduce}
+                                    placeholder={introducePlaceholder}
                                     onChange={onChangeIntroduce}
                                 ></Textarea>
                             </Pre>

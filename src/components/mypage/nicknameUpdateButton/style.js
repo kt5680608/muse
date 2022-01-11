@@ -27,6 +27,10 @@ export const NicknameInput = styled.input`
     }
 `;
 
+export const InstagramInput = styled(NicknameInput)`
+    width: 400px;
+`;
+
 export const NicknameDuplicateButton = styled.button`
     margin-left: 12px;
     width: 72px;
@@ -37,7 +41,8 @@ export const NicknameDuplicateButton = styled.button`
     font-weight: 600;
 `;
 export const NicknameLabel = styled.label`
-    font-weight: 900;
+    font-weight: 600;
+    font-family: R-FLEX-BLACK;
     font-size: var(--g-text-font-size-5);
     margin-right: 12px;
     display: block;
@@ -107,7 +112,7 @@ export const Textarea = styled.textarea`
     white-space: pre-wrap;
     overflow-wrap: break-word;
     word-break: break-word;
-    width: 360px;
+    width: 400px;
     height: 96px;
     border: none;
     background-color: var(--g-color-gray100);
@@ -131,3 +136,5 @@ export const NicknameContainer = styled.div`
     align-items: center;
     margin-bottom: 12px;
 `;
+
+export const InstagramContainer = styled(NicknameContainer)``;

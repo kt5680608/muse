@@ -28,6 +28,7 @@ function App() {
                 <Route path="/reference" component={Archives} />
                 <Route path="/userUpdate" component={UserUpdate} />
                 <Route path="/my-page/:writer" component={MyPage} />
+                <Route path="/my-page/others/:writer" component={MyPage} />
                 <Route path="/replace" component={Replace} />
                 <Route path="/contest" component={Contest} />
                 <Route path="/search" component={Search} />
