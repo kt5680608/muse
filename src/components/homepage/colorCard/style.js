@@ -1,6 +1,24 @@
 import styled from "styled-components";
 import { motion } from "framer";
 
+export const Logo = styled.h1`
+    font-size: var(--g-text-font-size-7);
+    font-family: R-FLEX-BLACK;
+    text-decoration: none !important;
+`;
+
+export const ColorName = styled.h1`
+    font-family: R-FLEX-BLACK;
+    font-size: 24px;
+    text-decoration: none !important;
+`;
+
+export const ColorHexa = styled.h1`
+    font-family: R-FLEX-BLACK;
+    font-size: 20px;
+    text-decoration: none !important;
+`;
+
 export const MainContainer = styled(motion.div)`
     cursor: pointer;
     width: 228px;
@@ -11,6 +29,15 @@ export const MainContainer = styled(motion.div)`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    &:hover ${ColorHexa} {
+        color: ${(props) => `${props.color}`};
+    }
+    &:hover ${ColorName} {
+        color: ${(props) => `${props.color}`};
+    }
+    &:hover ${Logo} {
+        color: ${(props) => `${props.color}`};
+    }
 `;
 
 export const Test = styled.div`
@@ -27,19 +54,4 @@ export const InfoContainer = styled.div`
     justify-content: flex-start;
     align-items: flex-start;
     margin-left: 12px;
-`;
-
-export const Logo = styled.h1`
-    font-size: var(--g-text-font-size-7);
-    font-family: R-FLEX-BLACK;
-`;
-
-export const ColorName = styled.h1`
-    font-family: R-FLEX-BLACK;
-    font-size: 24px;
-`;
-
-export const ColorHexa = styled.h1`
-    font-family: R-FLEX-BLACK;
-    font-size: 20px;
 `;

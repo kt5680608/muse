@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ColorCard } from "../../../components";
+import { useHistory, Link } from "react-router-dom";
 import { MainContainer, ColorContainerName, ColorContainer } from "./style";
 import { framer } from "framer";
 
@@ -8,6 +9,7 @@ function WeeklyColorContainer() {
     const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
     const [weeklyColors, setWeeklyColors] = useState([]);
     const [weeklyColorsHexa, setWeeklyColorsHexa] = useState([]);
+    const history = useHistory();
     useEffect(() => {
         axios.get(`${API_DOMAIN}/post/color_of_week/`).then((res) => {
             try {
@@ -25,10 +27,12 @@ function WeeklyColorContainer() {
             <ColorContainerName>Weekly Colour</ColorContainerName>
             <ColorContainer>
                 {weeklyColors.map((weeklyColor, idx) => (
-                    <ColorCard
-                        color={`${weeklyColor}`}
-                        hexa={weeklyColorsHexa[idx]}
-                    />
+                    <Link to={`/search/?q=${weeklyColors[idx]}`}>
+                        <ColorCard
+                            color={`${weeklyColor}`}
+                            hexa={weeklyColorsHexa[idx]}
+                        />
+                    </Link>
                 ))}
             </ColorContainer>
         </MainContainer>

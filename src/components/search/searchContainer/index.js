@@ -17,6 +17,8 @@ import {
     OverlayContainer,
 } from "./style";
 function SearchContainer() {
+    const searchQuery = new URLSearchParams(document.location.search);
+    const q = searchQuery.get("q");
     const [searchValue, setSearchValue] = useState("");
     const [loading, setLoading] = useState(false);
     const [searchedUsers, setSearchedUsers] = useState([{ nickname: null }]);
@@ -30,9 +32,10 @@ function SearchContainer() {
     ]);
 
     const regexSpace = /\u0020/gi;
-    const getSearchedDataWithValue = async () => {
+    const getSearchedDataWithValue = async (q) => {
         setLoading(true);
-        const processedValue = searchValue.replace(regexSpace, "%2B");
+        let processedValue = q.replace(regexSpace, "%2B");
+
         setShow(true);
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         await axios
@@ -91,12 +94,17 @@ function SearchContainer() {
     };
     const onKeyDownTagManagement = ({ event: { keyCode } }) => {
         if (keyCode === 13 /* Enter */) {
-            getSearchedDataWithValue();
+            getSearchedDataWithValue(searchValue);
         }
     };
 
     useEffect(() => {
         getSearchedDataWithTopTag();
+        if (q !== null) {
+            getSearchedDataWithValue(q);
+        }
+        console.log(searchQuery);
+        console.log(q);
     }, []);
 
     return (
