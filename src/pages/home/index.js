@@ -17,7 +17,7 @@ function Home() {
     return (
         <HomeContainer>
             <GlobalNavbar />
-            <GlobalBanner />
+            <GlobalBanner name="main" />
             <GlobalPostButton />
             <WeeklyColorContainer />
             <PreviewContainer name="reference" />

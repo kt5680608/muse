@@ -115,16 +115,24 @@ export const ModalHeading = styled.div`
 `;
 
 export const ModalWriterInfoContainer = styled.div`
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    padding: 0 48px 0 48px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    overflow: hidden;
 `;
 
+export const ModalMainContainer = styled.div``;
+export const ModalCommentContainer = styled.div`
+    padding: 0 48px 0 48px;
+`;
 export const ModalImageContainer = styled.div`
     display: flex;
     justify-content: center;
-    border-radius: 12px;
+    margin-bottom: 32px;
+    background-color: black;
 `;
 export const ModalImage = styled.img``;
 
@@ -185,4 +193,74 @@ export const DropdownContainer = styled.div`
     justify-content: flex-end;
     align-items: center;
     margin: 12px 0 12px 0;
+`;
+
+export const BadgePreview = styled.h1`
+    font-family: R-FLEX-BLACK;
+    font-size: var(--g-text-font-size-1);
+    color: white;
+    background-color: ${(props) => `var(--g-color-badge${props.badge})`};
+    padding: 2px 4px 2px 4px;
+    border-radius: 16px;
+    margin-left: 2px;
+`;
+
+export const BadgeDetail = styled(BadgePreview)`
+    display: flex;
+    height: 50%;
+    padding: 2px 6px 2px 6px;
+    align-items: center;
+    margin-left: 4px;
+`;
+
+//#D0D0D0
+//#9B9B9B
+//#747474
+//#4A4A4A
+//#000000
+
+export const FollowButton = styled(motion.button)`
+    width: 80px;
+    max-width: 100px;
+    height: 30px;
+    background-color: var(--g-color-blue);
+    border: none;
+    border-radius: 20px;
+    color: var(--g-color-white);
+    font-family: "Helvetica";
+    font-weight: 600;
+    font-size: var(--g-text-font-size-3);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    line-height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+        opacity: 0.8;
+    }
+`;
+
+export const UnFollowButton = styled(motion.button)`
+    width: 80px;
+    max-width: 100px;
+    height: 30px;
+    background-color: #efefef;
+    border: none;
+    border-radius: 20px;
+    color: var(--g-color-white);
+    font-family: "Helvetica";
+    font-weight: 600;
+    font-size: var(--g-text-font-size-3);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    line-height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+        opacity: 0.8;
+    }
 `;

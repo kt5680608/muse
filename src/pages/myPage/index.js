@@ -28,12 +28,14 @@ import {
     OrderButtonContainer,
     PostContainer,
     FollowedButton,
+    FollowButtonContainer,
     ButtonH1,
+    Badge,
 } from "./style";
 
 import { Spinner, Box, Flex } from "gestalt";
 
-function MyPage({ match }) {
+function MyPage() {
     const getUserNickname = useSelector((state) => state.userInfo.nickname);
 
     const dispatch = useDispatch();
@@ -50,10 +52,14 @@ function MyPage({ match }) {
     const [cover, setCover] = useState();
     const [displayOwnerPosts, setDisplayOwnerPosts] = useState(true);
     const [submit, setSubmit] = useState(false);
+    const [badge, setBadge] = useState(0);
 
     // 로딩 스피너 관련
     const [loading, setLoading] = useState();
     const [showSpinner, setShowSpinner] = useState(false);
+
+    //재렌더링 방지
+    const [apiCall, setApiCall] = useState(false);
 
     //팔로우
     const handleFollow = () => {
@@ -77,6 +83,7 @@ function MyPage({ match }) {
                 setFollowerCount(followerCount - 1);
             }
             setSubmit(!submit);
+            setApiCall(!apiCall);
         });
     };
 
@@ -92,7 +99,7 @@ function MyPage({ match }) {
         }
         const token = JSON.parse(localStorage.getItem("token"));
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
-        return fetch(`${API_DOMAIN}/account/${urlParts[1]}/my_page`, {
+        return fetch(`${API_DOMAIN}/account/${urlParts[1]}/my_page/`, {
             method: "GET",
             headers: {
                 Authorization: `${token}`,
@@ -184,8 +191,10 @@ function MyPage({ match }) {
 
     useEffect(() => {
         getOwnerPosts();
+    }, []);
+    useEffect(() => {
         getOwnerInfo();
-    }, [followingCount, followerCount]);
+    }, [apiCall]);
 
     return (
         <div>
@@ -195,30 +204,30 @@ function MyPage({ match }) {
                     <Avatar src={ownerInfo.avatar} />
                     <OwnerNicknameContainer>
                         <OwnerNickname>{ownerInfo.nickname}</OwnerNickname>
-
-                        {isOwner == true ? (
-                            <NicknameUpdateButton
-                                avatar={ownerInfo.avatar}
-                                nickname={ownerInfo.nickname}
-                                selfIntroduce={ownerInfo.self_introduce}
-                            />
-                        ) : (
-                            <></>
-                        )}
-                        {isOwner == false ? (
-                            isLoginUserFollow == false ? (
-                                <FollowButton onClick={handleFollow}>
-                                    팔로우
-                                </FollowButton>
-                            ) : (
-                                <FollowedButton onClick={handleFollow}>
-                                    팔로잉
-                                </FollowedButton>
-                            )
-                        ) : (
-                            <></>
+                        {ownerInfo.badge > 0 && (
+                            <Badge badge={ownerInfo.badge}>MUSE</Badge>
                         )}
                     </OwnerNicknameContainer>
+                    {isOwner == true && (
+                        <NicknameUpdateButton
+                            avatar={ownerInfo.avatar}
+                            nickname={ownerInfo.nickname}
+                            selfIntroduce={ownerInfo.self_introduce}
+                        />
+                    )}
+                    {isOwner === false ? (
+                        isLoginUserFollow == false ? (
+                            <FollowButton onClick={handleFollow}>
+                                팔로우
+                            </FollowButton>
+                        ) : (
+                            <FollowedButton onClick={handleFollow}>
+                                팔로잉
+                            </FollowedButton>
+                        )
+                    ) : (
+                        <></>
+                    )}
                     <div>
                         <Pre>
                             <Introduce>{ownerInfo.self_introduce}</Introduce>
@@ -226,15 +235,21 @@ function MyPage({ match }) {
                     </div>
 
                     <FollowContainer>
-                        <FollowerModal
-                            followerCount={followerCount}
-                            followerLists={followerLists}
-                            submit={submit}
-                        />
-                        <FollowingModal
-                            followingCount={followingCount}
-                            followingLists={followingLists}
-                        />
+                        <FollowButtonContainer>
+                            <FollowerModal
+                                followerCount={followerCount}
+                                followerLists={followerLists}
+                                isOwner={isOwner}
+                                submit={submit}
+                            />
+                        </FollowButtonContainer>
+                        <FollowButtonContainer>
+                            <FollowingModal
+                                isOwner={isOwner}
+                                followingCount={followingCount}
+                                followingLists={followingLists}
+                            />
+                        </FollowButtonContainer>
                     </FollowContainer>
                 </OwnerInfoContainer>
             </MyPageContainer>

@@ -42,7 +42,7 @@ function Navbar() {
 
     const history = useHistory();
     const handleHistoryMyPage = () => {
-        history.push(`/my-page/${getUserNickname}`);
+        window.location.href = `/my-page/${getUserNickname}`;
     };
     const dispatch = useDispatch();
     const logOutBtn = () => {

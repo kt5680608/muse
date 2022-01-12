@@ -47,6 +47,11 @@ import {
     Avatar,
     LoadingBack,
     ListItem,
+    BadgePreview,
+    BadgeDetail,
+    ModalMainContainer,
+    ModalCommentContainer,
+    FollowButton,
 } from "./style";
 import { useHistory } from "react-router-dom";
 import {
@@ -62,7 +67,8 @@ import {
     Modal,
     IconButton,
     TextArea,
-    Dropdown,
+    Badge,
+    Icon,
 } from "gestalt";
 
 function DetailPost(props) {
@@ -96,6 +102,7 @@ function DetailPost(props) {
     const [isLiked, setIsLiked] = useState();
     const [isSaved, setIsSaved] = useState();
     const [isWriter, setIsWriter] = useState();
+    const [badge, setBadge] = useState(0);
 
     //무한스크롤
     const [page, setPage] = useState(1);
@@ -392,7 +399,7 @@ function DetailPost(props) {
     }
 
     return (
-        <Box>
+        <ModalMainContainer>
             <Box paddingX={12} paddingY={12}>
                 <Box>
                     <Box marginBottom={12}>
@@ -401,170 +408,187 @@ function DetailPost(props) {
                             justifyContent="between"
                             alignItems="center"
                         >
-                            <Box>
-                                <Flex direction="row" alignItems="center">
-                                    <ModalAvatar src={props.avatar} />
-                                    <Flex direction="column">
-                                        <Writer>{props.writer}</Writer>
-                                        <Flex direction="row">
-                                            <Date>{created}</Date>
+                            <ModalWriterInfoContainer>
+                                <Box>
+                                    <Flex direction="row" alignItems="center">
+                                        <ModalAvatar src={props.avatar} />
+                                        <Flex direction="column">
+                                            <Flex
+                                                direction="row"
+                                                alignItems="center"
+                                            >
+                                                <Writer>{props.writer}</Writer>
+                                                {props.badge !== 0 && (
+                                                    <BadgeDetail
+                                                        badge={props.badge}
+                                                    >
+                                                        MUSE
+                                                    </BadgeDetail>
+                                                )}
+                                            </Flex>
+
+                                            <Flex direction="row">
+                                                <Date>{created}</Date>
+                                            </Flex>
                                         </Flex>
                                     </Flex>
-                                </Flex>
-                            </Box>
-                            <Box>
-                                <Flex direction="row">
-                                    <Box marginEnd={3}>
-                                        {isWriter === false ? (
-                                            isLoginUserFollowed === false ? (
-                                                <Button
-                                                    text="팔로우"
-                                                    onClick={handleFollow}
-                                                ></Button>
+                                </Box>
+                                <Box>
+                                    <Flex direction="row">
+                                        <Box marginEnd={3}>
+                                            {isWriter === false ? (
+                                                isLoginUserFollowed ===
+                                                false ? (
+                                                    <Button
+                                                        text="팔로우"
+                                                        onClick={handleFollow}
+                                                    ></Button>
+                                                ) : (
+                                                    <Button
+                                                        onClick={handleFollow}
+                                                        text="팔로잉"
+                                                        color="red"
+                                                    ></Button>
+                                                )
                                             ) : (
-                                                <Button
-                                                    onClick={handleFollow}
-                                                    text="팔로잉"
-                                                    color="red"
-                                                ></Button>
-                                            )
-                                        ) : (
-                                            <></>
-                                        )}
-                                    </Box>
-                                    <Box marginEnd={3}>
-                                        {isLiked === true ? (
-                                            <IconButton
-                                                icon="heart"
-                                                bgColor="red"
-                                                onClick={handleLikes}
-                                            />
-                                        ) : (
-                                            <IconButton
-                                                icon="heart"
-                                                bgColor="lightGray"
-                                                onClick={handleLikes}
-                                            />
-                                        )}
-                                    </Box>
-                                    <Box>
-                                        {isSaved === true ? (
-                                            <IconButton
-                                                icon="folder"
-                                                bgColor="red"
-                                                onClick={handleSave}
-                                            />
-                                        ) : (
-                                            <IconButton
-                                                icon="folder"
-                                                bgColor="lightGray"
-                                                onClick={handleSave}
-                                            />
-                                        )}
-                                    </Box>
-                                </Flex>
-                            </Box>
+                                                <></>
+                                            )}
+                                        </Box>
+                                        <Box marginEnd={3}>
+                                            {isLiked === true ? (
+                                                <IconButton
+                                                    icon="heart"
+                                                    bgColor="red"
+                                                    onClick={handleLikes}
+                                                />
+                                            ) : (
+                                                <IconButton
+                                                    icon="heart"
+                                                    bgColor="lightGray"
+                                                    onClick={handleLikes}
+                                                />
+                                            )}
+                                        </Box>
+                                        <Box>
+                                            {isSaved === true ? (
+                                                <IconButton
+                                                    icon="folder"
+                                                    bgColor="red"
+                                                    onClick={handleSave}
+                                                />
+                                            ) : (
+                                                <IconButton
+                                                    icon="folder"
+                                                    bgColor="lightGray"
+                                                    onClick={handleSave}
+                                                />
+                                            )}
+                                        </Box>
+                                    </Flex>
+                                </Box>
+                            </ModalWriterInfoContainer>
                         </Flex>
                     </Box>
                     <ModalImageContainer>
                         <ModalImage src={image} alt="" />
                     </ModalImageContainer>
-
-                    {comments.map((comment) => (
-                        <React.Fragment key={comment.idx}>
-                            <Box
-                                marginTop={2}
-                                borderStyle="sm"
-                                rounding={4}
-                                padding={2}
-                            >
-                                <Flex
-                                    direction="row"
-                                    alignItems="center"
-                                    justifyContent="between"
+                    <ModalCommentContainer>
+                        {comments.map((comment) => (
+                            <React.Fragment key={comment.idx}>
+                                <Box
+                                    marginTop={2}
+                                    borderStyle="sm"
+                                    rounding={4}
+                                    padding={2}
                                 >
-                                    <Box>
-                                        <Flex
-                                            direction="row"
-                                            alignItems="center"
-                                        >
-                                            <Avatar
-                                                src={`${comment.writer_avatar}`}
-                                            />
-                                            <Box>
-                                                <CommentWriter>
-                                                    {comment.writer}
-                                                </CommentWriter>
-                                                <Comment>
-                                                    {comment.comment}
-                                                </Comment>
-                                            </Box>
-                                        </Flex>
-                                    </Box>
-                                    {comment.is_writer === true ? (
-                                        <Flex justifyContent="end">
-                                            <IconButton
-                                                icon="trash-can"
-                                                onClick={() =>
-                                                    handleCommentDelete(
-                                                        comment.idx
-                                                    )
-                                                }
-                                            />
-                                        </Flex>
-                                    ) : (
-                                        <></>
-                                    )}
-                                </Flex>
-                            </Box>
-                        </React.Fragment>
-                    ))}
-
-                    {token !== undefined ? (
-                        <>
-                            <Box paddingY={4} width="100%">
-                                <TextArea
-                                    id="comment"
-                                    placeholder="댓글 작성"
-                                    rows="2"
-                                    onChange={({ value }) =>
-                                        setCurrentComments(value)
-                                    }
-                                    onKeyDown={onKeyDownTagManagement}
-                                    value={currentComments}
-                                />
-                            </Box>
-                            <Flex justifyContent="end">
-                                <Box>
-                                    <Button
-                                        text="제출"
-                                        onClick={handleSubmitComment}
-                                    ></Button>
+                                    <Flex
+                                        direction="row"
+                                        alignItems="center"
+                                        justifyContent="between"
+                                    >
+                                        <Box>
+                                            <Flex
+                                                direction="row"
+                                                alignItems="center"
+                                            >
+                                                <Avatar
+                                                    src={`${comment.writer_avatar}`}
+                                                />
+                                                <Box>
+                                                    <CommentWriter>
+                                                        {comment.writer}
+                                                    </CommentWriter>
+                                                    <Comment>
+                                                        {comment.comment}
+                                                    </Comment>
+                                                </Box>
+                                            </Flex>
+                                        </Box>
+                                        {comment.is_writer === true ? (
+                                            <Flex justifyContent="end">
+                                                <IconButton
+                                                    icon="trash-can"
+                                                    onClick={() =>
+                                                        handleCommentDelete(
+                                                            comment.idx
+                                                        )
+                                                    }
+                                                />
+                                            </Flex>
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </Flex>
                                 </Box>
-                            </Flex>
-                        </>
-                    ) : (
-                        <>
-                            <Box paddingY={2} width="100%">
-                                <TextArea
-                                    disabled
-                                    placeholder="댓글 작성"
-                                    rows="2"
-                                    onChange={({ currentComments }) =>
-                                        setCurrentComments(currentComments)
-                                    }
-                                />
-                            </Box>
-                            <Flex justifyContent="end">
-                                <Box>
-                                    <Button
-                                        text="제출"
-                                        onClick={handleSubmitComment}
+                            </React.Fragment>
+                        ))}
+
+                        {token !== undefined ? (
+                            <>
+                                <Box paddingY={4} width="100%">
+                                    <TextArea
+                                        id="comment"
+                                        placeholder="댓글 작성"
+                                        rows="2"
+                                        onChange={({ value }) =>
+                                            setCurrentComments(value)
+                                        }
+                                        onKeyDown={onKeyDownTagManagement}
+                                        value={currentComments}
                                     />
                                 </Box>
-                            </Flex>
-                        </>
-                    )}
+                                <Flex justifyContent="end">
+                                    <Box>
+                                        <Button
+                                            text="제출"
+                                            onClick={handleSubmitComment}
+                                        ></Button>
+                                    </Box>
+                                </Flex>
+                            </>
+                        ) : (
+                            <>
+                                <Box paddingY={2} width="100%">
+                                    <TextArea
+                                        disabled
+                                        placeholder="댓글 작성"
+                                        rows="2"
+                                        onChange={({ currentComments }) =>
+                                            setCurrentComments(currentComments)
+                                        }
+                                    />
+                                </Box>
+                                <Flex justifyContent="end">
+                                    <Box>
+                                        <Button
+                                            text="제출"
+                                            onClick={handleSubmitComment}
+                                        />
+                                    </Box>
+                                </Flex>
+                            </>
+                        )}
+                    </ModalCommentContainer>
                     <Box marginTop={4}>
                         <StackGrid
                             columnWidth={260}
@@ -606,7 +630,7 @@ function DetailPost(props) {
                     </Box>
                 </Box>
             </Box>
-        </Box>
+        </ModalMainContainer>
     );
 }
 
@@ -628,6 +652,7 @@ function DetailPostPreview(props) {
                                 title={props.title}
                                 writer={props.writer}
                                 avatar={props.avatar}
+                                badge={props.badge}
                             />
                         </>
                     }
@@ -662,11 +687,16 @@ function DetailPostPreview(props) {
                         <Avatar src={props.avatar} alt="" />
                         <PostWriter
                             onClick={() => {
-                                history.push(`/my-page/${props.writer}`);
+                                window.location.href = `/my-page/${props.writer}`;
                             }}
                         >
                             {props.writer}
                         </PostWriter>
+                        {props.badge !== 0 && (
+                            <BadgePreview badge={props.badge}>
+                                MUSE
+                            </BadgePreview>
+                        )}
                     </WriterContainer>
                     <PostStatusContainer>
                         <LikesIcon />
@@ -685,28 +715,19 @@ function DetailPostPreview(props) {
     );
 }
 
-function Card({
-    idx,
-    title,
-    image,
-    liked,
-    avatar,
-    views,
-    writer,
-    rect,
-    likes,
-}) {
+function Card(props) {
     return (
         <DetailPostPreview
-            idx={idx}
-            title={title}
-            image={image}
-            liked={liked}
-            avatar={avatar}
-            writer={writer}
-            views={views}
-            rect={rect}
-            likes={likes}
+            idx={props.idx}
+            title={props.title}
+            image={props.image}
+            liked={props.liked}
+            avatar={props.avatar}
+            writer={props.writer}
+            views={props.views}
+            rect={props.rect}
+            likes={props.likes}
+            badge={props.badge}
         />
     );
 }

@@ -213,6 +213,7 @@ function MainContainer(props) {
                                     writer={post.writer}
                                     views={post.views}
                                     likes={post.likes}
+                                    badge={post.badge}
                                 />
                             </ListItem>
                         ) : (
@@ -226,6 +227,7 @@ function MainContainer(props) {
                                     writer={post.writer}
                                     views={post.views}
                                     likes={post.likes}
+                                    badge={post.badge}
                                 />
                             </ListItem>
                         )}

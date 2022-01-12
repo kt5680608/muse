@@ -44,6 +44,7 @@ export const NavContainerLeft = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 12%;
+    //flex-basis: 256px; item 3개일때임
 `;
 export const NavContainerRight = styled(NavContainerLeft)`
     justify-content: flex-end;

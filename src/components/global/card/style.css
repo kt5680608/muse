@@ -1560,8 +1560,8 @@ html[dir="rtl"] .KRR {
     padding-top: 48px;
 }
 .oqv {
-    padding-left: 48px;
-    padding-right: 48px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 @media (min-width: 576px) {
     html:not([dir="rtl"]) .mo5 {

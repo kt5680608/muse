@@ -32,7 +32,10 @@ function FollowingListModal(props) {
                 heading="팔로잉"
             >
                 <Box padding={8}>
-                    <FollowingList followingLists={props.followingLists} />
+                    <FollowingList
+                        isOwner={props.isOwner}
+                        followingLists={props.followingLists}
+                    />
                 </Box>
             </Modal>
         );
@@ -72,7 +75,10 @@ function FollowingList(props) {
         <FollowingListUlContainer>
             <FollowingListUl>
                 {followings.map((following) => (
-                    <FollowingLi nickname={following.follower} />
+                    <FollowingLi
+                        isOwner={props.isOwner}
+                        nickname={following.follower}
+                    />
                 ))}
             </FollowingListUl>
         </FollowingListUlContainer>

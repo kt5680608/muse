@@ -37,7 +37,6 @@ export const OwnerNickname = styled.h1`
     font-weight: 900;
     font-size: var(--g-text-font-size-6);
     display: inline;
-    margin: 12px 12px 12px 12px;
 `;
 
 export const OwnerFollower = styled(motion.p)`
@@ -76,6 +75,9 @@ export const FollowButton = styled(motion.button)`
     }
 `;
 
+export const FollowButtonContainer = styled.div`
+    margin: 0 4px 0 4px;
+`;
 export const OrderButtonContainer = styled.div`
     display: flex;
     justify-content: center;
@@ -120,7 +122,6 @@ export const FollowContainer = styled.div`
     display: flex !important;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 24px;
 `;
 
 export const ProfileUpdateButton = styled(FollowButton)`
@@ -170,9 +171,7 @@ export const Introduce = styled.h2`
 
 export const Pre = styled.pre`
     font-weight: 600;
-    padding: 12px 24px 12px 24px;
-    border-radius: 16px;
-    margin-bottom: 24px;
+    padding: 24px 12px 24px 12px;
 `;
 
 export const FollowedButton = styled(FollowButton)`
@@ -181,3 +180,13 @@ export const FollowedButton = styled(FollowButton)`
 `;
 
 export const PostContainer = styled.div``;
+
+export const Badge = styled.h1`
+    font-family: R-FLEX-BLACK;
+    font-size: var(--g-text-font-size-1);
+    color: white;
+    background-color: ${(props) => `var(--g-color-badge${props.badge})`};
+    padding: 2px 4px 2px 4px;
+    border-radius: 16px;
+    margin-left: 4px;
+`;

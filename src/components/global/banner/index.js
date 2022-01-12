@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Banner,
     Label,
@@ -8,7 +8,33 @@ import {
     PostButtonContainer,
 } from "./style";
 import { ContestPostButton } from "../../../components";
+
+const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+const token = JSON.parse(localStorage.getItem("token"));
+
 function GlobalBanner(props) {
+    const [bannerTitle, setBannerTitle] = useState();
+    const [bannerContent, setBannerContent] = useState();
+
+    const getBanner = () => {
+        return fetch(`${API_DOMAIN}/banner/?type=${props.name}`, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setBannerTitle(data.title);
+                setBannerContent(data.content);
+            });
+    };
+
+    useEffect(() => {
+        getBanner();
+    }, []);
+
     return (
         <div>
             <Banner>

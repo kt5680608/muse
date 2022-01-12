@@ -54,18 +54,30 @@ export const TagMainContainer = styled.div`
     align-items: center;
 `;
 
+//background-color: ${(props) => `var(--g-color-badge${props.badge})`};
+
 export const TagContainer = styled.div`
-    background-color: black;
+    background: url(${(props) => props.back}) no-repeat center;
+    background-size: fill;
     width: 360px;
     height: 144px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    border-radius: 12px;
+    border-radius: 24px;
     margin: 0 6px 0 6px;
 `;
 
+export const OverlayContainer = styled.div`
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: 24px;
+    justify-content: center;
+    align-items: center;
+`;
 export const TagName = styled.h1`
     font-weight: 900;
     color: white;

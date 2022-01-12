@@ -22,7 +22,6 @@ function ReferenceContainer(props) {
     const [options, setOptions] = useState("likes");
     const [ref, inView] = useInView({ trackVisibility: true, delay: 100 });
     const [contestBool, setContestBool] = useState(true);
-    const [isOn, setIsOn] = useState(false);
 
     // 드롭다운 state
     const [open, setOpen] = React.useState(false);
@@ -152,6 +151,7 @@ function ReferenceContainer(props) {
                                     writer={post.writer}
                                     views={post.views}
                                     likes={post.likes}
+                                    badge={post.badge}
                                 />
                             </ListItem>
                         ) : (
@@ -165,6 +165,7 @@ function ReferenceContainer(props) {
                                     writer={post.writer}
                                     views={post.views}
                                     likes={post.likes}
+                                    badge={post.badge}
                                 />
                             </ListItem>
                         )}

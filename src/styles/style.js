@@ -12,7 +12,15 @@ export const GlobalStyle = createGlobalStyle`
     --g-color-gray150: #ddd;
     --g-color-gray200: #767676;
     --g-color-gray300: #111;
-    --g-color-gray400: #000;    
+    --g-color-gray400: #000;
+    --g-color-badge0: #fff;
+    --g-color-badge1: #E2E2E2;
+    --g-color-badge2: #AFAFAF;
+    --g-color-badge3: #000000;
+    --g-color-badge4: #D90000;
+    --g-color-badge5: var(--g-color-blue);
+    --g-color-badge-muse: var(--g-color-blue)''
+    
     --g-ncols: 12;
     
     --g-text-font-size-0: 8px;

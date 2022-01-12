@@ -6,7 +6,7 @@ function Muse() {
     return (
         <style.MusePage>
             <GlobalNavbar />
-            <GlobalBanner />
+            <GlobalBanner name="muse" />
         </style.MusePage>
     );
 }

@@ -14,6 +14,7 @@ import {
     TagMainContainer,
     TagContainer,
     TagName,
+    OverlayContainer,
 } from "./style";
 function SearchContainer() {
     const [searchValue, setSearchValue] = useState("");
@@ -24,6 +25,9 @@ function SearchContainer() {
     const [show, setShow] = useState(false);
     const [tagArray, setTagArray] = useState(["adsf", "일러스트", "포스터"]);
     const [isSearched, setIsSearched] = useState(false);
+    const [topTagData, setTopTagData] = useState([
+        { tag: null, nickname: null },
+    ]);
 
     const regexSpace = /\u0020/gi;
     const getSearchedDataWithValue = async () => {
@@ -46,6 +50,23 @@ function SearchContainer() {
             });
         setIsSearched(true);
         setLoading(false);
+    };
+
+    const getSearchedDataWithTopTag = async () => {
+        setLoading(true);
+        setShow(true);
+        const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+        await axios
+            .get(`${API_DOMAIN}/post/top_tag/`)
+            .then((res) => {
+                try {
+                    console.log(res.data);
+                    setTopTagData(res.data);
+                } catch (e) {
+                    console.log(e);
+                }
+            })
+            .then(setLoading(false));
     };
 
     const getSearchedDataWithTag = async (tag) => {
@@ -74,6 +95,10 @@ function SearchContainer() {
         }
     };
 
+    useEffect(() => {
+        getSearchedDataWithTopTag();
+    }, []);
+
     return (
         <MainContainer>
             <Box paddingY={12}>
@@ -86,13 +111,16 @@ function SearchContainer() {
                 </SearchBarContainer>
             </Box>
             <TagMainContainer>
-                {tagArray.map((tag) => (
+                {topTagData.map((tag) => (
                     <TagContainer
+                        back={tag.image}
                         onClick={() => {
-                            getSearchedDataWithTag(tag);
+                            getSearchedDataWithTag(tag.tag);
                         }}
                     >
-                        <TagName>{tag}</TagName>
+                        <OverlayContainer>
+                            <TagName>{tag.tag}</TagName>
+                        </OverlayContainer>
                     </TagContainer>
                 ))}
             </TagMainContainer>
