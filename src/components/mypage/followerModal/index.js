@@ -23,7 +23,9 @@ function FollowerListModal(props) {
     const HEADER_ZINDEX = new FixedZIndex(10);
     const modalZIndex = new CompositeZIndex([HEADER_ZINDEX]);
     const [getSubmit, setGetSubmit] = useState(props.submit);
-
+    useEffect(() => {
+        console.log(props.isOwner);
+    }, []);
     const ModalWithHeading = ({ onDismiss }) => {
         return (
             <Modal
@@ -35,6 +37,7 @@ function FollowerListModal(props) {
                 <Box paddingX={8} paddingY={4}>
                     <FollowingList
                         followerLists={props.followerLists}
+                        isOwner={props.isOwner}
                         submit={props.submit}
                     />
                 </Box>
@@ -76,7 +79,11 @@ function FollowingList(props) {
         <FollowerListUl>
             {followers.map((follower) => (
                 <>
-                    <FollowerLi nickname={follower.following} />
+                    <FollowerLi
+                        nickname={follower.following}
+                        avatar={follower.avatar}
+                        isOwner={props.isOwner}
+                    />
                 </>
             ))}
         </FollowerListUl>

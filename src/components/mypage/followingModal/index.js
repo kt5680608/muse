@@ -22,7 +22,6 @@ function FollowingListModal(props) {
     const [shouldShow, setShouldShow] = React.useState(false);
     const HEADER_ZINDEX = new FixedZIndex(10);
     const modalZIndex = new CompositeZIndex([HEADER_ZINDEX]);
-
     const ModalWithHeading = ({ onDismiss }) => {
         return (
             <Modal
@@ -78,6 +77,7 @@ function FollowingList(props) {
                     <FollowingLi
                         isOwner={props.isOwner}
                         nickname={following.follower}
+                        avatar={following.avatar}
                     />
                 ))}
             </FollowingListUl>

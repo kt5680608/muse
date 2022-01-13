@@ -4,6 +4,8 @@ import {
     FollowButton,
     FollowingModalContainer,
     FollowingNickname,
+    FollowingInfoContainer,
+    Avatar,
 } from "./style";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -16,14 +18,8 @@ function FollowingListLi(props) {
     const history = useHistory();
 
     const handleHistoryPushNickname = () => {
-        history.push(`/my-page/${props.nickname}`);
-        window.location.reload();
+        window.location.href = `/my-page/${props.nickname}`;
     };
-
-    useEffect(() => {
-        console.log(props.isOwner);
-    }, [isUserFollowed]);
-
     const handleFollow = () => {
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         const token = JSON.parse(localStorage.getItem("token"));
@@ -43,9 +39,12 @@ function FollowingListLi(props) {
     };
     return (
         <FollowingModalContainer>
-            <FollowingNickname onClick={handleHistoryPushNickname}>
-                {props.nickname}
-            </FollowingNickname>
+            <FollowingInfoContainer>
+                <Avatar src={props.avatar} />
+                <FollowingNickname onClick={handleHistoryPushNickname}>
+                    {props.nickname}
+                </FollowingNickname>
+            </FollowingInfoContainer>
             {props.isOwner === true &&
                 (isUserFollowed === true ? (
                     <UnFollowButton onClick={handleFollow}>

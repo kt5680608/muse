@@ -8,8 +8,9 @@ export const FollowingListUlContainer = styled.div`
 `;
 export const FollowingListUl = styled.ul`
     display: flex;
+    flex-direction: column;
     width: 100%;
-    padding: 32px 32px 32px 32px;
+    padding: 32px;
     align-items: center;
     margin: 0;
 `;

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FiPlus } from "react-icons/fi";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { motion } from "framer";
+import { WithContext as ReactTags } from "react-tag-input";
 import {
     Box,
     Button,
@@ -72,10 +73,10 @@ export const CustomInput = styled.input`
     background-color: var(--g-color-gray100);
     padding: 16px;
     border: none;
-    width: 80%;
+    width: 100%;
     height: 48px;
     border-radius: 24px;
-    margin: 12px;
+    margin-top: 12px;
 `;
 
 export const CustomInputFile = styled.input`
@@ -105,7 +106,6 @@ export const CustomButton = styled.button`
 
 export const CustomForm = styled.form`
     display: flex;
-    padding: 24px;
 `;
 
 export const ImageContainer = styled.div``;
@@ -118,6 +118,7 @@ export const ImgPreview = styled.img`
 
 export const ImgPreviewSkeleton = styled.label`
     display: flex;
+    padding: 24px;
     justify-content: center;
     align-items: center;
     max-width: 50%;
@@ -135,10 +136,10 @@ export const CustomTextarea = styled.textarea`
     white-space: pre-wrap;
     overflow-wrap: break-word;
     word-break: break-word;
-    width: 80%;
+    width: 100%;
     border: none;
     height: 120px;
-    margin: 12px;
+    margin: 12px 0 12px 0;
     background-color: var(--g-color-gray100);
     border-radius: 16px;
     padding: 16px;
@@ -159,6 +160,7 @@ export const InfoContainer = styled.div`
     height: auto;
     width: 100%;
     justify-content: flex-start;
+    padding: 24px;
 `;
 
 export const IconContainer = styled.div`
@@ -186,3 +188,9 @@ export const RadioInputContainer = styled.div`
     align-items: center;
     margin: 12px;
 `;
+
+export const Hashtag = styled.h1`
+    color: tomato;
+`;
+
+export const ReactHashTags = styled(ReactTags)``;

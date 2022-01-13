@@ -119,6 +119,7 @@ function MyPage() {
             .finally(() => {
                 setLoading(false);
                 setShowSpinner(false);
+                console.log(isOwner);
             });
     };
 

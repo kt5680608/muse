@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { getUploadPost } from "../../../actions/post";
 import * as style from "./style";
 import Swal from "sweetalert2";
+import { WithContext as ReactTags } from "react-tag-input";
+import "./style.css";
 import {
     Box,
     Button,
@@ -43,12 +45,11 @@ function Input() {
     const [image, setImage] = useState(null);
     const [content, setContent] = useState("");
     const [title, setTitle] = useState("");
-    const [hashtag, setHashtag] = useState("");
+    const [hashtag, setHashtag] = useState([]);
+    const [tmpHashtag, setTmpHashtag] = useState("");
     const [imagePreview, setImagePreview] = useState();
-    const [modalSize, setModalSize] = useState("lg");
-    const [inputStatus, setInputStatus] = useState(false);
-    const [inputStatus2, setInputStatus2] = useState(false);
     const [imageUrl, setImageUrl] = useState("");
+    const [hashs, setHashs] = useState([]);
     const tag = "reference";
 
     const hiddenFileInput = useRef(null);
@@ -62,7 +63,6 @@ function Input() {
         setContent("");
         setTitle(null);
         setImagePreview(null);
-        setModalSize("lg");
     };
     const dispatch = useDispatch();
     const history = useHistory();
@@ -127,6 +127,34 @@ function Input() {
             console.error(e);
         }
     };
+    useEffect(() => {
+        console.log(hashtag);
+    }, [hashtag]);
+
+    //hashtag 관리
+    const KeyCodes = {
+        enter: 13,
+    };
+    const trigger = [KeyCodes.enter];
+
+    const handleAddition = (hash) => {
+        if (hashs.length < 3) {
+            setHashs([...hashs, hash]);
+            setHashtag([...hashtag, hash.text]);
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "해시태그는 최대 3개입니다",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        }
+    };
+
+    const handleDelete = (i) => {
+        setHashs(hashs.filter((hash, index) => index !== i));
+    };
 
     return (
         <>
@@ -169,7 +197,7 @@ function Input() {
                                     onChange={onChangeImage}
                                     ref={hiddenFileInput}
                                 />
-                                <style.CustomInput
+                                {/* <style.CustomInput
                                     type="text"
                                     name="hasgtag"
                                     onChange={onChangeHashtag}
@@ -177,6 +205,14 @@ function Input() {
                                     min="0"
                                     step="1"
                                     autocomplete="off"
+                                /> */}
+                                <style.ReactHashTags
+                                    tags={hashs}
+                                    delimiters={trigger}
+                                    handleAddition={handleAddition}
+                                    handleDelete={handleDelete}
+                                    inline={false}
+                                    placeholder="해시태그 입력 후 enter키를 눌러주세요"
                                 />
                                 <style.CustomInput
                                     type="url"
