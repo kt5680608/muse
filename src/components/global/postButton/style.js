@@ -30,6 +30,7 @@ export const PostButton = styled(motion.div)`
     background-color: var(--g-color-blue);
     margin-bottom: 12px;
     cursor: pointer;
+    z-index: 100;
 `;
 
 export const PlusButton = styled(FiPlus)`
@@ -166,7 +167,7 @@ export const InfoContainer = styled.div`
 export const IconContainer = styled.div`
     margin: 24px 24px 24px 24px;
     display: block;
-    z-index: 999;
+    z-index: 100;
     position: fixed;
     right: 0;
     bottom: 0;
