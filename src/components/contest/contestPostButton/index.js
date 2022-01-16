@@ -21,7 +21,7 @@ import {
 function Input() {
     const [show, setShow] = useState(false);
     const [image, setImage] = useState(null);
-    const [content, setContent] = useState(null);
+    const [content, setContent] = useState("");
     const [title, setTitle] = useState("");
     const [hashtag, setHashtag] = useState("");
     const [imagePreview, setImagePreview] = useState();
@@ -68,14 +68,7 @@ function Input() {
         data.append("hashtag", hashtag);
 
         try {
-            if (
-                title == null ||
-                "" ||
-                content == null ||
-                "" ||
-                image == null ||
-                ""
-            ) {
+            if (title == null || "" || image == null || "") {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
@@ -86,7 +79,7 @@ function Input() {
             } else {
                 await dispatch(getUploadPost(data));
                 handleClose();
-                history.push("/replace");
+                history.go(0);
             }
         } catch (e) {
             console.error(e);
@@ -132,7 +125,12 @@ function Input() {
                             encType="multipart/form-data"
                         >
                             {imagePreview != null ? (
-                                <style.ImgPreview src={imagePreview} alt="" />
+                                <style.ImgPreviewContainer>
+                                    <style.ImgPreview
+                                        src={imagePreview}
+                                        alt=""
+                                    />
+                                </style.ImgPreviewContainer>
                             ) : (
                                 <style.ImgPreviewSkeleton
                                     onClick={handleHiddenInputFile}
@@ -204,11 +202,26 @@ function ContestPostButton() {
         );
     };
 
+    const handleShowModal = () => {
+        const token = JSON.parse(localStorage.getItem("token"));
+        if (token !== null || undefined) {
+            setShouldShow(true);
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "로그인을 해주세요.",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        }
+    };
+
     return (
         <React.Fragment>
             <Button
                 onClick={() => {
-                    setShouldShow(true);
+                    handleShowModal();
                 }}
                 text="콘테스트 참여하기"
                 size="lg"

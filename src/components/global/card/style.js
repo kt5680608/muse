@@ -270,7 +270,7 @@ export const ModalInfoContainer = styled.div`
 `;
 
 export const Content = styled.p`
-    font-weight: 600;
+    font-weight: 400;
     font-family: Helvetica;
     font-size: var(--g-text-font-size-5);
 `;

@@ -28,20 +28,25 @@ function RulesModal() {
                 accessibilityModalLabel="MUSE 이용약관"
                 heading="MUSE 이용약관"
                 onDismiss={onDismiss}
+                size="md"
                 footer={
                     <Flex alignItems="center" justifyContent="end">
-                        {agree == true ? (
-                            <Link to="/register">
-                                <Button color="blue" text="다음으로 넘어가기" />
-                            </Link>
-                        ) : (
-                            <></>
-                        )}
+                        <Box marginEnd={4}>
+                            {agree == true ? (
+                                <Link to="/register">
+                                    <Button
+                                        color="blue"
+                                        text="다음으로 넘어가기"
+                                    />
+                                </Link>
+                            ) : (
+                                <></>
+                            )}
+                        </Box>
                     </Flex>
                 }
-                size="sm"
             >
-                <Box paddingX={8}>
+                <Box margin={12}>
                     <Box marginBottom={8}>
                         <Text>약관에 존나게 동의하십니까?</Text>
                     </Box>

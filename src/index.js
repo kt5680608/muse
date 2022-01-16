@@ -16,8 +16,14 @@ import ModalComponent from "react-modal-dom";
 
 const KAKAO_JS_KEY = process.env.REACT_APP_KAKAO_JS_KEY;
 window.Kakao.init(KAKAO_JS_KEY);
-
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
+
+if (process.env.REACT_APP_MUSE_DOMAIN === "https://muse.seoul.kr") {
+    console.log = () => {};
+    console.error = () => {};
+    console.debug = () => {};
+}
+
 ReactDOM.render(
     <React.StrictMode>
         <FontStyle />

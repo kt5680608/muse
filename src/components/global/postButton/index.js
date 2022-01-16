@@ -16,6 +16,7 @@ import {
     Text,
     Layer,
     Modal,
+    Toast,
 } from "gestalt";
 function Input() {
     const getUserInfo = () => {
@@ -107,7 +108,7 @@ function Input() {
             } else {
                 await dispatch(getUploadPost(data));
                 handleClose();
-                history.push("/replace");
+                history.go(0);
             }
         } catch (e) {
             console.error(e);
@@ -146,9 +147,7 @@ function Input() {
         <>
             <Box paddingX={8} overflow="hidden">
                 <Box marginBottom={8} marginTop={8}>
-                    <Flex justifyContent="center">
-                        <Box marginBottom={3}></Box>
-                    </Flex>
+                    <Flex justifyContent="center"></Flex>
                     <Flex
                         alignItems="center"
                         justifyContent="center"
@@ -160,7 +159,12 @@ function Input() {
                             encType="multipart/form-data"
                         >
                             {imagePreview != null ? (
-                                <style.ImgPreview src={imagePreview} alt="" />
+                                <style.ImgPreviewContainer>
+                                    <style.ImgPreview
+                                        src={imagePreview}
+                                        alt=""
+                                    />
+                                </style.ImgPreviewContainer>
                             ) : (
                                 <style.ImgPreviewSkeleton
                                     onClick={handleHiddenInputFile}
@@ -175,7 +179,7 @@ function Input() {
                                         type="text"
                                         name="title"
                                         onChange={onChangeTitle}
-                                        placeholder="제목"
+                                        placeholder="*제목"
                                         autocomplete="off"
                                     />
                                     <style.CustomInputFile
@@ -246,10 +250,25 @@ function PostButton() {
         );
     };
 
+    const handleShowModal = () => {
+        const token = JSON.parse(localStorage.getItem("token"));
+        if (token !== null || undefined) {
+            setShouldShow(true);
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "로그인을 해주세요.",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        }
+    };
+
     return (
         <React.Fragment>
             <style.IconContainer>
-                <style.PostButton onClick={() => setShouldShow(true)}>
+                <style.PostButton onClick={handleShowModal}>
                     <style.PlusButton />
                 </style.PostButton>
             </style.IconContainer>

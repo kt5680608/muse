@@ -104,30 +104,35 @@ export const CustomButton = styled.button`
         opacity: 0.7;
     }
 `;
-
 export const CustomForm = styled.form`
     display: flex;
+    width: 100%;
 `;
 
 export const ImageContainer = styled.div``;
 
 export const ImgPreview = styled.img`
-    max-width: 50%;
-    width: 100%;
     border-radius: 16px;
-    height: 500px;
-    margin: 0 24px 0 24px;
+    object-fit: scale-down;
+    width: 100%;
+`;
+
+export const ImgPreviewContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 24px 10px 24px;
+    width: 100%;
+    max-width: 50%;
 `;
 
 export const ImgPreviewSkeleton = styled.label`
     display: flex;
-    padding: 24px;
+
     justify-content: center;
     margin: 10px 24px 10px 24px;
     height: 500px;
-    object-fit: fill;
     align-items: center;
-    max-width: 50%;
     width: 100%;
     background-color: var(--g-color-gray100);
     border-radius: 16px;
