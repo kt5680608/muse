@@ -39,6 +39,7 @@ function SearchContainer() {
         const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
         await axios
             .get(`${API_DOMAIN}/search/?q=${processedValue}`)
+
             //http://ec2-3-36-100-177.ap-northeast-2.compute.amazonaws.com/api/search/q?=gdgd
             .then((res) => {
                 try {
