@@ -142,8 +142,10 @@ export const Writer = styled.h1`
 `;
 
 export const Title = styled.h1`
-    font-size: var(--g-text-font-size-5);
-    font-weight: 600;
+    text-overflow: ellipsis;
+    font-size: var(--g-text-font-size-6);
+    font-weight: 900;
+    font-family: R-FLEX-BLACK, Helvetica;
 `;
 
 export const Date = styled(Writer)`
@@ -213,12 +215,6 @@ export const BadgeDetail = styled(BadgePreview)`
     margin-left: 4px;
 `;
 
-//#D0D0D0
-//#9B9B9B
-//#747474
-//#4A4A4A
-//#000000
-
 export const FollowButton = styled(motion.button)`
     width: 80px;
     max-width: 100px;
@@ -263,4 +259,25 @@ export const UnFollowButton = styled(motion.button)`
     &:hover {
         opacity: 0.8;
     }
+`;
+
+export const ModalInfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 48px;
+    align-items: flex-start;
+`;
+
+export const Content = styled.p`
+    font-weight: 600;
+    font-family: Helvetica;
+    font-size: var(--g-text-font-size-5);
+`;
+
+export const Url = styled.a`
+    font-weight: 900;
+    font-family: Helvetica;
+    font-size: var(--g-text-font-size-4);
+    text-decoration: underline;
 `;

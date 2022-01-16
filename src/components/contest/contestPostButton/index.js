@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { getUploadPost } from "../../../actions/post";
 import * as style from "./style";
 import Swal from "sweetalert2";
+import { WithContext as ReactHashTags } from "react-tag-input";
+import "./style.css";
 import {
     Box,
     Button,
@@ -19,17 +21,18 @@ import {
 function Input() {
     const [show, setShow] = useState(false);
     const [image, setImage] = useState(null);
-    const [content, setContent] = useState("");
+    const [content, setContent] = useState(null);
     const [title, setTitle] = useState("");
     const [hashtag, setHashtag] = useState("");
     const [imagePreview, setImagePreview] = useState();
+    const [hashs, setHashs] = useState([]);
     const tag = "contest";
 
     const hiddenFileInput = useRef(null);
 
     const handleClose = () => {
         setShow(false);
-        setContent("");
+        setContent(null);
         setTitle(null);
         setImagePreview(null);
     };
@@ -50,10 +53,6 @@ function Input() {
         fileReader.onload = function (e) {
             setImagePreview(e.target.result);
         };
-    };
-
-    const onChangeHashtag = (e) => {
-        setHashtag(e.target.value);
     };
 
     const handleHiddenInputFile = () => {
@@ -94,13 +93,34 @@ function Input() {
         }
     };
 
+    const KeyCodes = {
+        enter: 13,
+    };
+    const trigger = [KeyCodes.enter];
+
+    const handleAddition = (hash) => {
+        if (hashs.length < 3) {
+            setHashs([...hashs, hash]);
+            setHashtag([...hashtag, hash.text]);
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "해시태그는 최대 3개입니다",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        }
+    };
+
+    const handleDelete = (i) => {
+        setHashs(hashs.filter((hash, index) => index !== i));
+    };
+
     return (
         <>
-            <Box paddingX={8} overflow="hidden">
-                <Box marginBottom={8} marginTop={8}>
-                    <Flex justifyContent="center">
-                        <Box marginBottom={3}></Box>
-                    </Flex>
+            <Box overflow="hidden">
+                <Box>
                     <Flex
                         alignItems="center"
                         justifyContent="center"
@@ -122,49 +142,51 @@ function Input() {
                                 </style.ImgPreviewSkeleton>
                             )}
                             <style.InfoContainer>
-                                <style.CustomInput
-                                    type="text"
-                                    name="title"
-                                    onChange={onChangeTitle}
-                                    placeholder="제목"
-                                    autocomplete="off"
-                                />
-                                <style.CustomInputFile
-                                    type="file"
-                                    name="images"
-                                    onChange={onChangeImage}
-                                    ref={hiddenFileInput}
-                                />
-                                <style.CustomInput
-                                    type="text"
-                                    name="hasgtag"
-                                    onChange={onChangeHashtag}
-                                    placeholder="#해시태그"
-                                    min="0"
-                                    step="1"
-                                    autocomplete="off"
-                                />
-                                <style.Pre>
-                                    <style.CustomTextarea
-                                        name="Text1"
-                                        cols="90"
-                                        Rows="4"
-                                        maxLength="90"
-                                        onChange={onChangeContent}
-                                        placeholder="내용"
+                                <style.InfoContainerSection1>
+                                    <style.CustomInput
+                                        type="text"
+                                        name="title"
+                                        onChange={onChangeTitle}
+                                        placeholder="제목"
                                         autocomplete="off"
                                     />
-                                </style.Pre>
-                                <style.CustomButton
-                                    type="button"
-                                    onClick={handleSubmit}
-                                >
-                                    제출
-                                </style.CustomButton>
+                                    <style.CustomInputFile
+                                        type="file"
+                                        name="images"
+                                        onChange={onChangeImage}
+                                        ref={hiddenFileInput}
+                                    />
+                                    <ReactHashTags
+                                        tags={hashs}
+                                        delimiters={trigger}
+                                        handleAddition={handleAddition}
+                                        handleDelete={handleDelete}
+                                        inline={false}
+                                        placeholder="해시태그 입력 후 enter키를 눌러주세요"
+                                    />
+                                    <style.Pre>
+                                        <style.CustomTextarea
+                                            name="Text1"
+                                            cols="90"
+                                            Rows="4"
+                                            maxLength="90"
+                                            onChange={onChangeContent}
+                                            placeholder="내용"
+                                            autocomplete="off"
+                                        />
+                                    </style.Pre>
+                                </style.InfoContainerSection1>
+                                <style.InfoContainerSection2>
+                                    <style.CustomButton
+                                        type="button"
+                                        onClick={handleSubmit}
+                                    >
+                                        제출
+                                    </style.CustomButton>
+                                </style.InfoContainerSection2>
                             </style.InfoContainer>
                         </style.CustomForm>
                     </Flex>
-                    <Box marginTop={3}></Box>
                 </Box>
             </Box>
         </>

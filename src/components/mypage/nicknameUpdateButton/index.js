@@ -36,12 +36,13 @@ function Input(ownerInfo) {
         ownerInfo.nickname
     );
     const [originalAvatar, setOriginalAvatar] = useState(ownerInfo.avatar);
-    const [changedNickname, setChangedNickname] = useState("");
+    const [changedNickname, setChangedNickname] = useState(null);
     const [changedAvatar, setChangedAvatar] = useState(null);
     const [avatarPreview, setAvatarPreview] = useState(null);
     const [originalIntroduce, setOriginalIntroduce] = useState(
         ownerInfo.selfIntroduce
     );
+    const [instagram, setInstagram] = useState(null);
     const [changedIntroduce, setChangedIntroduce] = useState("");
     const [deleteAvatarButton, setDeleteAvatarButton] = useState(false);
     const [duplicationData, setDuplicationData] = useState(null);
@@ -91,7 +92,11 @@ function Input(ownerInfo) {
     const onChangeNickname = (e) => {
         e.preventDefault();
         setChangedNickname(e.target.value);
-        console.log(changedNickname);
+    };
+
+    const onChangeInstagram = (e) => {
+        e.preventDefault();
+        setInstagram(e.target.value);
     };
 
     const onChangeAvatar = (e) => {
@@ -119,7 +124,7 @@ function Input(ownerInfo) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const userProfileFormData = new FormData();
-        if (changedNickname !== "") {
+        if (changedNickname !== null) {
             userProfileFormData.append("nickname", changedNickname);
         }
         if (changedIntroduce !== "") {
@@ -133,10 +138,7 @@ function Input(ownerInfo) {
         }
 
         try {
-            if (
-                (duplicationData === true && changedNickname != null) ||
-                changedNickname === ""
-            ) {
+            if (duplicationData === true && changedNickname !== null) {
                 const token = JSON.parse(localStorage.getItem("token"));
                 const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
                 return fetch(`${API_DOMAIN}/account/${originalNickname}/`, {
@@ -158,6 +160,21 @@ function Input(ownerInfo) {
                         ) {
                             window.location.href = `${MUSE_DOMAIN}/my-page/${changedNickname}`;
                         }
+                    });
+            }
+            if (changedNickname === null && duplicationData === null) {
+                const token = JSON.parse(localStorage.getItem("token"));
+                const API_DOMAIN = process.env.REACT_APP_API_DOMAIN;
+                return fetch(`${API_DOMAIN}/account/${originalNickname}/`, {
+                    method: "PATCH",
+                    headers: {
+                        Authorization: `${token}`,
+                    },
+                    body: userProfileFormData,
+                })
+                    .then((res) => res.json())
+                    .finally(() => {
+                        window.location.href = `${MUSE_DOMAIN}/my-page/${originalNickname}`;
                     });
             } else {
                 return Swal.fire({
@@ -224,7 +241,7 @@ function Input(ownerInfo) {
                                 <InstagramInput
                                     type="text"
                                     placeholder={instagramPlaceholder}
-                                    onChange={onChangeNickname}
+                                    onChange={onChangeInstagram}
                                 />
                             </InstagramContainer>
                         </div>

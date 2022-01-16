@@ -152,7 +152,7 @@ export const updatePost = (formData, postIdx) => {
 
 export const deletePost = (postIdx) => {
     const token = JSON.parse(localStorage.getItem("token"));
-    return fetch(`${API_DOMAIN}/posts/delete/${postIdx}/`, {
+    return fetch(`${API_DOMAIN}/post/${postIdx}/`, {
         method: "DELETE",
         headers: {
             Authorization: `${token}`,

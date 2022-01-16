@@ -33,8 +33,6 @@ import {
     ModalImage,
     ModalImageContainer,
     Comment,
-    ModalContainer,
-    ModalInfoContainer,
     Writer,
     Date,
     ModalAvatar,
@@ -51,7 +49,9 @@ import {
     BadgeDetail,
     ModalMainContainer,
     ModalCommentContainer,
-    FollowButton,
+    ModalInfoContainer,
+    Content,
+    Url,
 } from "./style";
 import { useHistory } from "react-router-dom";
 import {
@@ -69,19 +69,18 @@ import {
     TextArea,
     Badge,
     Icon,
+    Dropdown,
 } from "gestalt";
 
 function DetailPost(props) {
     const token = JSON.parse(localStorage.getItem("token"));
     const dispatch = useDispatch();
+    const history = useHistory();
     const getUserInfo = useSelector((state) => state.userInfo);
     const [submit, setSubmit] = useState(false);
-    const [comments, setComments] = useState([]);
+    //게시물 관련
+    const [url, setUrl] = useState("");
     const [created, setCreated] = useState("");
-    const [currentComments, setCurrentComments] = React.useState("");
-    const [showComment, setShowComment] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [otherPosts, setOtherPosts] = useState([]);
     const [title, setTitle] = useState("");
     const [image, setImage] = useState("");
     const [writer, setWriter] = useState("");
@@ -89,13 +88,19 @@ function DetailPost(props) {
     const [hashtags, setHashtags] = useState();
     const [likesCount, setLikesCount] = useState();
     const [idx, setIdx] = useState(props.idx);
+    const [imagePreview, setImagePreview] = useState();
+    //댓글 관련
+    const [currentComments, setCurrentComments] = useState("");
+    const [comments, setComments] = useState([]);
+    //로딩 관련
+    const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
     const [showSpinner, setShowSpinner] = useState(false);
+    const [otherPosts, setOtherPosts] = useState([]);
+
     const [updateContent, setUpdateContent] = useState("");
     const [updateTitle, setUpdateTitle] = useState("");
     const [updateHashtag, setUpdateHashtag] = useState("");
-    const [imagePreview, setImagePreview] = useState();
-    const [writerAvatar, setWriterAvatar] = useState();
     const [modalSize, setModalSize] = useState("lg");
     //user
     const [isLoginUserFollowed, setIsLoginUserFollowed] = useState();
@@ -103,6 +108,7 @@ function DetailPost(props) {
     const [isSaved, setIsSaved] = useState();
     const [isWriter, setIsWriter] = useState();
     const [badge, setBadge] = useState(0);
+    const [writerAvatar, setWriterAvatar] = useState();
 
     //무한스크롤
     const [page, setPage] = useState(1);
@@ -164,6 +170,7 @@ function DetailPost(props) {
                     setTitle(data.title);
                     setImage(data.image);
                     setImagePreview(data.image);
+                    setUrl(data.ref_url);
                     setIsLoginUserFollowed(data.is_login_user_follow);
                     setHashtags(data.hashtag);
                     setIdx(data.idx);
@@ -193,6 +200,7 @@ function DetailPost(props) {
                     setIsLiked(data.is_login_user_liked);
                     setTitle(data.title);
                     setImage(data.image);
+                    setUrl(data.ref_url);
                     setImagePreview(data.image);
                     setIsLoginUserFollowed(data.is_login_user_follow);
                     setHashtags(data.hashtag);
@@ -233,62 +241,62 @@ function DetailPost(props) {
             console.log(isLoginUserFollowed);
         });
     };
+    // 게시물 업데이트 관련
+    // const handleClose = () => {
+    //     setShow(false);
+    //     setUpdateContent("");
+    //     setUpdateTitle(null);
+    //     setImagePreview(null);
+    //     setModalSize("lg");
+    // };
+    // const handleShow = () => setShow(true);
 
-    const handleClose = () => {
-        setShow(false);
-        setUpdateContent("");
-        setUpdateTitle(null);
-        setImagePreview(null);
-        setModalSize("lg");
-    };
-    const handleShow = () => setShow(true);
-    const history = useHistory();
+    // const onChangeTitle = (e) => {
+    //     setUpdateTitle(e.target.value);
+    // };
+    // const onChangeContent = (e) => {
+    //     setUpdateContent(e.target.value);
+    // };
 
-    const onChangeTitle = (e) => {
-        setUpdateTitle(e.target.value);
-    };
-    const onChangeContent = (e) => {
-        setUpdateContent(e.target.value);
-    };
+    // const onChangeHashtag = (e) => {
+    //     setUpdateHashtag(e.target.value);
+    // };
 
-    const onChangeHashtag = (e) => {
-        setUpdateHashtag(e.target.value);
-    };
+    // const onClickToUpdate = async () => {
+    //     const postIdx = idx;
+    //     const formData = new FormData();
+    //     if (updateContent == "") {
+    //         formData.append("content", content);
+    //     } else {
+    //         formData.append("content", updateContent);
+    //     }
+    //     if (updateTitle == "") {
+    //         formData.append("title", title);
+    //     } else {
+    //         formData.append("title", updateTitle);
+    //     }
+    //     if (updateHashtag == "") {
+    //         formData.append("hashtag", hashtags);
+    //     } else {
+    //         formData.append("hashtag", updateHashtag);
+    //     }
 
-    const onClickToUpdate = async () => {
-        const postIdx = idx;
-        const formData = new FormData();
-        if (updateContent == "") {
-            formData.append("content", content);
-        } else {
-            formData.append("content", updateContent);
-        }
-        if (updateTitle == "") {
-            formData.append("title", title);
-        } else {
-            formData.append("title", updateTitle);
-        }
-        if (updateHashtag == "") {
-            formData.append("hashtag", hashtags);
-        } else {
-            formData.append("hashtag", updateHashtag);
-        }
+    //     try {
+    //         await dispatch(updatePost(formData, postIdx));
+    //         await Swal.fire({
+    //             icon: "success",
+    //             title: "Change Complete",
+    //             text: "게시물이 수정되었습니다",
+    //             showConfirmButton: false,
+    //             timer: 1500,
+    //         });
+    //         window.location.reload();
+    //     } catch (e) {
+    //         console.error(e);
+    //     }
+    // };
 
-        try {
-            await dispatch(updatePost(formData, postIdx));
-            await Swal.fire({
-                icon: "success",
-                title: "Change Complete",
-                text: "게시물이 수정되었습니다",
-                showConfirmButton: false,
-                timer: 1500,
-            });
-            window.location.reload();
-        } catch (e) {
-            console.error(e);
-        }
-    };
-
+    //댓글 작성
     const handleSubmitComment = async () => {
         try {
             const token = JSON.parse(localStorage.getItem("token"));
@@ -371,7 +379,7 @@ function DetailPost(props) {
             showConfirmButton: false,
             timer: 1500,
         });
-        history.push("/");
+        window.location.reload();
     };
 
     const handleCommentDelete = (commentIdx) => {
@@ -403,95 +411,111 @@ function DetailPost(props) {
             <Box paddingX={12} paddingY={12}>
                 <Box>
                     <Box marginBottom={12}>
-                        <Flex
-                            direction="row"
-                            justifyContent="between"
-                            alignItems="center"
-                        >
-                            <ModalWriterInfoContainer>
-                                <Box>
-                                    <Flex direction="row" alignItems="center">
-                                        <ModalAvatar src={props.avatar} />
-                                        <Flex direction="column">
-                                            <Flex
-                                                direction="row"
-                                                alignItems="center"
-                                            >
-                                                <Writer>{props.writer}</Writer>
-                                                {props.badge !== 0 && (
-                                                    <BadgeDetail
-                                                        badge={props.badge}
-                                                    >
-                                                        MUSE
-                                                    </BadgeDetail>
-                                                )}
-                                            </Flex>
+                        <ModalWriterInfoContainer>
+                            <Box>
+                                <Flex direction="row" alignItems="center">
+                                    <ModalAvatar src={props.avatar} />
+                                    <Flex direction="column">
+                                        <Flex
+                                            direction="row"
+                                            alignItems="center"
+                                        >
+                                            <Writer>{writer}</Writer>
+                                            {props.badge !== 0 && (
+                                                <BadgeDetail
+                                                    badge={props.badge}
+                                                >
+                                                    MUSE
+                                                </BadgeDetail>
+                                            )}
+                                        </Flex>
 
-                                            <Flex direction="row">
-                                                <Date>{created}</Date>
-                                            </Flex>
+                                        <Flex direction="row">
+                                            <Date>{created}</Date>
                                         </Flex>
                                     </Flex>
-                                </Box>
-                                <Box>
-                                    <Flex direction="row">
+                                </Flex>
+                            </Box>
+                            <Box>
+                                <Flex direction="row">
+                                    <Box marginEnd={3}>
+                                        {isWriter === false ? (
+                                            isLoginUserFollowed === false ? (
+                                                <Button
+                                                    text="팔로우"
+                                                    onClick={handleFollow}
+                                                ></Button>
+                                            ) : (
+                                                <Button
+                                                    onClick={handleFollow}
+                                                    text="팔로잉"
+                                                    color="red"
+                                                ></Button>
+                                            )
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </Box>
+                                    <Box marginEnd={3}>
+                                        {isLiked === true ? (
+                                            <IconButton
+                                                icon="heart"
+                                                bgColor="red"
+                                                onClick={handleLikes}
+                                            />
+                                        ) : (
+                                            <IconButton
+                                                icon="heart"
+                                                bgColor="lightGray"
+                                                onClick={handleLikes}
+                                            />
+                                        )}
+                                    </Box>
+                                    <Box marginEnd={3}>
+                                        {isSaved === true ? (
+                                            <IconButton
+                                                icon="folder"
+                                                bgColor="red"
+                                                onClick={handleSave}
+                                            />
+                                        ) : (
+                                            <IconButton
+                                                icon="folder"
+                                                bgColor="lightGray"
+                                                onClick={handleSave}
+                                            />
+                                        )}
+                                    </Box>
+                                    {isWriter === true && (
                                         <Box marginEnd={3}>
-                                            {isWriter === false ? (
-                                                isLoginUserFollowed ===
-                                                false ? (
-                                                    <Button
-                                                        text="팔로우"
-                                                        onClick={handleFollow}
-                                                    ></Button>
-                                                ) : (
-                                                    <Button
-                                                        onClick={handleFollow}
-                                                        text="팔로잉"
-                                                        color="red"
-                                                    ></Button>
-                                                )
-                                            ) : (
-                                                <></>
-                                            )}
+                                            <IconButton
+                                                icon="trash-can"
+                                                bgColor="lightGray"
+                                                onClick={handleDeletePost}
+                                            />
                                         </Box>
-                                        <Box marginEnd={3}>
-                                            {isLiked === true ? (
-                                                <IconButton
-                                                    icon="heart"
-                                                    bgColor="red"
-                                                    onClick={handleLikes}
-                                                />
-                                            ) : (
-                                                <IconButton
-                                                    icon="heart"
-                                                    bgColor="lightGray"
-                                                    onClick={handleLikes}
-                                                />
-                                            )}
-                                        </Box>
-                                        <Box>
-                                            {isSaved === true ? (
-                                                <IconButton
-                                                    icon="folder"
-                                                    bgColor="red"
-                                                    onClick={handleSave}
-                                                />
-                                            ) : (
-                                                <IconButton
-                                                    icon="folder"
-                                                    bgColor="lightGray"
-                                                    onClick={handleSave}
-                                                />
-                                            )}
-                                        </Box>
-                                    </Flex>
-                                </Box>
-                            </ModalWriterInfoContainer>
-                        </Flex>
+                                    )}
+                                </Flex>
+                            </Box>
+                        </ModalWriterInfoContainer>
                     </Box>
                     <ModalImageContainer>
                         <ModalImage src={image} alt="" />
                     </ModalImageContainer>
+                    <ModalInfoContainer>
+                        <Box>
+                            <Title>{title}</Title>
+                        </Box>
+                        <Content>{content}</Content>
+                        <Url
+                            onClick={() => {
+                                window.location.href = `${url}`;
+                            }}
+                        >
+                            {url}
+                        </Url>
+                    </ModalInfoContainer>
+
                     <ModalCommentContainer>
                         {comments.map((comment) => (
                             <React.Fragment key={comment.idx}>
@@ -607,7 +631,6 @@ function DetailPost(props) {
                                                     setIdx(otherPost.idx);
                                                     setPage(1);
                                                     setOtherPosts([]);
-                                                    console.log(idx);
                                                 }}
                                             />
                                         </ListItem>

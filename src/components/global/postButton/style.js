@@ -77,7 +77,7 @@ export const CustomInput = styled.input`
     width: 100%;
     height: 48px;
     border-radius: 24px;
-    margin-top: 12px;
+    margin-bottom: 12px;
 `;
 
 export const CustomInputFile = styled.input`
@@ -115,12 +115,17 @@ export const ImgPreview = styled.img`
     max-width: 50%;
     width: 100%;
     border-radius: 16px;
+    height: 500px;
+    margin: 0 24px 0 24px;
 `;
 
 export const ImgPreviewSkeleton = styled.label`
     display: flex;
     padding: 24px;
     justify-content: center;
+    margin: 10px 24px 10px 24px;
+    height: 500px;
+    object-fit: cover;
     align-items: center;
     max-width: 50%;
     width: 100%;
@@ -160,9 +165,12 @@ export const InfoContainer = styled.div`
     align-items: center;
     height: auto;
     width: 100%;
-    justify-content: flex-start;
-    padding: 24px;
+    justify-content: space-between;
+    margin: 10px 24px 10px 24px;
 `;
+
+export const InfoContainerSection1 = styled.div``;
+export const InfoContainerSection2 = styled.div``;
 
 export const IconContainer = styled.div`
     margin: 24px 24px 24px 24px;

@@ -199,149 +199,172 @@ function MyPage() {
 
     return (
         <div>
-            <GlobalNavbar />
-            <MyPageContainer>
-                <OwnerInfoContainer>
-                    <Avatar src={ownerInfo.avatar} />
-                    <OwnerNicknameContainer>
-                        <OwnerNickname>{ownerInfo.nickname}</OwnerNickname>
-                        {ownerInfo.badge > 0 && (
-                            <Badge badge={ownerInfo.badge}>MUSE</Badge>
-                        )}
-                    </OwnerNicknameContainer>
-                    {isOwner == true && (
-                        <NicknameUpdateButton
-                            avatar={ownerInfo.avatar}
-                            nickname={ownerInfo.nickname}
-                            selfIntroduce={ownerInfo.self_introduce}
-                        />
-                    )}
-                    {isOwner === false ? (
-                        isLoginUserFollow == false ? (
-                            <FollowButton onClick={handleFollow}>
-                                팔로우
-                            </FollowButton>
-                        ) : (
-                            <FollowedButton onClick={handleFollow}>
-                                팔로잉
-                            </FollowedButton>
-                        )
-                    ) : (
-                        <></>
-                    )}
-                    <div>
-                        <Pre>
-                            <Introduce>{ownerInfo.self_introduce}</Introduce>
-                        </Pre>
-                    </div>
-
-                    <FollowContainer>
-                        <FollowButtonContainer>
-                            <FollowerModal
-                                followerCount={followerCount}
-                                followerLists={followerLists}
-                                isOwner={isOwner}
-                                submit={submit}
-                            />
-                        </FollowButtonContainer>
-                        <FollowButtonContainer>
-                            <FollowingModal
-                                isOwner={isOwner}
-                                followingCount={followingCount}
-                                followingLists={followingLists}
-                            />
-                        </FollowButtonContainer>
-                    </FollowContainer>
-                </OwnerInfoContainer>
-            </MyPageContainer>
-            <PostContainer>
-                <MyPostContainer>
-                    <OrderButtonContainer>
-                        {isOwner == true ? (
-                            <>
-                                <DisplayOrderButton onClick={ownerOrder}>
-                                    {" "}
-                                    <ButtonH1>내 게시물</ButtonH1>
-                                </DisplayOrderButton>
-                                <DisplayOrderButton2 onClick={likesOrder}>
-                                    {" "}
-                                    <ButtonH1>저장된 게시물</ButtonH1>
-                                </DisplayOrderButton2>
-                            </>
-                        ) : (
-                            <></>
-                        )}
-                    </OrderButtonContainer>
-
-                    {displayOwnerPosts === true ? (
-                        loading === true ? (
-                            <Box height="100vh" width="100%">
-                                <Flex
-                                    width="100%"
-                                    height="100%"
-                                    alignItems="center"
-                                    justifyContent="center"
-                                >
-                                    <Spinner show={showSpinner} />
-                                </Flex>
-                            </Box>
-                        ) : (
-                            <StackGrid
-                                columnWidth={300}
-                                gutterWidth={4}
-                                duration={0}
-                                monitorImagesLoaded={true}
-                                style={{ width: "100%" }}
-                            >
-                                {ownerPosts.map((post) => (
-                                    <Card
-                                        image={post.image}
-                                        title={post.title}
-                                        idx={post.idx}
-                                        liked={post.liked}
-                                        avatar={post.writer_avatar}
-                                        writer={post.writer}
-                                        views={post.views}
-                                        likes={post.likes}
-                                    />
-                                ))}
-                            </StackGrid>
-                        )
-                    ) : loading === true ? (
-                        <Box height="100vh" width="100%">
-                            <Flex
-                                width="100%"
-                                height="100%"
-                                alignItems="start"
-                                justifyContent="center"
-                            >
-                                <Spinner show={showSpinner} />
-                            </Flex>
-                        </Box>
-                    ) : (
-                        <StackGrid
-                            columnWidth={300}
-                            gutterWidth={4}
-                            duration={0}
-                            monitorImagesLoaded={true}
-                            style={{ width: "100%" }}
-                        >
-                            {ownerPosts.map((post) => (
-                                <Card
-                                    image={post.image}
-                                    title={post.title}
-                                    idx={post.idx}
-                                    liked={post.liked}
-                                    avatar={post.writer_avatar}
-                                    writer={post.writer}
-                                    views={post.views}
-                                    likes={post.likes}
+            {loading === true ? (
+                <Box height="100vh" width="100%">
+                    <Flex
+                        width="100%"
+                        height="100%"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        <Spinner show={showSpinner} />
+                    </Flex>
+                </Box>
+            ) : (
+                <div>
+                    <GlobalNavbar />
+                    <MyPageContainer>
+                        <OwnerInfoContainer>
+                            <Avatar src={ownerInfo.avatar} />
+                            <OwnerNicknameContainer>
+                                <OwnerNickname>
+                                    {ownerInfo.nickname}
+                                </OwnerNickname>
+                                {ownerInfo.badge > 0 && (
+                                    <Badge badge={ownerInfo.badge}>MUSE</Badge>
+                                )}
+                            </OwnerNicknameContainer>
+                            {isOwner == true && (
+                                <NicknameUpdateButton
+                                    avatar={ownerInfo.avatar}
+                                    nickname={ownerInfo.nickname}
+                                    selfIntroduce={ownerInfo.self_introduce}
                                 />
-                            ))}
-                        </StackGrid>
-                    )}
-                </MyPostContainer>
-            </PostContainer>
+                            )}
+                            {isOwner === false ? (
+                                isLoginUserFollow == false ? (
+                                    <FollowButton onClick={handleFollow}>
+                                        팔로우
+                                    </FollowButton>
+                                ) : (
+                                    <FollowedButton onClick={handleFollow}>
+                                        팔로잉
+                                    </FollowedButton>
+                                )
+                            ) : (
+                                <></>
+                            )}
+                            <div>
+                                <Pre>
+                                    <Introduce>
+                                        {ownerInfo.self_introduce}
+                                    </Introduce>
+                                </Pre>
+                            </div>
+
+                            <FollowContainer>
+                                <FollowButtonContainer>
+                                    <FollowerModal
+                                        followerCount={followerCount}
+                                        followerLists={followerLists}
+                                        isOwner={isOwner}
+                                        submit={submit}
+                                    />
+                                </FollowButtonContainer>
+                                <FollowButtonContainer>
+                                    <FollowingModal
+                                        isOwner={isOwner}
+                                        followingCount={followingCount}
+                                        followingLists={followingLists}
+                                    />
+                                </FollowButtonContainer>
+                            </FollowContainer>
+                        </OwnerInfoContainer>
+                    </MyPageContainer>
+                    <PostContainer>
+                        <MyPostContainer>
+                            <OrderButtonContainer>
+                                {isOwner == true ? (
+                                    <>
+                                        <DisplayOrderButton
+                                            onClick={ownerOrder}
+                                        >
+                                            {" "}
+                                            <ButtonH1>내 게시물</ButtonH1>
+                                        </DisplayOrderButton>
+                                        <DisplayOrderButton2
+                                            onClick={likesOrder}
+                                        >
+                                            {" "}
+                                            <ButtonH1>저장된 게시물</ButtonH1>
+                                        </DisplayOrderButton2>
+                                    </>
+                                ) : (
+                                    <></>
+                                )}
+                            </OrderButtonContainer>
+
+                            {displayOwnerPosts === true ? (
+                                loading === true ? (
+                                    <Box height="100vh" width="100%">
+                                        <Flex
+                                            width="100%"
+                                            height="100%"
+                                            alignItems="center"
+                                            justifyContent="center"
+                                        >
+                                            <Spinner show={showSpinner} />
+                                        </Flex>
+                                    </Box>
+                                ) : (
+                                    <StackGrid
+                                        columnWidth={300}
+                                        gutterWidth={4}
+                                        duration={0}
+                                        monitorImagesLoaded={true}
+                                        style={{ width: "100%" }}
+                                    >
+                                        {ownerPosts.map((post) => (
+                                            <Card
+                                                image={post.image}
+                                                title={post.title}
+                                                idx={post.idx}
+                                                liked={post.liked}
+                                                avatar={post.writer_avatar}
+                                                writer={post.writer}
+                                                views={post.views}
+                                                likes={post.likes}
+                                            />
+                                        ))}
+                                    </StackGrid>
+                                )
+                            ) : loading === true ? (
+                                <Box height="100vh" width="100%">
+                                    <Flex
+                                        width="100%"
+                                        height="100%"
+                                        alignItems="start"
+                                        justifyContent="center"
+                                    >
+                                        <Spinner show={showSpinner} />
+                                    </Flex>
+                                </Box>
+                            ) : (
+                                <StackGrid
+                                    columnWidth={300}
+                                    gutterWidth={4}
+                                    duration={0}
+                                    monitorImagesLoaded={true}
+                                    style={{ width: "100%" }}
+                                >
+                                    {ownerPosts.map((post) => (
+                                        <Card
+                                            image={post.image}
+                                            title={post.title}
+                                            idx={post.idx}
+                                            liked={post.liked}
+                                            avatar={post.writer_avatar}
+                                            writer={post.writer}
+                                            views={post.views}
+                                            likes={post.likes}
+                                        />
+                                    ))}
+                                </StackGrid>
+                            )}
+                        </MyPostContainer>
+                    </PostContainer>
+                </div>
+            )}
         </div>
     );
 }
